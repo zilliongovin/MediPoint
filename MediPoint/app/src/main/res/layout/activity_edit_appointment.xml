@@ -1,0 +1,106 @@
+<ScrollView
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingTop="?android:attr/actionBarSize"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:orientation= "vertical"
+        tools:context=".EditAppointmentActivity">
+
+        <!-- select specialty -->
+        <TextView android:text="@string/edit_specialty"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:id="@+id/edit_specialty"
+            android:textSize="17sp"
+            android:textColor="@color/frame"/>
+
+        <Spinner
+            style="@style/MySpinner"
+            android:layout_width="fill_parent"
+            android:layout_height="50dp"
+            android:id="@+id/EditApptSpecialty"
+            android:layout_marginBottom="20dp"/>
+
+        <!-- select type -->
+        <TextView android:text="@string/edit_type"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/edit_type"
+            android:textSize="17sp"
+            android:textColor="@color/frame"/>
+
+        <Spinner
+            style="@style/MySpinner"
+            android:layout_width="fill_parent"
+            android:layout_height="50dp"
+            android:id="@+id/EditApptType"
+            android:layout_marginBottom="20dp"/>
+
+        <!-- Select time -->
+        <TextView android:text="@string/edit_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/edit_time"
+            android:textSize="17sp"
+            android:textColor="@color/frame"
+            android:spinnersShown="true"
+            android:calendarViewShown="false" />
+
+        <Spinner
+            style="@style/MySpinner"
+            android:layout_width="fill_parent"
+            android:layout_height="50dp"
+            android:id="@+id/EditApptTimeSpinner"
+            android:layout_marginBottom="20dp"/>
+
+        <!-- Select Date -->
+        <TextView android:text="@string/edit_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/edit_date"
+            android:textSize="17sp"
+            android:textColor="@color/frame"/>
+
+        <DatePicker
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/EditApptDatePicker"
+            android:layout_gravity="center_horizontal"
+            android:spinnersShown="true"
+            android:calendarViewShown="false"
+            android:layout_marginBottom="20dp"/>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/ConfirmEditAppt"
+            android:text="@string/confirm"
+            android:layout_gravity="center_horizontal"
+            android:textSize="14sp"
+            android:textColor="@color/button_font_color"
+            android:background="@drawable/frame"
+            android:layout_marginBottom="5dp"
+            android:onClick="onConfirmEdit"/>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/CancelEditAppt"
+            android:text="@string/cancel"
+            android:layout_gravity="center_horizontal"
+            android:textSize="14sp"
+            android:textColor="@color/button_font_color"
+            android:background="@drawable/frame"
+            android:layout_marginBottom="10dp"
+            android:onClick="onCancelEdit"/>
+
+    </LinearLayout>
+</ScrollView>

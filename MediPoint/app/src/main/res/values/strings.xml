@@ -1,0 +1,78 @@
+<resources>
+    <string name="app_name">MediPoint</string>
+
+    <!-- ======================EDIT APPOINTMENT RESOURCE==========================-->
+    <string name="edit_date">Select Date</string>
+    <string name="edit_time">Select Time</string>
+    <string name="edit_specialty">Select Specialty</string>
+    <string name="edit_type">Select Type</string>
+
+    <string name="action_settings">Settings</string>
+
+    <string-array name="specialty">
+        <item>Ears, Nose, and Throat(ENT)</item>
+        <item>Dental</item>
+        <item>Women Health</item>
+    </string-array>
+
+    <string name="confirm">Confirm</string>
+
+    <string-array name="time_slot">
+        <item>09.00 - 09.30</item>
+        <item>09.30 - 10.00</item>
+        <item>10.00 - 10.30</item>
+        <item>10.30 - 11.00</item>
+        <item>11.00 - 11.30</item>
+        <item>11.30 - 12.00</item>
+        <item>12.00 - 12.30</item>
+        <item>12.30 - 13.00</item>
+        <item>13.00 - 13.30</item>
+        <item>13.30 - 14.00</item>
+        <item>14.00 - 14.30</item>
+        <item>14.30 - 15.00</item>
+        <item>15.00 - 16.30</item>
+        <item>16.30 - 17.00</item>
+        <item>18.00 - 18.30</item>
+        <item>18.30 - 19.00</item>
+        <item>19.00 - 19.30</item>
+        <item>19.30 - 20.00</item>
+        <item>20.00 - 20.30</item>
+        <item>20.30 - 21.00</item>
+    </string-array>
+    <!-- ========================================================================= -->
+
+
+    <!-- ======================LOGIN LOGOUT REGISTER RESOURCES====================== -->
+    <string name="title_activity_password_retriever">Password Retriever</string>
+
+    <string name="title_activity_sign_up">Sign Up</string>
+
+    <string-array name="countries">
+        <item>Singapore</item>
+        <item>Malaysia</item>
+        <item>Thailand</item>
+    </string-array>
+
+    <string-array name="sign_up1">
+        <item>name</item>
+        <item>NRIC</item>
+        <item>e-mail</item>
+        <item>contact no.</item>
+        <item>address</item>
+    </string-array>
+    <!-- ========================================================================= -->
+
+    <!-- ====================CREATE APPOINTMENT RESOURCES===========================-->
+    <string name="select_specialty">Select Specialty</string>
+    <string name="select_service">Select Service</string>
+    <string name="select_doctor">Select Doctor</string>
+    <string name="select_location">Select Location</string>
+    <string name="select_country">Select Country</string>
+    <string name="select_time">Select Time</string>
+    <string name="select_date">Select Date</string>
+
+    <string name="create_appointment">Create Appointment</string>
+    <string name="edit_appointment">Edit Appointment</string>
+    <string name="cancel">Cancel</string>
+    <!-- ========================================================================= -->
+</resources>
