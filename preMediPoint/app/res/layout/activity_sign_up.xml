@@ -1,0 +1,93 @@
+<ScrollView
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools" android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingTop="?android:attr/actionBarSize"
+        android:paddingBottom="@dimen/activity_vertical_margin"
+        tools:context="com.mycompany.cz2006.SignUp"
+        android:orientation="vertical"
+        android:weightSum="1"
+        android:id="@+id/sign_up_1">
+
+
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/NameTextbox"
+        android:hint="Name"
+        android:textSize="17sp"
+        android:textColor="@color/frame"
+        android:padding="10dp"
+        android:background="@drawable/textfield"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp" />
+
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/NRICTextbox"
+        android:hint="NRIC"
+        android:textSize="17sp"
+        android:textColor="@color/frame"
+        android:padding="10dp"
+        android:background="@drawable/textfield"
+        android:layout_marginBottom="20dp"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textEmailAddress"
+        android:id="@+id/EmailTextbox"
+        android:hint="E-mail"
+        android:textSize="17sp"
+        android:textColor="@color/frame"
+        android:padding="10dp"
+        android:background="@drawable/textfield"
+        android:layout_marginBottom="20dp"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="phone"
+        android:id="@+id/ContactTextbox"
+        android:hint="Contact No."
+        android:textSize="17sp"
+        android:textColor="@color/frame"
+        android:padding="10dp"
+        android:background="@drawable/textfield"
+        android:layout_marginBottom="20dp"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textPostalAddress"
+        android:id="@+id/AddressTextbox"
+        android:hint="Address"
+        android:textSize="17sp"
+        android:textColor="@color/frame"
+        android:padding="10dp"
+        android:background="@drawable/textfield"
+        android:layout_marginBottom="20dp"/>
+
+    <Button
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/sign_up1_right"
+        android:layout_gravity="center_horizontal"
+        android:text="Next"
+        android:background="@drawable/frame"
+        android:textColor="@color/button_font_color"
+        android:textSize="15sp"
+        android:onClick="goToNext" />
+
+
+</LinearLayout>
+</ScrollView>

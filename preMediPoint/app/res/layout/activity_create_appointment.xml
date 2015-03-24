@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingTop="?android:attr/actionBarSize"
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp"
+    android:orientation= "vertical">
+
+    <!--list of specialties-->
+    <TextView
+        android:id="@+id/LabelSelectSpecialty"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_gravity="center_vertical"
+        android:text="@string/select_specialty"
+        android:textSize="17sp"
+        android:textColor="@color/frame">
+    </TextView>
+
+    <Spinner
+        android:id="@+id/CreateApptSpecialty"
+        style="@style/MySpinner"
+        android:layout_width="fill_parent"
+        android:layout_height="50dp"
+        android:layout_marginBottom="20dp"/>
+
+    <!-- list of services -->
+    <TextView
+        android:id="@+id/LabelSelectService"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/select_service"
+        android:textSize="17sp"
+        android:textColor="@color/frame"/>
+
+    <Spinner
+        android:id="@+id/CreateApptServices"
+        style="@style/MySpinner"
+        android:layout_width="fill_parent"
+        android:layout_height="50dp"
+        android:layout_marginBottom="20dp"/>
+
+    <!--list of countries -->
+    <TextView
+        android:id="@+id/LabelSelectCountry"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/select_country"
+        android:textSize="17sp"
+        android:textColor="@color/frame"/>
+
+    <Spinner
+        android:id="@+id/CreateApptCountries"
+        style="@style/MySpinner"
+        android:layout_width="fill_parent"
+        android:layout_height="50dp"
+        android:layout_marginBottom="20dp"/>
+
+
+    <!--list of locations -->
+    <TextView
+        android:id="@+id/LabelSelectLocation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/select_location"
+        android:textSize="17sp"
+        android:textColor="@color/frame"/>
+
+    <Spinner
+        android:id="@+id/CreateApptLocations"
+        style="@style/MySpinner"
+        android:layout_width="fill_parent"
+        android:layout_height="50dp"
+        android:layout_marginBottom="20dp"/>
+
+    <!--list of doctors -->
+    <TextView
+        android:id="@+id/LabelSelectDoctor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/select_doctor"
+        android:textSize="17sp"
+        android:textColor="@color/frame"/>
+
+    <Spinner
+        android:id="@+id/CreateApptDoctors"
+        style="@style/MySpinner"
+        android:layout_width="fill_parent"
+        android:layout_height="50dp"
+        android:layout_marginBottom="20dp"/>
+
+    <!-- Time -->
+    <TextView
+        android:id="@+id/LabelAppointmentTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/select_time"
+        android:textSize="17sp"
+        android:textColor="@color/frame"
+        android:layout_gravity="center_vertical"/>
+
+    <Spinner
+        android:id="@+id/CreateApptTimeSpinner"
+        style="@style/MySpinner"
+        android:layout_width="fill_parent"
+        android:layout_height="50dp"
+        android:layout_marginBottom="20dp"/>
+
+    <!-- Date -->
+    <TextView
+        android:id="@+id/LabelChooseDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/select_date"
+        android:textSize="17sp"
+        android:textColor="@color/frame"/>
+
+    <DatePicker
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:id="@+id/CreateApptDatePicker"
+        android:layout_gravity="center_horizontal"
+        android:spinnersShown="true"
+        android:calendarViewShown="false" />
+
+    <!-- Buttons -->
+    <Button
+        android:id="@+id/ConfirmCreateAppt"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="@string/create_appointment"
+        android:textSize="14sp"
+        android:textColor="@color/button_font_color"
+        android:background="@drawable/frame"/>
+
+    <Button
+        android:id="@+id/CancelCreateAppt"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:text="@string/cancel"
+        android:textSize="14sp"
+        android:textColor="@color/button_font_color"
+        android:background="@drawable/frame"/>
+
+    </LinearLayout>
+
+</ScrollView>
+

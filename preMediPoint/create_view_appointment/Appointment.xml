@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="selectspecialty">Select Specialty</string>
+    <string name="selectservice">Select Service</string>
+    <string name="selectdoctor">Select Doctor</string>
+    <string name="selectlocation">Select Location</string>
+    <string name="selecttime">Select Time</string>
+    <string name="selectdate">Select Date</string>
+    <string name="setdate">Set Date</string>
+    <string name="settime">Set Time</string>
+    <string name="labelspecialty">Specialty</string>
+    <string name="labelservice">Service</string>
+    <string name="labellocation">Location</string>
+    <string name="labeldoctor">Doctor</string>
+    <string name="labeltime">Time</string>
+    <string name="labeldate">Date</string>
+    <string name="labelnotes">Notes</string>
+    <string name="createappointment">Create new appointment</string>
+    <string name="editappointment">Edit appointment</string>
+</resources>

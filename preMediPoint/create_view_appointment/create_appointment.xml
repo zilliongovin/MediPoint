@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+    <!-- Type of Appointment -->
+    <ProgressBar android:id="@+id/create_appointment" style="?android:attr/progressBarStyleLarge"
+        android:layout_width="wrap_content" android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp" android:visibility="gone"
+        />
+
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:fillViewport="true"
+        >
+        <LinearLayout
+            android:orientation="vertical"
+            android:background="#ffffff"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:padding="25dip"
+            >
+            <!-- Specialty-->
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:id="@+id/LabelSelectSpecialty"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dip"
+                    android:layout_marginBottom="20dip"
+                    android:layout_marginRight="20dip"
+                    android:text="@string/selectspecialty"
+                    android:textSize="8pt"
+                    android:textColor="#ff0d450e">
+                </TextView>
+
+                <ScrollView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    >
+
+                    <ListView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/listOfSpecialties"
+                        android:layout_weight="1" />
+                </ScrollView>
+
+                <!--dropdown or radio button-->
+            </LinearLayout>
+
+            <!-- Service -->
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:id="@+id/LabelSelectService"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dip"
+                    android:layout_marginBottom="20dip"
+                    android:layout_marginRight="20dip"
+                    android:text="@string/selectservice"
+                    android:textSize="8pt"
+                    android:textColor="#ff0d450e">
+                </TextView>
+                <!--dropdown-->
+                <ScrollView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    >
+                    <ListView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/listOfServices"
+                        android:layout_weight="1" />
+                </ScrollView>
+            </LinearLayout>
+
+            <!-- Location -->
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:id="@+id/LabelSelectLocation"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dip"
+                    android:layout_marginBottom="20dip"
+                    android:layout_marginRight="20dip"
+                    android:text="@string/selectlocation"
+                    android:textSize="8pt"
+                    android:textColor="#ff0d450e">
+                </TextView>
+                <!--Dropdown-->
+                <ScrollView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                     >
+                    <ListView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/listOfLocations"
+                        android:layout_weight="1" />
+                </ScrollView>
+            </LinearLayout>
+
+            <!-- Doctor -->
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:id="@+id/LabelSelectDoctor"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dip"
+                    android:layout_marginBottom="20dip"
+                    android:layout_marginRight="20dip"
+                    android:text="@string/selectdoctor"
+                    android:textSize="8pt"
+                    android:textColor="#ff0d450e">
+                </TextView>
+                <!--Dropdown-->
+                <ScrollView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/scrollView" >
+                    <ListView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/listOfDoctors"
+                        android:layout_weight="1" />
+                </ScrollView>
+            </LinearLayout>
+
+            <!-- Date -->
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:id="@+id/LabelChooseDate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dip"
+                    android:layout_marginBottom="20dip"
+                    android:layout_marginRight="20dip"
+                    android:text="@string/selectdate"
+                    android:textSize="8pt"
+                    android:textColor="#ff0d450e">
+                </TextView>
+                <TextView
+                    android:id="@+id/AppointmentDate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dip"
+                    android:layout_marginBottom="20dip"
+                    android:layout_marginRight="20dip"
+                    android:textSize="8pt"
+                    android:textColor="#ff0d450e">
+                </TextView>
+                <!--choose a date-->
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/setdate"
+                    android:padding="5dp"
+                    android:onClick="showDatePickerDialog" />
+            </LinearLayout>
+
+            <!-- Time -->
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:id="@+id/LabelAppointmentTime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dip"
+                    android:layout_marginBottom="20dip"
+                    android:layout_marginRight="20dip"
+                    android:text="@string/selecttime"
+                    android:textSize="8pt"
+                    android:textColor="#ff0d450e">
+                </TextView>
+                <!--choose a time-->
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/settime"
+                    android:padding="5dp"
+                    android:layout_margin="0dp"
+                    android:onClick="showTimePickerDialog" />
+            </LinearLayout>
+
+            <!-- Buttons -->
+            <Button android:id="@+id/createAppointmentBtn"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dip"
+                android:text="@string/createappointment"/>
+            <Button android:id="@+id/cancelToHome"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dip"
+                android:text="Cancel"/>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>
