@@ -2,23 +2,14 @@ package com.djzass.medipoint;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
-import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
-import android.widget.CalendarView;
 import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.PopupWindow;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
@@ -26,14 +17,14 @@ import android.widget.Spinner;
 
 public class SignUp extends Activity {
     private Account newAccount;
-    FeedReaderDbHelper mDbHelper;
+    DbHelper mDbHelper;
     SQLiteDatabase db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
-        mDbHelper = new FeedReaderDbHelper(this);
+        mDbHelper = new DbHelper(this);
 
         // Gets the data repository in write mode
         db = mDbHelper.getWritableDatabase();

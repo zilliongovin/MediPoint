@@ -1,11 +1,9 @@
 package com.djzass.medipoint;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -19,10 +17,10 @@ public class Login extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         //----------------------------TEST---------------------------------------------
-        FeedReaderDbHelper helper = new FeedReaderDbHelper(this);
+        DbHelper helper = new DbHelper(this);
         SQLiteDatabase db = helper.getWritableDatabase();
-        String[] columns = {FeedReaderContract.FeedUserAccount.COLUMN_NAME_NAME, FeedReaderContract.FeedUserAccount.COLUMN_NAME_NRIC, FeedReaderContract.FeedUserAccount.COLUMN_NAME_EMAIL, FeedReaderContract.FeedUserAccount.COLUMN_NAME_CONTACTNO, FeedReaderContract.FeedUserAccount.COLUMN_NAME_ADDRESS, FeedReaderContract.FeedUserAccount.COLUMN_NAME_DOB, FeedReaderContract.FeedUserAccount.COLUMN_NAME_GENDER, FeedReaderContract.FeedUserAccount.COLUMN_NAME_MARITAL_STATUS, FeedReaderContract.FeedUserAccount.COLUMN_NAME_CITIZENSHIP, FeedReaderContract.FeedUserAccount.COLUMN_NAME_COUNTRY_OF_RESIDENCE,FeedReaderContract.FeedUserAccount.COLUMN_NAME_USERNAME, FeedReaderContract.FeedUserAccount.COLUMN_NAME_PASSWORD};
-        Cursor cursor = db.query(FeedReaderContract.FeedUserAccount.TABLE_NAME,columns,null,null,null,null,null);
+        String[] columns = {DbContract.AccountEntry.COLUMN_NAME_NAME, DbContract.AccountEntry.COLUMN_NAME_NRIC, DbContract.AccountEntry.COLUMN_NAME_EMAIL, DbContract.AccountEntry.COLUMN_NAME_CONTACTNO, DbContract.AccountEntry.COLUMN_NAME_ADDRESS, DbContract.AccountEntry.COLUMN_NAME_DOB, DbContract.AccountEntry.COLUMN_NAME_GENDER, DbContract.AccountEntry.COLUMN_NAME_MARITAL_STATUS, DbContract.AccountEntry.COLUMN_NAME_CITIZENSHIP, DbContract.AccountEntry.COLUMN_NAME_COUNTRY_OF_RESIDENCE, DbContract.AccountEntry.COLUMN_NAME_USERNAME, DbContract.AccountEntry.COLUMN_NAME_PASSWORD};
+        Cursor cursor = db.query(DbContract.AccountEntry.TABLE_NAME,columns,null,null,null,null,null);
         while(cursor.moveToNext())
         {
             String name = cursor.getString(0);
