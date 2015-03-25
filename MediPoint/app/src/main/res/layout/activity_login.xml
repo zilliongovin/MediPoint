@@ -2,77 +2,52 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     xmlns:android="http://schemas.android.com/apk/res/android">
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="?android:attr/actionBarSize"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     tools:context=".Login"
     android:orientation="vertical"
-    android:layout_gravity="center_vertical">
+    android:layout_gravity="center_vertical"
+    style="@style/LinearLayoutStyle">
 
     <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         android:id="@+id/enterUsernameTextbox"
         android:hint="Username"
-        android:textSize="17sp"
-        android:textColor="@color/frame"
-        android:padding="10dp"
-        android:background="@drawable/textfield"
-        android:layout_marginBottom="20dp"/>
+        style="@style/EditTextStyle"/>
 
     <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         android:id="@+id/enterPasswordTextbox"
         android:fontFamily="sans-serif"
         android:hint="Password"
-        android:textSize="17sp"
-        android:padding="10dp"
         android:inputType="textPassword"
-        android:background="@drawable/textfield"
-        android:layout_marginBottom="5dp"
-        android:layout_marginTop="10dp"/>
+        style="@style/EditTextStyle"/>
 
     <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Log In"
+        android:text="LOG IN"
         android:id="@+id/loginButton"
-        android:textSize="14sp"
-        android:textColor="@color/button_font_color"
         android:layout_marginBottom="5dp"
-        android:layout_marginTop="20dp"
-        android:background="@drawable/frame" />
+        android:layout_marginTop="10dp"
+        style="@style/ButtonStyle"/>
 
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        >
+        android:layout_height="wrap_content">
 
         <Button
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:text="Sign Up"
+            android:text="SIGN UP"
             android:id="@+id/signUpButton"
-            android:textSize="14sp"
-            android:textColor="@color/button_font_color"
             android:layout_marginRight="5dp"
-            android:background="@drawable/frame"
+            android:layout_marginBottom="16dp"
+            style="@style/ButtonStyle"
             android:layout_weight="1"
             android:onClick="createSignUpForm"/>
 
         <Button
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:text="Forgot Password?"
+            android:text="FORGOT PASSWORD?"
             android:id="@+id/forgotPasswordButton"
-            android:textSize="14sp"
-            android:textColor="@color/button_font_color"
-            android:background="@drawable/frame"
+            android:layout_marginBottom="16dp"
+            style="@style/ButtonStyle"
             android:layout_weight="1"
             android:onClick="ForgotPassword"/>
     </LinearLayout>

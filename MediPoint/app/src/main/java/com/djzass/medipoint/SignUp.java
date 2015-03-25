@@ -1,5 +1,6 @@
 package com.djzass.medipoint;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.ActionBarActivity;
@@ -14,7 +15,7 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 
-public class SignUp extends ActionBarActivity {
+public class SignUp extends Activity {
     private Account newAccount;
     DbHelper mDbHelper;
     SQLiteDatabase db;
