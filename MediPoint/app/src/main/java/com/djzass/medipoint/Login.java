@@ -1,26 +1,40 @@
 package com.djzass.medipoint;
 
-import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
-public class Login extends Activity {
+
+public class Login extends ActionBarActivity {
+
+    Button loginButton;
+    //FeedReaderDbHelper mDbHelper;
+    //SQLiteDatabase db;
+    AccountManager acctManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
         //----------------------------TEST---------------------------------------------
-        DbHelper helper = new DbHelper(this);
+        //mDbHelper = new FeedReaderDbHelper(this);
+        //db = mDbHelper.getWritableDatabase();
+
+        /*
+        FeedReaderDbHelper helper = new FeedReaderDbHelper(this);
         SQLiteDatabase db = helper.getWritableDatabase();
-        String[] columns = {DbContract.AccountEntry.COLUMN_NAME_NAME, DbContract.AccountEntry.COLUMN_NAME_NRIC, DbContract.AccountEntry.COLUMN_NAME_EMAIL, DbContract.AccountEntry.COLUMN_NAME_CONTACTNO, DbContract.AccountEntry.COLUMN_NAME_ADDRESS, DbContract.AccountEntry.COLUMN_NAME_DOB, DbContract.AccountEntry.COLUMN_NAME_GENDER, DbContract.AccountEntry.COLUMN_NAME_MARITAL_STATUS, DbContract.AccountEntry.COLUMN_NAME_CITIZENSHIP, DbContract.AccountEntry.COLUMN_NAME_COUNTRY_OF_RESIDENCE, DbContract.AccountEntry.COLUMN_NAME_USERNAME, DbContract.AccountEntry.COLUMN_NAME_PASSWORD};
-        Cursor cursor = db.query(DbContract.AccountEntry.TABLE_NAME,columns,null,null,null,null,null);
+        String[] columns = {FeedReaderContract.FeedUserAccount.COLUMN_NAME_NAME, FeedReaderContract.FeedUserAccount.COLUMN_NAME_NRIC, FeedReaderContract.FeedUserAccount.COLUMN_NAME_EMAIL, FeedReaderContract.FeedUserAccount.COLUMN_NAME_CONTACTNO, FeedReaderContract.FeedUserAccount.COLUMN_NAME_ADDRESS, FeedReaderContract.FeedUserAccount.COLUMN_NAME_DOB, FeedReaderContract.FeedUserAccount.COLUMN_NAME_GENDER, FeedReaderContract.FeedUserAccount.COLUMN_NAME_MARITAL_STATUS, FeedReaderContract.FeedUserAccount.COLUMN_NAME_CITIZENSHIP, FeedReaderContract.FeedUserAccount.COLUMN_NAME_COUNTRY_OF_RESIDENCE,FeedReaderContract.FeedUserAccount.COLUMN_NAME_USERNAME, FeedReaderContract.FeedUserAccount.COLUMN_NAME_PASSWORD};
+        Cursor cursor = db.query(FeedReaderContract.FeedUserAccount.TABLE_NAME,columns,null,null,null,null,null);
         while(cursor.moveToNext())
         {
             String name = cursor.getString(0);
@@ -49,7 +63,30 @@ public class Login extends Activity {
             Toast.makeText(this,password,Toast.LENGTH_LONG).show();
 
         }
+        */
         //--------------------------------TEST----------------------------------------
+
+        loginButton = (Button)findViewById(R.id.loginButton);
+        loginButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View arg0) {
+                EditText usernameBox = (EditText) findViewById(R.id.enterUsernameTextbox);
+                EditText passwordBox = (EditText) findViewById(R.id.enterPasswordTextbox);
+                String username = usernameBox.getText().toString();
+                String password = passwordBox.getText().toString();
+                acctManager = new AccountManager(getApplicationContext());
+                boolean isAuthenticated = acctManager.authenticate(username,password);
+                if(isAuthenticated==true){
+                    acctManager.login(username,password);
+                    loginSuccessful(username);
+
+                }
+                else{
+                    wrongCredentials();
+
+                }
+
+            }
+        });
     }
 
 
@@ -85,6 +122,15 @@ public class Login extends Activity {
     {
         Intent intent = new Intent(this,SignUp.class);
         startActivity(intent);
+    }
+
+    public void wrongCredentials(){
+        Toast.makeText(this,"Wrong username or password",Toast.LENGTH_LONG).show();
+    }
+
+    public void loginSuccessful(String username){
+        Toast.makeText(this,"Welcome "+username+"!",Toast.LENGTH_LONG).show();
+
     }
 
 

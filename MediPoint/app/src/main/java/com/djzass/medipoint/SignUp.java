@@ -1,10 +1,8 @@
 package com.djzass.medipoint;
 
-import android.app.Activity;
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
+import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -13,18 +11,19 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 
-public class SignUp extends Activity {
+public class SignUp extends ActionBarActivity {
     private Account newAccount;
-    DbHelper mDbHelper;
+    FeedReaderDbHelper mDbHelper;
     SQLiteDatabase db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
-        mDbHelper = new DbHelper(this);
+        mDbHelper = new FeedReaderDbHelper(this);
 
         // Gets the data repository in write mode
         db = mDbHelper.getWritableDatabase();
@@ -133,7 +132,7 @@ public class SignUp extends Activity {
                 RadioButton selMaritalStatusButton = (RadioButton)findViewById(selMaritalStatus);
                 Spinner citizenship = (Spinner)findViewById(R.id.CitizenshipSpinner);
                 Spinner countryOfResidence = (Spinner)findViewById(R.id.CountryOfResidenceSpinner);
-                if(selGender==-1|selMaritalStatus==-1)
+                if(selGender==-1||selMaritalStatus==-1)
                     incompleteForm();
 
                 else
@@ -141,7 +140,7 @@ public class SignUp extends Activity {
                     newAccount.setGender(selGenderButton.getText().toString());
                     newAccount.setMaritalStatus(selMaritalStatusButton.getText().toString());
                     newAccount.setCitizenship(citizenship.toString());
-                    //newAccount.setCountryOfResidence(countryOfResidence.toString());
+                    newAccount.setCountryOfResidence(countryOfResidence.toString());
                     goToPage3();
                 }
 
@@ -162,9 +161,10 @@ public class SignUp extends Activity {
                 {
                     newAccount.setUsername(checkViews[0].getText().toString());
                     newAccount.setPassword(checkViews[1].getText().toString());
-                    AccountManager accountCreator = new AccountManager();
-                    accountCreator.createAccount(newAccount,db);
+                    AccountManager accountCreator = new AccountManager(getApplicationContext());
                     AccountCreatedDialog();
+                    accountCreator.createAccount(newAccount,db);
+
                 }
 
                 else if(!isFilled)
@@ -196,34 +196,39 @@ public class SignUp extends Activity {
 
     public void incompleteForm()
     {
-        AlertDialog.Builder dlgAlert = new AlertDialog.Builder(this);
-        dlgAlert.setMessage("Please fill all fields.");
-        dlgAlert.setPositiveButton("OK", null);
-        dlgAlert.setCancelable(true);
-        dlgAlert.create().show();
+        /*
+        String message = "Please fill all fields.";
+        String title = "Incomplete form";
+        AlertDialogInterface AlertDisplayer = new AlertDialogInterface(title,message,this);
+        AlertDisplayer.incompleteForm();
+        */
+        Toast.makeText(this,"Please fill all fields",Toast.LENGTH_LONG).show();
     }
 
     public void AccountCreatedDialog()
     {
-
-        AlertDialog.Builder dlgAlert  = new AlertDialog.Builder(this);
-        dlgAlert.setMessage("Congratulations! Your account has been successfully created.");
-        dlgAlert.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int which) {
+        String message = "Congratulations! Your account has been successfully created.";
+        String title = "Success";
+        Runnable r = new Runnable() {
+            @Override
+            public void run() {
                 goToLoginPage();
             }
-        });
-        dlgAlert.setCancelable(true);
-        dlgAlert.create().show();
+        };
+
+        AlertDialogInterface AlertDisplayer = new AlertDialogInterface(title,message,this);
+        AlertDisplayer.AccountCreated(r);
     }
 
     public void unequalPassword()
     {
-        AlertDialog.Builder dlgAlert  = new AlertDialog.Builder(this);
-        dlgAlert.setMessage("Please enter your password again.");
-        dlgAlert.setPositiveButton("OK", null);
-        dlgAlert.setCancelable(true);
-        dlgAlert.create().show();
+        /*
+        String message = "Please enter your password again.";
+        String title = "Password Match failed";
+        AlertDialogInterface AlertDisplayer = new AlertDialogInterface(title,message,this);
+        AlertDisplayer.unequalPassword();
+        */
+        Toast.makeText(this,"Confirmed Password is incorrect",Toast.LENGTH_LONG).show();
 
     }
 
