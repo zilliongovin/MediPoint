@@ -3,6 +3,7 @@ package com.djzass.medipoint;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+
 /**
  * Created by Shreyas on 3/17/2015.
  */
@@ -17,7 +18,7 @@ public class DbHelper extends SQLiteOpenHelper {
     private static final String DATETIME_TYPE = " DATETIME";
     private static final String COMMA_SEP = ",";
     private static final int DATABASE_VERSION = 1;
-    private static final String DATABASE_NAME = "FeedReader.db";
+    private static final String DATABASE_NAME = "MediPoint.db";
 
     //CREATE TABLE : private static final String SQL_CREATE_TABLE_NAME = "CREATE TABLE " + " (" + " );";
 
@@ -95,7 +96,7 @@ public class DbHelper extends SQLiteOpenHelper {
             DbContract.ClinicEntry.COLUMN_NAME_TEL_NUMBER + VARCHAR_TEN_TYPE + COMMA_SEP +
             DbContract.ClinicEntry.COLUMN_NAME_FAX_NUMBER + VARCHAR_TEN_TYPE + COMMA_SEP +
             DbContract.ClinicEntry.COLUMN_NAME_ZIPCODE + VARCHAR_TEN_TYPE + " );";
-    }
+
 
     private static final String SQL_DELETE_CLINIC =
         "DROP TABLE IF EXISTS " + DbContract.ClinicEntry.TABLE_NAME + ";";
@@ -178,5 +179,35 @@ public class DbHelper extends SQLiteOpenHelper {
     }
     public void onDowngrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         onUpgrade(db, oldVersion, newVersion);
+    }
+
+    //CRUD (Create, Read, Update and Delete) Operations
+
+    /*AppointmentCrud
+    //create
+    public int createAppointment(SQLiteDatabase db, Appointment newAppointment){
+        ContentValues values = new ContentValues();
+        values.put(DbContract.AppointmentEntry.COLUMN_NAME_APPOINTMENT_ID, newAppointment.getId());
+        values.put(DbContract.AppointmentEntry.COLUMN_NAME_APPOINTMENT_ID, newAppointment.getId());
+        values.put(DbContract.AppointmentEntry.COLUMN_NAME_APPOINTMENT_ID, newAppointment.getId());
+        values.put(DbContract.AppointmentEntry.COLUMN_NAME_APPOINTMENT_ID, newAppointment.getId());
+        values.put(DbContract.AppointmentEntry.COLUMN_NAME_APPOINTMENT_ID, newAppointment.getId());
+
+        long newAppointmentId;
+        newAppointmentId = db.insert(DbContract.AppointmentEntry.TABLE_NAME, null, values);
+
+        appointments.add(newAppointment);
+
+        return newAppointmentId;
+    }
+    //fetch*/
+
+
+
+
+
+    public void closeDb(SQLiteDatabase db) {
+        if (db != null && db.isOpen())
+            db.close();
     }
 }
