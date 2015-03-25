@@ -1,7 +1,9 @@
 package com.djzass.medipoint;
 
+import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 
 import java.util.ArrayList;

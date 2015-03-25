@@ -1,6 +1,7 @@
 package com.djzass.medipoint;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -15,15 +16,6 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        //logout button listener
-        Button logoutButton = (Button)findViewById(R.id.action_logout);
-        logoutButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View arg0) {
-                AccountManager acctMgr = new AccountManager(getApplicationContext());
-                acctMgr.logout();
-            }
-        });
 
     }
 
@@ -44,6 +36,15 @@ public class MainActivity extends Activity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            return true;
+        }
+
+        //logout menu item selected
+        else if(id==R.id.action_logout){
+            AccountManager acctMgr = new AccountManager(this);
+            acctMgr.logout();
+            Intent intent = new Intent(this,Login.class);
+            startActivity(intent);
             return true;
         }
 

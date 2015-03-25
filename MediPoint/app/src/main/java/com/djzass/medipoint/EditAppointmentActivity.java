@@ -1,6 +1,7 @@
 package com.djzass.medipoint;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -41,15 +42,6 @@ public class EditAppointmentActivity extends Activity implements AdapterView.OnI
         specialtySpinner_edit.setAdapter(specialtyAdapter_edit);
         specialtySpinner_edit.setOnItemSelectedListener(this);
 
-        //logout button listener
-        Button logoutButton = (Button)findViewById(R.id.action_logout);
-        logoutButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View arg0) {
-                AccountManager acctMgr = new AccountManager(getApplicationContext());
-                acctMgr.logout();
-            }
-        });
-
     }
 
     @Override
@@ -67,6 +59,15 @@ public class EditAppointmentActivity extends Activity implements AdapterView.OnI
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            return true;
+        }
+
+        //logout menu item selected
+        else if(id==R.id.action_logout){
+            AccountManager acctMgr = new AccountManager(this);
+            acctMgr.logout();
+            Intent intent = new Intent(this,Login.class);
+            startActivity(intent);
             return true;
         }
 
