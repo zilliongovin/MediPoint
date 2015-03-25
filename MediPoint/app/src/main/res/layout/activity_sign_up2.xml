@@ -6,22 +6,12 @@
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
     tools:context=".SignUp"
-    android:paddingTop="?android:attr/actionBarSize"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingBottom="@dimen/activity_vertical_margin">
-
+    style="@style/LinearLayoutStyle"
+    android:orientation="vertical">
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:textSize="17sp"
-        android:textColor="@color/frame"
+        style="@style/TextviewLayout"
         android:text="Citizenship"
         android:id="@+id/textView8" />
 
@@ -34,12 +24,9 @@
         android:entries="@array/countries" />
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:text="Country of Residence"
         android:id="@+id/textView9"
-        android:textSize="17sp"
-        android:textColor="@color/frame"/>
+        style="@style/TextviewLayout"/>
 
     <Spinner
         style="@style/MySpinner"
@@ -50,12 +37,10 @@
         android:entries="@array/countries" />
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:text="Gender"
         android:id="@+id/textView10"
-        android:textSize="17sp"
-        android:textColor="@color/frame" />
+        style="@style/TextviewLayout" />
+
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="fill_parent">
@@ -99,12 +84,9 @@
     </LinearLayout>
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:text="Marital status"
         android:id="@+id/textView11"
-        android:textSize="17sp"
-        android:textColor="@color/frame" />
+        style="@style/TextviewLayout"/>
 
     <LinearLayout
         android:layout_width="fill_parent"
@@ -140,53 +122,32 @@
 
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:text="Date of Birth"
         android:id="@+id/textView15"
-        android:textSize="17sp"
-        android:textColor="@color/frame"/>
-
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:orientation="horizontal">
+        style="@style/TextviewLayout"/>
 
         <DatePicker
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="20dp"
             android:id="@+id/DateOfBirthDatePicker"
-            android:spinnersShown="true"
-            android:calendarViewShown="false"
-            android:layout_gravity="center" />
-
-    </LinearLayout>
+            style="@style/DatepickerLayout" />
 
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content">
 
         <Button
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
             android:id="@+id/sign_up2_left"
-            android:text="Prev"
-            android:background="@drawable/frame"
-            android:textColor="@color/button_font_color"
-            android:textSize="15sp"
+            android:text="@string/prev"
+            style="@style/ButtonStyle"
             android:layout_weight="1"
             android:layout_marginRight="5dp"
+            android:layout_marginBottom="16dp"
             android:onClick="goToPrevious" />
 
         <Button
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
             android:id="@+id/sign_up2_right"
-            android:text="Next"
-            android:background="@drawable/frame"
-            android:textColor="@color/button_font_color"
-            android:textSize="15sp"
+            android:text="@string/next"
+            style="@style/ButtonStyle"
+            android:layout_marginBottom="16dp"
             android:layout_weight="1"
             android:onClick="goToNext" />
     </LinearLayout>
