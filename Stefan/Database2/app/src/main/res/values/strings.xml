@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">Database2</string>
+
+    <string name ="add_string">add</string>
+    <string name ="find_string">find</string>
+    <string name ="delete_string">delete</string>
+    <string name ="id_string">id</string>
+    <string name ="product_string">product</string>
+    <string name ="quantity_string">quantity</string>
+    <string name ="view_string">view</string>
+</resources>

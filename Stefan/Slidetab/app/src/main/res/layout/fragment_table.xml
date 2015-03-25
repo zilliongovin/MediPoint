@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TableLayout
+        android:id="@+id/tabla_cuerpo"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent">
+
+        <TableRow
+            android:id="@+id/tableRow1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:background="@drawable/cell_shape"
+                android:padding="5dp"
+                android:id="@+id/textView1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="TextView">
+
+                </TextView>
+
+            <TextView
+                android:background="@drawable/cell_shape"
+                android:padding="5dp" android:id="@+id/textView1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="TextView"></TextView>
+
+            <TextView
+                android:background="@drawable/cell_shape"
+                android:padding="5dp" android:id="@+id/textView1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="TextView"></TextView>
+
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/tableRow2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:background="@drawable/cell_shape"
+                android:padding="5dp" android:id="@+id/textView1"
+                android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="TextView"></TextView>
+            <TextView
+                android:background="@drawable/cell_shape"
+                android:padding="5dp" android:id="@+id/textView1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="TextView">
+                </TextView>
+
+            <TextView
+                android:background="@drawable/cell_shape"
+                android:padding="5dp"
+                android:id="@+id/textView1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="TextView">
+
+                </TextView>
+
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/tableRow3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:background="@drawable/cell_shape"
+                android:padding="5dp" android:id="@+id/textView1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="TextView">
+
+                </TextView>
+
+            <TextView
+                android:background="@drawable/cell_shape"
+                android:padding="5dp" android:id="@+id/textView1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="TextView"
+                android:layout_column="1">
+
+                </TextView>
+
+            <TextView
+                android:background="@drawable/cell_shape"
+                android:padding="5dp" android:id="@+id/textView1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="TextView"
+                android:layout_column="2">
+
+                </TextView>
+
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/tableRow4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"></TableRow>
+
+        <TableRow
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent">
+
+            <TextView
+                android:background="@drawable/cell_shape"
+                android:padding="5dp" android:id="@+id/textView1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="TextView"
+                android:layout_column="0">
+
+                </TextView>
+
+            <TextView
+                android:background="@drawable/cell_shape"
+                android:padding="5dp" android:id="@+id/textView1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="TextView"
+                android:layout_column="1">
+
+                </TextView>
+
+            <TextView
+                android:background="@drawable/cell_shape"
+                android:padding="5dp" android:id="@+id/textView1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="TextView"
+                android:layout_column="2"></TextView>
+
+        </TableRow>
+    </TableLayout>
+
+</LinearLayout>

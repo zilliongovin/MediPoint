@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Slidetab</string>
+
+    <string name="demo_external_activity">Demo External Activity</string>
+    <string name="demo_collection">Demo Collection</string>
+    <string name="action_settings">lalala</string>
+    <string name="dummy_section_text">just a dummy passing by</string>
+    <string name="feedbackname">howdy</string>
+</resources>
