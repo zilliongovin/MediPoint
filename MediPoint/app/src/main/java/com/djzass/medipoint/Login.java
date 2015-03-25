@@ -27,6 +27,7 @@ public class Login extends Activity {
         setContentView(R.layout.activity_login);
 
         //----------------------------TEST---------------------------------------------
+        /*
         mDbHelper = new DbHelper(this);
         db = mDbHelper.getWritableDatabase();
 
@@ -63,6 +64,7 @@ public class Login extends Activity {
             Toast.makeText(this,password,Toast.LENGTH_LONG).show();
 
         }
+        */
                //--------------------------------TEST----------------------------------------
 
         loginButton = (Button)findViewById(R.id.loginButton);
@@ -77,6 +79,7 @@ public class Login extends Activity {
                 if(isAuthenticated==true){
                     acctManager.login(username,password);
                     loginSuccessful(username);
+                    goToMain();
 
                 }
                 else{
@@ -130,6 +133,11 @@ public class Login extends Activity {
     public void loginSuccessful(String username){
         Toast.makeText(this,"Welcome "+username+"!",Toast.LENGTH_LONG).show();
 
+    }
+
+    public void goToMain(){
+        Intent intent = new Intent(this,MainActivity.class);
+        startActivity(intent);
     }
 
 
