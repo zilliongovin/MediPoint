@@ -16,14 +16,14 @@ import android.widget.Toast;
 
 public class SignUp extends ActionBarActivity {
     private Account newAccount;
-    FeedReaderDbHelper mDbHelper;
+    DbHelper mDbHelper;
     SQLiteDatabase db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
-        mDbHelper = new FeedReaderDbHelper(this);
+        mDbHelper = new DbHelper(this);
 
         // Gets the data repository in write mode
         db = mDbHelper.getWritableDatabase();
