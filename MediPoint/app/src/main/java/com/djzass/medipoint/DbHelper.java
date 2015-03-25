@@ -22,7 +22,6 @@ public class DbHelper extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "MediPoint.db";
 
     //CREATE TABLE : private static final String SQL_CREATE_TABLE_NAME = "CREATE TABLE " + " (" + " );";
-
     /* ACCOUNT TABLE*/
     private static final String SQL_CREATE_ACCOUNT =
             "CREATE TABLE " + DbContract.AccountEntry.TABLE_NAME + " (" +
@@ -92,7 +91,7 @@ public class DbHelper extends SQLiteOpenHelper {
 
     /*DOCTOR SCHEDULE TABLE*/
     private static final String SQL_CREATE_DOCTOR_SCHEDULE = "CREATE TABLE " + DbContract.DoctorScheduleEntry.TABLE_NAME + " (" +
-            DbContract.DoctorScheduleEntry.COLUMN_NAME_DOCTOR_SCHEDULE_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "+ COMMA_SEP +
+            DbContract.DoctorScheduleEntry.COLUMN_NAME_DOCTOR_SCHEDULE_ID + " INTEGER PRIMARY KEY AUTOINCREMENT "+ COMMA_SEP +
             DbContract.DoctorScheduleEntry.COLUMN_NAME_DOCTOR_ID + INT_TYPE + COMMA_SEP +
             DbContract.DoctorScheduleEntry.COLUMN_NAME_CLINIC_ID + INT_TYPE + COMMA_SEP +
             DbContract.DoctorScheduleEntry.COLUMN_NAME_START_TIME + DATETIME_TYPE + COMMA_SEP +
@@ -161,6 +160,14 @@ public class DbHelper extends SQLiteOpenHelper {
     public DbHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
+    private static DbHelper instance;
+
+    public static synchronized DbHelper getHelper(Context context) {
+        if (instance == null)
+            instance = new DbHelper(context);
+        return instance;
+    }
+
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(SQL_CREATE_ACCOUNT);
         db.execSQL(SQL_CREATE_ALLERGY);
@@ -215,9 +222,14 @@ public class DbHelper extends SQLiteOpenHelper {
         return newAppointmentId;
     }
     //fetch*/
-
-
-
+    @Override
+    public void onOpen(SQLiteDatabase db) {
+        super.onOpen(db);
+        if (!db.isReadOnly()) {
+            // Enable foreign key constraints
+            db.execSQL("PRAGMA foreign_keys=ON;");
+        }
+    }
     public void closeDb(SQLiteDatabase db) {
         if (db != null && db.isOpen())
             db.close();

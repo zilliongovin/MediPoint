@@ -1,10 +1,10 @@
 package com.djzass.medipoint;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -14,7 +14,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 
-public class Login extends ActionBarActivity {
+public class Login extends Activity {
 
     Button loginButton;
     DbHelper mDbHelper;
