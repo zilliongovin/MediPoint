@@ -39,7 +39,7 @@ public class DbContract {
         public static final String COLUMN_NAME_DATE_TIME = "dateTime";
         public static final String COLUMN_NAME_SERVICE_ID = "service";
         public static final String COLUMN_NAME_SPECIALTY_ID = "specialty";
-        public static final String COLUMN_NAME_PRE_APPOINTMENT_ACTIONS = "preAppointmentActions";
+        public static final String COLUMN_NAME_PREAPPOINTMENT_ACTIONS = "preAppointmentActions";
         public static final String COLUMN_NAME_START_TIME = "startTime";
         public static final String COLUMN_NAME_END_TIME = "endTime";
     }

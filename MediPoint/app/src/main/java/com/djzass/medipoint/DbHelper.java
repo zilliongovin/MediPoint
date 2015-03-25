@@ -1,6 +1,7 @@
 package com.djzass.medipoint;
 
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
@@ -25,7 +26,7 @@ public class DbHelper extends SQLiteOpenHelper {
     /* ACCOUNT TABLE*/
     private static final String SQL_CREATE_ACCOUNT =
             "CREATE TABLE " + DbContract.AccountEntry.TABLE_NAME + " (" +
-                    DbContract.AccountEntry.COLUMN_NAME_ACCOUNT_ID + VARCHAR_TEN_TYPE +
+                    DbContract.AccountEntry.COLUMN_NAME_ACCOUNT_ID + VARCHAR_TEN_TYPE + COMMA_SEP +
                     DbContract.AccountEntry.COLUMN_NAME_NAME + VARCHAR_FIFTY_TYPE + COMMA_SEP +
                     DbContract.AccountEntry.COLUMN_NAME_NRIC + CHAR_TEN_TYPE + COMMA_SEP +
                     DbContract.AccountEntry.COLUMN_NAME_EMAIL + VARCHAR_THIRTY_TYPE + COMMA_SEP +
@@ -40,9 +41,21 @@ public class DbHelper extends SQLiteOpenHelper {
                     DbContract.AccountEntry.COLUMN_NAME_PASSWORD + VARCHAR_THIRTY_TYPE +
                     " );";
 
-        // If you change the database schema, you must increment the database version.
+    // If you change the database schema, you must increment the database version.
     private static final String SQL_DELETE_ACCOUNT =
             "DROP TABLE IF EXISTS " + DbContract.AccountEntry.TABLE_NAME + ";";
+
+    private static final String SQL_VERIFY_USER =
+            "SELECT " + DbContract.AccountEntry.COLUMN_NAME_USERNAME + COMMA_SEP +
+            DbContract.AccountEntry.COLUMN_NAME_PASSWORD + " FROM " + DbContract.AccountEntry.TABLE_NAME +
+            " WHERE " + DbContract.AccountEntry.COLUMN_NAME_USERNAME + "=? AND " +
+            DbContract.AccountEntry.COLUMN_NAME_PASSWORD + "=?";
+
+    public int onLogin(String username,String password,SQLiteDatabase db){
+        String[] selArgs = {username,password};
+        Cursor userCursor = db.rawQuery(SQL_VERIFY_USER, selArgs);
+        return userCursor.getCount();
+    }
 
     /* COUNTRY TABLE  */
     private static final String SQL_CREATE_COUNTRY = "CREATE TABLE " + DbContract.CountryEntry.TABLE_NAME + " (" +
@@ -181,6 +194,7 @@ public class DbHelper extends SQLiteOpenHelper {
         onUpgrade(db, oldVersion, newVersion);
     }
 
+
     //CRUD (Create, Read, Update and Delete) Operations
 
     /*AppointmentCrud
@@ -201,8 +215,6 @@ public class DbHelper extends SQLiteOpenHelper {
         return newAppointmentId;
     }
     //fetch*/
-
-
 
 
 
