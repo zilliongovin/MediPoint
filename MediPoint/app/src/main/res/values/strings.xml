@@ -2,6 +2,7 @@
     <!-- Action Bar resources -->
     <string name="app_name">MediPoint</string>
     <string name="action_settings">Settings</string>
+    <string name="action_logout">Logout</string>
     <string name="title_activity_password_retriever">Password Retriever</string>
     <string name="title_activity_sign_up">Sign Up</string>
     <string name="title_activity_edit_appointment">Edit Appointment</string>

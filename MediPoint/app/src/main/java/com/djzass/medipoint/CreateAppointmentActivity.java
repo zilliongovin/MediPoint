@@ -8,6 +8,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Spinner;
 
 import java.util.Calendar;
@@ -44,6 +46,15 @@ public class CreateAppointmentActivity extends Activity implements AdapterView.O
         countryAdapter_create.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         countrySpinner_create.setAdapter(countryAdapter_create);
         countrySpinner_create.setOnItemSelectedListener(this);
+
+        //logout button listener
+        Button logoutButton = (Button)findViewById(R.id.action_logout);
+        logoutButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View arg0) {
+                AccountManager acctMgr = new AccountManager(getApplicationContext());
+                acctMgr.logout();
+            }
+        });
     }
 
     @Override

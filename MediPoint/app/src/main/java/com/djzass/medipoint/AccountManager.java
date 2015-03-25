@@ -70,5 +70,10 @@ public class AccountManager {
         session.createLoginSession(username,password);
     }
 
+    public void logout(){
+        session.deleteLoginSession();
+
+    }
+
 
 }
