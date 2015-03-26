@@ -1,6 +1,7 @@
 package com.djzass.medipoint;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -58,6 +59,15 @@ public class EditAppointmentActivity extends Activity implements AdapterView.OnI
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            return true;
+        }
+
+        //logout menu item selected
+        else if(id==R.id.action_logout){
+            AccountManager acctMgr = new AccountManager(this);
+            acctMgr.logout();
+            Intent intent = new Intent(this,Login.class);
+            startActivity(intent);
             return true;
         }
 

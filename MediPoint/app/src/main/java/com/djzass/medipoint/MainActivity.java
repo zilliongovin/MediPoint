@@ -1,10 +1,15 @@
 package com.djzass.medipoint;
 
+
 import android.app.Activity;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.text.Html;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TabHost;
+import android.widget.TabWidget;
+import android.widget.TextView;
+
 
 
 public class MainActivity extends Activity {
@@ -13,7 +18,52 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        //set up the tab host
+        final TabHost tabhost = (TabHost) findViewById(R.id.tabHost);
+        tabhost.setup();
+
+        //set treatment tab spec
+        TabHost.TabSpec tabspec = tabhost.newTabSpec("Treatment");
+        tabspec.setContent(R.id.TreatmentTabContent);
+        tabspec.setIndicator(Html.fromHtml("Treatment"));
+        //add tab
+        tabhost.addTab(tabspec);
+
+        //set appointment tab spec
+        tabspec = tabhost.newTabSpec("Appointment");
+        tabspec.setContent(R.id.AppointmentTabContent);
+        tabspec.setIndicator("Appointment");
+        //add tab
+        tabhost.addTab(tabspec);
+
+        //set history tab spec
+        tabspec = tabhost.newTabSpec("History");
+        tabspec.setContent(R.id.HistoryTabContent);
+        tabspec.setIndicator("History");
+        //add tab
+        tabhost.addTab(tabspec);
+        tabhost.getTabWidget().setCurrentTab(1);
+
+        //set tab color
+        setTabColor(tabhost);
+        tabhost.setOnTabChangedListener(new TabHost.OnTabChangeListener() {
+
+            @Override
+            public void onTabChanged(String arg0) {
+                setTabColor(tabhost);
+            }
+        });
+
+        //style the indicator color
+        TabWidget tabwidget = tabhost.getTabWidget();
+
+        for(int i=0; i < tabwidget.getChildCount(); i++){
+            TextView tv = (TextView) tabwidget.getChildAt(i).findViewById(android.R.id.title);
+            tv.setTextColor(this.getResources().getColorStateList(R.color.theme_bg));
+        }
     }
+
 
 
     @Override
@@ -36,5 +86,22 @@ public class MainActivity extends Activity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    //method for tab background color
+    public static void setTabColor(TabHost tabhost) {
+
+        TabWidget tabwidget = tabhost.getTabWidget();
+
+        // unselected
+        for (int i = 0; i < tabwidget.getChildCount(); i++) {
+            tabwidget.getChildAt(i)
+                    .setBackgroundResource(R.drawable.tabunselected);
+        }
+
+        //selected
+        tabwidget.getChildAt(tabhost.getCurrentTab())
+                .setBackgroundResource(R.drawable.tabselected);
+
     }
 }

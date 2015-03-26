@@ -1,43 +1,39 @@
 package com.djzass.medipoint;
 
 import android.app.Activity;
-import android.app.AlertDialog;
-import android.content.ContentValues;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
-import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
-import android.widget.CalendarView;
+import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.PopupWindow;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
+import android.widget.Toast;
+
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
 
 public class SignUp extends Activity {
-    private Account newAccount;
-    FeedReaderDbHelper mDbHelper;
-    SQLiteDatabase db;
+    private AccountManager AccountCreator;
+    //DbHelper mDbHelper;
+    //SQLiteDatabase db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
-        mDbHelper = new FeedReaderDbHelper(this);
+        //mDbHelper = new DbHelper(this);
 
         // Gets the data repository in write mode
-        db = mDbHelper.getWritableDatabase();
-        newAccount = new Account();
+        //db = mDbHelper.getWritableDatabase();
+        AccountCreator = new AccountManager(this);
+        //newAccount = new Account();
     }
 
 
@@ -118,11 +114,13 @@ public class SignUp extends Activity {
                 boolean isFilled = isFormFilled(checkViews,5);
                 if(isFilled)
                 {
-                    newAccount.setName(checkViews[0].getText().toString());
-                    newAccount.setNric(checkViews[1].getText().toString());
-                    newAccount.setEmail(checkViews[2].getText().toString());
-                    newAccount.setPhoneNumber(checkViews[3].getText().toString());
-                    newAccount.setAddress(checkViews[4].getText().toString());
+
+                    String name = checkViews[0].getText().toString();
+                    String nric = checkViews[1].getText().toString();
+                    String email = checkViews[2].getText().toString();
+                    String contact = checkViews[3].getText().toString();
+                    String address = checkViews[4].getText().toString();
+                    AccountCreator.savePageOne(name,nric,email,contact,address);
                     goToPage2();
                 }
 
@@ -134,23 +132,34 @@ public class SignUp extends Activity {
             }
             case R.id.sign_up2_right:
             {
-                RadioGroup gender = (RadioGroup)findViewById(R.id.GenderRadioGroup);
-                int selGender = gender.getCheckedRadioButtonId();
+                RadioGroup genderGroup = (RadioGroup)findViewById(R.id.GenderRadioGroup);
+                int selGender = genderGroup.getCheckedRadioButtonId();
                 RadioButton selGenderButton = (RadioButton)findViewById(selGender);
-                RadioGroup maritalStatus = (RadioGroup)findViewById(R.id.GenderRadioGroup);
-                int selMaritalStatus = maritalStatus.getCheckedRadioButtonId();
+                RadioGroup maritalStatusGroup = (RadioGroup)findViewById(R.id.GenderRadioGroup);
+                int selMaritalStatus = maritalStatusGroup.getCheckedRadioButtonId();
                 RadioButton selMaritalStatusButton = (RadioButton)findViewById(selMaritalStatus);
-                Spinner citizenship = (Spinner)findViewById(R.id.CitizenshipSpinner);
-                Spinner countryOfResidence = (Spinner)findViewById(R.id.CountryOfResidenceSpinner);
-                if(selGender==-1|selMaritalStatus==-1)
+                Spinner citizenshipSpinner = (Spinner)findViewById(R.id.CitizenshipSpinner);
+                Spinner countryOfResidenceSpinner = (Spinner)findViewById(R.id.CountryOfResidenceSpinner);
+                DatePicker dobPicker = (DatePicker)findViewById(R.id.DateOfBirthDatePicker);
+                Calendar dobCal = getDate(dobPicker);
+                Calendar currentDate = Calendar.getInstance();
+
+                if(selGender==-1||selMaritalStatus==-1)
                     incompleteForm();
+
+                else if(dobCal.after(currentDate))
+                {
+                    Toast.makeText(this,"Please enter your date of birth correctly",Toast.LENGTH_LONG).show();
+                }
 
                 else
                 {
-                    newAccount.setGender(selGenderButton.getText().toString());
-                    newAccount.setMaritalStatus(selMaritalStatusButton.getText().toString());
-                    newAccount.setCitizenship(citizenship.toString());
-                    //newAccount.setCountryOfResidence(countryOfResidence.toString());
+
+                    String gender = selGenderButton.getText().toString();
+                    String maritalStatus = selMaritalStatusButton.getText().toString();
+                    String citizenship = citizenshipSpinner.toString();
+                    String countryOfResidence = countryOfResidenceSpinner.toString();
+                    AccountCreator.savePageTwo(gender,maritalStatus,citizenship,countryOfResidence,dobCal);
                     goToPage3();
                 }
 
@@ -169,11 +178,13 @@ public class SignUp extends Activity {
                 boolean isPasswordEqual = checkPassword(checkViews[1],checkViews[2]);
                 if(isFilled && isPasswordEqual)
                 {
-                    newAccount.setUsername(checkViews[0].getText().toString());
-                    newAccount.setPassword(checkViews[1].getText().toString());
-                    AccountManager accountCreator = new AccountManager();
-                    accountCreator.createAccount(newAccount,db);
+
+                    String username = checkViews[0].getText().toString();
+                    String password = checkViews[1].getText().toString();
+                    AccountCreator.savePageThree(username,password);
                     AccountCreatedDialog();
+                    AccountCreator.createAccount();
+
                 }
 
                 else if(!isFilled)
@@ -205,36 +216,39 @@ public class SignUp extends Activity {
 
     public void incompleteForm()
     {
-        AlertDialog.Builder dlgAlert = new AlertDialog.Builder(this);
-        dlgAlert.setMessage("Please fill all fields.");
-        dlgAlert.setPositiveButton("OK", null);
-        dlgAlert.setCancelable(true);
-        dlgAlert.create().show();
+        Toast.makeText(this,"Please fill all fields",Toast.LENGTH_LONG).show();
     }
 
     public void AccountCreatedDialog()
     {
-
-        AlertDialog.Builder dlgAlert  = new AlertDialog.Builder(this);
-        dlgAlert.setMessage("Congratulations! Your account has been successfully created.");
-        dlgAlert.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int which) {
+        String message = "Congratulations! Your account has been successfully created.";
+        String title = "Success";
+        Runnable r = new Runnable() {
+            @Override
+            public void run() {
                 goToLoginPage();
             }
-        });
-        dlgAlert.setCancelable(true);
-        dlgAlert.create().show();
+        };
+
+        AlertDialogInterface AlertDisplayer = new AlertDialogInterface(title,message,this);
+        AlertDisplayer.AccountCreated(r);
     }
 
     public void unequalPassword()
     {
-        AlertDialog.Builder dlgAlert  = new AlertDialog.Builder(this);
-        dlgAlert.setMessage("Please enter your password again.");
-        dlgAlert.setPositiveButton("OK", null);
-        dlgAlert.setCancelable(true);
-        dlgAlert.create().show();
+        Toast.makeText(this,"Confirmed Password is incorrect",Toast.LENGTH_LONG).show();
 
     }
 
+    public Calendar getDate(DatePicker datePicker){
+        int day = datePicker.getDayOfMonth();
+        int month = datePicker.getMonth()+1;
+        int year = datePicker.getYear();
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(year, month, day);
+
+        return calendar;
+    }
 
 }

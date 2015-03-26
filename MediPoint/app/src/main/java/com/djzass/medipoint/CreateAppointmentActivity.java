@@ -2,12 +2,16 @@ package com.djzass.medipoint;
 
 import android.app.Activity;
 
+//import android.app.DialogFragment;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Spinner;
 
 import java.util.Calendar;
@@ -44,6 +48,7 @@ public class CreateAppointmentActivity extends Activity implements AdapterView.O
         countryAdapter_create.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         countrySpinner_create.setAdapter(countryAdapter_create);
         countrySpinner_create.setOnItemSelectedListener(this);
+
     }
 
     @Override
@@ -65,12 +70,25 @@ public class CreateAppointmentActivity extends Activity implements AdapterView.O
             return true;
         }
 
+        //logout menu item selected
+        else if(id==R.id.action_logout){
+            AccountManager acctMgr = new AccountManager(this);
+            acctMgr.logout();
+            Intent intent = new Intent(this,Login.class);
+            startActivity(intent);
+            return true;
+        }
+
         return super.onOptionsItemSelected(item);
     }
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
+    }
+    public void showDatePickerDialog(View v) {
+        DialogFragment date = new DatePickerFragment();
+        date.show(getFragmentManager(), "datePicker");
     }
 
     @Override

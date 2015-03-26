@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+    <!-- Type of Appointment -->
+    <ProgressBar android:id="@+id/appointment_type" style="?android:attr/progressBarStyleLarge"
+        android:layout_width="wrap_content" android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp" android:visibility="gone" />
+
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:fillViewport="true"
+        >
+            <LinearLayout
+                android:orientation="vertical"
+                android:background="#ffffff"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:padding="25dip"
+                >
+                <!-- Service -->
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:id="@+id/LabelAppointmentService"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dip"
+                        android:layout_marginBottom="20dip"
+                        android:layout_marginRight="20dip"
+                        android:text="Service"
+                        android:textSize="10pt">
+                    </TextView>
+                    <TextView
+                        android:id="@+id/TextViewAppointmentService"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dip"
+                        android:layout_marginBottom="20dip"
+                        android:text="ServiceTest"
+                        android:textSize="10pt"
+                        android:textColor="#000"
+                        >
+                    </TextView>
+
+                 </LinearLayout>
+
+                <!-- Date -->
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:id="@+id/LabelAppointmentDate"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dip"
+                        android:layout_marginBottom="20dip"
+                        android:layout_marginRight="20dip"
+                        android:text="Date"
+                        android:textSize="10pt">
+                    </TextView>
+                    <TextView
+                        android:id="@+id/TextViewAppointmentDate"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dip"
+                        android:layout_marginBottom="20dip"
+                        android:text="DateSample"
+                        android:textColor="#000"
+                        android:textSize="10pt">
+                    </TextView>
+                </LinearLayout>
+
+                <!-- Time -->
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:id="@+id/LabelAppointmentTime"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dip"
+                        android:layout_marginBottom="20dip"
+                        android:layout_marginRight="20dip"
+                        android:text="Time: "
+                        android:textSize="10pt">
+                    </TextView>
+                    <TextView
+                        android:id="@+id/TextViewAppointmentTime"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dip"
+                        android:layout_marginBottom="20dip"
+                        android:text="TimeSample"
+                        android:textColor="#000"
+                        android:textSize="10pt">
+                    </TextView>
+                </LinearLayout>
+
+                <!-- Location -->
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:id="@+id/LabelAppointmentLocation"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dip"
+                        android:layout_marginBottom="20dip"
+                        android:layout_marginRight="20dip"
+                        android:text="Location: "
+                        android:textSize="10pt">
+                    </TextView>
+                    <TextView
+                        android:id="@+id/TextViewAppointmentLocation"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dip"
+                        android:layout_marginBottom="20dip"
+                        android:text="LocationSample"
+                        android:textColor="#000"
+                        android:textSize="10pt">
+                    </TextView>
+                </LinearLayout>
+
+                <!-- Note -->
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:id="@+id/LabelAppointmentNotes"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dip"
+                        android:layout_marginBottom="20dip"
+                        android:layout_marginRight="20dip"
+                        android:label="Notes: "
+                        android:textSize="10pt">
+                    </TextView>
+                    <TextView
+                        android:id="@+id/TextViewAppointmentNotes"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dip"
+                        android:layout_marginBottom="20dip"
+                        android:label="NotesSample "
+                        android:textColor="#000"
+                        android:textSize="10pt">
+                    </TextView>
+                </LinearLayout>
+
+                <!-- Buttons -->
+                <Button android:id="@+id/back"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dip"
+                    android:text="Back"/>
+                <Button android:id="@+id/edit"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dip"
+                    android:text="Edit"/>
+                <Button android:id="@+id/delete"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dip"
+
+                    android:text="Delete"/>
+            </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>

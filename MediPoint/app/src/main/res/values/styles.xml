@@ -16,7 +16,69 @@
     <!--dropdown menu style-->
     <style name="MySpinner"
         parent="@android:style/Widget.Spinner.DropDown">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">50dp</item>
+        <item name="android:layout_marginBottom">20dp</item>
     </style>
 
+    <!-- Button Style -->
+    <style name="ButtonStyle">
+        <item name="android:background">@drawable/frame</item>
+        <item name="android:textColor">@color/button_font_color</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <!-- Textview Layout -->
+    <style name="TextviewLayout">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">17sp</item>
+        <item name="android:textColor">@color/frame</item>
+    </style>
+
+    <!-- Datepicker Style -->
+    <style name="DatepickerLayout">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginBottom">20dp</item>
+        <item name="android:layout_gravity">center_horizontal</item>
+        <item name="android:spinnersShown">true</item>
+        <item name="android:calendarViewShown">false</item>
+    </style>
+
+    <!-- LinearLayout Style -->
+    <style name="LinearLayoutStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:paddingTop">?android:attr/actionBarSize</item>
+        <item name="android:paddingLeft">16dp</item>
+        <item name="android:paddingRight">16dp</item>
+        <item name="android:paddingBottom">16dp</item>
+        <item name="android:layout_marginTop">16dp</item>
+    </style>
+
+    <!-- TabLinearLayout Style -->
+    <style name="TabLinearLayoutStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:paddingLeft">16dp</item>
+        <item name="android:paddingRight">16dp</item>
+        <item name="android:paddingBottom">16dp</item>
+        <item name="android:layout_marginTop">16dp</item>
+    </style>
+
+    <!-- Textfield style -->
+    <style name="EditTextStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">17sp</item>
+        <item name="android:textColor">@color/frame</item>
+        <item name="android:padding">10dp</item>
+        <item name="android:background">@drawable/textfield</item>
+        <item name="android:layout_marginBottom">20dp</item>
+    </style>
 
 </resources>

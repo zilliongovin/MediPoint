@@ -1,0 +1,3 @@
+This is still the inital design, have not finished yet (just performing the basic).
+
+Btw if you see the layout for create appointment, i havent yet put the dropdown selection for select specialty, service, and doctor.

@@ -1,21 +1,46 @@
 <resources>
+    <!-- Action Bar resources -->
     <string name="app_name">MediPoint</string>
-
-    <!-- ======================EDIT APPOINTMENT RESOURCE==========================-->
-    <string name="edit_date">Select Date</string>
-    <string name="edit_time">Select Time</string>
-    <string name="edit_specialty">Select Specialty</string>
-    <string name="edit_type">Select Type</string>
-
     <string name="action_settings">Settings</string>
+    <string name="action_logout">Logout</string>
+    <string name="title_activity_password_retriever">Password Retriever</string>
+    <string name="title_activity_sign_up">Sign Up</string>
+    <string name="title_activity_edit_appointment">Edit Appointment</string>
+    <string name="title_activity_create_appointment">Create Appointment</string>
 
+    <!-- Moving my files from appointment.xml-->
+    <string name="selectspecialty">Select Specialty</string>
+    <string name="selectservice">Select Service</string>
+    <string name="selectdoctor">Select Doctor</string>
+    <string name="selectlocation">Select Location</string>
+    <string name="selecttime">Select Time</string>
+    <string name="selectdate">Select Date</string>
+    <string name="setdate">Set Date</string>
+    <string name="settime">Set Time</string>
+    <string name="labelspecialty">Specialty</string>
+    <string name="labelservice">Service</string>
+    <string name="labellocation">Location</string>
+    <string name="labeldoctor">Doctor</string>
+    <string name="labeltime">Time</string>
+    <string name="labeldate">Date</string>
+    <string name="labelnotes">Notes</string>
+    <string name="createappointment">Create new appointment</string>
+    <string name="editappointment">Edit appointment</string>
+    <string name="back_to_Home">Back</string>
+
+    <!-- Create, Edit appointment resources -->
+    <string name="select_specialty">Select Specialty</string>
+    <string name="select_service"  >Select Service</string>
+    <string name="select_doctor"   >Select Doctor</string>
+    <string name="select_location" >Select Location</string>
+    <string name="select_country"  >Select Country</string>
+    <string name="select_time"     >Select Time</string>
+    <string name="select_date"     >Select Date</string>
     <string-array name="specialty">
         <item>Ears, Nose, and Throat(ENT)</item>
         <item>Dental</item>
         <item>Women Health</item>
     </string-array>
-
-    <string name="confirm">Confirm</string>
 
     <string-array name="time_slot">
         <item>09.00 - 09.30</item>
@@ -39,13 +64,6 @@
         <item>20.00 - 20.30</item>
         <item>20.30 - 21.00</item>
     </string-array>
-    <!-- ========================================================================= -->
-
-
-    <!-- ======================LOGIN LOGOUT REGISTER RESOURCES====================== -->
-    <string name="title_activity_password_retriever">Password Retriever</string>
-
-    <string name="title_activity_sign_up">Sign Up</string>
 
     <string-array name="countries">
         <item>Singapore</item>
@@ -60,19 +78,15 @@
         <item>contact no.</item>
         <item>address</item>
     </string-array>
-    <!-- ========================================================================= -->
 
-    <!-- ====================CREATE APPOINTMENT RESOURCES===========================-->
-    <string name="select_specialty">Select Specialty</string>
-    <string name="select_service">Select Service</string>
-    <string name="select_doctor">Select Doctor</string>
-    <string name="select_location">Select Location</string>
-    <string name="select_country">Select Country</string>
-    <string name="select_time">Select Time</string>
-    <string name="select_date">Select Date</string>
+    <!-- Button Label -->
+    <string name="create_appointment">create appointment</string>
+    <string name="edit_appointment">edit appointment</string>
+    <string name="confirm">confirm</string>
+    <string name="cancel">cancel</string>
+    <string name="edit">edit</string>
+    <string name="delete">delete</string>
+    <string name="next">next</string>
+    <string name="prev">prev</string>
 
-    <string name="create_appointment">Create Appointment</string>
-    <string name="edit_appointment">Edit Appointment</string>
-    <string name="cancel">Cancel</string>
-    <!-- ========================================================================= -->
 </resources>

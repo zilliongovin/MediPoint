@@ -2,12 +2,66 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingLeft="10dp"
-    android:paddingRight="10dp"
-    android:paddingTop="?android:attr/actionBarSize"
     android:orientation="vertical"
     tools:context=".MainActivity">
 
 
+    <TabHost
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="?android:attr/actionBarSize"
+        android:id="@+id/tabHost">
 
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:orientation="vertical">
+
+            <TabWidget
+                android:id="@android:id/tabs"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content">
+            </TabWidget>
+
+            <FrameLayout
+                android:id="@android:id/tabcontent"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent">
+
+                <LinearLayout
+                    style="@style/TabLinearLayoutStyle"
+                    android:id="@+id/TreatmentTabContent"
+                    android:orientation="vertical">
+
+                    <TextView
+                        style="@style/TextviewLayout"
+                        android:text="Treatment content"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/AppointmentTabContent"
+                    style="@style/TabLinearLayoutStyle"
+                    android:orientation="vertical">
+
+                    <TextView
+                        style="@style/TextviewLayout"
+                        android:text="Appointment content"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/HistoryTabContent"
+                    style="@style/TabLinearLayoutStyle"
+                    android:orientation="vertical">
+
+                    <TextView
+                        style="@style/TextviewLayout"
+                        android:text="History content"/>
+
+                </LinearLayout>
+
+            </FrameLayout>
+        </LinearLayout>
+    </TabHost>
 </LinearLayout>
