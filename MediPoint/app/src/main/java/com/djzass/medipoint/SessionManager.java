@@ -54,4 +54,9 @@ public class SessionManager {
         // commit changes
         editor.commit();
     }
+
+    public void deleteLoginSession(){
+        editor.clear();
+        editor.commit();
+    }
 }

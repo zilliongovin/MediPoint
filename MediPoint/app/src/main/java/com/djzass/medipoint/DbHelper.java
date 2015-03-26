@@ -47,14 +47,26 @@ public class DbHelper extends SQLiteOpenHelper {
 
     private static final String SQL_VERIFY_USER =
             "SELECT " + DbContract.AccountEntry.COLUMN_NAME_USERNAME + COMMA_SEP +
-            DbContract.AccountEntry.COLUMN_NAME_PASSWORD + " FROM " + DbContract.AccountEntry.TABLE_NAME +
+    DbContract.AccountEntry.COLUMN_NAME_PASSWORD +
+            " FROM " + DbContract.AccountEntry.TABLE_NAME +
             " WHERE " + DbContract.AccountEntry.COLUMN_NAME_USERNAME + "=? AND " +
-            DbContract.AccountEntry.COLUMN_NAME_PASSWORD + "=?";
+    DbContract.AccountEntry.COLUMN_NAME_PASSWORD + "=?";
+
+    private static final String SQL_FIND_NRIC =
+            "SELECT " + DbContract.AccountEntry.COLUMN_NAME_NRIC + COMMA_SEP +
+                    DbContract.AccountEntry.COLUMN_NAME_EMAIL +
+            " FROM " + DbContract.AccountEntry.TABLE_NAME +
+            " WHERE " + DbContract.AccountEntry.COLUMN_NAME_NRIC + "=?";
 
     public int onLogin(String username,String password,SQLiteDatabase db){
         String[] selArgs = {username,password};
         Cursor userCursor = db.rawQuery(SQL_VERIFY_USER, selArgs);
         return userCursor.getCount();
+    }
+
+    public Cursor checkAccount(String nric,SQLiteDatabase db){
+        String[] selArgs = {nric};
+        return db.rawQuery(SQL_FIND_NRIC,selArgs);
     }
 
     /* COUNTRY TABLE  */

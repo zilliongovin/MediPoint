@@ -36,6 +36,16 @@ public class Account {
 		this.citizenship = citizenship;
 		this.countryOfResidence = countryOfResidence;
 	}
+
+    public Account(String name, String nric, String email, String phoneNumber, String address) {
+
+        this.name = name;
+        this.nric = nric;
+        this.email = email;
+        this.phoneNumber = phoneNumber;
+        this.address = address;
+
+    }
 	
 	public String getUsername() {
 		return username;
