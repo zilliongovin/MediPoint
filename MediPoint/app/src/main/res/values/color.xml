@@ -6,4 +6,6 @@
     <color name="frame">#73000000</color>
 
     <color name="button_font_color">#ffffff</color>
+
+    <color name="tab_color">#ffebebeb</color>
 </resources>

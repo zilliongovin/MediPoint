@@ -60,6 +60,16 @@
         <item name="android:layout_marginTop">16dp</item>
     </style>
 
+    <!-- TabLinearLayout Style -->
+    <style name="TabLinearLayoutStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:paddingLeft">16dp</item>
+        <item name="android:paddingRight">16dp</item>
+        <item name="android:paddingBottom">16dp</item>
+        <item name="android:layout_marginTop">16dp</item>
+    </style>
+
     <!-- Textfield style -->
     <style name="EditTextStyle">
         <item name="android:layout_width">match_parent</item>
