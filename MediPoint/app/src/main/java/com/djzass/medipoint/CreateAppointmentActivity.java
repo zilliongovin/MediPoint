@@ -2,6 +2,7 @@ package com.djzass.medipoint;
 
 import android.app.Activity;
 
+import android.app.DialogFragment;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -71,6 +72,10 @@ public class CreateAppointmentActivity extends Activity implements AdapterView.O
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
+    }
+    public void showDatePickerDialog(View v) {
+        DialogFragment date = new DatePickerFragment();
+        date.show(getFragmentManager(), "datePicker");
     }
 
     @Override

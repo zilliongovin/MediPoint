@@ -1,5 +1,6 @@
 package com.djzass.medipoint;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -160,6 +161,7 @@ public class DbHelper extends SQLiteOpenHelper {
     public DbHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
+
     private static DbHelper instance;
 
     public static synchronized DbHelper getHelper(Context context) {
@@ -204,9 +206,9 @@ public class DbHelper extends SQLiteOpenHelper {
 
     //CRUD (Create, Read, Update and Delete) Operations
 
-    /*AppointmentCrud
-    //create
-    public int createAppointment(SQLiteDatabase db, Appointment newAppointment){
+    //AppointmentCRUD
+        //create
+    /*public int createAppointment(SQLiteDatabase db, Appointment newAppointment){
         ContentValues values = new ContentValues();
         values.put(DbContract.AppointmentEntry.COLUMN_NAME_APPOINTMENT_ID, newAppointment.getId());
         values.put(DbContract.AppointmentEntry.COLUMN_NAME_APPOINTMENT_ID, newAppointment.getId());
