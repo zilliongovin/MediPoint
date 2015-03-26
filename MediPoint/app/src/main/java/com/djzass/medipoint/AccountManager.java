@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import java.text.SimpleDateFormat;
@@ -24,7 +25,9 @@ public class AccountManager {
         session = new SessionManager(context);
 	}
 
-    public void validate(){
+    public Cursor findAccount(String nric){
+        Cursor cursor = dbHelper.checkAccount(nric,db);
+        return cursor.getCount()>0? cursor:null;
 		
 	}
 	
@@ -38,11 +41,7 @@ public class AccountManager {
 		
 	}
 	
-	public void findAccount(){
-		
-	}
-
-    public void createAccount(){
+	public void createAccount(){
 
 // Create a new map of values, where column names are the keys
         ContentValues values = new ContentValues();

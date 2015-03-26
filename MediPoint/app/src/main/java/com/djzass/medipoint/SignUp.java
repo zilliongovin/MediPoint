@@ -114,7 +114,7 @@ public class SignUp extends Activity {
                 boolean isFilled = isFormFilled(checkViews,5);
                 if(isFilled)
                 {
-                    
+
                     String name = checkViews[0].getText().toString();
                     String nric = checkViews[1].getText().toString();
                     String email = checkViews[2].getText().toString();

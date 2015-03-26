@@ -19,7 +19,7 @@ public class Login extends Activity {
     Button loginButton;
     DbHelper mDbHelper;
     SQLiteDatabase db;
-    AccountManager acctManager;
+    private AccountManager acctManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
