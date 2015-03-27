@@ -14,7 +14,8 @@ import java.util.List;
 public class ClinicDAO extends DbDAO{
     private static final String WHERE_ID_EQUALS = DbContract.ClinicEntry.COLUMN_NAME_CLINIC_ID
             + " =?";
-    private CountryDAO countryDao;
+    public static final String CLINIC_ID_PREFIX = "clinic.";
+    public static final String DEPT_NAME_WITH_PREFIX = "dept.name";
 
     public ClinicDAO(Context context) {
         super(context);

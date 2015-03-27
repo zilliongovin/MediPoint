@@ -68,7 +68,7 @@ public class AppointmentDAO extends DbDAO{
         return departments;
     }
 
-    public void loadDepartments() {
+    public void loadAppointments() {
         /*
         Appointment app1 = new Appointment();
         Appointment app2 = new Appointment();
