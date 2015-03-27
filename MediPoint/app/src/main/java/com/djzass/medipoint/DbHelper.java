@@ -118,9 +118,10 @@ public class DbHelper extends SQLiteOpenHelper {
             DbContract.ClinicEntry.COLUMN_NAME_CLINIC_ID + " INTEGER PRIMARY KEY AUTOINCREMENT" + COMMA_SEP +
             DbContract.ClinicEntry.COLUMN_NAME_COUNTRY_ID + INT_TYPE + COMMA_SEP +
             DbContract.ClinicEntry.COLUMN_NAME_CLINIC_NAME + VARCHAR_THIRTY_TYPE + COMMA_SEP +
+            DbContract.ClinicEntry.COLUMN_NAME_ZIPCODE + VARCHAR_TEN_TYPE + COMMA_SEP +
             DbContract.ClinicEntry.COLUMN_NAME_TEL_NUMBER + VARCHAR_TEN_TYPE + COMMA_SEP +
             DbContract.ClinicEntry.COLUMN_NAME_FAX_NUMBER + VARCHAR_TEN_TYPE + COMMA_SEP +
-            DbContract.ClinicEntry.COLUMN_NAME_ZIPCODE + VARCHAR_TEN_TYPE + " );";
+            DbContract.ClinicEntry.COLUMN_NAME_EMAIL + VARCHAR_THIRTY_TYPE + " );";
 
 
     private static final String SQL_DELETE_CLINIC =

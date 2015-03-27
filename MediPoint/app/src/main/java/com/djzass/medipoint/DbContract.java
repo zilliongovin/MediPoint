@@ -47,10 +47,12 @@ public class DbContract {
         public static final String TABLE_NAME = "clinic";
         public static final String COLUMN_NAME_CLINIC_ID = "clinicId";
         public static final String COLUMN_NAME_CLINIC_NAME = "name";
+        public static final String COLUMN_NAME_ADDRESS = "address";
         public static final String COLUMN_NAME_COUNTRY_ID = "countryId";
         public static final String COLUMN_NAME_ZIPCODE = "zipCode";
         public static final String COLUMN_NAME_TEL_NUMBER = "telNumber";
         public static final String COLUMN_NAME_FAX_NUMBER = "faxNumber";
+        public static final String COLUMN_NAME_EMAIL = "email";
     }
 
     public static abstract class SpecialtyEntry implements BaseColumns{

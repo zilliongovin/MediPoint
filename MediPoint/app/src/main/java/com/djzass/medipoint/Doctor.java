@@ -1,10 +1,12 @@
 package com.djzass.medipoint;
 
+import java.util.ArrayList;
+
 /**
  * Created by Deka on 26/3/2015.
  */
 public class Doctor {
-    private String doctorId;
+    private String id;
     private String name;
     private Specialty specialization;
     private int practiceDuration;
@@ -12,9 +14,9 @@ public class Doctor {
     private ArrayList<DoctorSchedule> doctorSchedules;
     private ArrayList<Appointment> appointments;
 
-    public Doctor(String doctorId, String name, Specialty specialization,
+    public Doctor(int id, String name, Specialty specialization,
                   int practiceDuration) {
-        this.doctorId = doctorId;
+        this.id = id;
         this.name = name;
         this.specialization = specialization;
         this.practiceDuration = practiceDuration;
@@ -23,11 +25,11 @@ public class Doctor {
     }
 
     public String getDoctorId() {
-        return doctorId;
+        return id;
     }
 
     public void setDoctorId(String doctorId) {
-        this.doctorId = doctorId;
+        this.id = doctorId;
     }
 
     public String getName() {
@@ -74,7 +76,7 @@ public class Doctor {
 
     public String toString(){
         return 	"=== Printing Doctor Info ==="+"\n"+
-                "ID: " + this.doctorId + "\n" +
+                "ID: " + this.id + "\n" +
                 "Name: " + this.name + "\n" +
                 "Practice Duration: " + this.practiceDuration+ "\n" +
                 "Specialization: " + this.specialization.getName() + "\n"
