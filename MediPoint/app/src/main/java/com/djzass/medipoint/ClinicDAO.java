@@ -64,7 +64,7 @@ public class ClinicDAO extends DbDAO{
             clinic.setId(cursor.getInt(0));
             clinic.setName(cursor.getString(1));
             clinic.setAddress(cursor.getString(2));
-
+            cli
             //Country country = new Country();
             //country.setId(cursor.getInt(3));
             //clinic.setCountry(country);
