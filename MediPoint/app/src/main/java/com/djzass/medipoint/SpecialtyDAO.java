@@ -10,6 +10,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.util.Log;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,7 +18,7 @@ public class SpecialtyDAO extends DbDAO{
     private static final String WHERE_ID_EQUALS = DbContract.SpecialtyEntry.COLUMN_NAME_SPECIALTY_ID
             + " =?";
 
-    public SpecialtyDAO(Context context) {
+    public SpecialtyDAO(Context context) throws SQLException {
         super(context);
     }
 
@@ -36,7 +37,7 @@ public class SpecialtyDAO extends DbDAO{
      * Getting all specialties from the table
      * returns list of specialties
      * */
-    public List<Specialty> getCountries() {
+    public List<Specialty> getSpecialties() {
         List<Specialty> specialties = new ArrayList<Specialty>();
 
         // Select all rows
@@ -109,14 +110,15 @@ public class SpecialtyDAO extends DbDAO{
         load the initial values of the specialties
      */
     public void loadSpecialties() {
-        Specialty c1 = new Specialty("ENT");
-        Specialty c2 = new Specialty("Women Health Services");
-        Specialty c3 = new Specialty("Dental");
+        Specialty s1 = new Specialty("ENT");
+        Specialty s2 = new Specialty("Women Health Services");
+        Specialty s3 = new Specialty("Dental");
+        Specialty s4 = new Specialty("General Medicine");
 
         List<Specialty> specialties = new ArrayList<Specialty>();
-        specialties.add(c1);
-        specialties.add(c2);
-        specialties.add(c3);
+        specialties.add(s1);
+        specialties.add(s2);
+        specialties.add(s3);
         for (Specialty c: specialties) {
             ContentValues values = new ContentValues();
             values.put(DbContract.SpecialtyEntry.COLUMN_NAME_SPECIALTY_NAME, c.getName());

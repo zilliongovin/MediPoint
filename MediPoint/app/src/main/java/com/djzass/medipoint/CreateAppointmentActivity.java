@@ -6,7 +6,11 @@ import android.app.Activity;
 <<<<<<< HEAD
 =======
 import android.app.DialogFragment;
+<<<<<<< HEAD
 >>>>>>> origin/master
+=======
+import android.app.FragmentManager;
+>>>>>>> 49e9b696f1b6c1c2563389694bac34700083f3c5
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -18,26 +22,21 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 public class CreateAppointmentActivity extends Activity implements AdapterView.OnItemSelectedListener{
 
     //spinner
-    Spinner timeSpinner_create;
     Spinner specialtySpinner_create;
     Spinner countrySpinner_create;
+    Spinner serviceSpinner_create;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_appointment);
-
-        //time spinner and array adapter
-        timeSpinner_create = (Spinner) findViewById(R.id.CreateApptTimeSpinner);
-        ArrayAdapter timeAdapter = ArrayAdapter.createFromResource(this, R.array.time_slot, android.R.layout.simple_spinner_dropdown_item);
-        timeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        timeSpinner_create.setAdapter(timeAdapter);
-        timeSpinner_create.setOnItemSelectedListener(this);
 
         //specialty spinner and array adapter
         specialtySpinner_create = (Spinner) findViewById(R.id.CreateApptSpecialty);
@@ -52,6 +51,9 @@ public class CreateAppointmentActivity extends Activity implements AdapterView.O
         countryAdapter_create.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         countrySpinner_create.setAdapter(countryAdapter_create);
         countrySpinner_create.setOnItemSelectedListener(this);
+
+        //service spinner
+        serviceSpinner_create = (Spinner) findViewById(R.id.CreateApptServices);
 
     }
 
@@ -89,6 +91,58 @@ public class CreateAppointmentActivity extends Activity implements AdapterView.O
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
+        String speciality= String.valueOf(specialtySpinner_create.getSelectedItem());
+
+        if(speciality.contentEquals("Dental")) {
+            List<String> list = new ArrayList<String>();
+            list.add("Routine Scaling");
+            list.add("Polishing");
+            list.add("Root Canal");
+            list.add("Fillings");
+            list.add("Tooth Extraction");
+            ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this,
+                    android.R.layout.simple_spinner_item, list);
+            dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            dataAdapter.notifyDataSetChanged();
+            serviceSpinner_create.setAdapter(dataAdapter);
+        }
+        if(speciality.contentEquals("Ears, Nose, and Throat(ENT)")) {
+            List<String> list = new ArrayList<String>();
+            list.add("General");
+            list.add("Paediatric ENT");
+            list.add("Obstructive Sleep Apnea (OSA)");
+            list.add("Otology");
+            ArrayAdapter<String> dataAdapter2 = new ArrayAdapter<String>(this,
+                    android.R.layout.simple_spinner_item, list);
+            dataAdapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            dataAdapter2.notifyDataSetChanged();
+            serviceSpinner_create.setAdapter(dataAdapter2);
+        }
+
+        if(speciality.contentEquals("Women Health")) {
+            List<String> list = new ArrayList<String>();
+            list.add("Gynecologist");
+            list.add("Obstetricians");
+            ArrayAdapter<String> dataAdapter2 = new ArrayAdapter<String>(this,
+                    android.R.layout.simple_spinner_item, list);
+            dataAdapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            dataAdapter2.notifyDataSetChanged();
+            serviceSpinner_create.setAdapter(dataAdapter2);
+        }
+
+        if(speciality.contentEquals("General Medicine")) {
+            List<String> list = new ArrayList<String>();
+            list.add("Dietetic Services");
+            list.add("Physiotherapy");
+            list.add("Child Care");
+            list.add("Chronic Care");
+            ArrayAdapter<String> dataAdapter2 = new ArrayAdapter<String>(this,
+                    android.R.layout.simple_spinner_item, list);
+            dataAdapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            dataAdapter2.notifyDataSetChanged();
+            serviceSpinner_create.setAdapter(dataAdapter2);
+        }
+
     }
     public void showDatePickerDialog(View v) {
         DialogFragment date = new DatePickerFragment();
@@ -98,5 +152,52 @@ public class CreateAppointmentActivity extends Activity implements AdapterView.O
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
 
+    }
+
+    @Override
+    public void onStart(){
+        super.onStart();
+    }
+
+    @Override
+    public void onResume(){
+        super.onResume();
+    }
+
+    @Override
+    public void onPause(){
+        super.onPause();
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState){
+        super.onSaveInstanceState(outState);
+    }
+
+    @Override
+    public void onRestoreInstanceState(Bundle savedInstanceState){
+        super.onRestoreInstanceState(savedInstanceState);
+    }
+
+    @Override
+    public void onStop(){
+        super.onStop();
+    }
+
+    @Override
+    public void onDestroy(){
+        super.onDestroy();
+    }
+
+    public void showTimepicker(View v){
+        FragmentManager manager = getFragmentManager();
+        TimePickerFragment timepicker = new TimePickerFragment();
+        timepicker.show(manager, "TimePicker");
+    }
+
+    public void showDatePicker(View v){
+        FragmentManager manager = getFragmentManager();
+        DatePickerFragment datepicker = new DatePickerFragment();
+        datepicker.show(manager, "Datepicker");
     }
 }

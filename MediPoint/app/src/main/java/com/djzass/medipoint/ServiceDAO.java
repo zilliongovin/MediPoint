@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.util.Log;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,10 +13,13 @@ import java.util.List;
  * Created by Deka on 28/3/2015.
  */
 public class ServiceDAO  extends DbDAO{
+    public static final String SERVICE_WITH_PREFIX = "service.";
+    public static final String SPECIALTY_WITH_PREFIX = "specialty.";
+
     private static final String WHERE_ID_EQUALS = DbContract.ServiceEntry.COLUMN_NAME_SERVICE_ID
             + " =?";
 
-    public ServiceDAO(Context context) {
+    public ServiceDAO(Context context) throws SQLException {
         super(context);
     }
 
@@ -28,7 +32,7 @@ public class ServiceDAO  extends DbDAO{
     public long insertService(Service service){
         ContentValues values = new ContentValues();
         values.put(DbContract.ServiceEntry.COLUMN_NAME_SERVICE_NAME, service.getName());
-        values.put(DbContract.ServiceEntry.COLUMN_NAME_SPECIALTY_ID, service.getSpecialty().getId());
+        values.put(DbContract.ServiceEntry.COLUMN_NAME_SPECIALTY_ID, service.getSpecialtyId());
         values.put(DbContract.ServiceEntry.COLUMN_NAME_SERVICE_DURATION, service.getDuration());
         values.put(DbContract.ServiceEntry.COLUMN_NAME_PREAPPOINTMENT_ACTIONS, service.getPreAppointmentActions());
 
@@ -43,19 +47,27 @@ public class ServiceDAO  extends DbDAO{
      * */
     public List<Service> getServices() {
         List<Service> services = new ArrayList<Service>();
-        //MUST JOIN TABLES
 
-        // Select all rows
-        // String selectQuery = "SELECT  * FROM " + DbContract.ServiceEntry.TABLE_NAME;
-        Cursor cursor = database.query(DbContract.ServiceEntry.TABLE_NAME,
-                new String[] { DbContract.ServiceEntry.COLUMN_NAME_SERVICE_ID,
-                        DbContract.ServiceEntry.COLUMN_NAME_SERVICE_NAME }, null, null, null, null,
-                null);
+        String query = "SELECT " + SERVICE_WITH_PREFIX + DbContract.ServiceEntry.COLUMN_NAME_SERVICE_ID + ", " +
+                SERVICE_WITH_PREFIX + DbContract.ServiceEntry.COLUMN_NAME_SERVICE_NAME + ", " +
+                SERVICE_WITH_PREFIX + DbContract.ServiceEntry.COLUMN_NAME_SERVICE_DURATION + ", " +
+                SERVICE_WITH_PREFIX + DbContract.ServiceEntry.COLUMN_NAME_PREAPPOINTMENT_ACTIONS + ", " +
+                SERVICE_WITH_PREFIX + DbContract.SpecialtyEntry.COLUMN_NAME_SPECIALTY_NAME +
+                " FROM " + DbContract.ServiceEntry.TABLE_NAME + "service" + ", " +
+                DbContract.SpecialtyEntry.TABLE_NAME + "specialty WHERE " + SERVICE_WITH_PREFIX +
+                DbContract.ServiceEntry.COLUMN_NAME_SPECIALTY_ID + " = " + SPECIALTY_WITH_PREFIX +
+                DbContract.SpecialtyEntry.COLUMN_NAME_SPECIALTY_ID;
+
+        Log.d("query", query);
+        Cursor cursor = database.rawQuery(query, null);
 
         while (cursor.moveToNext()) {
             Service service= new Service();
             service.setId(cursor.getInt(0));
             service.setName(cursor.getString(1));
+            service.setDuration(cursor.getInt(2));
+            service.setPreAppointmentActions(cursor.getString(3));
+            service.getDuration();
             services.add(service);
         }
 
@@ -65,9 +77,9 @@ public class ServiceDAO  extends DbDAO{
     /*
         FETCH BY ID
      */
-    //MUST JOIN TABLES
     //READ SINGLE ROW
     public Service getServiceById(long serviceId) {
+
         String selectQuery = "SELECT  * FROM " + DbContract.ServiceEntry.TABLE_NAME + " WHERE "
                 + DbContract.ServiceEntry.COLUMN_NAME_SERVICE_ID + " = " + serviceId;
 
@@ -94,7 +106,7 @@ public class ServiceDAO  extends DbDAO{
 >>>>>>> origin/master
         ContentValues values = new ContentValues();
         values.put(DbContract.ServiceEntry.COLUMN_NAME_SERVICE_NAME, service.getName());
-        values.put(DbContract.ServiceEntry.COLUMN_NAME_SPECIALTY_ID, service.getSpecialty().getId());
+        values.put(DbContract.ServiceEntry.COLUMN_NAME_SPECIALTY_ID, service.getSpecialtyId());
         values.put(DbContract.ServiceEntry.COLUMN_NAME_SERVICE_DURATION, service.getDuration());
         values.put(DbContract.ServiceEntry.COLUMN_NAME_PREAPPOINTMENT_ACTIONS, service.getPreAppointmentActions());
 

@@ -32,23 +32,20 @@ import java.lang.String;
 
 public class Appointment {
     private int id;
-    private Clinic clinic;
-    private Patient patient;
-    private Doctor doctor;
+    private int clinic;
+    private int patient;
+    private int doctor;
     private Calendar date;
-    private Service service;
-    private Specialty specialty;
+    private int service;
+    private int specialty;
     private String preAppointmentActions;
     private Timeframe timeframe;
-    private boolean active = false; //1= active, 0= inactive
 
 
 
-    public Appointment() {
-        active = false;
-    }
+    public Appointment() {}
 
-    public Appointment(Patient patient, Specialty specialty, Clinic clinic, Doctor doctor,
+    public Appointment(int patient, int specialty, int clinic, int doctor,
                        Calendar date, Timeframe timeframe, String preAppointmentActions) {
         this.id = id;
 >>>>>>> origin/master
@@ -116,43 +113,43 @@ public class Appointment {
         this.id = appointmentId;
     }
 
-    public Patient getPatient() {
+    public int getPatient() {
         return this.patient;
     }
 
-    public void setPatient(Patient patient) {
+    public void setPatient(int patient) {
         this.patient = patient;
     }
 
-    public Specialty getSpecialty() {
+    public int getSpecialty() {
         return specialty;
     }
 
-    public void setSpecialty(Specialty specialty) {
+    public void setSpecialty(int specialty) {
         this.specialty = specialty;
     }
 
-    public Clinic getClinic() {
+    public int getClinic() {
         return this.clinic;
     }
 
-    public void setClinic(Clinic clinic) {
+    public void setClinic(int clinic) {
         this.clinic = clinic;
     }
 
-    public Doctor getDoctor() {
+    public int getDoctor() {
         return this.doctor;
     }
 
-    public void setDoctor(Doctor doctor) {
+    public void setDoctor(int doctor) {
         this.doctor = doctor;
     }
 
-    public Service getService() {
+    public int getService() {
         return service;
     }
 
-    public void setService(Service service) {
+    public void setService(int service) {
         this.service = service;
     }
 
@@ -191,13 +188,6 @@ public class Appointment {
         this.preAppointmentActions = preAppointmentActions;
     }
 
-    public boolean isActive() {
-        return this.active;
-    }
-
-    public void setActive(boolean active) {
-        this.active = active;
-    }
 }
 <<<<<<< HEAD
 /*import android.os.Parcel;

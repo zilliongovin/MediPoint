@@ -59,7 +59,21 @@
         </activity>
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+        <activity
+            android:name=".Referral"
+            android:label="@string/referral">
+
+        </activity>
+
+        <activity android:name=".Medical_History"
+            android:label="@string/med_his">
+
+        </activity>
+
+>>>>>>> 49e9b696f1b6c1c2563389694bac34700083f3c5
 
 >>>>>>> origin/master
         <activity

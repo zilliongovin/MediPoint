@@ -35,7 +35,7 @@ public class ClinicDAO extends DbDAO{
     public long insertClinic(Clinic clinic){
         ContentValues values = new ContentValues();
         values.put(DbContract.ClinicEntry.COLUMN_NAME_CLINIC_NAME, clinic.getName());
-        values.put(DbContract.ClinicEntry.COLUMN_NAME_COUNTRY_ID, clinic.getCountry().getName());
+        values.put(DbContract.ClinicEntry.COLUMN_NAME_COUNTRY, clinic.getCountry());
         values.put(DbContract.ClinicEntry.COLUMN_NAME_ZIPCODE, clinic.getZipCode());
         values.put(DbContract.ClinicEntry.COLUMN_NAME_TEL_NUMBER, clinic.getTelNumber());
         values.put(DbContract.ClinicEntry.COLUMN_NAME_FAX_NUMBER, clinic.getFaxNumber());
@@ -51,18 +51,21 @@ public class ClinicDAO extends DbDAO{
         List<Clinic> clinics = new ArrayList<Clinic>();
 
         // Select All rows
-        // String selectQuery = "SELECT  * FROM " + DbContract.ClinicEntry.TABLE_NAME;
+        //String selectQuery = "SELECT  * FROM " + DbContract.ClinicEntry.TABLE_NAME;
+        //Log.d("query", query);
+        //Cursor cursor = database.rawQuery(query, null);
         Cursor cursor = database.query(DbContract.ClinicEntry.TABLE_NAME,
                 new String[] { DbContract.ClinicEntry.COLUMN_NAME_CLINIC_ID,
                         DbContract.ClinicEntry.COLUMN_NAME_CLINIC_NAME,
                         DbContract.ClinicEntry.COLUMN_NAME_ADDRESS,
-                        DbContract.ClinicEntry.COLUMN_NAME_COUNTRY_ID,
+                        DbContract.ClinicEntry.COLUMN_NAME_COUNTRY,
                         DbContract.ClinicEntry.COLUMN_NAME_ZIPCODE,
                         DbContract.ClinicEntry.COLUMN_NAME_TEL_NUMBER,
                         DbContract.ClinicEntry.COLUMN_NAME_FAX_NUMBER,
                         DbContract.ClinicEntry.COLUMN_NAME_EMAIL
                 }, null, null, null, null,
                 null);
+<<<<<<< HEAD
 <<<<<<< HEAD
 
         String query = "Select * FROM " + DbContract.ClinicEntry.TABLE_NAME + ", " + DbContract.CountryEntry.TABLE_NAME
@@ -91,12 +94,15 @@ public class ClinicDAO extends DbDAO{
 =======
         //Cursor c = database.rawQuery(query, null);
 >>>>>>> origin/master
+=======
+>>>>>>> 49e9b696f1b6c1c2563389694bac34700083f3c5
 
         while (cursor.moveToNext()) {
             Clinic clinic= new Clinic();
             clinic.setId(cursor.getInt(0));
             clinic.setName(cursor.getString(1));
             clinic.setAddress(cursor.getString(2));
+<<<<<<< HEAD
 
 <<<<<<< HEAD
             Country country = new Country();
@@ -107,6 +113,9 @@ public class ClinicDAO extends DbDAO{
             clinic.setTelNumber(cursor.getString(5));
             clinic.setFaxNumber(cursor.getString(6));
 =======
+=======
+            cli
+>>>>>>> 49e9b696f1b6c1c2563389694bac34700083f3c5
             //Country country = new Country();
             //country.setId(cursor.getInt(3));
             //clinic.setCountry(country);
@@ -134,7 +143,7 @@ public class ClinicDAO extends DbDAO{
                 DbContract.ClinicEntry.COLUMN_NAME_CLINIC_ID,
                 DbContract.ClinicEntry.COLUMN_NAME_CLINIC_NAME,
                 DbContract.ClinicEntry.COLUMN_NAME_ADDRESS,
-                DbContract.ClinicEntry.COLUMN_NAME_COUNTRY_ID,
+                DbContract.ClinicEntry.COLUMN_NAME_COUNTRY,
                 DbContract.ClinicEntry.COLUMN_NAME_ZIPCODE,
                 DbContract.ClinicEntry.COLUMN_NAME_TEL_NUMBER,
                 DbContract.ClinicEntry.COLUMN_NAME_FAX_NUMBER,

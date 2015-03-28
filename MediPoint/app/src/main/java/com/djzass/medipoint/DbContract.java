@@ -25,12 +25,6 @@ public class DbContract {
         public static final String COLUMN_NAME_PASSWORD = "password";
     }
 
-    public static abstract class CountryEntry implements BaseColumns{
-        public static final String TABLE_NAME = "country";
-        public static final String COLUMN_NAME_COUNTRY_ID = "countryId";
-        public static final String COLUMN_NAME_COUNTRY_NAME = "countryName";
-    }
-
     public static abstract class AppointmentEntry implements BaseColumns {
         public static final String TABLE_NAME = "appointment";
         public static final String COLUMN_NAME_APPOINTMENT_ID = "appoinmentId";
@@ -50,7 +44,7 @@ public class DbContract {
         public static final String COLUMN_NAME_CLINIC_ID = "clinicId";
         public static final String COLUMN_NAME_CLINIC_NAME = "name";
         public static final String COLUMN_NAME_ADDRESS = "address";
-        public static final String COLUMN_NAME_COUNTRY_ID = "countryId";
+        public static final String COLUMN_NAME_COUNTRY = "country";
         public static final String COLUMN_NAME_ZIPCODE = "zipCode";
         public static final String COLUMN_NAME_TEL_NUMBER = "telNumber";
         public static final String COLUMN_NAME_FAX_NUMBER = "faxNumber";
@@ -85,8 +79,8 @@ public class DbContract {
     public static abstract class ServiceEntry implements BaseColumns{
         public static final String TABLE_NAME = "service";
         public static final String COLUMN_NAME_SERVICE_ID = "serviceId";
-        public static final String COLUMN_NAME_SERVICE_NAME = "specialtyName";
         public static final String COLUMN_NAME_SPECIALTY_ID = "specialtyId";
+        public static final String COLUMN_NAME_SERVICE_NAME = "specialtyName";
         public static final String COLUMN_NAME_SERVICE_DURATION = "serviceDuration";
         public static final String COLUMN_NAME_PREAPPOINTMENT_ACTIONS = "preAppointmentActions";
     }
@@ -95,12 +89,12 @@ public class DbContract {
         public static final String TABLE_NAME = "patient";
         public static final String COLUMN_NAME_PATIENT_ID = "patientId";
         public static final String COLUMN_NAME_PATIENT_ID_STRING = "patientIdString";
-        public static final String COLUMN_NAME_ACCOUNT_ID = "accountId";
         public static final String COLUMN_NAME_AGE = "age";
         public static final String COLUMN_NAME_MEDICAL_HISTORY = "medicalHistory";
         public static final String COLUMN_NAME_ALLERGIES = "allergies";
         public static final String COLUMN_NAME_TREATMENTS = "treatments";
         public static final String COLUMN_NAME_MEDICATIONS = "medications";
+
     }
 
 }

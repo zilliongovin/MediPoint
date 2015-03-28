@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.util.Log;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,7 +16,7 @@ public class PatientDAO extends DbDAO{
     private static final String WHERE_ID_EQUALS = DbContract.PatientEntry.COLUMN_NAME_PATIENT_ID
             + " =?";
 
-    public PatientDAO(Context context) {
+    public PatientDAO(Context context) throws SQLException {
         super(context);
     }
 

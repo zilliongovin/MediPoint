@@ -27,11 +27,16 @@ public class DoctorScheduleDAO extends DbDAO{
     public long insertDoctorSchedule(DoctorSchedule doctorSchedule){
         ContentValues values = new ContentValues();
 <<<<<<< HEAD
+<<<<<<< HEAD
         values.put(DbContract.DoctorScheduleEntry.COLUMN_NAME_DOCTOR_ID, doctorSchedule.getDoctor().getId());
 =======
         values.put(DbContract.DoctorScheduleEntry.COLUMN_NAME_DOCTOR_ID, doctorSchedule.getDoctor().getDID());
 >>>>>>> origin/master
         values.put(DbContract.DoctorScheduleEntry.COLUMN_NAME_CLINIC_ID, doctorSchedule.getClinic().getId());
+=======
+        values.put(DbContract.DoctorScheduleEntry.COLUMN_NAME_DOCTOR_ID, doctorSchedule.getDoctorId().getDID());
+        values.put(DbContract.DoctorScheduleEntry.COLUMN_NAME_CLINIC_ID, doctorSchedule.getClinicId().getId());
+>>>>>>> 49e9b696f1b6c1c2563389694bac34700083f3c5
         values.put(DbContract.DoctorScheduleEntry.COLUMN_NAME_DAY, doctorSchedule.getDay());
         values.put(DbContract.DoctorScheduleEntry.COLUMN_NAME_START_TIME, doctorSchedule.getTimeframe().getStartTime());
         values.put(DbContract.DoctorScheduleEntry.COLUMN_NAME_END_TIME, doctorSchedule.getTimeframe().getEndTime());
@@ -66,9 +71,9 @@ public class DoctorScheduleDAO extends DbDAO{
             DoctorSchedule doctorSchedule= new DoctorSchedule();
             doctorSchedule.setId(cursor.getInt(0));
             Clinic clinic = new Clinic();
-            doctorSchedule.setClinic(clinic);
+            doctorSchedule.setClinicId(clinic);
             Doctor doctor = new Doctor();
-            doctorSchedule.setDoctor(doctor);
+            doctorSchedule.setDoctorId(doctor);
             doctorSchedule.setDay(cursor.getString(3));
             doctorSchedule.setTimeframe(new Timeframe(cursor.getInt(4), cursor.getInt(5)));
             doctorSchedules.add(doctorSchedule);
@@ -110,9 +115,14 @@ public class DoctorScheduleDAO extends DbDAO{
 =======
     public long update(DoctorSchedule doctorSchedule) {
         ContentValues values = new ContentValues();
+<<<<<<< HEAD
         values.put(DbContract.DoctorScheduleEntry.COLUMN_NAME_DOCTOR_ID, doctorSchedule.getDoctor().getDID());
 >>>>>>> origin/master
         values.put(DbContract.DoctorScheduleEntry.COLUMN_NAME_CLINIC_ID, doctorSchedule.getClinic().getId());
+=======
+        values.put(DbContract.DoctorScheduleEntry.COLUMN_NAME_DOCTOR_ID, doctorSchedule.getDoctorId().getDID());
+        values.put(DbContract.DoctorScheduleEntry.COLUMN_NAME_CLINIC_ID, doctorSchedule.getClinicId().getId());
+>>>>>>> 49e9b696f1b6c1c2563389694bac34700083f3c5
         values.put(DbContract.DoctorScheduleEntry.COLUMN_NAME_DAY, doctorSchedule.getDay());
         values.put(DbContract.DoctorScheduleEntry.COLUMN_NAME_START_TIME, doctorSchedule.getTimeframe().getStartTime());
         values.put(DbContract.DoctorScheduleEntry.COLUMN_NAME_END_TIME, doctorSchedule.getTimeframe().getEndTime());

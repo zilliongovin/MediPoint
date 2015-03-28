@@ -1,5 +1,6 @@
 package com.djzass.medipoint;
 
+import java.lang.String;
 import java.util.ArrayList;
 import java.util.Calendar;
 
@@ -14,13 +15,13 @@ public class Clinic {
     private int telNumber;
     private int faxNumber;
     private String email;
-    private Country country;
+    private String country;
 
     public Clinic(){
 
     }
 
-    public Clinic(int id, String name, String address, int zipCode, int telNumber, int faxNumber, String email, Country country){
+    public Clinic(int id, String name, String address, int zipCode, int telNumber, int faxNumber, String email, String country){
         this.id = id;
         this.name = name;
         this.address = address;
@@ -31,7 +32,7 @@ public class Clinic {
         this.country = country;
     }
 
-    public Clinic(String name, String address, int zipCode, int telNumber, int faxNumber, String email, Country country){
+    public Clinic(String name, String address, int zipCode, int telNumber, int faxNumber, String email, String country){
         this.name = name;
         this.address = address;
         this.country = country;
@@ -85,10 +86,10 @@ public class Clinic {
     public void setEmail(String email) {
         this.email = email;
     }
-    public Country getCountry() {
+    public String getCountry() {
         return country;
     }
-    public void setCountry(Country country) {
+    public void setCountry(String country) {
         this.country = country;
     }
     public String toString(){

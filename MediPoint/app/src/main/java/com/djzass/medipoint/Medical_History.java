@@ -1,25 +1,22 @@
 package com.djzass.medipoint;
 
+/**
+ * Created by HP on 28/3/2015.
+ */
+
 import android.app.Activity;
-import android.app.DialogFragment;
-import android.app.Fragment;
-import android.app.FragmentManager;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 
-import java.util.Calendar;
 
-/**
- * Created by Deka on 21/3/2015.
- */
-public class CreateAppointment extends Activity{
+public class Medical_History extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.create_appointment);
-}
+        setContentView(R.layout.activity_medical_history);
+    }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -41,13 +38,5 @@ public class CreateAppointment extends Activity{
         }
 
         return super.onOptionsItemSelected(item);
-    }
-    public void showDatePickerDialog(View v) {
-        DialogFragment date = new DatePickerFragment();
-        date.show(getFragmentManager(), "datePicker");
-    }
-    public void showTimePickerDialog(View v) {
-        DialogFragment time = new TimePickerFragment();
-        time.show(getFragmentManager(), "timePicker");
     }
 }

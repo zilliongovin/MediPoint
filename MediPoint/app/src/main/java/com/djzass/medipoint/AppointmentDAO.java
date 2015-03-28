@@ -1,5 +1,6 @@
 package com.djzass.medipoint;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,7 +24,7 @@ public class AppointmentDAO extends DbDAO{
     private static final String WHERE_ID_EQUALS = DbContract.AppointmentEntry.COLUMN_NAME_APPOINTMENT_ID
             + " =?";
 
-    public AppointmentDAO(Context context) {
+    public AppointmentDAO(Context context) throws SQLException {
         super(context);
     }
 
@@ -128,6 +129,7 @@ public class AppointmentDAO extends DbDAO{
         //MUST JOIN
         // Select all rows
         // String selectQuery = "SELECT  * FROM " + DbContract.AppointmentEntry.TABLE_NAME;
+
         Cursor cursor = database.query(DbContract.AppointmentEntry.TABLE_NAME,
                 new String[] {DbContract.AppointmentEntry.COLUMN_NAME_APPOINTMENT_ID,
                         DbContract.AppointmentEntry.COLUMN_NAME_CLINIC_ID,
