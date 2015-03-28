@@ -1,6 +1,7 @@
 package com.djzass.medipoint;
 
 import android.app.Activity;
+import android.app.FragmentManager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -109,5 +110,51 @@ public class EditAppointmentActivity extends Activity implements AdapterView.OnI
         // Toast.makeText(this, "Failed to edit appointment, please try again", Toast.LENGTH_SHORT).show();
     }
 
+    @Override
+    public void onStart(){
+        super.onStart();
+    }
+
+    @Override
+    public void onResume(){
+        super.onResume();
+    }
+
+    @Override
+    public void onPause(){
+        super.onPause();
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState){
+        super.onSaveInstanceState(outState);
+    }
+
+    @Override
+    public void onRestoreInstanceState(Bundle savedInstanceState){
+        super.onRestoreInstanceState(savedInstanceState);
+    }
+
+    @Override
+    public void onStop(){
+        super.onStop();
+    }
+
+    @Override
+    public void onDestroy(){
+        super.onDestroy();
+    }
+
+    public void showTimepicker(View v){
+        FragmentManager manager = getFragmentManager();
+        TimePickerFragment timepicker = new TimePickerFragment();
+        timepicker.show(manager, "TimePicker");
+    }
+
+    public void showDatePicker(View v){
+        FragmentManager manager = getFragmentManager();
+        DatePickerFragment datepicker = new DatePickerFragment();
+        datepicker.show(manager, "Datepicker");
+    }
 }
 

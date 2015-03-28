@@ -1,16 +1,9 @@
 package com.djzass.medipoint;
 
 import android.app.Activity;
-
-//import android.app.DialogFragment;
-<<<<<<< HEAD
-=======
 import android.app.DialogFragment;
-<<<<<<< HEAD
->>>>>>> origin/master
-=======
+
 import android.app.FragmentManager;
->>>>>>> 49e9b696f1b6c1c2563389694bac34700083f3c5
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
