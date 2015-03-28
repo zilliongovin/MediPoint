@@ -1,10 +1,9 @@
 package com.djzass.medipoint;
 
-<<<<<<< HEAD
 import java.util.Date;
-        import java.util.Calendar;
-        import java.lang.String;
-        import java.util.ArrayList;
+import java.util.Calendar;
+import java.lang.String;
+import java.util.ArrayList;
 
 public class Appointment {
     private int appointmentId;
@@ -17,10 +16,11 @@ public class Appointment {
     private ArrayList<String> preAppointmentActions;
     private boolean active = false; //1= active, 0= inactive
 
-    public Appointment(int appointmentId){
+    public Appointment(int appointmentId) {
         this.appointmentId = appointmentId;
         active = false;
     }
+
     public Appointment(int appointmentId, String patient, String specialty, String clinic, String doctor,
                        Calendar date, Timeframe timeframe, ArrayList<String> preAppointmentActions) {
         this.appointmentId = appointmentId;
@@ -30,7 +30,7 @@ public class Appointment {
         this.doctor = doctor;
         this.date = date;
         this.timeframe = timeframe;
-        this.date.set(Calendar.HOUR_OF_DAY,  timeframe.getStartTime() / 2);
+        this.date.set(Calendar.HOUR_OF_DAY, timeframe.getStartTime() / 2);
         this.date.set(Calendar.MINUTE, 30 * (timeframe.getStartTime() % 2));
         this.preAppointmentActions = new ArrayList<String>();
     }
@@ -83,12 +83,13 @@ public class Appointment {
         this.date = date;
     }
 
-    public Timeframe getTimeframe(){
+    public Timeframe getTimeframe() {
         return this.timeframe;
     }
-    public void setTimeframe(Timeframe timeframe){
+
+    public void setTimeframe(Timeframe timeframe) {
         this.timeframe = timeframe;
-        this.date.set(Calendar.HOUR_OF_DAY,  timeframe.getStartTime() / 2);
+        this.date.set(Calendar.HOUR_OF_DAY, timeframe.getStartTime() / 2);
         this.date.set(Calendar.MINUTE, 30 * (timeframe.getStartTime() % 2));
     }
 
@@ -100,13 +101,15 @@ public class Appointment {
         this.preAppointmentActions = preAppointmentActions;
     }
 
-    public boolean isActive(){
+    public boolean isActive() {
         return this.active;
     }
 
-    public void setActive(boolean active){
+    public void setActive(boolean active) {
         this.active = active;
     }
+}
+/*
 =======
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -116,7 +119,7 @@ import java.util.Date;
 
 /**
  * Created by Deka on 25/3/2015.
- */
+ *//*
 public class Appointment implements Parcelable{
     /*private int appoinmentId;
     private Clinic clinic;
@@ -224,6 +227,5 @@ public class Appointment implements Parcelable{
         if (id != other.id)
             return false;
         return true;
-    }*/
->>>>>>> origin/master
-}
+    }
+}*/

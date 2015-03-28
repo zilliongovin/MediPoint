@@ -17,7 +17,7 @@ public class AppointmentManager {
         }
         for (Appointment temp : appointments) {
             if (temp.isActive()){
-                if (temp.getDate() == date && (temp.getPatient() == patient || temp.getDoctor() == doctor)) {
+                if (temp.getDate().compareTo(date)==0 && (temp.getPatient() == patient || temp.getDoctor() == doctor)) {
                     for (int i=temp.getTimeframe().getStartTime(); i<=temp.getTimeframe().getEndTime(); ++i){
                         ret.set(i,false);
                     }
