@@ -6,7 +6,11 @@ import java.util.ArrayList;
  * Created by Deka on 26/3/2015.
  */
 public class Doctor {
+<<<<<<< HEAD
     private int DId;
+=======
+    private int DID;
+>>>>>>> origin/master
     private String doctorId;
     private String name;
     private Specialty specialization;
@@ -19,9 +23,14 @@ public class Doctor {
 
     }
 
+<<<<<<< HEAD
     public Doctor(int id, String name, Specialty specialization,
                   int practiceDuration) {
         this.id = id;
+=======
+    public Doctor(String name, Specialty specialization,
+                  int practiceDuration) {
+>>>>>>> origin/master
         this.name = name;
         this.specialization = specialization;
         this.practiceDuration = practiceDuration;
@@ -40,7 +49,11 @@ public class Doctor {
     }
 
     public void setDoctorId() {
+<<<<<<< HEAD
         this.doctorId = "D" + String.format("%07d", this.DId);
+=======
+        this.doctorId = "D" + String.format("%07d", this.DID);
+>>>>>>> origin/master
     }
 
     public String getName() {
@@ -91,17 +104,30 @@ public class Doctor {
         }
     }
 
+<<<<<<< HEAD
     public int getDId() {
         return DId;
     }
 
     public void setDId(int DId) {
         this.DId = DId;
+=======
+    public int getDID() {
+        return this.DID;
+    }
+
+    public void setId(int DID) {
+        this.DID = DID;
+>>>>>>> origin/master
     }
 
     public String toString(){
         return 	"=== Printing Doctor Info ==="+"\n"+
+<<<<<<< HEAD
                 "ID: " + this.id + "\n" +
+=======
+                "ID: " + this.DID + "\n" +
+>>>>>>> origin/master
                 "Name: " + this.name + "\n" +
                 "Practice Duration: " + this.practiceDuration+ "\n" +
                 "Specialization: " + this.specialization.getName() + "\n"

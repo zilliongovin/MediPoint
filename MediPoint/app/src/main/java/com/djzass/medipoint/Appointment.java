@@ -1,5 +1,6 @@
 package com.djzass.medipoint;
 
+<<<<<<< HEAD
 
 import java.util.Date;
 import java.util.Calendar;
@@ -25,6 +26,32 @@ public class Appointment {
     public Appointment(int appointmentId, String patient, String specialty, String clinic, String doctor,
                        Calendar date, Timeframe timeframe, ArrayList<String> preAppointmentActions) {
         this.appointmentId = appointmentId;
+=======
+import java.util.Calendar;
+import java.lang.String;
+
+public class Appointment {
+    private int id;
+    private Clinic clinic;
+    private Patient patient;
+    private Doctor doctor;
+    private Calendar date;
+    private Service service;
+    private Specialty specialty;
+    private String preAppointmentActions;
+    private Timeframe timeframe;
+    private boolean active = false; //1= active, 0= inactive
+
+
+
+    public Appointment() {
+        active = false;
+    }
+
+    public Appointment(Patient patient, Specialty specialty, Clinic clinic, Doctor doctor,
+                       Calendar date, Timeframe timeframe, String preAppointmentActions) {
+        this.id = id;
+>>>>>>> origin/master
         this.specialty = specialty;
         this.patient = patient;
         this.clinic = clinic;
@@ -33,6 +60,7 @@ public class Appointment {
         this.timeframe = timeframe;
         this.date.set(Calendar.HOUR_OF_DAY, timeframe.getStartTime() / 2);
         this.date.set(Calendar.MINUTE, 30 * (timeframe.getStartTime() % 2));
+<<<<<<< HEAD
         this.preAppointmentActions = new ArrayList<String>();
     }
 
@@ -76,6 +104,59 @@ public class Appointment {
         this.doctor = doctor;
     }
 
+=======
+        this.preAppointmentActions = preAppointmentActions;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int appointmentId) {
+        this.id = appointmentId;
+    }
+
+    public Patient getPatient() {
+        return this.patient;
+    }
+
+    public void setPatient(Patient patient) {
+        this.patient = patient;
+    }
+
+    public Specialty getSpecialty() {
+        return specialty;
+    }
+
+    public void setSpecialty(Specialty specialty) {
+        this.specialty = specialty;
+    }
+
+    public Clinic getClinic() {
+        return this.clinic;
+    }
+
+    public void setClinic(Clinic clinic) {
+        this.clinic = clinic;
+    }
+
+    public Doctor getDoctor() {
+        return this.doctor;
+    }
+
+    public void setDoctor(Doctor doctor) {
+        this.doctor = doctor;
+    }
+
+    public Service getService() {
+        return service;
+    }
+
+    public void setService(Service service) {
+        this.service = service;
+    }
+
+>>>>>>> origin/master
     public Calendar getDate() {
         return date;
     }
@@ -94,11 +175,19 @@ public class Appointment {
         this.date.set(Calendar.MINUTE, 30 * (timeframe.getStartTime() % 2));
     }
 
+<<<<<<< HEAD
     public ArrayList<String> getPreAppointmentActions() {
         return preAppointmentActions;
     }
 
     public void setPreAppointmentActions(ArrayList<String> preAppointmentActions) {
+=======
+    public String getPreAppointmentActions() {
+        return this.preAppointmentActions;
+    }
+
+    public void setPreAppointmentActions(String preAppointmentActions) {
+>>>>>>> origin/master
         this.preAppointmentActions = preAppointmentActions;
     }
 
@@ -110,7 +199,13 @@ public class Appointment {
         this.active = active;
     }
 }
+<<<<<<< HEAD
 /*import android.os.Parcel;
+=======
+/*
+=======
+import android.os.Parcel;
+>>>>>>> origin/master
 import android.os.Parcelable;
 
 import java.util.Calendar;
@@ -118,8 +213,14 @@ import java.util.Date;
 
 /**
  * Created by Deka on 25/3/2015.
+<<<<<<< HEAD
 public class Appointment implements Parcelable{
     private int appoinmentId;
+=======
+ *//*
+public class Appointment implements Parcelable{
+    /*private int appoinmentId;
+>>>>>>> origin/master
     private Clinic clinic;
     //private Doctor doctor;
     //private Timestamp ;
@@ -131,6 +232,7 @@ public class Appointment implements Parcelable{
     private Date startTime;
     private Date endTime;
 
+<<<<<<< HEAD
     public static final String TABLE_NAME = "appointment";
     public static final String COLUMN_NAME_APPOINTMENT_ID = "appoinmentId";
     public static final String COLUMN_NAME_CLINIC_ID = "clinicId";
@@ -142,6 +244,8 @@ public class Appointment implements Parcelable{
     public static final String COLUMN_NAME_PREAPPOINTMENT_ACTIONS = "preAppointmentActions";
     public static final String COLUMN_NAME_START_TIME = "startTime";
     public static final String COLUMN_NAME_END_TIME = "endTime";
+=======
+>>>>>>> origin/master
 
 
     public Appointment() {
@@ -225,7 +329,13 @@ public class Appointment implements Parcelable{
         if (id != other.id)
             return false;
         return true;
+<<<<<<< HEAD
 
     }
 }
 */
+=======
+    }
+}*/
+
+>>>>>>> origin/master

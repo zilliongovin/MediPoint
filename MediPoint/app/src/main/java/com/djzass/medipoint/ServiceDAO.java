@@ -87,7 +87,11 @@ public class ServiceDAO  extends DbDAO{
         UPDATE
        returns the number of rows affected by the update
      */
+<<<<<<< HEAD
     public int update(Service service) {
+=======
+    public long update(Service service) {
+>>>>>>> origin/master
         ContentValues values = new ContentValues();
         values.put(DbContract.ServiceEntry.COLUMN_NAME_SERVICE_NAME, service.getName());
         values.put(DbContract.ServiceEntry.COLUMN_NAME_SPECIALTY_ID, service.getSpecialty().getId());
@@ -124,7 +128,11 @@ public class ServiceDAO  extends DbDAO{
         services.add(s2);
         services.add(s3);
         for (Service s: services) {
+<<<<<<< HEAD
             database.insert(s);
+=======
+            insertService(s);
+>>>>>>> origin/master
         }
     }
 }

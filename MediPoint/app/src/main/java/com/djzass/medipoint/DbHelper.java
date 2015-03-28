@@ -87,8 +87,8 @@ public class DbHelper extends SQLiteOpenHelper {
             DbContract.AppointmentEntry.COLUMN_NAME_PATIENT_ID + CHAR_EIGHT_TYPE + COMMA_SEP +
             DbContract.AppointmentEntry.COLUMN_NAME_DOCTOR_ID + CHAR_EIGHT_TYPE + COMMA_SEP +
             DbContract.AppointmentEntry.COLUMN_NAME_DATE_TIME + DATETIME_TYPE + COMMA_SEP +
-            DbContract.AppointmentEntry.COLUMN_NAME_START_TIME + DATETIME_TYPE + COMMA_SEP +
-            DbContract.AppointmentEntry.COLUMN_NAME_END_TIME + DATETIME_TYPE + COMMA_SEP +
+            DbContract.AppointmentEntry.COLUMN_NAME_START_TIME + INT_TYPE + COMMA_SEP +
+            DbContract.AppointmentEntry.COLUMN_NAME_END_TIME + INT_TYPE + COMMA_SEP +
             DbContract.AppointmentEntry.COLUMN_NAME_SERVICE_ID + INT_TYPE + COMMA_SEP +
             DbContract.AppointmentEntry.COLUMN_NAME_SPECIALTY_ID + INT_TYPE + COMMA_SEP +
             FOREIGN_KEY + DbContract.AppointmentEntry.COLUMN_NAME_CLINIC_ID + REFERENCES + DbContract.ClinicEntry.TABLE_NAME +

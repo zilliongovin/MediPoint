@@ -14,7 +14,10 @@ import java.util.List;
 public class DoctorDAO extends DbDAO{
     private static final String WHERE_ID_EQUALS = DbContract.DoctorEntry.COLUMN_NAME_DOCTOR_ID
             + " =?";
+<<<<<<< HEAD
 
+=======
+>>>>>>> origin/master
     private SpecialtyDAO specialtyDao;
 
     public DoctorDAO(Context context) {
@@ -23,7 +26,11 @@ public class DoctorDAO extends DbDAO{
 
     /* CREATE/SAVE
     Inserting doctor into doctors table and return the row id if insertion successful,
+<<<<<<< HEAD
     otherwise -1 will be returned
+=======
+     otherwise -1 will be returned
+>>>>>>> origin/master
      */
     public long insertDoctor(Doctor doctor){
         ContentValues values = new ContentValues();
@@ -48,7 +55,10 @@ public class DoctorDAO extends DbDAO{
         // String selectQuery = "SELECT  * FROM " + DbContract.DoctorEntry.TABLE_NAME;
         Cursor cursor = database.query(DbContract.DoctorEntry.TABLE_NAME,
                 new String[] { DbContract.DoctorEntry.COLUMN_NAME_DOCTOR_ID,
+<<<<<<< HEAD
 
+=======
+>>>>>>> origin/master
                         DbContract.DoctorEntry.COLUMN_NAME_DOCTOR_ID_STRING,
                         DbContract.DoctorEntry.COLUMN_NAME_DOCTOR_NAME,
                         DbContract.DoctorEntry.COLUMN_NAME_SPECIALIZATION_ID,
@@ -61,8 +71,12 @@ public class DoctorDAO extends DbDAO{
             doctor.setId(cursor.getInt(0));
             doctor.setDoctorId(cursor.getString(1));
             doctor.setName(cursor.getString(2));
+<<<<<<< HEAD
 
             doctor.setSpecialization(cursor.getInt(3));
+=======
+            //doctor.setSpecialization(cursor.getInt(3));
+>>>>>>> origin/master
             doctor.setPracticeDuration(cursor.getInt(4));
             doctors.add(doctor);
         }
@@ -90,7 +104,10 @@ public class DoctorDAO extends DbDAO{
         Doctor doctor = new Doctor();
         doctor.setId(c.getInt(c.getColumnIndex(DbContract.DoctorEntry.COLUMN_NAME_DOCTOR_ID)));
         doctor.setName(c.getString(c.getColumnIndex(DbContract.DoctorEntry.COLUMN_NAME_DOCTOR_NAME)));
+<<<<<<< HEAD
 
+=======
+>>>>>>> origin/master
         doctor.setSpecialization(specialtyDao.getSpecialtyById(c.getInt(c.getColumnIndex(DbContract.DoctorEntry.COLUMN_NAME_SPECIALIZATION_ID))));
         doctor.setPracticeDuration(c.getInt(c.getColumnIndex(DbContract.DoctorEntry.COLUMN_NAME_PRACTICE_DURATION)));
 
@@ -100,7 +117,10 @@ public class DoctorDAO extends DbDAO{
     /*  UPDATE
         returns the number of rows affected by the update
      */
+<<<<<<< HEAD
 
+=======
+>>>>>>> origin/master
     public long update(Doctor doctor) {
         ContentValues values = new ContentValues();
         values.put(DbContract.DoctorEntry.COLUMN_NAME_DOCTOR_ID_STRING, doctor.getDoctorId());
@@ -110,7 +130,11 @@ public class DoctorDAO extends DbDAO{
 
         long result = database.update(DbContract.DoctorEntry.TABLE_NAME, values,
                 WHERE_ID_EQUALS,
+<<<<<<< HEAD
                 new String[] { String.valueOf(doctor.getId()) });
+=======
+                new String[] { String.valueOf(doctor.getDID()) });
+>>>>>>> origin/master
         Log.d("Update Result:", "=" + result);
 
         return result;
@@ -122,7 +146,11 @@ public class DoctorDAO extends DbDAO{
      */
     public int deleteDoctor(Doctor doctor) {
         return database.delete(DbContract.DoctorEntry.TABLE_NAME,
+<<<<<<< HEAD
                 WHERE_ID_EQUALS, new String[] { doctor.getId() + "" });
+=======
+                WHERE_ID_EQUALS, new String[] { doctor.getDID() + "" });
+>>>>>>> origin/master
     }
     /*
         LOAD
@@ -138,7 +166,11 @@ public class DoctorDAO extends DbDAO{
         doctors.add(d2);
         doctors.add(d3);
         for (Doctor d: doctors) {
+<<<<<<< HEAD
             database.insert(d);
+=======
+            insertDoctor(d);
+>>>>>>> origin/master
         }
     }
 }

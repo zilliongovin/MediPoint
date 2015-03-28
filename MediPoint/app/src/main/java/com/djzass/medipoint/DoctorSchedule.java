@@ -4,12 +4,16 @@ package com.djzass.medipoint;
  * Created by Deka on 26/3/2015.
  */
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> origin/master
 import java.sql.Time;
 import java.util.Calendar;
 import java.util.HashMap;
 
 public class DoctorSchedule {
+<<<<<<< HEAD
 
     private Clinic clinic;
     private Day day;
@@ -20,6 +24,8 @@ public class DoctorSchedule {
         this.day = day;
         this.timeFrame = timeFrame;
 =======
+=======
+>>>>>>> origin/master
     private int id;
     private Doctor doctor;
     private Clinic clinic;
@@ -67,6 +73,7 @@ public class DoctorSchedule {
     public void setClinic(Clinic clinic) {
         this.clinic = clinic;
     }
+<<<<<<< HEAD
     public String getDay() {
         return day.getDay();
     }
@@ -79,6 +86,15 @@ public class DoctorSchedule {
                 "Day: " + this.day.getDay() + "\n" +
                 "Time: " + String.format("%02d", this.timeFrame.getStartHour()) + ":" + String.format("%02d", this.timeFrame.getStartMinute()) +
                 "-" + String.format("%02d", this.timeFrame.getEndHour()) + ":" + String.format("%02d", this.timeFrame.getEndMinute());
+=======
+
+    public String getDay() {
+        return day;
+    }
+
+    public void setDay(String day) {
+        this.day = day;
+>>>>>>> origin/master
     }
 
     public Timeframe getTimeframe() {

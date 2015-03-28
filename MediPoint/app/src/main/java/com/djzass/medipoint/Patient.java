@@ -1,11 +1,14 @@
 package com.djzass.medipoint;
 
+<<<<<<< HEAD
 
 /**
  * Created by Deka on 25/3/2015.
  */
 public class Patient {
 
+=======
+>>>>>>> origin/master
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -15,7 +18,11 @@ import java.util.Date;
  */
 
 public class Patient extends Account{
+<<<<<<< HEAD
     private int PId;
+=======
+    private int PID;
+>>>>>>> origin/master
     private String patientId;
     private int age;
     private ArrayList<Appointment> listOfAppointments;
@@ -47,12 +54,20 @@ public class Patient extends Account{
         this.listOfAppointments = new ArrayList<Appointment>();
     }
 
+<<<<<<< HEAD
     public String getPatientId() {
+=======
+    public String getPatientIdString() {
+>>>>>>> origin/master
         return patientId;
     }
 
     public void setPatientId() {
+<<<<<<< HEAD
         this.patientId = "P" + String.format("%07d", this.PId);
+=======
+        this.patientId = "P" + String.format("%07d", this.PID);
+>>>>>>> origin/master
     }
 
     public int getAge() {
@@ -68,12 +83,21 @@ public class Patient extends Account{
         return age;
     }
 
+<<<<<<< HEAD
     public int getPId() {
         return this.PId;
     }
 
     public void setPId(int PId) {
         this.PId = PId;
+=======
+    public int getPID() {
+        return this.PID;
+    }
+
+    public void setPID(int PID) {
+        this.PID = PID;
+>>>>>>> origin/master
     }
 
     public void setAge(int age) {
@@ -115,5 +139,8 @@ public class Patient extends Account{
     public void setMedicalHistory(String medicalHistory) {
         this.medicalHistory = medicalHistory;
     }
+<<<<<<< HEAD
 
+=======
+>>>>>>> origin/master
 }

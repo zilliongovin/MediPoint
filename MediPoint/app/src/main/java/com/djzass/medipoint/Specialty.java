@@ -21,9 +21,14 @@ public class Specialty {
         this.name = name;
     }
     public int getId() {
+<<<<<<< HEAD
         return id;
     }
 
+=======
+        return this.id;
+    }
+>>>>>>> origin/master
     public void setId(int id) {
         this.id = id;
     }

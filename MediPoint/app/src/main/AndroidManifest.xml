@@ -58,6 +58,10 @@
 
         </activity>
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> origin/master
         <activity
             android:name=".DatabaseCreator"
             android:label="Database Testing" >
