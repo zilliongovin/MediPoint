@@ -10,18 +10,16 @@ public class AppointmentManager {
     private AppointmentDAO appointmentDao;
 
 
-    public ArrayList<Boolean> getAvailableTime(Calendar date, String patient, String doctor){
+    public ArrayList<Boolean> getAvailableTime(Calendar date, int patient, int doctor){
         //returns array of boolean denoting whether or not each timeframe is free
         ArrayList<Boolean> ret = new ArrayList<Boolean>();
         for (int i=0; i<48; ++i){
             ret.add(true);
         }
         for (Appointment temp : appointments) {
-            if (temp.isActive()){
-                if (temp.getDate().compareTo(date)==0 && (temp.getPatient() == patient || temp.getDoctor() == doctor)) {
-                    for (int i=temp.getTimeframe().getStartTime(); i<=temp.getTimeframe().getEndTime(); ++i){
-                        ret.set(i,false);
-                    }
+            if (temp.getDate().compareTo(date)==0 && (temp.getPatient() == patient || temp.getDoctor() == doctor)) {
+                for (int i=temp.getTimeframe().getStartTime(); i<=temp.getTimeframe().getEndTime(); ++i){
+                    ret.set(i,false);
                 }
             }
         }
@@ -29,7 +27,7 @@ public class AppointmentManager {
         return ret;
     }
 
-    public ArrayList<Boolean> getTimeTable(Calendar date, String patient, String doctor, int startTime, int endTime, int duration){
+    public ArrayList<Boolean> getTimeTable(Calendar date, int patient, int doctor, int startTime, int endTime, int duration){
         //returns array of boolean denoting the availability of timeslots
         //starting from Timeframe [starttime] (default = opening time) until [endTime] (closing time, last active time)
         //duration is in terms of 30 mins. 1 hour = 2 duration, 2.5 hours = 5 duration, etc.
@@ -47,11 +45,11 @@ public class AppointmentManager {
         return ret;
     }
 
-    public ArrayList<Appointment> getPatientFutureAppointmentList(String patient, Calendar currentTime){
+    public ArrayList<Appointment> getPatientFutureAppointmentList(int patient, Calendar currentTime){
         ArrayList<Appointment> ret = new ArrayList<Appointment>();
 
         for (Appointment temp : appointments) {
-            if (temp.isActive() && temp.getPatient() == patient) {
+            if (temp.getPatient() == patient) {
                 if (currentTime.compareTo(temp.getDate()) < 0) ret.add(temp);
             }
         }
@@ -59,11 +57,11 @@ public class AppointmentManager {
         return ret;
     }
 
-    public ArrayList<Appointment> getPatientPastAppointmentList(String patient, Calendar currentTime){
+    public ArrayList<Appointment> getPatientPastAppointmentList(int patient, Calendar currentTime){
         ArrayList<Appointment> ret = new ArrayList<Appointment>();
 
         for (Appointment temp : appointments) {
-            if (temp.isActive() && temp.getPatient() == patient) {
+            if (temp.getPatient() == patient) {
                 if (currentTime.compareTo(temp.getDate()) >= 0) ret.add(temp);
             }
         }
@@ -72,11 +70,11 @@ public class AppointmentManager {
     }
 
 
-    public ArrayList<Appointment> getDoctorFutureAppointmentList(String doctor, Calendar currentTime){
+    public ArrayList<Appointment> getDoctorFutureAppointmentList(int doctor, Calendar currentTime){
         ArrayList<Appointment> ret = new ArrayList<Appointment>();
 
         for (Appointment temp : appointments) {
-            if (temp.isActive() && temp.getDoctor() == doctor) {
+            if (temp.getDoctor() == doctor) {
                 if (currentTime.compareTo(temp.getDate()) < 0) ret.add(temp);
             }
         }
@@ -84,11 +82,11 @@ public class AppointmentManager {
         return ret;
     }
 
-    public ArrayList<Appointment> getDoctorPastAppointmentList(String doctor, Calendar currentTime){
+    public ArrayList<Appointment> getDoctorPastAppointmentList(int doctor, Calendar currentTime){
         ArrayList<Appointment> ret = new ArrayList<Appointment>();
 
         for (Appointment temp : appointments) {
-            if (temp.isActive() && temp.getDoctor() == doctor) {
+            if (temp.getDoctor() == doctor) {
                 if (currentTime.compareTo(temp.getDate()) >= 0) ret.add(temp);
             }
         }
