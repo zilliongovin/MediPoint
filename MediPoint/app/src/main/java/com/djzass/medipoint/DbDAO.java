@@ -28,5 +28,4 @@ public class DbDAO {
         dbHelper.close();
         database = null;
     }
-
 }

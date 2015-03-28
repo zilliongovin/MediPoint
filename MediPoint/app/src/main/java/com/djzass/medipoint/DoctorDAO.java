@@ -14,52 +14,67 @@ import java.util.List;
 public class DoctorDAO extends DbDAO{
     private static final String WHERE_ID_EQUALS = DbContract.DoctorEntry.COLUMN_NAME_DOCTOR_ID
             + " =?";
+    private SpecialtyDAO specialtyDao;
 
     public DoctorDAO(Context context) {
         super(context);
     }
 
     /* CREATE/SAVE
-    Inserting doctor into countries table and return the row id if insertion successful,
+    Inserting doctor into doctors table and return the row id if insertion successful,
      otherwise -1 will be returned
      */
     public long insertDoctor(Doctor doctor){
         ContentValues values = new ContentValues();
         values.put(DbContract.DoctorEntry.COLUMN_NAME_DOCTOR_NAME, doctor.getName());
+        values.put(DbContract.DoctorEntry.COLUMN_NAME_SPECIALIZATION_ID, doctor.getSpecialization().getId());
+        values.put(DbContract.DoctorEntry.COLUMN_NAME_PRACTICE_DURATION, doctor.getPracticeDuration());
 
         // Inserting Row
         return database.insert(DbContract.DoctorEntry.TABLE_NAME, null, values);
     }
 
     /** READ
-     * Getting all countries from the table
-     * returns list of countries
+     * Getting all doctors from the table
+     * returns list of doctors
      * */
-    public List<Doctor> getCountries() {
-        List<Doctor> countries = new ArrayList<Doctor>();
+    public List<Doctor> getDoctors() {
+        List<Doctor> doctors = new ArrayList<Doctor>();
 
         // Select all rows
         // String selectQuery = "SELECT  * FROM " + DbContract.DoctorEntry.TABLE_NAME;
         Cursor cursor = database.query(DbContract.DoctorEntry.TABLE_NAME,
                 new String[] { DbContract.DoctorEntry.COLUMN_NAME_DOCTOR_ID,
-                        DbContract.DoctorEntry.COLUMN_NAME_DOCTOR_NAME }, null, null, null, null,
+                        DbContract.DoctorEntry.COLUMN_NAME_DOCTOR_NAME,
+                        DbContract.DoctorEntry.COLUMN_NAME_SPECIALIZATION_ID,
+                        DbContract.DoctorEntry.COLUMN_NAME_PRACTICE_DURATION
+                }, null, null, null, null,
                 null);
 
         while (cursor.moveToNext()) {
-            Doctor doctor= new Doctor();
+            Doctor doctor = new Doctor();
             doctor.setId(cursor.getInt(0));
             doctor.setName(cursor.getString(1));
-            countries.add(doctor);
+            doctor.setSpecialization(cursor.getInt(2));
+            doctor.setPracticeDuration(cursor.getInt(3));
+            doctors.add(doctor);
         }
 
-        return countries;
+        return doctors;
     }
     //READ SINGLE ROW
-    public Doctor getDoctorById(long doctorId) {
-        String selectQuery = "SELECT  * FROM " + DbContract.DoctorEntry.TABLE_NAME + " WHERE "
-                + DbContract.DoctorEntry.COLUMN_NAME_DOCTOR_ID + " = " + doctorId;
+    public Doctor getDoctorById(int doctorId) {
+        //String selectQuery = "SELECT  * FROM " + DbContract.DoctorEntry.TABLE_NAME + " WHERE "
+        //        + DbContract.DoctorEntry.COLUMN_NAME_DOCTOR_ID + " = " + doctorId;
 
-        Cursor c = database.rawQuery(selectQuery, null);
+        //Cursor c = database.rawQuery(selectQuery, null);
+        Cursor c = database.query(DbContract.DoctorEntry.TABLE_NAME,
+                new String[] { DbContract.DoctorEntry.COLUMN_NAME_DOCTOR_ID,
+                        DbContract.DoctorEntry.COLUMN_NAME_DOCTOR_NAME,
+                        DbContract.DoctorEntry.COLUMN_NAME_SPECIALIZATION_ID,
+                        DbContract.DoctorEntry.COLUMN_NAME_PRACTICE_DURATION
+                }, DbContract.DoctorEntry.COLUMN_NAME_SPECIALIZATION_ID + " = ?", new String[]{doctorId+""}, null, null,
+                null);
 
         if (c != null)
             c.moveToFirst();
@@ -68,6 +83,8 @@ public class DoctorDAO extends DbDAO{
         Doctor doctor = new Doctor();
         doctor.setId(c.getInt(c.getColumnIndex(DbContract.DoctorEntry.COLUMN_NAME_DOCTOR_ID)));
         doctor.setName(c.getString(c.getColumnIndex(DbContract.DoctorEntry.COLUMN_NAME_DOCTOR_NAME)));
+        doctor.setSpecialization(specialtyDao.getSpecialtyById(c.getInt(c.getColumnIndex(DbContract.DoctorEntry.COLUMN_NAME_SPECIALIZATION_ID))));
+        doctor.setPracticeDuration(c.getInt(c.getColumnIndex(DbContract.DoctorEntry.COLUMN_NAME_PRACTICE_DURATION)));
 
         return doctor;
     }
@@ -97,20 +114,19 @@ public class DoctorDAO extends DbDAO{
     }
     /*
         LOAD
-        Load the initial values of the countries
+        Load the initial values of the doctors
      */
+    public void loadDoctors() {
+        Doctor d1 = new Doctor();
+        Doctor d2 = new Doctor();
+        Doctor d3 = new Doctor();
 
-    public void loadCountries() {
-        Doctor c1 = new Doctor("Singapore");
-        Doctor c2 = new Doctor("Malaysia");
-        Doctor c3 = new Doctor("Thailand");
-
-        List<Doctor> countries = new ArrayList<Doctor>();
-        countries.add(c1);
-        countries.add(c2);
-        countries.add(c3);
-        for (Doctor c: countries) {
-            database.insert(c);
+        List<Doctor> doctors = new ArrayList<Doctor>();
+        doctors.add(d1);
+        doctors.add(d2);
+        doctors.add(d3);
+        for (Doctor d: doctors) {
+            database.insert(d);
         }
     }
 }

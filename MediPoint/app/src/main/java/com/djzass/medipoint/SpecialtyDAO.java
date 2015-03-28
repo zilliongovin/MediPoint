@@ -56,7 +56,7 @@ public class SpecialtyDAO extends DbDAO{
         return specialties;
     }
     //READ SINGLE ROW
-    public Specialty getSpecialtyById(long specialtyId) {
+    public Specialty getSpecialtyById(int specialtyId) {
         String selectQuery = "SELECT  * FROM " + DbContract.SpecialtyEntry.TABLE_NAME + " WHERE "
                 + DbContract.SpecialtyEntry.COLUMN_NAME_SPECIALTY_ID + " = " + specialtyId;
 

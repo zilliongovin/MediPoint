@@ -6,7 +6,9 @@ import java.util.ArrayList;
  * Created by Deka on 26/3/2015.
  */
 public class Doctor {
-    private String id;
+    private int id;
+
+    private String doctorId;
     private String name;
     private Specialty specialization;
     private int practiceDuration;
@@ -24,13 +26,25 @@ public class Doctor {
         this.doctorSchedules = new ArrayList<DoctorSchedule>();
     }
 
-    public String getDoctorId() {
+    public int getId() {
         return id;
     }
 
-    public void setDoctorId(String doctorId) {
-        this.id = doctorId;
+    public void setId(int id) {
+        this.id = id;
+        setDoctorId();
     }
+
+
+    public String getDoctorId() {
+        return doctorId;
+    }
+
+    public void setDoctorId() {
+        this.doctorId = "D" + String.format("%07d", id);
+    }
+
+
 
     public String getName() {
         return name;

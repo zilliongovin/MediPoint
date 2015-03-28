@@ -3,6 +3,7 @@ package com.djzass.medipoint;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import android.database.sqlite.SQLiteQueryBuilder;
 import android.util.Log;
 
 import java.util.ArrayList;
@@ -14,7 +15,8 @@ import java.util.List;
 public class ClinicDAO extends DbDAO{
     private static final String WHERE_ID_EQUALS = DbContract.ClinicEntry.COLUMN_NAME_CLINIC_ID
             + " =?";
-    private CountryDAO countryDao;
+    public static final String CLINIC_PREFIX = "clinic.";
+    public static final String COUNTRY_PREFIX = "country.";
 
     public ClinicDAO(Context context) {
         super(context);
@@ -36,7 +38,6 @@ public class ClinicDAO extends DbDAO{
     }
 
     /*  READ
-
      */
     public List<Clinic> getClinics() {
         List<Clinic> clinics = new ArrayList<Clinic>();
@@ -54,13 +55,34 @@ public class ClinicDAO extends DbDAO{
                         DbContract.ClinicEntry.COLUMN_NAME_EMAIL
                 }, null, null, null, null,
                 null);
+        String query = "Select * FROM " + DbContract.ClinicEntry.TABLE_NAME + ", " + DbContract.CountryEntry.TABLE_NAME
+                + " WHERE " + DbContract.ClinicEntry.COLUMN_NAME_COUNTRY_ID + " = " + DbContract.CountryEntry.COLUMN_NAME_COUNTRY_ID
+
+
+        // Building query using INNER JOIN keyword
+		/*String query = "SELECT " + EMPLOYEE_ID_WITH_PREFIX + ","
+		+ EMPLOYEE_NAME_WITH_PREFIX + "," + DataBaseHelper.EMPLOYEE_DOB
+		+ "," + DataBaseHelper.EMPLOYEE_SALARY + ","
+		+ DataBaseHelper.EMPLOYEE_DEPARTMENT_ID + ","
+		+ DEPT_NAME_WITH_PREFIX + " FROM "
+		+ DataBaseHelper.EMPLOYEE_TABLE + " emp INNER JOIN "
+		+ DataBaseHelper.DEPARTMENT_TABLE + " dept ON emp."
+		+ DataBaseHelper.EMPLOYEE_DEPARTMENT_ID + " = dept."
+		+ DataBaseHelper.ID_COLUMN;*/
+
+        Log.d("query", query);
+        Cursor cursor = database.rawQuery(query, null);
 
         while (cursor.moveToNext()) {
             Clinic clinic= new Clinic();
             clinic.setId(cursor.getInt(0));
             clinic.setName(cursor.getString(1));
             clinic.setAddress(cursor.getString(2));
-            clinic.setCountry(countryDao.getCountryById(cursor.getInt(3)));
+
+            Country country = new Country();
+            country.setId(cursor.getInt(3));
+            clinic.setCountry(country);
+
             clinic.setZipCode(cursor.getString(4));
             clinic.setTelNumber(cursor.getString(5));
             clinic.setFaxNumber(cursor.getString(6));
@@ -98,7 +120,11 @@ public class ClinicDAO extends DbDAO{
         clinic.setId(c.getInt(c.getColumnIndex(DbContract.ClinicEntry.COLUMN_NAME_CLINIC_ID)));
         clinic.setName(c.getString(c.getColumnIndex(DbContract.ClinicEntry.COLUMN_NAME_CLINIC_ID)));
         clinic.setAddress(c.getString(c.getColumnIndex(DbContract.ClinicEntry.COLUMN_NAME_ADDRESS)));
-        clinic.setCountry(c.getString(countryDao.getCountryById(c.getColumnIndex(DbContract.ClinicEntry.COLUMN_NAME_COUNTRY_ID))));
+        //clinic.setCountry(c.getString(countryDao.getCountryById(c.getColumnIndex(DbContract.ClinicEntry.COLUMN_NAME_COUNTRY_ID))));
+        Country country = new Country();
+        country.setName();
+
+
         clinic.setZipCode(c.getString(c.getColumnIndex(DbContract.ClinicEntry.COLUMN_NAME_ZIPCODE)));
         clinic.setTelNumber(c.getString(c.getColumnIndex(DbContract.ClinicEntry.COLUMN_NAME_TEL_NUMBER)));
         clinic.setFaxNumber(c.getString(c.getColumnIndex(DbContract.ClinicEntry.COLUMN_NAME_FAX_NUMBER)));
