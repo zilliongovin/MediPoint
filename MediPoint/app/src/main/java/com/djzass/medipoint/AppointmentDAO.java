@@ -52,6 +52,7 @@ public class AppointmentDAO extends DbDAO{
         //MUST JOIN
         // Select all rows
         // String selectQuery = "SELECT  * FROM " + DbContract.AppointmentEntry.TABLE_NAME;
+
         Cursor cursor = database.query(DbContract.AppointmentEntry.TABLE_NAME,
                 new String[] {DbContract.AppointmentEntry.COLUMN_NAME_APPOINTMENT_ID,
                         DbContract.AppointmentEntry.COLUMN_NAME_CLINIC_ID,
