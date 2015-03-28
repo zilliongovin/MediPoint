@@ -12,8 +12,8 @@ public class Country {
 	private String name;
 	//private ArrayList<Region> regions;
 
-	public Country(int countryId, String name){
-		this.countryId = countryId;
+    public Country(){}
+	public Country(String name){
 		this.name = name;
 		//this.regions = new ArrayList<Region>();
 	}

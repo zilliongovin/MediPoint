@@ -76,7 +76,7 @@ public class SpecialtyDAO extends DbDAO{
     /*  UPDATE
         returns the number of rows affected by the update
      */
-    public int update(Specialty specialty) {
+    public long update(Specialty specialty) {
         ContentValues values = new ContentValues();
         values.put(DbContract.SpecialtyEntry.COLUMN_NAME_SPECIALTY_NAME, specialty.getName());
 

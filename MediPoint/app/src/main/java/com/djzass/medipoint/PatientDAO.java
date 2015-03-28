@@ -26,7 +26,7 @@ public class PatientDAO extends DbDAO{
      */
     public long insertPatient(Patient patient){
         ContentValues values = new ContentValues();
-        values.put(DbContract.PatientEntry.COLUMN_NAME_PATIENT_ID_STRING, patient.getPatientId());
+        values.put(DbContract.PatientEntry.COLUMN_NAME_PATIENT_ID_STRING, patient.getPatientIdString());
         values.put(DbContract.PatientEntry.COLUMN_NAME_AGE, patient.getAge());
         values.put(DbContract.PatientEntry.COLUMN_NAME_MEDICAL_HISTORY, patient.getMedicalHistory());
         values.put(DbContract.PatientEntry.COLUMN_NAME_ALLERGIES, patient.getAllergy());
@@ -50,7 +50,7 @@ public class PatientDAO extends DbDAO{
         // String selectQuery = "SELECT  * FROM " + DbContract.PatientEntry.TABLE_NAME;
         Cursor cursor = database.query(DbContract.PatientEntry.TABLE_NAME,
                 new String[] { DbContract.PatientEntry.COLUMN_NAME_PATIENT_ID,
-                        DbContract.PatientEntry.COLUMN_NAME_PATIENT_NAME }, null, null, null, null,
+                        }, null, null, null, null,
                 null);
 
         while (cursor.moveToNext()) {
@@ -80,7 +80,7 @@ public class PatientDAO extends DbDAO{
         // Create the class object, then set the attribute from content of the exisiting data in the table
         Patient patient = new Patient();
         patient.setId(c.getInt(c.getColumnIndex(DbContract.PatientEntry.COLUMN_NAME_PATIENT_ID)));
-        patient.setName(c.getString(c.getColumnIndex(DbContract.PatientEntry.COLUMN_NAME_PATIENT_NAME)));
+
 
         return patient;
     }
@@ -88,9 +88,9 @@ public class PatientDAO extends DbDAO{
         UPDATE
        returns the number of rows affected by the update
      */
-    public int update(Patient patient) {
+    public long update(Patient patient) {
         ContentValues values = new ContentValues();
-        values.put(DbContract.PatientEntry.COLUMN_NAME_PATIENT_ID_STRING, patient.getPatientId());
+        values.put(DbContract.PatientEntry.COLUMN_NAME_PATIENT_ID_STRING, patient.getPatientIdString());
         values.put(DbContract.PatientEntry.COLUMN_NAME_AGE, patient.getAge());
         values.put(DbContract.PatientEntry.COLUMN_NAME_MEDICAL_HISTORY, patient.getMedicalHistory());
         values.put(DbContract.PatientEntry.COLUMN_NAME_ALLERGIES, patient.getAllergy());

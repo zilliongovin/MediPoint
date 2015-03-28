@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteQueryBuilder;
 import android.util.Log;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,7 +19,7 @@ public class ClinicDAO extends DbDAO{
     public static final String CLINIC_PREFIX = "clinic.";
     public static final String COUNTRY_PREFIX = "country.";
 
-    public ClinicDAO(Context context) {
+    public ClinicDAO(Context context) throws SQLException {
         super(context);
     }
 
@@ -55,8 +56,9 @@ public class ClinicDAO extends DbDAO{
                         DbContract.ClinicEntry.COLUMN_NAME_EMAIL
                 }, null, null, null, null,
                 null);
+        //Havent finish yet
         String query = "Select * FROM " + DbContract.ClinicEntry.TABLE_NAME + ", " + DbContract.CountryEntry.TABLE_NAME
-                + " WHERE " + DbContract.ClinicEntry.COLUMN_NAME_COUNTRY_ID + " = " + DbContract.CountryEntry.COLUMN_NAME_COUNTRY_ID
+                + " WHERE " + DbContract.ClinicEntry.COLUMN_NAME_COUNTRY_ID + " = " + DbContract.CountryEntry.COLUMN_NAME_COUNTRY_ID;
 
 
         // Building query using INNER JOIN keyword
@@ -71,7 +73,7 @@ public class ClinicDAO extends DbDAO{
 		+ DataBaseHelper.ID_COLUMN;*/
 
         Log.d("query", query);
-        Cursor cursor = database.rawQuery(query, null);
+        //Cursor c = database.rawQuery(query, null);
 
         while (cursor.moveToNext()) {
             Clinic clinic= new Clinic();
@@ -79,13 +81,13 @@ public class ClinicDAO extends DbDAO{
             clinic.setName(cursor.getString(1));
             clinic.setAddress(cursor.getString(2));
 
-            Country country = new Country();
-            country.setId(cursor.getInt(3));
-            clinic.setCountry(country);
+            //Country country = new Country();
+            //country.setId(cursor.getInt(3));
+            //clinic.setCountry(country);
 
-            clinic.setZipCode(cursor.getString(4));
-            clinic.setTelNumber(cursor.getString(5));
-            clinic.setFaxNumber(cursor.getString(6));
+            //clinic.setZipCode(cursor.getString(4));
+            //clinic.setTelNumber(cursor.getString(5));
+            //clinic.setFaxNumber(cursor.getString(6));
             clinic.setEmail(cursor.getString(7));
             clinics.add(clinic);
         }
@@ -110,7 +112,8 @@ public class ClinicDAO extends DbDAO{
                 DbContract.ClinicEntry.COLUMN_NAME_TEL_NUMBER,
                 DbContract.ClinicEntry.COLUMN_NAME_FAX_NUMBER,
                 DbContract.ClinicEntry.COLUMN_NAME_EMAIL
-        },DbContract.ClinicEntry.COLUMN_NAME_CLINIC_ID + " = ?",new String[]{clinicId},null, null, null  );
+        },DbContract.ClinicEntry.COLUMN_NAME_CLINIC_ID + " = ?",new String[]{
+                clinicId+""},null, null, null  );
 
         if (c != null)
             c.moveToFirst();
@@ -121,13 +124,13 @@ public class ClinicDAO extends DbDAO{
         clinic.setName(c.getString(c.getColumnIndex(DbContract.ClinicEntry.COLUMN_NAME_CLINIC_ID)));
         clinic.setAddress(c.getString(c.getColumnIndex(DbContract.ClinicEntry.COLUMN_NAME_ADDRESS)));
         //clinic.setCountry(c.getString(countryDao.getCountryById(c.getColumnIndex(DbContract.ClinicEntry.COLUMN_NAME_COUNTRY_ID))));
-        Country country = new Country();
-        country.setName();
+        //Country country = new Country();
+        //country.setName();
 
 
-        clinic.setZipCode(c.getString(c.getColumnIndex(DbContract.ClinicEntry.COLUMN_NAME_ZIPCODE)));
-        clinic.setTelNumber(c.getString(c.getColumnIndex(DbContract.ClinicEntry.COLUMN_NAME_TEL_NUMBER)));
-        clinic.setFaxNumber(c.getString(c.getColumnIndex(DbContract.ClinicEntry.COLUMN_NAME_FAX_NUMBER)));
+        //clinic.setZipCode(c.getString(c.getColumnIndex(DbContract.ClinicEntry.COLUMN_NAME_ZIPCODE)));
+        //clinic.setTelNumber(c.getString(c.getColumnIndex(DbContract.ClinicEntry.COLUMN_NAME_TEL_NUMBER)));
+        //clinic.setFaxNumber(c.getString(c.getColumnIndex(DbContract.ClinicEntry.COLUMN_NAME_FAX_NUMBER)));
         clinic.setEmail(c.getString(c.getColumnIndex(DbContract.ClinicEntry.COLUMN_NAME_EMAIL)));
 
         return clinic;
@@ -137,7 +140,7 @@ public class ClinicDAO extends DbDAO{
         UPDATE
         returns the number of rows affected by the update
      */
-    public int update(Clinic clinic) {
+    public long update(Clinic clinic) {
         ContentValues values = new ContentValues();
         values.put(DbContract.ClinicEntry.COLUMN_NAME_CLINIC_NAME, clinic.getName());
 

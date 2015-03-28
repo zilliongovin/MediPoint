@@ -3,6 +3,7 @@ package com.djzass.medipoint;
 import android.app.Activity;
 
 //import android.app.DialogFragment;
+import android.app.DialogFragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;

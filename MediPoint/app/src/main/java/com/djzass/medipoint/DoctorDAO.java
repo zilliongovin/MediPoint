@@ -59,8 +59,7 @@ public class DoctorDAO extends DbDAO{
             doctor.setId(cursor.getInt(0));
             doctor.setDoctorId(cursor.getString(1));
             doctor.setName(cursor.getString(2));
-
-            doctor.setSpecialization(cursor.getInt(3));
+            //doctor.setSpecialization(cursor.getInt(3));
             doctor.setPracticeDuration(cursor.getInt(4));
             doctors.add(doctor);
         }
@@ -106,7 +105,7 @@ public class DoctorDAO extends DbDAO{
 
         long result = database.update(DbContract.DoctorEntry.TABLE_NAME, values,
                 WHERE_ID_EQUALS,
-                new String[] { String.valueOf(doctor.getId()) });
+                new String[] { String.valueOf(doctor.getDID()) });
         Log.d("Update Result:", "=" + result);
 
         return result;
@@ -118,7 +117,7 @@ public class DoctorDAO extends DbDAO{
      */
     public int deleteDoctor(Doctor doctor) {
         return database.delete(DbContract.DoctorEntry.TABLE_NAME,
-                WHERE_ID_EQUALS, new String[] { doctor.getId() + "" });
+                WHERE_ID_EQUALS, new String[] { doctor.getDID() + "" });
     }
     /*
         LOAD
@@ -134,7 +133,7 @@ public class DoctorDAO extends DbDAO{
         doctors.add(d2);
         doctors.add(d3);
         for (Doctor d: doctors) {
-            database.insert(d);
+            insertDoctor(d);
         }
     }
 }

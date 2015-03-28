@@ -26,7 +26,7 @@ public class DoctorScheduleDAO extends DbDAO{
      */
     public long insertDoctorSchedule(DoctorSchedule doctorSchedule){
         ContentValues values = new ContentValues();
-        values.put(DbContract.DoctorScheduleEntry.COLUMN_NAME_DOCTOR_ID, doctorSchedule.getDoctor().getId());
+        values.put(DbContract.DoctorScheduleEntry.COLUMN_NAME_DOCTOR_ID, doctorSchedule.getDoctor().getDID());
         values.put(DbContract.DoctorScheduleEntry.COLUMN_NAME_CLINIC_ID, doctorSchedule.getClinic().getId());
         values.put(DbContract.DoctorScheduleEntry.COLUMN_NAME_DAY, doctorSchedule.getDay());
         values.put(DbContract.DoctorScheduleEntry.COLUMN_NAME_START_TIME, doctorSchedule.getTimeframe().getStartTime());
@@ -99,9 +99,9 @@ public class DoctorScheduleDAO extends DbDAO{
         UPDATE
        returns the number of rows affected by the update
      */
-    public int update(DoctorSchedule doctorSchedule) {
+    public long update(DoctorSchedule doctorSchedule) {
         ContentValues values = new ContentValues();
-        values.put(DbContract.DoctorScheduleEntry.COLUMN_NAME_DOCTOR_ID, doctorSchedule.getDoctor().getId());
+        values.put(DbContract.DoctorScheduleEntry.COLUMN_NAME_DOCTOR_ID, doctorSchedule.getDoctor().getDID());
         values.put(DbContract.DoctorScheduleEntry.COLUMN_NAME_CLINIC_ID, doctorSchedule.getClinic().getId());
         values.put(DbContract.DoctorScheduleEntry.COLUMN_NAME_DAY, doctorSchedule.getDay());
         values.put(DbContract.DoctorScheduleEntry.COLUMN_NAME_START_TIME, doctorSchedule.getTimeframe().getStartTime());
@@ -138,7 +138,7 @@ public class DoctorScheduleDAO extends DbDAO{
         doctorSchedules.add(dS2);
         doctorSchedules.add(dS3);
         for (DoctorSchedule dS: doctorSchedules) {
-            database.insert(dS);
+            insertDoctorSchedule(dS);
         }
     }
 }

@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.util.Log;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,7 +13,7 @@ public class CountryDAO extends DbDAO {
     private static final String WHERE_ID_EQUALS = DbContract.CountryEntry.COLUMN_NAME_COUNTRY_ID
             + " =?";
 
-    public CountryDAO(Context context) {
+    public CountryDAO(Context context) throws SQLException {
         super(context);
     }
 
@@ -43,10 +44,10 @@ public class CountryDAO extends DbDAO {
                 null);
 
         while (cursor.moveToNext()) {
-            Country country= new Country();
-            country.setId(cursor.getInt(0));
-            country.setName(cursor.getString(1));
-            countries.add(country);
+            //Country country= new Country();
+            //country.setId(cursor.getInt(0));
+            //country.setName(cursor.getString(1));
+            //countries.add(country);
         }
 
         return countries;
@@ -72,7 +73,7 @@ public class CountryDAO extends DbDAO {
     /*  UPDATE
         returns the number of rows affected by the update
      */
-    public int update(Country country) {
+    public long update(Country country) {
         ContentValues values = new ContentValues();
         values.put(DbContract.CountryEntry.COLUMN_NAME_COUNTRY_NAME, country.getName());
 
@@ -107,7 +108,7 @@ public class CountryDAO extends DbDAO {
         countries.add(c2);
         countries.add(c3);
         for (Country c: countries) {
-            database.insert(c);
+            insertCountry(c);
         }
     }
 

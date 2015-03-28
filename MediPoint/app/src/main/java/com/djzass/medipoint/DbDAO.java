@@ -12,7 +12,7 @@ public class DbDAO {
     private DbHelper dbHelper;
     private Context mContext;
 
-    public DbDAO(Context context) {
+    public DbDAO(Context context) throws SQLException {
         this.mContext = context;
         dbHelper = DbHelper.getHelper(mContext);
         open();

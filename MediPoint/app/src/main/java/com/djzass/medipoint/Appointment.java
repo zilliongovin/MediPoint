@@ -1,29 +1,29 @@
 package com.djzass.medipoint;
 
-import java.util.Date;
 import java.util.Calendar;
 import java.lang.String;
-import java.util.ArrayList;
 
 public class Appointment {
-    private int appointmentId;
-    private String patient;
-    private String specialty;
-    private String clinic;
-    private String doctor;
+    private int id;
+    private Clinic clinic;
+    private Patient patient;
+    private Doctor doctor;
     private Calendar date;
+    private Service service;
+    private Specialty specialty;
+    private String preAppointmentActions;
     private Timeframe timeframe;
-    private ArrayList<String> preAppointmentActions;
     private boolean active = false; //1= active, 0= inactive
 
-    public Appointment(int appointmentId) {
-        this.appointmentId = appointmentId;
+
+
+    public Appointment() {
         active = false;
     }
 
-    public Appointment(int appointmentId, String patient, String specialty, String clinic, String doctor,
-                       Calendar date, Timeframe timeframe, ArrayList<String> preAppointmentActions) {
-        this.appointmentId = appointmentId;
+    public Appointment(Patient patient, Specialty specialty, Clinic clinic, Doctor doctor,
+                       Calendar date, Timeframe timeframe, String preAppointmentActions) {
+        this.id = id;
         this.specialty = specialty;
         this.patient = patient;
         this.clinic = clinic;
@@ -32,47 +32,55 @@ public class Appointment {
         this.timeframe = timeframe;
         this.date.set(Calendar.HOUR_OF_DAY, timeframe.getStartTime() / 2);
         this.date.set(Calendar.MINUTE, 30 * (timeframe.getStartTime() % 2));
-        this.preAppointmentActions = new ArrayList<String>();
+        this.preAppointmentActions = preAppointmentActions;
     }
 
-    public int getAppointmentId() {
-        return appointmentId;
+    public int getId() {
+        return id;
     }
 
-    public void setAppointmentId(int appointmentId) {
-        this.appointmentId = appointmentId;
+    public void setId(int appointmentId) {
+        this.id = appointmentId;
     }
 
-    public String getPatient() {
-        return patient;
+    public Patient getPatient() {
+        return this.patient;
     }
 
-    public void setPatient(String patient) {
+    public void setPatient(Patient patient) {
         this.patient = patient;
     }
 
-    public String getSpecialty() {
+    public Specialty getSpecialty() {
         return specialty;
     }
 
-    public void setSpecialty(String specialty) {
+    public void setSpecialty(Specialty specialty) {
         this.specialty = specialty;
     }
 
-    public String getClinic() {
-        return clinic;
+    public Clinic getClinic() {
+        return this.clinic;
     }
 
-    public void setClinic(String clinic) {
+    public void setClinic(Clinic clinic) {
         this.clinic = clinic;
     }
 
-    public String getDoctor() {
-        return doctor;
+    public Doctor getDoctor() {
+        return this.doctor;
     }
 
-    public void setDoctor(String doctor) {
+    public void setDoctor(Doctor doctor) {
         this.doctor = doctor;
+    }
+
+    public Service getService() {
+        return service;
+    }
+
+    public void setService(Service service) {
+        this.service = service;
     }
 
     public Calendar getDate() {
@@ -93,11 +101,11 @@ public class Appointment {
         this.date.set(Calendar.MINUTE, 30 * (timeframe.getStartTime() % 2));
     }
 
-    public ArrayList<String> getPreAppointmentActions() {
-        return preAppointmentActions;
+    public String getPreAppointmentActions() {
+        return this.preAppointmentActions;
     }
 
-    public void setPreAppointmentActions(ArrayList<String> preAppointmentActions) {
+    public void setPreAppointmentActions(String preAppointmentActions) {
         this.preAppointmentActions = preAppointmentActions;
     }
 
@@ -133,17 +141,6 @@ public class Appointment implements Parcelable{
     private Date startTime;
     private Date endTime;
 
-    public static final String TABLE_NAME = "appointment";
-    public static final String COLUMN_NAME_APPOINTMENT_ID = "appoinmentId";
-    public static final String COLUMN_NAME_CLINIC_ID = "clinicId";
-    public static final String COLUMN_NAME_PATIENT_ID = "patientId";
-    public static final String COLUMN_NAME_DOCTOR_ID = "doctorId";
-    public static final String COLUMN_NAME_DATE_TIME = "dateTime";
-    public static final String COLUMN_NAME_SERVICE_ID = "service";
-    public static final String COLUMN_NAME_SPECIALTY_ID = "specialty";
-    public static final String COLUMN_NAME_PREAPPOINTMENT_ACTIONS = "preAppointmentActions";
-    public static final String COLUMN_NAME_START_TIME = "startTime";
-    public static final String COLUMN_NAME_END_TIME = "endTime";
 
 
     public Appointment() {

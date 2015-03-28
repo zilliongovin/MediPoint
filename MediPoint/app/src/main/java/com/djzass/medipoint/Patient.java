@@ -9,7 +9,7 @@ import java.util.Date;
  */
 
 public class Patient extends Account{
-    private int PId;
+    private int PID;
     private String patientId;
     private int age;
     private ArrayList<Appointment> listOfAppointments;
@@ -41,12 +41,12 @@ public class Patient extends Account{
         this.listOfAppointments = new ArrayList<Appointment>();
     }
 
-    public String getPatientId() {
+    public String getPatientIdString() {
         return patientId;
     }
 
     public void setPatientId() {
-        this.patientId = "P" + String.format("%07d", this.PId);
+        this.patientId = "P" + String.format("%07d", this.PID);
     }
 
     public int getAge() {
@@ -62,12 +62,12 @@ public class Patient extends Account{
         return age;
     }
 
-    public int getPId() {
-        return this.PId;
+    public int getPID() {
+        return this.PID;
     }
 
-    public void setPId(int PId) {
-        this.PId = PId;
+    public void setPID(int PID) {
+        this.PID = PID;
     }
 
     public void setAge(int age) {

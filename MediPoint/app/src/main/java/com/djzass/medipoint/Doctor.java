@@ -6,7 +6,7 @@ import java.util.ArrayList;
  * Created by Deka on 26/3/2015.
  */
 public class Doctor {
-    private int DId;
+    private int DID;
     private String doctorId;
     private String name;
     private Specialty specialization;
@@ -19,9 +19,8 @@ public class Doctor {
 
     }
 
-    public Doctor(int id, String name, Specialty specialization,
+    public Doctor(String name, Specialty specialization,
                   int practiceDuration) {
-        this.id = id;
         this.name = name;
         this.specialization = specialization;
         this.practiceDuration = practiceDuration;
@@ -40,7 +39,7 @@ public class Doctor {
     }
 
     public void setDoctorId() {
-        this.doctorId = "D" + String.format("%07d", this.DId);
+        this.doctorId = "D" + String.format("%07d", this.DID);
     }
 
     public String getName() {
@@ -91,17 +90,17 @@ public class Doctor {
         }
     }
 
-    public int getDId() {
-        return DId;
+    public int getDID() {
+        return this.DID;
     }
 
-    public void setDId(int DId) {
-        this.DId = DId;
+    public void setId(int DID) {
+        this.DID = DID;
     }
 
     public String toString(){
         return 	"=== Printing Doctor Info ==="+"\n"+
-                "ID: " + this.id + "\n" +
+                "ID: " + this.DID + "\n" +
                 "Name: " + this.name + "\n" +
                 "Practice Duration: " + this.practiceDuration+ "\n" +
                 "Specialization: " + this.specialization.getName() + "\n"
