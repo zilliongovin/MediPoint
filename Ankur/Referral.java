@@ -1,8 +1,9 @@
-package com.djzass.medipoint;
+package mediapp.dzjass.com.myapplication;
 
 import android.app.Activity;
-
-//import android.app.DialogFragment;
+import android.app.DialogFragment;
+import android.app.Fragment;
+import android.app.FragmentManager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -10,30 +11,20 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.Spinner;
 
 import java.util.Calendar;
 
-public class CreateAppointmentActivity extends Activity implements AdapterView.OnItemSelectedListener{
+public class Referral extends Activity implements AdapterView.OnItemSelectedListener{
 
     //spinner
-    Spinner timeSpinner_create;
     Spinner specialtySpinner_create;
-    Spinner countrySpinner_create;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_create_appointment);
-
-        //time spinner and array adapter
-        timeSpinner_create = (Spinner) findViewById(R.id.CreateApptTimeSpinner);
-        ArrayAdapter timeAdapter = ArrayAdapter.createFromResource(this, R.array.time_slot, android.R.layout.simple_spinner_dropdown_item);
-        timeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        timeSpinner_create.setAdapter(timeAdapter);
-        timeSpinner_create.setOnItemSelectedListener(this);
+        setContentView(R.layout.activity_referral);
 
         //specialty spinner and array adapter
         specialtySpinner_create = (Spinner) findViewById(R.id.CreateApptSpecialty);
@@ -41,13 +32,6 @@ public class CreateAppointmentActivity extends Activity implements AdapterView.O
         specialtyAdapter_create.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         specialtySpinner_create.setAdapter(specialtyAdapter_create);
         specialtySpinner_create.setOnItemSelectedListener(this);
-
-        //country spinner and array adapter
-        countrySpinner_create = (Spinner) findViewById(R.id.CreateApptCountries);
-        ArrayAdapter countryAdapter_create = ArrayAdapter.createFromResource(this, R.array.countries, android.R.layout.simple_spinner_dropdown_item);
-        countryAdapter_create.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        countrySpinner_create.setAdapter(countryAdapter_create);
-        countrySpinner_create.setOnItemSelectedListener(this);
 
     }
 
@@ -70,15 +54,6 @@ public class CreateAppointmentActivity extends Activity implements AdapterView.O
             return true;
         }
 
-        //logout menu item selected
-        else if(id==R.id.action_logout){
-            AccountManager acctMgr = new AccountManager(this);
-            acctMgr.logout();
-            Intent intent = new Intent(this,Login.class);
-            startActivity(intent);
-            return true;
-        }
-
         return super.onOptionsItemSelected(item);
     }
 
@@ -86,13 +61,15 @@ public class CreateAppointmentActivity extends Activity implements AdapterView.O
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
     }
-    public void showDatePickerDialog(View v) {
-        DialogFragment date = new DatePickerFragment();
-        date.show(getFragmentManager(), "datePicker");
-    }
 
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
 
+    }
+
+    public void goto_appointment(View view)
+    {
+        Intent intent = new Intent(Referral.this, CreateAppointmentActivity.class);
+        startActivity(intent);
     }
 }

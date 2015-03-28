@@ -2,8 +2,10 @@ package com.djzass.medipoint;
 
 import java.lang.String;
 import java.util.Calendar;
+import java.util.Date;
 
 public class Account {
+    private int id;
 	private String username;
 	private String password;
 	private String name;
@@ -13,15 +15,17 @@ public class Account {
 	private String gender;
 	private String address;
 	private String maritalStatus;
-	private Calendar dob;
+	private Date dob;
 	private String citizenship;
 	private String countryOfResidence;
 
-    public  Account(){}
+    public Account(){
+
+    }
 	
 	public Account(String username, String password, String name, String nric,
 			String email, String phoneNumber, String gender, String address,
-			String maritalStatus, Calendar dob, String citizenship,
+			String maritalStatus, Date dob, String citizenship,
 			String countryOfResidence) {
 		this.username = username;
 		this.password = password;
@@ -119,11 +123,11 @@ public class Account {
 		this.maritalStatus = maritalStatus;
 	}
 
-	public Calendar getDob() {
+	public Date getDob() {
 		return dob;
 	}
 
-	public void setDob(Calendar dob) {
+	public void setDob(Date dob) {
 		this.dob = dob;
 	}
 
@@ -142,4 +146,13 @@ public class Account {
 	public void setCountryOfResidence(String countryOfResidence) {
 		this.countryOfResidence = countryOfResidence;
 	}
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
 }

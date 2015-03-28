@@ -4,10 +4,11 @@ import java.util.Calendar;
 
 public class Patient extends Account{
 	private String patientId;
-	private ArrayList<String> allergy;
 	private int age;
 	private ArrayList<Appointment> listOfAppointments;
 	private ArrayList<Treatment> listOfTreatments;
+	private ArrayList<Medication> listOfMedications;
+	private ArrayList<String> allergy;
 	private Notifier notifier;
 	
 	public Patient(

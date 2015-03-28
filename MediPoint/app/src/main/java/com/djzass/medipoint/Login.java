@@ -50,7 +50,7 @@ public class Login extends Activity {
             String country = cursor.getString(9);
             String username = cursor.getString(10);
             String password = cursor.getString(11);
-            Toast.makeText(this,name,Toast.LENGTH_LONG).show();
+            /*Toast.makeText(this,name,Toast.LENGTH_LONG).show();
             Toast.makeText(this,nric,Toast.LENGTH_LONG).show();
             Toast.makeText(this,email,Toast.LENGTH_LONG).show();
             Toast.makeText(this,contact,Toast.LENGTH_LONG).show();
@@ -62,7 +62,7 @@ public class Login extends Activity {
             Toast.makeText(this,country,Toast.LENGTH_LONG).show();
             Toast.makeText(this,username,Toast.LENGTH_LONG).show();
             Toast.makeText(this,password,Toast.LENGTH_LONG).show();
-
+            */
         }
         */
                //--------------------------------TEST----------------------------------------

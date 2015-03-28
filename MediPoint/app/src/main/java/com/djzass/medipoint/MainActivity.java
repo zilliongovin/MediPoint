@@ -9,16 +9,21 @@ import android.view.MenuItem;
 import android.widget.TabHost;
 import android.widget.TabWidget;
 import android.widget.TextView;
+import android.content.Intent;
 
 
 
 public class MainActivity extends Activity {
+
+    public static boolean SERVICE_TIMER_STARTED = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        //start bg timer service
+        startService(new Intent(this, TimerService.class));
         //set up the tab host
         final TabHost tabhost = (TabHost) findViewById(R.id.tabHost);
         tabhost.setup();
