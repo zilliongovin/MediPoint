@@ -95,12 +95,12 @@ public class DbContract {
         public static final String TABLE_NAME = "patient";
         public static final String COLUMN_NAME_PATIENT_ID = "patientId";
         public static final String COLUMN_NAME_PATIENT_ID_STRING = "patientIdString";
+        public static final String COLUMN_NAME_ACCOUNT_ID = "accountId";
         public static final String COLUMN_NAME_AGE = "age";
         public static final String COLUMN_NAME_MEDICAL_HISTORY = "medicalHistory";
         public static final String COLUMN_NAME_ALLERGIES = "allergies";
         public static final String COLUMN_NAME_TREATMENTS = "treatments";
         public static final String COLUMN_NAME_MEDICATIONS = "medications";
-
     }
 
 }

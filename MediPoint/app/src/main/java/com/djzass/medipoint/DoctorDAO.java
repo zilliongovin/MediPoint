@@ -26,6 +26,7 @@ public class DoctorDAO extends DbDAO{
      */
     public long insertDoctor(Doctor doctor){
         ContentValues values = new ContentValues();
+        values.put(DbContract.DoctorEntry.COLUMN_NAME_DOCTOR_ID_STRING, doctor.getDoctorId());
         values.put(DbContract.DoctorEntry.COLUMN_NAME_DOCTOR_NAME, doctor.getName());
         values.put(DbContract.DoctorEntry.COLUMN_NAME_SPECIALIZATION_ID, doctor.getSpecialization().getId());
         values.put(DbContract.DoctorEntry.COLUMN_NAME_PRACTICE_DURATION, doctor.getPracticeDuration());
@@ -41,10 +42,12 @@ public class DoctorDAO extends DbDAO{
     public List<Doctor> getDoctors() {
         List<Doctor> doctors = new ArrayList<Doctor>();
 
+        // MUST JOIN THE TABLES BETWEEN DOCTOR AND SPECIALTIES
         // Select all rows
         // String selectQuery = "SELECT  * FROM " + DbContract.DoctorEntry.TABLE_NAME;
         Cursor cursor = database.query(DbContract.DoctorEntry.TABLE_NAME,
                 new String[] { DbContract.DoctorEntry.COLUMN_NAME_DOCTOR_ID,
+                        DbContract.DoctorEntry.COLUMN_NAME_DOCTOR_ID_STRING,
                         DbContract.DoctorEntry.COLUMN_NAME_DOCTOR_NAME,
                         DbContract.DoctorEntry.COLUMN_NAME_SPECIALIZATION_ID,
                         DbContract.DoctorEntry.COLUMN_NAME_PRACTICE_DURATION
@@ -54,9 +57,11 @@ public class DoctorDAO extends DbDAO{
         while (cursor.moveToNext()) {
             Doctor doctor = new Doctor();
             doctor.setId(cursor.getInt(0));
-            doctor.setName(cursor.getString(1));
-            doctor.setSpecialization(cursor.getInt(2));
-            doctor.setPracticeDuration(cursor.getInt(3));
+            doctor.setDoctorId(cursor.getString(1));
+            doctor.setName(cursor.getString(2));
+
+            doctor.setSpecialization(cursor.getInt(3));
+            doctor.setPracticeDuration(cursor.getInt(4));
             doctors.add(doctor);
         }
 
@@ -92,9 +97,12 @@ public class DoctorDAO extends DbDAO{
     /*  UPDATE
         returns the number of rows affected by the update
      */
-    public int update(Doctor doctor) {
+    public long update(Doctor doctor) {
         ContentValues values = new ContentValues();
+        values.put(DbContract.DoctorEntry.COLUMN_NAME_DOCTOR_ID_STRING, doctor.getDoctorId());
         values.put(DbContract.DoctorEntry.COLUMN_NAME_DOCTOR_NAME, doctor.getName());
+        values.put(DbContract.DoctorEntry.COLUMN_NAME_SPECIALIZATION_ID, doctor.getSpecialization().getId());
+        values.put(DbContract.DoctorEntry.COLUMN_NAME_PRACTICE_DURATION, doctor.getPracticeDuration());
 
         long result = database.update(DbContract.DoctorEntry.TABLE_NAME, values,
                 WHERE_ID_EQUALS,

@@ -127,7 +127,7 @@ public class PatientDAO extends DbDAO{
         patients.add(p2);
         patients.add(p3);
         for (Patient p: patients) {
-            database.insert(p);
+            insertPatient(p);
         }
     }
 }

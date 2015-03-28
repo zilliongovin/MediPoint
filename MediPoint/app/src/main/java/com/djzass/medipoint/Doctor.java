@@ -6,8 +6,7 @@ import java.util.ArrayList;
  * Created by Deka on 26/3/2015.
  */
 public class Doctor {
-    private int id;
-
+    private int DId;
     private String doctorId;
     private String name;
     private Specialty specialization;
@@ -15,6 +14,10 @@ public class Doctor {
     //per clinic
     private ArrayList<DoctorSchedule> doctorSchedules;
     private ArrayList<Appointment> appointments;
+
+    public Doctor(){
+
+    }
 
     public Doctor(int id, String name, Specialty specialization,
                   int practiceDuration) {
@@ -26,25 +29,19 @@ public class Doctor {
         this.doctorSchedules = new ArrayList<DoctorSchedule>();
     }
 
-    public int getId() {
-        return id;
-    }
 
-    public void setId(int id) {
-        this.id = id;
-        setDoctorId();
-    }
 
+    public void setDoctorId(String doctorId) {
+        this.doctorId = doctorId;
+    }
 
     public String getDoctorId() {
         return doctorId;
     }
 
     public void setDoctorId() {
-        this.doctorId = "D" + String.format("%07d", id);
+        this.doctorId = "D" + String.format("%07d", this.DId);
     }
-
-
 
     public String getName() {
         return name;
@@ -53,21 +50,27 @@ public class Doctor {
     public void setName(String name) {
         this.name = name;
     }
+
     public Specialty getSpecialization() {
         return specialization;
     }
+
     public void setSpecialization(Specialty specialization) {
         this.specialization = specialization;
     }
+
     public int getPracticeDuration() {
         return practiceDuration;
     }
+
     public void setPracticeDuration(int practiceDuration) {
         this.practiceDuration = practiceDuration;
     }
+
     public ArrayList<DoctorSchedule> getDoctorSchedule() {
         return doctorSchedules;
     }
+
     public boolean addDoctorSchedule(DoctorSchedule doctorSchedule) {
         for (DoctorSchedule d: doctorSchedules){
             if(d.getDay().equalsIgnoreCase(doctorSchedule.getDay())){
@@ -86,6 +89,14 @@ public class Doctor {
                 System.out.println(ds);
             }
         }
+    }
+
+    public int getDId() {
+        return DId;
+    }
+
+    public void setDId(int DId) {
+        this.DId = DId;
     }
 
     public String toString(){
