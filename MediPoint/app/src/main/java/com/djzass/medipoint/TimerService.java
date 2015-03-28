@@ -60,7 +60,7 @@ public class TimerService extends IntentService {
         {
             Toast.makeText(getApplicationContext(), "test", Toast.LENGTH_SHORT).show();
         }
-    };*/
+    };
 }
 
 
