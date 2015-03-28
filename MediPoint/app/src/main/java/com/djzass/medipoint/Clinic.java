@@ -86,10 +86,10 @@ public class Clinic {
     public void setEmail(String email) {
         this.email = email;
     }
-    public String getString() {
+    public String getCountry() {
         return country;
     }
-    public void setString(String country) {
+    public void setCountry(String country) {
         this.country = country;
     }
     public String toString(){
