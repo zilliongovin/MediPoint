@@ -4,6 +4,7 @@ import android.app.Activity;
 
 //import android.app.DialogFragment;
 import android.app.DialogFragment;
+import android.app.FragmentManager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -22,7 +23,6 @@ import java.util.List;
 public class CreateAppointmentActivity extends Activity implements AdapterView.OnItemSelectedListener{
 
     //spinner
-    Spinner timeSpinner_create;
     Spinner specialtySpinner_create;
     Spinner countrySpinner_create;
     Spinner serviceSpinner_create;
@@ -31,13 +31,6 @@ public class CreateAppointmentActivity extends Activity implements AdapterView.O
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_appointment);
-
-        //time spinner and array adapter
-        timeSpinner_create = (Spinner) findViewById(R.id.CreateApptTimeSpinner);
-        ArrayAdapter timeAdapter = ArrayAdapter.createFromResource(this, R.array.time_slot, android.R.layout.simple_spinner_dropdown_item);
-        timeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        timeSpinner_create.setAdapter(timeAdapter);
-        timeSpinner_create.setOnItemSelectedListener(this);
 
         //specialty spinner and array adapter
         specialtySpinner_create = (Spinner) findViewById(R.id.CreateApptSpecialty);
@@ -153,5 +146,52 @@ public class CreateAppointmentActivity extends Activity implements AdapterView.O
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
 
+    }
+
+    @Override
+    public void onStart(){
+        super.onStart();
+    }
+
+    @Override
+    public void onResume(){
+        super.onResume();
+    }
+
+    @Override
+    public void onPause(){
+        super.onPause();
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState){
+        super.onSaveInstanceState(outState);
+    }
+
+    @Override
+    public void onRestoreInstanceState(Bundle savedInstanceState){
+        super.onRestoreInstanceState(savedInstanceState);
+    }
+
+    @Override
+    public void onStop(){
+        super.onStop();
+    }
+
+    @Override
+    public void onDestroy(){
+        super.onDestroy();
+    }
+
+    public void showTimepicker(View v){
+        FragmentManager manager = getFragmentManager();
+        TimePickerFragment timepicker = new TimePickerFragment();
+        timepicker.show(manager, "TimePicker");
+    }
+
+    public void showDatePicker(View v){
+        FragmentManager manager = getFragmentManager();
+        DatePickerFragment datepicker = new DatePickerFragment();
+        datepicker.show(manager, "Datepicker");
     }
 }
