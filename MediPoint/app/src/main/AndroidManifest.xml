@@ -54,6 +54,8 @@
 
 
         </activity>
+
+
         <activity
             android:name=".DatabaseCreator"
             android:label="Database Testing" >
@@ -65,6 +67,9 @@
 
         </activity>
 
+        <service
+            android:name=".TimerService"
+            android:exported="false"/>
 
     </application>
 
