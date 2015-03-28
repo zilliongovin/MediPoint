@@ -12,6 +12,8 @@ import android.util.Log;
  */
 public class AppointmentDAO extends DbDAO{
 
+
+
     private static final String WHERE_ID_EQUALS = DbContract.AppointmentEntry.COLUMN_NAME_APPOINTMENT_ID
             + " =?";
 

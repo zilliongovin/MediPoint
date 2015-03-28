@@ -4,6 +4,7 @@ import java.lang.String;
 import java.util.Calendar;
 
 public class Account {
+    private int id;
 	private String username;
 	private String password;
 	private String name;
@@ -142,4 +143,13 @@ public class Account {
 	public void setCountryOfResidence(String countryOfResidence) {
 		this.countryOfResidence = countryOfResidence;
 	}
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
 }
