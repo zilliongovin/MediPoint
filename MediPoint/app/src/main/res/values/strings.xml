@@ -7,6 +7,8 @@
     <string name="title_activity_sign_up">Sign Up</string>
     <string name="title_activity_edit_appointment">Edit Appointment</string>
     <string name="title_activity_create_appointment">Create Appointment</string>
+    <string name="med_his">Medical History</string>
+    <string name="referral">Referral</string>
 
     <!-- Moving my files from appointment.xml-->
     <string name="selectspecialty">Select Specialty</string>
@@ -40,6 +42,7 @@
         <item>Ears, Nose, and Throat(ENT)</item>
         <item>Dental</item>
         <item>Women Health</item>
+        <item>General Medicine</item>
     </string-array>
 
     <string-array name="time_slot">
@@ -88,5 +91,32 @@
     <string name="delete">delete</string>
     <string name="next">next</string>
     <string name="prev">prev</string>
+    <string name="submit">Submit</string>
+
+    <!-- Medical History Resources -->
+    <string name="dental_1">Bleeding Gums</string>
+    <string name="dental_2">Had Braces Treatment</string>
+    <string name="dental_3">Teeth Sensitive to Hot, Cold </string>
+    <string name="dental_4">Earaches or Neck Pains</string>
+
+    <string name="ent_1">Hearing Problems</string>
+    <string name="ent_2">Ear Infection</string>
+    <string name="ent_3">Nose Bleeding</string>
+
+    <string name="gen_1">Blood in Urine</string>
+    <string name="gen_2">Hernia</string>
+    <string name="gen_3">Sexually Transmitted Infections</string>
+    <string name="gen_4">Menstrual Period Problems (females only)</string>
+
+    <string name="others_1">High Blood Pressure</string>
+    <string name="others_2">Diabetes</string>
+    <string name="others_3">Gastric Problems</string>
+    <string name="others_4">Heart Diseases</string>
+
+    <string name="drug_1">Local Anesthetics</string>
+    <string name="drug_2">Aspirin</string>
+    <string name="drug_3">Penicillin or other Antibiotics</string>
+    <string name="drug_4">Sulfa Drugs</string>
+    <string name="drug_5">Any Other</string>
 
 </resources>

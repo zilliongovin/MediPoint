@@ -15,7 +15,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 public class CreateAppointmentActivity extends Activity implements AdapterView.OnItemSelectedListener{
 
@@ -23,6 +25,7 @@ public class CreateAppointmentActivity extends Activity implements AdapterView.O
     Spinner timeSpinner_create;
     Spinner specialtySpinner_create;
     Spinner countrySpinner_create;
+    Spinner serviceSpinner_create;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +52,9 @@ public class CreateAppointmentActivity extends Activity implements AdapterView.O
         countryAdapter_create.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         countrySpinner_create.setAdapter(countryAdapter_create);
         countrySpinner_create.setOnItemSelectedListener(this);
+
+        //service spinner
+        serviceSpinner_create = (Spinner) findViewById(R.id.CreateApptServices);
 
     }
 
@@ -85,6 +91,58 @@ public class CreateAppointmentActivity extends Activity implements AdapterView.O
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+        String speciality= String.valueOf(specialtySpinner_create.getSelectedItem());
+
+        if(speciality.contentEquals("Dental")) {
+            List<String> list = new ArrayList<String>();
+            list.add("Routine Scaling");
+            list.add("Polishing");
+            list.add("Root Canal");
+            list.add("Fillings");
+            list.add("Tooth Extraction");
+            ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this,
+                    android.R.layout.simple_spinner_item, list);
+            dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            dataAdapter.notifyDataSetChanged();
+            serviceSpinner_create.setAdapter(dataAdapter);
+        }
+        if(speciality.contentEquals("Ears, Nose, and Throat(ENT)")) {
+            List<String> list = new ArrayList<String>();
+            list.add("General");
+            list.add("Paediatric ENT");
+            list.add("Obstructive Sleep Apnea (OSA)");
+            list.add("Otology");
+            ArrayAdapter<String> dataAdapter2 = new ArrayAdapter<String>(this,
+                    android.R.layout.simple_spinner_item, list);
+            dataAdapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            dataAdapter2.notifyDataSetChanged();
+            serviceSpinner_create.setAdapter(dataAdapter2);
+        }
+
+        if(speciality.contentEquals("Women Health")) {
+            List<String> list = new ArrayList<String>();
+            list.add("Gynecologist");
+            list.add("Obstetricians");
+            ArrayAdapter<String> dataAdapter2 = new ArrayAdapter<String>(this,
+                    android.R.layout.simple_spinner_item, list);
+            dataAdapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            dataAdapter2.notifyDataSetChanged();
+            serviceSpinner_create.setAdapter(dataAdapter2);
+        }
+
+        if(speciality.contentEquals("General Medicine")) {
+            List<String> list = new ArrayList<String>();
+            list.add("Dietetic Services");
+            list.add("Physiotherapy");
+            list.add("Child Care");
+            list.add("Chronic Care");
+            ArrayAdapter<String> dataAdapter2 = new ArrayAdapter<String>(this,
+                    android.R.layout.simple_spinner_item, list);
+            dataAdapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            dataAdapter2.notifyDataSetChanged();
+            serviceSpinner_create.setAdapter(dataAdapter2);
+        }
 
     }
     public void showDatePickerDialog(View v) {

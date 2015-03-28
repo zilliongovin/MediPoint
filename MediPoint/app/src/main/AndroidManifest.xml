@@ -55,6 +55,17 @@
 
         </activity>
 
+        <activity
+            android:name=".Referral"
+            android:label="@string/referral">
+
+        </activity>
+
+        <activity android:name=".Medical_History"
+            android:label="@string/med_his">
+
+        </activity>
+
 
         <activity
             android:name=".DatabaseCreator"
