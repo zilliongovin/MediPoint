@@ -43,8 +43,8 @@ public class ClinicDAO extends DbDAO{
     public List<Clinic> getClinics() {
         List<Clinic> clinics = new ArrayList<Clinic>();
 
-        // Select All rows
-        // String selectQuery = "SELECT  * FROM " + DbContract.ClinicEntry.TABLE_NAME;
+        /* Select All rows
+        //String selectQuery = "SELECT  * FROM " + DbContract.ClinicEntry.TABLE_NAME;
         Cursor cursor = database.query(DbContract.ClinicEntry.TABLE_NAME,
                 new String[] { DbContract.ClinicEntry.COLUMN_NAME_CLINIC_ID,
                         DbContract.ClinicEntry.COLUMN_NAME_CLINIC_NAME,
@@ -56,24 +56,14 @@ public class ClinicDAO extends DbDAO{
                         DbContract.ClinicEntry.COLUMN_NAME_EMAIL
                 }, null, null, null, null,
                 null);
-        //Havent finish yet
+        //Havent finish yet*/
+
         String query = "Select * FROM " + DbContract.ClinicEntry.TABLE_NAME + ", " + DbContract.CountryEntry.TABLE_NAME
-                + " WHERE " + DbContract.ClinicEntry.COLUMN_NAME_COUNTRY_ID + " = " + DbContract.CountryEntry.COLUMN_NAME_COUNTRY_ID;
-
-
-        // Building query using INNER JOIN keyword
-		/*String query = "SELECT " + EMPLOYEE_ID_WITH_PREFIX + ","
-		+ EMPLOYEE_NAME_WITH_PREFIX + "," + DataBaseHelper.EMPLOYEE_DOB
-		+ "," + DataBaseHelper.EMPLOYEE_SALARY + ","
-		+ DataBaseHelper.EMPLOYEE_DEPARTMENT_ID + ","
-		+ DEPT_NAME_WITH_PREFIX + " FROM "
-		+ DataBaseHelper.EMPLOYEE_TABLE + " emp INNER JOIN "
-		+ DataBaseHelper.DEPARTMENT_TABLE + " dept ON emp."
-		+ DataBaseHelper.EMPLOYEE_DEPARTMENT_ID + " = dept."
-		+ DataBaseHelper.ID_COLUMN;*/
+                + " WHERE " + CLINIC_PREFIX + DbContract.ClinicEntry.COLUMN_NAME_COUNTRY_ID + " = " +
+                COUNTRY_PREFIX + DbContract.CountryEntry.COLUMN_NAME_COUNTRY_ID;
 
         Log.d("query", query);
-        //Cursor c = database.rawQuery(query, null);
+        Cursor cursor = database.rawQuery(query, null);
 
         while (cursor.moveToNext()) {
             Clinic clinic= new Clinic();

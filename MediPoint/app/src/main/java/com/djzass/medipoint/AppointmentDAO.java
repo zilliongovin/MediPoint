@@ -1,5 +1,6 @@
 package com.djzass.medipoint;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,7 +21,7 @@ public class AppointmentDAO extends DbDAO{
     private static final String WHERE_ID_EQUALS = DbContract.AppointmentEntry.COLUMN_NAME_APPOINTMENT_ID
             + " =?";
 
-    public AppointmentDAO(Context context) {
+    public AppointmentDAO(Context context) throws SQLException {
         super(context);
     }
 

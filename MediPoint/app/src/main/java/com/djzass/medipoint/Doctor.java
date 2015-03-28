@@ -9,26 +9,22 @@ public class Doctor {
     private int DID;
     private String doctorId;
     private String name;
-    private Specialty specialization;
+    private int specializationId;
     private int practiceDuration;
     //per clinic
     private ArrayList<DoctorSchedule> doctorSchedules;
     private ArrayList<Appointment> appointments;
 
     public Doctor(){
-
     }
 
-    public Doctor(String name, Specialty specialization,
-                  int practiceDuration) {
+    public Doctor(String name, int specializationId, int practiceDuration) {
         this.name = name;
-        this.specialization = specialization;
+        this.specializationId = specializationId;
         this.practiceDuration = practiceDuration;
         this.appointments = new ArrayList<Appointment>();
         this.doctorSchedules = new ArrayList<DoctorSchedule>();
     }
-
-
 
     public void setDoctorId(String doctorId) {
         this.doctorId = doctorId;
@@ -50,12 +46,12 @@ public class Doctor {
         this.name = name;
     }
 
-    public Specialty getSpecialization() {
-        return specialization;
+    public int getSpecializationId() {
+        return this.specializationId;
     }
 
-    public void setSpecialization(Specialty specialization) {
-        this.specialization = specialization;
+    public void setSpecializationId(int specializationId) {
+        this.specializationId = specializationId;
     }
 
     public int getPracticeDuration() {
@@ -103,7 +99,7 @@ public class Doctor {
                 "ID: " + this.DID + "\n" +
                 "Name: " + this.name + "\n" +
                 "Practice Duration: " + this.practiceDuration+ "\n" +
-                "Specialization: " + this.specialization.getName() + "\n"
+                "Specialization: " + this.specializationId + "\n"
                 ;
     }
 }

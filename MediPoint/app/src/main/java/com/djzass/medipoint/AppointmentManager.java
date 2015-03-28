@@ -7,6 +7,7 @@ import java.util.ArrayList;
 
 public class AppointmentManager {
     private ArrayList<Appointment> appointments;
+    private AppointmentDAO appointmentDao;
 
 
     public ArrayList<Boolean> getAvailableTime(Calendar date, String patient, String doctor){

@@ -4,14 +4,10 @@ package com.djzass.medipoint;
  * Created by Deka on 26/3/2015.
  */
 
-import java.sql.Time;
-import java.util.Calendar;
-import java.util.HashMap;
-
 public class DoctorSchedule {
     private int id;
-    private Doctor doctor;
-    private Clinic clinic;
+    private int doctorId;
+    private int clinicId;
     private String day;
 
     private Timeframe timeframe;
@@ -20,15 +16,15 @@ public class DoctorSchedule {
 
     }
 
-    public DoctorSchedule(Doctor doctor, Clinic clinic, String day) {
-        this.doctor = doctor;
-        this.clinic = clinic;
+    public DoctorSchedule(int doctorId, int clinicId, String day) {
+        this.doctorId = doctorId;
+        this.clinicId = clinicId;
         this.day = day;
     }
 
-    public DoctorSchedule(Doctor doctor, Clinic clinic, String day, Timeframe timeframe) {
-        this.doctor = doctor;
-        this.clinic = clinic;
+    public DoctorSchedule(int doctorId, int clinicId, String day, Timeframe timeframe) {
+        this.doctorId = doctorId;
+        this.clinicId = clinicId;
         this.day = day;
         this.timeframe = timeframe;
     }
@@ -41,20 +37,20 @@ public class DoctorSchedule {
         this.id = id;
     }
 
-    public Doctor getDoctor() {
-        return doctor;
+    public int getDoctorId() {
+        return doctorId;
     }
 
-    public void setDoctor(Doctor doctor) {
-        this.doctor = doctor;
+    public void setDoctorId(int doctorId) {
+        this.doctorId = doctorId;
     }
 
-    public Clinic getClinic() {
-        return clinic;
+    public int getClinicId() {
+        return clinicId;
     }
 
-    public void setClinic(Clinic clinic) {
-        this.clinic = clinic;
+    public void setClinicId(int clinicId) {
+        this.clinicId = clinicId;
     }
 
     public String getDay() {

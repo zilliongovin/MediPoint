@@ -2,7 +2,7 @@ package com.djzass.medipoint;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
+import java.util.Calendar;
 
 /**
  * Created by Deka on 25/3/2015.
@@ -23,7 +23,7 @@ public class Patient extends Account{
     };
 
     public Patient(String username, String password, String name, String nric, String email, String phoneNumber, String gender,
-        String address, String maritalStatus, Date dob, String citizenship, String countryOfResidence,String listOfTreatments, String listOfMedications, String allergy) {
+        String address, String maritalStatus, Calendar dob, String citizenship, String countryOfResidence,String listOfTreatments, String listOfMedications, String allergy) {
         super(username, password, name, nric, email, phoneNumber, gender, address, maritalStatus, dob, citizenship, countryOfResidence);
         this.age = getAge();
         this.listOfTreatments = listOfTreatments;
@@ -50,8 +50,7 @@ public class Patient extends Account{
     }
 
     public int getAge() {
-        Calendar dob = Calendar.getInstance();
-        dob.setTime(this.getDob());
+        Calendar dob = this.getDob();
         Calendar now = Calendar.getInstance();
         int age =  now.YEAR - dob.YEAR;
 

@@ -5,7 +5,7 @@ package com.djzass.medipoint;
  */
 public class Service {
     private int serviceId;
-    private Specialty specialty;
+    private int specialtyId;
     private String name;
     private int duration;
     private String preAppointmentActions;
@@ -14,23 +14,23 @@ public class Service {
         this.duration = 30;
         this.preAppointmentActions = "None";
     }
-    public Service(String name, Specialty specialty) {
+    public Service(String name, int specialtyId) {
         this.name = name;
-        this.specialty = specialty;
+        this.specialtyId = specialtyId;
 
         //The regular timing is 30 minutes
         this.duration = 30;
         this.preAppointmentActions = "None";
     }
-    public Service(String name, Specialty specialty, int duration) {
+    public Service(String name, int specialtyId, int duration) {
         this.name = name;
-        this.specialty = specialty;
+        this.specialtyId = specialtyId;
         this.duration = duration;
         this.preAppointmentActions = "None";
     }
-    public Service(String name, Specialty specialty, int duration, String preAppointmentAction) {
+    public Service(String name, int specialtyId, int duration, String preAppointmentAction) {
         this.name = name;
-        this.specialty = specialty;
+        this.specialtyId = specialtyId;
         this.duration = duration;
         this.preAppointmentActions = preAppointmentAction;
     }
@@ -52,11 +52,11 @@ public class Service {
     public void setDuration(int duration) {
         this.duration = duration;
     }
-    public Specialty getSpecialty() {
-        return specialty;
+    public int getSpecialtyId() {
+        return specialtyId;
     }
-    public void setSpecialty(Specialty specialty) {
-        this.specialty = specialty;
+    public void setSpecialtyId(int specialtyId) {
+        this.specialtyId = specialtyId;
     }
     public String getPreAppointmentActions() {
         return preAppointmentActions;

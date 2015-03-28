@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.util.Log;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,9 +15,8 @@ import java.util.List;
 public class DoctorDAO extends DbDAO{
     private static final String WHERE_ID_EQUALS = DbContract.DoctorEntry.COLUMN_NAME_DOCTOR_ID
             + " =?";
-    private SpecialtyDAO specialtyDao;
 
-    public DoctorDAO(Context context) {
+    public DoctorDAO(Context context) throws SQLException {
         super(context);
     }
 
@@ -28,7 +28,7 @@ public class DoctorDAO extends DbDAO{
         ContentValues values = new ContentValues();
         values.put(DbContract.DoctorEntry.COLUMN_NAME_DOCTOR_ID_STRING, doctor.getDoctorId());
         values.put(DbContract.DoctorEntry.COLUMN_NAME_DOCTOR_NAME, doctor.getName());
-        values.put(DbContract.DoctorEntry.COLUMN_NAME_SPECIALIZATION_ID, doctor.getSpecialization().getId());
+        values.put(DbContract.DoctorEntry.COLUMN_NAME_SPECIALIZATION_ID, doctor.getSpecializationId());
         values.put(DbContract.DoctorEntry.COLUMN_NAME_PRACTICE_DURATION, doctor.getPracticeDuration());
 
         // Inserting Row
@@ -87,7 +87,7 @@ public class DoctorDAO extends DbDAO{
         Doctor doctor = new Doctor();
         doctor.setId(c.getInt(c.getColumnIndex(DbContract.DoctorEntry.COLUMN_NAME_DOCTOR_ID)));
         doctor.setName(c.getString(c.getColumnIndex(DbContract.DoctorEntry.COLUMN_NAME_DOCTOR_NAME)));
-        doctor.setSpecialization(specialtyDao.getSpecialtyById(c.getInt(c.getColumnIndex(DbContract.DoctorEntry.COLUMN_NAME_SPECIALIZATION_ID))));
+        doctor.setSpecializationId(c.getColumnIndex(DbContract.DoctorEntry.COLUMN_NAME_SPECIALIZATION_ID));
         doctor.setPracticeDuration(c.getInt(c.getColumnIndex(DbContract.DoctorEntry.COLUMN_NAME_PRACTICE_DURATION)));
 
         return doctor;
@@ -100,7 +100,7 @@ public class DoctorDAO extends DbDAO{
         ContentValues values = new ContentValues();
         values.put(DbContract.DoctorEntry.COLUMN_NAME_DOCTOR_ID_STRING, doctor.getDoctorId());
         values.put(DbContract.DoctorEntry.COLUMN_NAME_DOCTOR_NAME, doctor.getName());
-        values.put(DbContract.DoctorEntry.COLUMN_NAME_SPECIALIZATION_ID, doctor.getSpecialization().getId());
+        values.put(DbContract.DoctorEntry.COLUMN_NAME_SPECIALIZATION_ID, doctor.getSpecializationId());
         values.put(DbContract.DoctorEntry.COLUMN_NAME_PRACTICE_DURATION, doctor.getPracticeDuration());
 
         long result = database.update(DbContract.DoctorEntry.TABLE_NAME, values,
