@@ -61,7 +61,7 @@
 
         </activity>
 
-        <activity android:name=".Medical_History"
+        <activity android:name=".MedicalHistory"
             android:label="@string/med_his">
 
         </activity>

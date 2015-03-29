@@ -102,6 +102,7 @@ public class ClinicDAO extends DbDAO{
         if (c != null)
             c.moveToFirst();
 
+
         // Create the class object, then set the attribute from content of the exisiting data in the table
         Clinic clinic = new Clinic();
         clinic.setId(c.getInt(c.getColumnIndex(DbContract.ClinicEntry.COLUMN_NAME_CLINIC_ID)));

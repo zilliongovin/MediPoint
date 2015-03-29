@@ -16,6 +16,9 @@ public class PatientDAO extends DbDAO{
     private static final String WHERE_ID_EQUALS = DbContract.PatientEntry.COLUMN_NAME_PATIENT_ID
             + " =?";
 
+    public static final String PATIENT_ID_WITH_PREFIX = "patient.";
+    public static final String ACCOUNT_ID_WITH_PREFIX = "account.";
+
     public PatientDAO(Context context) throws SQLException {
         super(context);
     }
@@ -47,17 +50,51 @@ public class PatientDAO extends DbDAO{
         List<Patient> patients = new ArrayList<Patient>();
 
         //MUST JOIN
-        // Select all rows
-        // String selectQuery = "SELECT  * FROM " + DbContract.PatientEntry.TABLE_NAME;
-        Cursor cursor = database.query(DbContract.PatientEntry.TABLE_NAME,
-                new String[] { DbContract.PatientEntry.COLUMN_NAME_PATIENT_ID,
-                        }, null, null, null, null,
-                null);
+        String query = "SELECT " + ACCOUNT_ID_WITH_PREFIX + DbContract.AccountEntry.COLUMN_NAME_ACCOUNT_ID +
+                ACCOUNT_ID_WITH_PREFIX + DbContract.AccountEntry.COLUMN_NAME_ACCOUNT_ID +
+                ACCOUNT_ID_WITH_PREFIX + DbContract.AccountEntry.COLUMN_NAME_USERNAME +
+                ACCOUNT_ID_WITH_PREFIX + DbContract.AccountEntry.COLUMN_NAME_USERNAME +
+                ACCOUNT_ID_WITH_PREFIX + DbContract.AccountEntry.COLUMN_NAME_USERNAME +
+                ACCOUNT_ID_WITH_PREFIX + DbContract.AccountEntry.COLUMN_NAME_USERNAME +
+                ACCOUNT_ID_WITH_PREFIX + DbContract.AccountEntry.COLUMN_NAME_USERNAME +
+                ACCOUNT_ID_WITH_PREFIX + DbContract.AccountEntry.COLUMN_NAME_USERNAME +
+                ACCOUNT_ID_WITH_PREFIX + DbContract.AccountEntry.COLUMN_NAME_USERNAME +
+                ACCOUNT_ID_WITH_PREFIX + DbContract.AccountEntry.COLUMN_NAME_USERNAME +
+                ACCOUNT_ID_WITH_PREFIX + DbContract.AccountEntry.COLUMN_NAME_USERNAME +
+                ACCOUNT_ID_WITH_PREFIX + DbContract.AccountEntry.COLUMN_NAME_USERNAME +
+                ACCOUNT_ID_WITH_PREFIX + DbContract.AccountEntry.COLUMN_NAME_USERNAME +
+                ACCOUNT_ID_WITH_PREFIX + DbContract.AccountEntry.COLUMN_NAME_USERNAME +
+
+
+                " FROM " + DbContract.PatientEntry.TABLE_NAME + " patient, " +
+                DbContract.AccountEntry.TABLE_NAME + " account, WHERE " + PATIENT_ID_WITH_PREFIX +
+                DbContract.PatientEntry.COLUMN_NAME_ACCOUNT_ID + " = " + ACCOUNT_ID_WITH_PREFIX +
+                DbContract.AccountEntry.COLUMN_NAME_ACCOUNT_ID ;
+
+        Cursor cursor = database.rawQuery(query, null);
 
         while (cursor.moveToNext()) {
             Patient patient= new Patient();
-            patient.setId(cursor.getInt(0));
-            patient.setName(cursor.getString(1));
+            patient.setId(cursor.getInt(cursor.getColumnIndex(DbContract.PatientEntry.COLUMN_NAME_ACCOUNT_ID)));
+            patient.setUsername(cursor.getString(cursor.getColumnIndex(DbContract.PatientEntry.)));
+            patient.setPassword(cursor.getString());
+            patient.setName();
+            patient.setNric();
+            patient.setEmail();
+            patient.setPhoneNumber();
+            patient.setGender();
+            patient.setAddress();
+            patient.setMaritalStatus();
+            patient.setDob();
+            patient.setCitizenship();
+            patient.setCountryOfResidence();
+            patient.setAge();
+            patient.setAllergy();
+            patient.setMedicalHistory();
+            patient.setListOfTreatments();
+            patient.setListOfMedications();
+            patient.setId(cursor.getInt(cursor.getColumnIndex(DbContract.PatientEntry.COLUMN_NAME_ACCOUNT_ID)));
+            patient.setName(cursor.getString());
             patients.add(patient);
         }
 

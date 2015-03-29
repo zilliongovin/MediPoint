@@ -45,7 +45,6 @@ public class CreateAppointment extends Activity{
     public void showDatePickerDialog(View v) {
         DialogFragment date = new DatePickerFragment();
         date.show(getFragmentManager(), "datePicker");
-    }
     public void showTimePickerDialog(View v) {
         DialogFragment time = new TimePickerFragment();
         time.show(getFragmentManager(), "timePicker");
