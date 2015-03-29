@@ -97,7 +97,6 @@ public class DbHelper extends SQLiteOpenHelper {
     /*DOCTOR TABLE*/
     private static final String SQL_CREATE_DOCTOR = "CREATE TABLE " + DbContract.DoctorEntry.TABLE_NAME + " (" +
             DbContract.DoctorEntry.COLUMN_NAME_DOCTOR_ID + INT_KEY_TYPE + COMMA_SEP +
-            DbContract.DoctorEntry.COLUMN_NAME_DOCTOR_ID_STRING + VARCHAR_TEN_TYPE + COMMA_SEP +
             DbContract.DoctorEntry.COLUMN_NAME_DOCTOR_NAME + VARCHAR_THIRTY_TYPE + COMMA_SEP +
             DbContract.DoctorEntry.COLUMN_NAME_SPECIALIZATION_ID + VARCHAR_FIFTY_TYPE + COMMA_SEP +
             DbContract.DoctorEntry.COLUMN_NAME_PRACTICE_DURATION + INT_TYPE + COMMA_SEP + " );";

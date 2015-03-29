@@ -42,21 +42,16 @@ public class DoctorScheduleDAO extends DbDAO{
       * Getting all doctorSchedules from the table
      * returns list of doctorSchedules
      * */
-    public List<DoctorSchedule> getDoctorSchedules() {
+    public List<DoctorSchedule> getDoctorSchedules(String whereclause) {
         List<DoctorSchedule> doctorSchedules = new ArrayList<DoctorSchedule>();
 
-
-        //MUST JOIN THE TABLES TOGETHER
-
-        // Select all rows
-        // String selectQuery = "SELECT  * FROM " + DbContract.DoctorScheduleEntry.TABLE_NAME;
         Cursor cursor = database.query(DbContract.DoctorScheduleEntry.TABLE_NAME,
                 new String[] { DbContract.DoctorScheduleEntry.COLUMN_NAME_DOCTOR_SCHEDULE_ID,
                         DbContract.DoctorScheduleEntry.COLUMN_NAME_DOCTOR_ID,
                         DbContract.DoctorScheduleEntry.COLUMN_NAME_CLINIC_ID,
                         DbContract.DoctorScheduleEntry.COLUMN_NAME_DAY,
                         DbContract.DoctorScheduleEntry.COLUMN_NAME_START_TIME,
-                        DbContract.DoctorScheduleEntry.COLUMN_NAME_END_TIME}, null, null, null, null,
+                        DbContract.DoctorScheduleEntry.COLUMN_NAME_END_TIME}, whereclause, null, null, null,
                 null);
 
         while (cursor.moveToNext()) {
@@ -72,27 +67,23 @@ public class DoctorScheduleDAO extends DbDAO{
         return doctorSchedules;
     }
 
-    /*
-        FETCH BY ID
-     */
-    //READ SINGLE ROW
-    public DoctorSchedule getDoctorScheduleById(long doctorScheduleId) {
-        String selectQuery = "SELECT  * FROM " + DbContract.DoctorScheduleEntry.TABLE_NAME + " WHERE "
-                + DbContract.DoctorScheduleEntry.COLUMN_NAME_DOCTOR_SCHEDULE_ID + " = " + doctorScheduleId;
+    public List<DoctorSchedule> getAllDoctorSchedules() {
+        return getDoctorSchedules(null);
+    }
 
-        Cursor c = database.rawQuery(selectQuery, null);
+    public List<DoctorSchedule> getDoctorSchedulesByID(int id) {
+        String whereclause = DbContract.DoctorScheduleEntry.COLUMN_NAME_DOCTOR_SCHEDULE_ID + " = " + id;
+        return getDoctorSchedules(whereclause);
+    }
 
-        //MUST JOIN THE TABLES TOGETHER
+    public List<DoctorSchedule> getDoctorSchedulesByDoctorID(int doctorId) {
+        String whereclause = DbContract.DoctorScheduleEntry.COLUMN_NAME_DOCTOR_ID + " = " + doctorId;
+        return getDoctorSchedules(whereclause);
+    }
 
-        if (c != null)
-            c.moveToFirst();
-
-        // Create the class object, then set the attribute from content of the exisiting data in the table
-        DoctorSchedule doctorSchedule = new DoctorSchedule();
-        //doctorSchedule.setId(c.getInt(c.getColumnIndex(DbContract.DoctorScheduleEntry.COLUMN_NAME_DOCTOR_SCHEDULE_ID)));
-        //doctorSchedule.setName(c.getString(c.getColumnIndex(DbContract.DoctorScheduleEntry.COLUMN_NAME_DOCTOR_SCHEDULE_NAME)));
-
-        return doctorSchedule;
+    public List<DoctorSchedule> getDoctorSchedulesByClinicID(int clinicId) {
+        String whereclause = DbContract.DoctorScheduleEntry.COLUMN_NAME_CLINIC_ID + " = " + clinicId;
+        return getDoctorSchedules(whereclause);
     }
     /*
         UPDATE

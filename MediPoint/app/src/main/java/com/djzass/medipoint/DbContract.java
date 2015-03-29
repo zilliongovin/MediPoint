@@ -61,7 +61,6 @@ public class DbContract {
     public static abstract class DoctorEntry implements BaseColumns{
         public static final String TABLE_NAME = "doctor";
         public static final String COLUMN_NAME_DOCTOR_ID = "doctorId";
-        public static final String COLUMN_NAME_DOCTOR_ID_STRING = "doctorIdString";
         public static final String COLUMN_NAME_DOCTOR_NAME = "name";
         public static final String COLUMN_NAME_SPECIALIZATION_ID = "specializationId";
         public static final String COLUMN_NAME_PRACTICE_DURATION = "practiceDuration";

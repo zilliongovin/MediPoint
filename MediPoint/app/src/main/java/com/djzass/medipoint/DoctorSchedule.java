@@ -4,12 +4,8 @@ package com.djzass.medipoint;
  * Created by Deka on 26/3/2015.
  */
 
-import java.sql.Time;
-import java.util.Calendar;
-import java.util.HashMap;
-
 public class DoctorSchedule {
-    private int id;
+    private int scheduleId;
     private int doctorId;
     private int clinicId;
     private String day;
@@ -34,11 +30,11 @@ public class DoctorSchedule {
     }
 
     public int getId() {
-        return id;
+        return scheduleId;
     }
 
     public void setId(int id) {
-        this.id = id;
+        this.scheduleId = id;
     }
 
     public int getDoctorId() {

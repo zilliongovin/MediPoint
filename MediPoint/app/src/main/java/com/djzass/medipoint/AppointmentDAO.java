@@ -31,12 +31,12 @@ public class AppointmentDAO extends DbDAO{
 
     public long insertAppointment(Appointment appointment) {
         ContentValues values = new ContentValues();
-        values.put(DbContract.AppointmentEntry.COLUMN_NAME_CLINIC_ID, appointment.getClinic());
-        values.put(DbContract.AppointmentEntry.COLUMN_NAME_PATIENT_ID, appointment.getPatient());
-        values.put(DbContract.AppointmentEntry.COLUMN_NAME_DOCTOR_ID, appointment.getDoctor());
+        values.put(DbContract.AppointmentEntry.COLUMN_NAME_CLINIC_ID, appointment.getClinicId());
+        values.put(DbContract.AppointmentEntry.COLUMN_NAME_PATIENT_ID, appointment.getPatientId());
+        values.put(DbContract.AppointmentEntry.COLUMN_NAME_DOCTOR_ID, appointment.getDoctorId());
         values.put(DbContract.AppointmentEntry.COLUMN_NAME_DATE_TIME, String.valueOf(appointment));
         values.put(DbContract.AppointmentEntry.COLUMN_NAME_SERVICE_ID, appointment.getService());
-        values.put(DbContract.AppointmentEntry.COLUMN_NAME_SPECIALTY_ID,appointment.getSpecialty());
+        values.put(DbContract.AppointmentEntry.COLUMN_NAME_SPECIALTY_ID,appointment.getSpecialtyId());
         values.put(DbContract.AppointmentEntry.COLUMN_NAME_PREAPPOINTMENT_ACTIONS, appointment.getPreAppointmentActions());
         values.put(DbContract.AppointmentEntry.COLUMN_NAME_START_TIME, appointment.getTimeframe().getStartTime());
         values.put(DbContract.AppointmentEntry.COLUMN_NAME_END_TIME, appointment.getTimeframe().getEndTime());
@@ -67,9 +67,9 @@ public class AppointmentDAO extends DbDAO{
 
         while (cursor.moveToNext()) {
             Appointment appointment= new Appointment();
-            appointment.setClinic(cursor.getInt(0));
-            appointment.setPatient(cursor.getInt(1));
-            appointment.setDoctor(cursor.getInt(2));
+            appointment.setClinicId(cursor.getInt(0));
+            appointment.setPatientId(cursor.getInt(1));
+            appointment.setDoctorId(cursor.getInt(2));
 
             String temp = cursor.getString(3);
             DateFormat dateformat = new SimpleDateFormat("yyyy-MM-dd");
@@ -81,7 +81,7 @@ public class AppointmentDAO extends DbDAO{
             }
             appointment.setDate(cal);
             appointment.setService(cursor.getInt(4));
-            appointment.setSpecialty(cursor.getInt(5));
+            appointment.setSpecialtyId(cursor.getInt(5));
             appointment.setPreAppointmentActions(cursor.getString(6));
             Timeframe timeframe= new Timeframe(cursor.getInt(7),cursor.getInt(8));
             appointment.setTimeframe(timeframe);
@@ -116,12 +116,12 @@ public class AppointmentDAO extends DbDAO{
      */
     public long update(Appointment appointment) {
         ContentValues values = new ContentValues();
-        values.put(DbContract.AppointmentEntry.COLUMN_NAME_CLINIC_ID, appointment.getClinic());
-        values.put(DbContract.AppointmentEntry.COLUMN_NAME_PATIENT_ID, appointment.getPatient());
-        values.put(DbContract.AppointmentEntry.COLUMN_NAME_DOCTOR_ID, appointment.getDoctor());
+        values.put(DbContract.AppointmentEntry.COLUMN_NAME_CLINIC_ID, appointment.getClinicId());
+        values.put(DbContract.AppointmentEntry.COLUMN_NAME_PATIENT_ID, appointment.getPatientId());
+        values.put(DbContract.AppointmentEntry.COLUMN_NAME_DOCTOR_ID, appointment.getDoctorId());
         values.put(DbContract.AppointmentEntry.COLUMN_NAME_DATE_TIME, String.valueOf(appointment.getDate()));
         values.put(DbContract.AppointmentEntry.COLUMN_NAME_SERVICE_ID, appointment.getService());
-        values.put(DbContract.AppointmentEntry.COLUMN_NAME_SPECIALTY_ID,appointment.getSpecialty());
+        values.put(DbContract.AppointmentEntry.COLUMN_NAME_SPECIALTY_ID,appointment.getSpecialtyId());
         values.put(DbContract.AppointmentEntry.COLUMN_NAME_PREAPPOINTMENT_ACTIONS, appointment.getPreAppointmentActions());
         values.put(DbContract.AppointmentEntry.COLUMN_NAME_START_TIME, appointment.getTimeframe().getStartTime());
         values.put(DbContract.AppointmentEntry.COLUMN_NAME_END_TIME, appointment.getTimeframe().getEndTime());

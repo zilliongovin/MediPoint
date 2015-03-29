@@ -27,12 +27,10 @@ public class DoctorDAO extends DbDAO{
      */
     public long insertDoctor(Doctor doctor){
         ContentValues values = new ContentValues();
-        values.put(DbContract.DoctorEntry.COLUMN_NAME_DOCTOR_ID_STRING, doctor.getDoctorId());
         values.put(DbContract.DoctorEntry.COLUMN_NAME_DOCTOR_NAME, doctor.getName());
         values.put(DbContract.DoctorEntry.COLUMN_NAME_SPECIALIZATION_ID, doctor.getSpecializationId());
         values.put(DbContract.DoctorEntry.COLUMN_NAME_PRACTICE_DURATION, doctor.getPracticeDuration());
 
-        // Inserting Row
         return database.insert(DbContract.DoctorEntry.TABLE_NAME, null, values);
     }
 
@@ -40,59 +38,41 @@ public class DoctorDAO extends DbDAO{
      * Getting all doctors from the table
      * returns list of doctors
      * */
-    public List<Doctor> getDoctors() {
+    public List<Doctor> getDoctors(String whereclause) {
         List<Doctor> doctors = new ArrayList<Doctor>();
 
-        // MUST JOIN THE TABLES BETWEEN DOCTOR AND SPECIALTIES
-        // Select all rows
-        // String selectQuery = "SELECT  * FROM " + DbContract.DoctorEntry.TABLE_NAME;
         Cursor cursor = database.query(DbContract.DoctorEntry.TABLE_NAME,
                 new String[] { DbContract.DoctorEntry.COLUMN_NAME_DOCTOR_ID,
-                        DbContract.DoctorEntry.COLUMN_NAME_DOCTOR_ID_STRING,
                         DbContract.DoctorEntry.COLUMN_NAME_DOCTOR_NAME,
                         DbContract.DoctorEntry.COLUMN_NAME_SPECIALIZATION_ID,
                         DbContract.DoctorEntry.COLUMN_NAME_PRACTICE_DURATION
-                }, null, null, null, null,
+                }, whereclause, null, null, null,
                 null);
 
         while (cursor.moveToNext()) {
             Doctor doctor = new Doctor();
-            doctor.setId(cursor.getInt(0));
-            doctor.setDoctorId(cursor.getString(1));
-            doctor.setName(cursor.getString(2));
-            //doctor.setSpecialization(cursor.getInt(3));
-            doctor.setPracticeDuration(cursor.getInt(4));
+            doctor.setDoctorId(cursor.getInt(0));
+            doctor.setName(cursor.getString(1));
+            doctor.setSpecializationId(cursor.getInt(2));
+            doctor.setPracticeDuration(cursor.getInt(3));
             doctors.add(doctor);
         }
 
         return doctors;
     }
-    //READ SINGLE ROW
-    public Doctor getDoctorById(int doctorId) {
-        //String selectQuery = "SELECT  * FROM " + DbContract.DoctorEntry.TABLE_NAME + " WHERE "
-        //        + DbContract.DoctorEntry.COLUMN_NAME_DOCTOR_ID + " = " + doctorId;
 
-        //Cursor c = database.rawQuery(selectQuery, null);
-        Cursor c = database.query(DbContract.DoctorEntry.TABLE_NAME,
-                new String[] { DbContract.DoctorEntry.COLUMN_NAME_DOCTOR_ID,
-                        DbContract.DoctorEntry.COLUMN_NAME_DOCTOR_NAME,
-                        DbContract.DoctorEntry.COLUMN_NAME_SPECIALIZATION_ID,
-                        DbContract.DoctorEntry.COLUMN_NAME_PRACTICE_DURATION
-                }, DbContract.DoctorEntry.COLUMN_NAME_SPECIALIZATION_ID + " = ?", new String[]{doctorId+""}, null, null,
-                null);
+    public List<Doctor> getAllDoctors() {
+        return getDoctors(null);
+    }
 
-        if (c != null)
-            c.moveToFirst();
+    public List<Doctor> getDoctorById(int doctorId) {
+        String whereclause = DbContract.DoctorEntry.COLUMN_NAME_DOCTOR_ID + " = " + doctorId;
+        return getDoctors(whereclause);
+    }
 
-        // Create the class object, then set the attribute from content of the exisiting data in the table
-        Doctor doctor = new Doctor();
-        doctor.setId(c.getInt(c.getColumnIndex(DbContract.DoctorEntry.COLUMN_NAME_DOCTOR_ID)));
-        doctor.setName(c.getString(c.getColumnIndex(DbContract.DoctorEntry.COLUMN_NAME_DOCTOR_NAME)));
-        //doctor.setSpecialization(specialtyDao.getSpecialtyById(c.getInt(c.getColumnIndex(DbContract.DoctorEntry.COLUMN_NAME_SPECIALIZATION_ID))));
-        doctor.setSpecializationId(c.getColumnIndex(DbContract.DoctorEntry.COLUMN_NAME_SPECIALIZATION_ID));
-        doctor.setPracticeDuration(c.getInt(c.getColumnIndex(DbContract.DoctorEntry.COLUMN_NAME_PRACTICE_DURATION)));
-
-        return doctor;
+    public List<Doctor> getDoctorBySpecialization(int specializationId) {
+        String whereclause = DbContract.DoctorEntry.COLUMN_NAME_SPECIALIZATION_ID + " = " + specializationId;
+        return getDoctors(whereclause);
     }
 
     /*  UPDATE
@@ -100,14 +80,13 @@ public class DoctorDAO extends DbDAO{
      */
     public long update(Doctor doctor) {
         ContentValues values = new ContentValues();
-        values.put(DbContract.DoctorEntry.COLUMN_NAME_DOCTOR_ID_STRING, doctor.getDoctorId());
         values.put(DbContract.DoctorEntry.COLUMN_NAME_DOCTOR_NAME, doctor.getName());
         values.put(DbContract.DoctorEntry.COLUMN_NAME_SPECIALIZATION_ID, doctor.getSpecializationId());
         values.put(DbContract.DoctorEntry.COLUMN_NAME_PRACTICE_DURATION, doctor.getPracticeDuration());
 
         long result = database.update(DbContract.DoctorEntry.TABLE_NAME, values,
                 WHERE_ID_EQUALS,
-                new String[] { String.valueOf(doctor.getDID()) });
+                new String[] { String.valueOf(doctor.getDoctorId()) });
         Log.d("Update Result:", "=" + result);
 
         return result;
@@ -119,7 +98,7 @@ public class DoctorDAO extends DbDAO{
      */
     public int deleteDoctor(Doctor doctor) {
         return database.delete(DbContract.DoctorEntry.TABLE_NAME,
-                WHERE_ID_EQUALS, new String[] { doctor.getDID() + "" });
+                WHERE_ID_EQUALS, new String[] { doctor.getDoctorId() + "" });
     }
     /*
         LOAD

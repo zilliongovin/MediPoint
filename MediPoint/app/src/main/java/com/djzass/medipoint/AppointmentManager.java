@@ -1,8 +1,6 @@
 package com.djzass.medipoint;
 
-import java.util.Date;
 import java.util.Calendar;
-import java.lang.String;
 import java.util.ArrayList;
 
 public class AppointmentManager {
@@ -17,7 +15,7 @@ public class AppointmentManager {
             ret.add(true);
         }
         for (Appointment temp : appointments) {
-            if (temp.getDate().compareTo(date)==0 && (temp.getPatient() == patient || temp.getDoctor() == doctor)) {
+            if (temp.getDate().compareTo(date)==0 && (temp.getPatientId() == patient || temp.getDoctorId() == doctor)) {
                 for (int i=temp.getTimeframe().getStartTime(); i<=temp.getTimeframe().getEndTime(); ++i){
                     ret.set(i,false);
                 }
@@ -49,7 +47,7 @@ public class AppointmentManager {
         ArrayList<Appointment> ret = new ArrayList<Appointment>();
 
         for (Appointment temp : appointments) {
-            if (temp.getPatient() == patient) {
+            if (temp.getPatientId() == patient) {
                 if (currentTime.compareTo(temp.getDate()) < 0) ret.add(temp);
             }
         }
@@ -61,7 +59,7 @@ public class AppointmentManager {
         ArrayList<Appointment> ret = new ArrayList<Appointment>();
 
         for (Appointment temp : appointments) {
-            if (temp.getPatient() == patient) {
+            if (temp.getPatientId() == patient) {
                 if (currentTime.compareTo(temp.getDate()) >= 0) ret.add(temp);
             }
         }
@@ -74,7 +72,7 @@ public class AppointmentManager {
         ArrayList<Appointment> ret = new ArrayList<Appointment>();
 
         for (Appointment temp : appointments) {
-            if (temp.getDoctor() == doctor) {
+            if (temp.getDoctorId() == doctor) {
                 if (currentTime.compareTo(temp.getDate()) < 0) ret.add(temp);
             }
         }
@@ -86,7 +84,7 @@ public class AppointmentManager {
         ArrayList<Appointment> ret = new ArrayList<Appointment>();
 
         for (Appointment temp : appointments) {
-            if (temp.getDoctor() == doctor) {
+            if (temp.getDoctorId() == doctor) {
                 if (currentTime.compareTo(temp.getDate()) >= 0) ret.add(temp);
             }
         }

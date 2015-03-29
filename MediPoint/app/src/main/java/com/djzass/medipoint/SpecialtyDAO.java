@@ -30,21 +30,18 @@ public class SpecialtyDAO extends DbDAO{
         ContentValues values = new ContentValues();
         values.put(DbContract.SpecialtyEntry.COLUMN_NAME_SPECIALTY_NAME, specialty.getName());
 
-        // Inserting Row
         return database.insert(DbContract.SpecialtyEntry.TABLE_NAME, null, values);
     }
     /** READ
      * Getting all specialties from the table
      * returns list of specialties
      * */
-    public List<Specialty> getSpecialties() {
+    public List<Specialty> getSpecialties(String whereclause) {
         List<Specialty> specialties = new ArrayList<Specialty>();
 
-        // Select all rows
-        // String selectQuery = "SELECT  * FROM " + DbContract.SpecialtyEntry.TABLE_NAME;
         Cursor cursor = database.query(DbContract.SpecialtyEntry.TABLE_NAME,
                 new String[] { DbContract.SpecialtyEntry.COLUMN_NAME_SPECIALTY_ID,
-                        DbContract.SpecialtyEntry.COLUMN_NAME_SPECIALTY_NAME }, null, null, null, null,
+                        DbContract.SpecialtyEntry.COLUMN_NAME_SPECIALTY_NAME }, whereclause, null, null, null,
                 null);
 
         while (cursor.moveToNext()) {
@@ -56,22 +53,14 @@ public class SpecialtyDAO extends DbDAO{
 
         return specialties;
     }
-    //READ SINGLE ROW
-    public Specialty getSpecialtyById(int specialtyId) {
-        String selectQuery = "SELECT  * FROM " + DbContract.SpecialtyEntry.TABLE_NAME + " WHERE "
-                + DbContract.SpecialtyEntry.COLUMN_NAME_SPECIALTY_ID + " = " + specialtyId;
 
-        Cursor c = database.rawQuery(selectQuery, null);
+    public List<Specialty> getAllSpecialties() {
+        return getSpecialties(null);
+    }
 
-        if (c != null)
-            c.moveToFirst();
-
-        // Create the class object, then set the attribute from content of the exisiting data in the table
-        Specialty specialty = new Specialty();
-        specialty.setId(c.getInt(c.getColumnIndex(DbContract.SpecialtyEntry.COLUMN_NAME_SPECIALTY_ID)));
-        specialty.setName(c.getString(c.getColumnIndex(DbContract.SpecialtyEntry.COLUMN_NAME_SPECIALTY_NAME)));
-
-        return specialty;
+    public List<Specialty> getSpecialtiesByID(int id) {
+        String whereclause = DbContract.SpecialtyEntry.COLUMN_NAME_SPECIALTY_ID + " = " + id;
+        return getSpecialties(whereclause);
     }
 
     /*  UPDATE
