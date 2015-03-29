@@ -47,6 +47,15 @@ public class AlertDialogInterface {
 
     }
 
+    public void AccountAlreadyExists(final Runnable func){
+        dlgAlert.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+                func.run();
+            }
+        });
+        dlgAlert.create().show();
+    }
+
     /*
     public void unequalPassword(){
         dlgAlert.setPositiveButton("OK", null);

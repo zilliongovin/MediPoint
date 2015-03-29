@@ -116,7 +116,28 @@ public class SignUp extends Activity {
                 checkViews[4] = (EditText) findViewById(R.id.AddressTextbox);
 
                 boolean isFilled = isFormFilled(checkViews,5);
-                if(isFilled)
+                boolean newAccount = AccountCreator.isNewAccount(checkViews[1].getText().toString());
+
+                if(!isFilled)
+                {
+                    incompleteForm();
+                }
+
+                else if(!newAccount){
+                    Runnable r = new Runnable() {
+                        @Override
+                        public void run() {
+                            goToLoginPage();
+                        }
+                    };
+                    String title = "Existing account";
+                    String message = "You already have an existing account";
+                    AlertDialogInterface AlertDisplayer = new AlertDialogInterface(title,message,this);
+                    AlertDisplayer.AccountAlreadyExists(r);
+
+                }
+
+                else
                 {
 
                     String name = checkViews[0].getText().toString();
@@ -128,10 +149,6 @@ public class SignUp extends Activity {
                     goToPage2();
                 }
 
-                else
-                {
-                    incompleteForm();
-                }
                 break;
             }
             case R.id.sign_up2_right:
@@ -181,8 +198,9 @@ public class SignUp extends Activity {
                 checkViews[2] = (EditText) findViewById(R.id.ConfirmPasswordTextbox);
 
                 boolean isFilled = isFormFilled(checkViews,3);
+                boolean usernameExists = AccountCreator.doesUsernameExist(checkViews[0].getText().toString());
                 boolean isPasswordEqual = checkPassword(checkViews[1],checkViews[2]);
-                if(isFilled && isPasswordEqual)
+                if(isFilled && !usernameExists && isPasswordEqual)
                 {
 
                     String username = checkViews[0].getText().toString();
@@ -197,6 +215,12 @@ public class SignUp extends Activity {
                 {
                     incompleteForm();
                 }
+
+                else if(usernameExists)
+                {
+                    Toast.makeText(this,"Username already exists",Toast.LENGTH_LONG).show();
+                }
+
                 else
                 {
                     unequalPassword();

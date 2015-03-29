@@ -60,6 +60,11 @@ public class DbHelper extends SQLiteOpenHelper {
                     " FROM " + DbContract.AccountEntry.TABLE_NAME +
                     " WHERE " + DbContract.AccountEntry.COLUMN_NAME_NRIC + "=?";
 
+    private static final String SQL_FIND_USERNAME =
+            "SELECT " + DbContract.AccountEntry.COLUMN_NAME_USERNAME +
+                    " FROM " + DbContract.AccountEntry.TABLE_NAME +
+                    " WHERE " + DbContract.AccountEntry.COLUMN_NAME_USERNAME + "=?";
+
     public int onLogin(String username,String password,SQLiteDatabase db){
         String[] selArgs = {username,password};
         Cursor userCursor = db.rawQuery(SQL_VERIFY_USER, selArgs);
@@ -69,6 +74,11 @@ public class DbHelper extends SQLiteOpenHelper {
     public Cursor checkAccount(String nric,SQLiteDatabase db){
         String[] selArgs = {nric};
         return db.rawQuery(SQL_FIND_NRIC,selArgs);
+    }
+
+    public int checkUsername(String username,SQLiteDatabase db){
+        String[] selArgs = {username};
+        return db.rawQuery(SQL_FIND_USERNAME,selArgs).getCount();
     }
 
     /* APPOINTMENT TABLE */
