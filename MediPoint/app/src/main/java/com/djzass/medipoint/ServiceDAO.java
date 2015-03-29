@@ -23,7 +23,6 @@ public class ServiceDAO  extends DbDAO{
         super(context);
     }
 
-
     /*
         CREATE
          Inserting doctor schedule into doctor schedules table and return the row id if insertion successful,
@@ -45,7 +44,7 @@ public class ServiceDAO  extends DbDAO{
       * Getting all services from the table
      * returns list of services
      * */
-    public List<Service> getServices() {
+    public List<Service> getServices(String whereclause) {
         List<Service> services = new ArrayList<Service>();
 
         String query = "SELECT " + SERVICE_WITH_PREFIX + DbContract.ServiceEntry.COLUMN_NAME_SERVICE_ID + ", " +
@@ -56,7 +55,7 @@ public class ServiceDAO  extends DbDAO{
                 " FROM " + DbContract.ServiceEntry.TABLE_NAME + "service" + ", " +
                 DbContract.SpecialtyEntry.TABLE_NAME + "specialty WHERE " + SERVICE_WITH_PREFIX +
                 DbContract.ServiceEntry.COLUMN_NAME_SPECIALTY_ID + " = " + SPECIALTY_WITH_PREFIX +
-                DbContract.SpecialtyEntry.COLUMN_NAME_SPECIALTY_ID;
+                DbContract.SpecialtyEntry.COLUMN_NAME_SPECIALTY_ID + whereclause;
 
         Log.d("query", query);
         Cursor cursor = database.rawQuery(query, null);
@@ -67,11 +66,26 @@ public class ServiceDAO  extends DbDAO{
             service.setName(cursor.getString(1));
             service.setDuration(cursor.getInt(2));
             service.setPreAppointmentActions(cursor.getString(3));
+            service.setSpecialtyId(cursor.getInt(4));
             service.getDuration();
             services.add(service);
         }
 
         return services;
+    }
+
+    public List<Service> getAllServices() {
+        return getServices("");
+    }
+
+    public List<Service> getServicesByID(int id) {
+        String whereclause = " AND " + DbContract.ServiceEntry.COLUMN_NAME_SERVICE_ID + " + " + id;
+        return getServices(whereclause);
+    }
+
+    public List<Service> getServicesBySpecialtyID(int specialtyId) {
+        String whereclause = " AND " + DbContract.ServiceEntry.COLUMN_NAME_SPECIALTY_ID + " + " + specialtyId;
+        return getServices(whereclause);
     }
 
     /*
