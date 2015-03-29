@@ -6,8 +6,11 @@ import android.database.Cursor;
 import android.util.Log;
 
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * Created by Deka on 28/3/2015.
@@ -15,7 +18,8 @@ import java.util.List;
 public class PatientDAO extends DbDAO{
     private static final String WHERE_ID_EQUALS = DbContract.PatientEntry.COLUMN_NAME_PATIENT_ID
             + " =?";
-
+    private static final SimpleDateFormat formatter = new SimpleDateFormat(
+            "yyyy-MM-dd", Locale.ENGLISH);
     public static final String PATIENT_ID_WITH_PREFIX = "patient.";
     public static final String ACCOUNT_ID_WITH_PREFIX = "account.";
 
@@ -52,19 +56,26 @@ public class PatientDAO extends DbDAO{
         //MUST JOIN
         String query = "SELECT " + ACCOUNT_ID_WITH_PREFIX + DbContract.AccountEntry.COLUMN_NAME_ACCOUNT_ID +
                 ACCOUNT_ID_WITH_PREFIX + DbContract.AccountEntry.COLUMN_NAME_ACCOUNT_ID +
+                ACCOUNT_ID_WITH_PREFIX + DbContract.AccountEntry.COLUMN_NAME_NAME +
+                ACCOUNT_ID_WITH_PREFIX + DbContract.AccountEntry.COLUMN_NAME_NRIC +
+                ACCOUNT_ID_WITH_PREFIX + DbContract.AccountEntry.COLUMN_NAME_EMAIL +
+                ACCOUNT_ID_WITH_PREFIX + DbContract.AccountEntry.COLUMN_NAME_CONTACTNO +
+                ACCOUNT_ID_WITH_PREFIX + DbContract.AccountEntry.COLUMN_NAME_ADDRESS +
+                ACCOUNT_ID_WITH_PREFIX + DbContract.AccountEntry.COLUMN_NAME_DOB +
+                ACCOUNT_ID_WITH_PREFIX + DbContract.AccountEntry.COLUMN_NAME_GENDER +
+                ACCOUNT_ID_WITH_PREFIX + DbContract.AccountEntry.COLUMN_NAME_MARITAL_STATUS +
+                ACCOUNT_ID_WITH_PREFIX + DbContract.AccountEntry.COLUMN_NAME_CITIZENSHIP +
+                ACCOUNT_ID_WITH_PREFIX + DbContract.AccountEntry.COLUMN_NAME_COUNTRY_OF_RESIDENCE +
                 ACCOUNT_ID_WITH_PREFIX + DbContract.AccountEntry.COLUMN_NAME_USERNAME +
-                ACCOUNT_ID_WITH_PREFIX + DbContract.AccountEntry.COLUMN_NAME_USERNAME +
-                ACCOUNT_ID_WITH_PREFIX + DbContract.AccountEntry.COLUMN_NAME_USERNAME +
-                ACCOUNT_ID_WITH_PREFIX + DbContract.AccountEntry.COLUMN_NAME_USERNAME +
-                ACCOUNT_ID_WITH_PREFIX + DbContract.AccountEntry.COLUMN_NAME_USERNAME +
-                ACCOUNT_ID_WITH_PREFIX + DbContract.AccountEntry.COLUMN_NAME_USERNAME +
-                ACCOUNT_ID_WITH_PREFIX + DbContract.AccountEntry.COLUMN_NAME_USERNAME +
-                ACCOUNT_ID_WITH_PREFIX + DbContract.AccountEntry.COLUMN_NAME_USERNAME +
-                ACCOUNT_ID_WITH_PREFIX + DbContract.AccountEntry.COLUMN_NAME_USERNAME +
-                ACCOUNT_ID_WITH_PREFIX + DbContract.AccountEntry.COLUMN_NAME_USERNAME +
-                ACCOUNT_ID_WITH_PREFIX + DbContract.AccountEntry.COLUMN_NAME_USERNAME +
-                ACCOUNT_ID_WITH_PREFIX + DbContract.AccountEntry.COLUMN_NAME_USERNAME +
-
+                ACCOUNT_ID_WITH_PREFIX + DbContract.AccountEntry.COLUMN_NAME_PASSWORD +
+                PATIENT_ID_WITH_PREFIX + DbContract.PatientEntry.COLUMN_NAME_PATIENT_ID +
+                PATIENT_ID_WITH_PREFIX + DbContract.PatientEntry.COLUMN_NAME_PATIENT_ID_STRING +
+                PATIENT_ID_WITH_PREFIX + DbContract.PatientEntry.COLUMN_NAME_ACCOUNT_ID +
+                PATIENT_ID_WITH_PREFIX + DbContract.PatientEntry.COLUMN_NAME_AGE +
+                PATIENT_ID_WITH_PREFIX + DbContract.PatientEntry.COLUMN_NAME_MEDICAL_HISTORY +
+                PATIENT_ID_WITH_PREFIX + DbContract.PatientEntry.COLUMN_NAME_ALLERGIES +
+                PATIENT_ID_WITH_PREFIX + DbContract.PatientEntry.COLUMN_NAME_TREATMENTS +
+                PATIENT_ID_WITH_PREFIX + DbContract.PatientEntry.COLUMN_NAME_MEDICATIONS +
                 " FROM " + DbContract.PatientEntry.TABLE_NAME + " patient, " +
                 DbContract.AccountEntry.TABLE_NAME + " account, WHERE " + PATIENT_ID_WITH_PREFIX +
                 DbContract.PatientEntry.COLUMN_NAME_ACCOUNT_ID + " = " + ACCOUNT_ID_WITH_PREFIX +
@@ -81,25 +92,29 @@ public class PatientDAO extends DbDAO{
 
         while (cursor.moveToNext()) {
             Patient patient= new Patient();
-            patient.setId(cursor.getInt(cursor.getColumnIndex(DbContract.PatientEntry.COLUMN_NAME_ACCOUNT_ID)));
-            patient.setUsername(cursor.getString(cursor.getColumnIndex(DbContract.PatientEntry.)));
-            patient.setPassword(cursor.getString());
-            patient.setName();
-            patient.setNric();
-            patient.setEmail();
-            patient.setPhoneNumber();
-            patient.setGender();
-            patient.setAddress();
-            patient.setMaritalStatus();
-            patient.setDob();
-            patient.setCitizenship();
-            patient.setCountryOfResidence();
-            patient.setAge();
-            patient.setAllergy();
-            patient.setMedicalHistory();
-            patient.setListOfTreatments();
-            patient.setListOfMedications();
-            patient.setId(cursor.getInt(cursor.getColumnIndex(DbContract.PatientEntry.COLUMN_NAME_ACCOUNT_ID)));
+            patient.setId(cursor.getInt(cursor.getColumnIndex(DbContract.AccountEntry.COLUMN_NAME_ACCOUNT_ID)));
+            patient.setUsername(cursor.getString(cursor.getColumnIndex(DbContract.AccountEntry.COLUMN_NAME_USERNAME)));
+            patient.setPassword(cursor.getString(cursor.getColumnIndex(DbContract.AccountEntry.COLUMN_NAME_PASSWORD)));
+            patient.setName(cursor.getString(cursor.getColumnIndex(DbContract.AccountEntry.COLUMN_NAME_NAME)));
+            patient.setNric(cursor.getString(cursor.getColumnIndex(DbContract.AccountEntry.COLUMN_NAME_NRIC)));
+            patient.setEmail(cursor.getString(cursor.getColumnIndex(DbContract.AccountEntry.COLUMN_NAME_EMAIL)));
+            patient.setPhoneNumber(cursor.getString(cursor.getColumnIndex(DbContract.AccountEntry.COLUMN_NAME_CONTACTNO)));
+            patient.setGender(cursor.getString(cursor.getColumnIndex(DbContract.AccountEntry.COLUMN_NAME_GENDER)));
+            patient.setAddress(cursor.getString(cursor.getColumnIndex(DbContract.AccountEntry.COLUMN_NAME_ADDRESS)));
+            patient.setMaritalStatus(cursor.getString(cursor.getColumnIndex(DbContract.AccountEntry.COLUMN_NAME_MARITAL_STATUS)));
+            try {
+                patient.setDob(formatter.parse(cursor.getString(cursor.getColumnIndex(DbContract.AccountEntry.COLUMN_NAME_DOB))));
+            } catch (ParseException e) {
+                patient.setDob(null);
+            }
+            patient.setCitizenship(DbContract.AccountEntry.COLUMN_NAME_CITIZENSHIP);
+            patient.setCountryOfResidence(cursor.getString(cursor.getColumnIndex(DbContract.AccountEntry.COLUMN_NAME_COUNTRY_OF_RESIDENCE)));
+            patient.setAge(cursor.getInt(cursor.getColumnIndex(DbContract.PatientEntry.COLUMN_NAME_AGE)));
+            patient.setAllergy(cursor.getString(cursor.getColumnIndex(DbContract.PatientEntry.COLUMN_NAME_ALLERGIES)));
+            patient.setMedicalHistory(cursor.getString(cursor.getColumnIndex(DbContract.PatientEntry.COLUMN_NAME_MEDICAL_HISTORY)));
+            patient.setListOfTreatments(cursor.getString(cursor.getColumnIndex(DbContract.PatientEntry.COLUMN_NAME_TREATMENTS)));
+            patient.setListOfMedications(cursor.getString(cursor.getColumnIndex(DbContract.PatientEntry.COLUMN_NAME_MEDICATIONS)));
+            patient.setPatientId(cursor.getInt(cursor.getColumnIndex(DbContract.PatientEntry.COLUMN_NAME_PATIENT_ID)));
             patient.setName(cursor.getString());
             patients.add(patient);
         }

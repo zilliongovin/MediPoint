@@ -45,7 +45,7 @@ public class Patient extends Account{
         return patientId;
     }
 
-    public void setPatientId() {
+    public void setPatientId(int anInt) {
         this.patientId = "P" + String.format("%07d", this.PID);
     }
 

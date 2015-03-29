@@ -23,6 +23,7 @@ public class DbContract {
         public static final String COLUMN_NAME_COUNTRY_OF_RESIDENCE = "countryOfResidence";
         public static final String COLUMN_NAME_USERNAME = "username";
         public static final String COLUMN_NAME_PASSWORD = "password";
+
     }
 
     public static abstract class AppointmentEntry implements BaseColumns {
@@ -89,6 +90,7 @@ public class DbContract {
         public static final String TABLE_NAME = "patient";
         public static final String COLUMN_NAME_PATIENT_ID = "patientId";
         public static final String COLUMN_NAME_PATIENT_ID_STRING = "patientIdString";
+        public static final String COLUMN_NAME_ACCOUNT_ID = "accountId";
         public static final String COLUMN_NAME_AGE = "age";
         public static final String COLUMN_NAME_MEDICAL_HISTORY = "medicalHistory";
         public static final String COLUMN_NAME_ALLERGIES = "allergies";

@@ -4,10 +4,6 @@ package com.djzass.medipoint;
  * Created by Deka on 26/3/2015.
  */
 public class Service {
-<<<<<<< HEAD
-
-=======
->>>>>>> origin/master
     private int serviceId;
     private int specialtyId;
     private String name;
@@ -68,8 +64,4 @@ public class Service {
     public void setPreAppointmentActions(String preAppointmentActions) {
         this.preAppointmentActions = preAppointmentActions;
     }
-<<<<<<< HEAD
-
-=======
->>>>>>> origin/master
 }

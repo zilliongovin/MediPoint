@@ -13,23 +13,16 @@
 
         <activity
             android:name=".MainActivity"
-            android:label="@string/app_name" >
-
-        </activity>
+            android:label="@string/app_name" />
 
         <activity
             android:name=".Login"
-            android:label="@string/app_name" >
-
-
-        </activity>
+            android:label="@string/app_name" />
 
         <activity
             android:name=".PasswordRetriever"
-            android:label="@string/title_activity_password_retriever" >
+            android:label="@string/title_activity_password_retriever" />
 
-
-        </activity>
 
         <activity
             android:name=".SignUp"
@@ -38,53 +31,31 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.djzass.medipoint.Login" />
-
-
         </activity>
 
 
         <activity
             android:name=".CreateAppointmentActivity"
-            android:label="Create an Appointment">
-
-
-
-        </activity>
+            android:label="Create an Appointment" />
 
         <activity
             android:name=".EditAppointmentActivity"
-            android:label="@string/edit_appointment" >
+            android:label="@string/edit_appointment" />
 
-
-        </activity>
-
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-=======
         <activity
             android:name=".Referral"
-            android:label="@string/referral">
-
-        </activity>
+            android:label="@string/referral" />
 
         <activity android:name=".MedicalHistory"
-            android:label="@string/med_his">
+            android:label="@string/med_his"/>
 
-        </activity>
-
->>>>>>> 49e9b696f1b6c1c2563389694bac34700083f3c5
-
->>>>>>> origin/master
         <activity
             android:name=".DatabaseCreator"
             android:label="Database Testing" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
         </activity>
 
         <service

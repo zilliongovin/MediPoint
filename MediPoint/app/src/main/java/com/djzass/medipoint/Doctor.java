@@ -6,11 +6,7 @@ import java.util.ArrayList;
  * Created by Deka on 26/3/2015.
  */
 public class Doctor {
-<<<<<<< HEAD
-    private int DId;
-=======
     private int DID;
->>>>>>> origin/master
     private String doctorId;
     private String name;
     private int specializationId;
@@ -22,18 +18,10 @@ public class Doctor {
     public Doctor(){
     }
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-    public Doctor(int id, String name, Specialty specialization,
-                  int practiceDuration) {
-        this.id = id;
-=======
     public Doctor(String name, Specialty specialization,
                   int practiceDuration) {
->>>>>>> origin/master
-=======
+
     public Doctor(String name, int specializationId, int practiceDuration) {
->>>>>>> 49e9b696f1b6c1c2563389694bac34700083f3c5
         this.name = name;
         this.specializationId = specializationId;
         this.practiceDuration = practiceDuration;
