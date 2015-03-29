@@ -34,6 +34,18 @@ public class Service {
         this.duration = duration;
         this.preAppointmentActions = preAppointmentAction;
     }
+
+    public String print(){
+        String temp = "";
+        temp+= serviceId + " ";
+        temp+= specialtyId + " ";
+        temp+= name + " ";
+        temp+= duration + " ";
+        temp+= preAppointmentActions + " ";
+        return temp;
+    }
+
+
     public int getId() {
         return serviceId;
     }

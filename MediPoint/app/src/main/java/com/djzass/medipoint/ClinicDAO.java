@@ -111,16 +111,9 @@ public class ClinicDAO extends DbDAO{
         LOAD
     */
     public void loadClinics() {
-        Clinic c1 = new Clinic();
-        Clinic c2 = new Clinic();
-        Clinic c3 = new Clinic();
-
-        List<Clinic> clinics = new ArrayList<Clinic>();
-        clinics.add(c1);
-        clinics.add(c2);
-        clinics.add(c3);
-        for (Clinic c: clinics) {
-            insertClinic(c);
+        List<Clinic> temp= getAllClinics();
+        for (Clinic tmp : temp) {
+            tmp.print();
         }
     }
 }

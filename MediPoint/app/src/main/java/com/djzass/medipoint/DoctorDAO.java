@@ -105,16 +105,9 @@ public class DoctorDAO extends DbDAO{
         Load the initial values of the doctors
      */
     public void loadDoctors() {
-        Doctor d1 = new Doctor();
-        Doctor d2 = new Doctor();
-        Doctor d3 = new Doctor();
-
-        List<Doctor> doctors = new ArrayList<Doctor>();
-        doctors.add(d1);
-        doctors.add(d2);
-        doctors.add(d3);
-        for (Doctor d: doctors) {
-            insertDoctor(d);
+        List<Doctor> temp= getAllDoctors();
+        for (Doctor tmp : temp) {
+            tmp.print();
         }
     }
 }

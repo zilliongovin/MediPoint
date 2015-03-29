@@ -142,16 +142,9 @@ public class ServiceDAO  extends DbDAO{
         Load the initial values of the services
      */
     public void loadServices() {
-        Service s1 = new Service();
-        Service s2 = new Service();
-        Service s3 = new Service();
-
-        List<Service> services = new ArrayList<Service>();
-        services.add(s1);
-        services.add(s2);
-        services.add(s3);
-        for (Service s: services) {
-            insertService(s);
+        List<Service> temp= getAllServices();
+        for (Service tmp : temp) {
+            tmp.print();
         }
     }
 }

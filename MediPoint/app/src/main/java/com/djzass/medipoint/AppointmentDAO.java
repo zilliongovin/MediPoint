@@ -148,17 +148,10 @@ public class AppointmentDAO extends DbDAO{
         Load the initial values of the appointments ??
      */
     public void loadAppointments() {
-        /*Appointment a1 = new Appointment();
-        Appointment a2 = new Appointment();
-        Appointment a3 = new Appointment();
-
-        List<Appointment> appointments = new ArrayList<Appointment>();
-        appointments.add(a1);
-        appointments.add(a2);
-        appointments.add(a3);
-        for (Appointment appt: appointments) {
-            insertAppointment(appt);
-        }*/
+        List<Appointment> temp= getAllAppointments();
+        for (Appointment tmp : temp) {
+            tmp.print();
+        }
     }
 
 }

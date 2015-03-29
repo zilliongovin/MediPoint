@@ -29,6 +29,16 @@ public class DoctorSchedule {
         this.timeframe = timeframe;
     }
 
+    public String print(){
+        String temp = "";
+        temp+= scheduleId + " ";
+        temp+= doctorId + " ";
+        temp+= clinicId + " ";
+        temp+= day + " ";
+        temp+= timeframe.getStartTime() + "-" + timeframe.getEndTime();
+        return temp;
+    }
+
     public int getId() {
         return scheduleId;
     }

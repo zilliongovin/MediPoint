@@ -11,8 +11,6 @@ public class Doctor {
     private int specializationId;
     private int practiceDuration;
     //per clinic
-    private ArrayList<DoctorSchedule> doctorSchedules;
-    private ArrayList<Appointment> appointments;
 
     public Doctor(){
     }
@@ -27,9 +25,8 @@ public class Doctor {
         this.name = name;
         this.specializationId = specializationId;
         this.practiceDuration = practiceDuration;
-        this.appointments = new ArrayList<Appointment>();
-        this.doctorSchedules = new ArrayList<DoctorSchedule>();
     }
+
 
     public int getDoctorId() {
         return this.DoctorId;
@@ -62,7 +59,7 @@ public class Doctor {
     public void setPracticeDuration(int practiceDuration) {
         this.practiceDuration = practiceDuration;
     }
-
+/*
     public ArrayList<DoctorSchedule> getDoctorSchedule() {
         return doctorSchedules;
     }
@@ -87,7 +84,17 @@ public class Doctor {
         }
     }
 
-    public String toString(){
+    public String print(){
+        String temp = "";
+        temp+= DoctorId + " ";
+        temp+= name + " ";
+        temp+= specializationId + " ";
+        temp+= practiceDuration + " ";
+        return temp;
+    }
+
+*/
+    public String print(){
         return 	"=== Printing Doctor Info ==="+"\n"+
                 "ID: " + this.DoctorId + "\n" +
                 "Name: " + this.name + "\n" +

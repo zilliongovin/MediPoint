@@ -91,19 +91,9 @@ public class SpecialtyDAO extends DbDAO{
         load the initial values of the specialties
      */
     public void loadSpecialties() {
-        Specialty s1 = new Specialty("ENT");
-        Specialty s2 = new Specialty("Women Health Services");
-        Specialty s3 = new Specialty("Dental");
-        Specialty s4 = new Specialty("General Medicine");
-
-        List<Specialty> specialties = new ArrayList<Specialty>();
-        specialties.add(s1);
-        specialties.add(s2);
-        specialties.add(s3);
-        for (Specialty c: specialties) {
-            ContentValues values = new ContentValues();
-            values.put(DbContract.SpecialtyEntry.COLUMN_NAME_SPECIALTY_NAME, c.getName());
-            database.insert(DbContract.SpecialtyEntry.TABLE_NAME, null, values);
+        List<Specialty> temp= getAllSpecialties();
+        for (Specialty tmp : temp) {
+            tmp.print();
         }
     }
 }

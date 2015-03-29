@@ -32,6 +32,20 @@ public class Appointment {
         this.preAppointmentActions = preAppointmentActions;
     }
 
+    public String print(){
+        String temp = "";
+        temp+= appointmentId + " ";
+        temp+= clinicId + " ";
+        temp+= patientId + " ";
+        temp+= doctorId + " ";
+        temp+= String.valueOf(date) + " ";
+        temp+= service + " ";
+        temp+= specialtyId + " ";
+        temp+= preAppointmentActions + " ";
+        temp+= timeframe.getStartTime() + "-" + timeframe.getEndTime();
+        return temp;
+    }
+
     public int getId() {
         return appointmentId;
     }

@@ -13,6 +13,13 @@ public class Specialty {
         this.name = name;
     }
 
+    public String print(){
+        String temp = "";
+        temp+= id + " ";
+        temp+= name + " ";
+        return temp;
+    }
+
     public String getName() {
         return name;
     }

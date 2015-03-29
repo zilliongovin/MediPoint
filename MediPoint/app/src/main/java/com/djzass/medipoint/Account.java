@@ -69,6 +69,25 @@ public class Account {
         this.address = address;
 
     }
+
+    public String print(){
+        String temp = "";
+        temp+= id + " ";
+        temp+= username + " ";
+        temp+= password + " ";
+        temp+= name + " ";
+        temp+= nric + " ";
+        temp+= email + " ";
+        temp+= phoneNumber + " ";
+        temp+= gender + " ";
+        temp+= address + " ";
+        temp+= maritalStatus + " ";
+        temp+= String.valueOf(dob) + " ";
+        temp+= citizenship + " ";
+        temp+= countryOfResidence + " ";
+        return temp;
+    }
+
 	
 	public String getUsername() {
 		return username;

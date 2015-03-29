@@ -174,17 +174,6 @@ public class PatientDAO extends DbDAO{
         Load the initial values of the patients
      */
     public void loadPatients() {
-        Patient p1 = new Patient();
-        Patient p2 = new Patient();
-        Patient p3 = new Patient();
-
-        List<Patient> patients = new ArrayList<Patient>();
-        patients.add(p1);
-        patients.add(p2);
-        patients.add(p3);
-        for (Patient p: patients) {
-            insertPatient(p);
-        }
     }
 }
 /*

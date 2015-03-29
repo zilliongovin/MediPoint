@@ -42,6 +42,19 @@ public class Clinic {
         this.email = email;
     }
 
+    public String print(){
+        String temp = "";
+        temp+= id + " ";
+        temp+= name + " ";
+        temp+= address + " ";
+        temp+= zipCode + " ";
+        temp+= zipCode + " ";
+        temp+= faxNumber + " ";
+        temp+= email + " ";
+        temp+= country;
+        return temp;
+    }
+
     public int getId() {
         return id;
     }

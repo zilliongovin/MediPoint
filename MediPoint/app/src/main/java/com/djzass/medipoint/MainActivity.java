@@ -17,6 +17,7 @@ public class MainActivity extends Activity {
 
     public static boolean SERVICE_TIMER_STARTED = false;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
