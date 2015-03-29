@@ -22,24 +22,43 @@ public class Account {
     public Account(){
 
     }
-	
-	public Account(String username, String password, String name, String nric,
-			String email, String phoneNumber, String gender, String address,
-			String maritalStatus, Calendar dob, String citizenship,
-			String countryOfResidence) {
-		this.username = username;
-		this.password = password;
-		this.name = name;
-		this.nric = nric;
-		this.email = email;
-		this.phoneNumber = phoneNumber;
-		this.gender = gender;
-		this.address = address;
-		this.maritalStatus = maritalStatus;
-		this.dob = dob;
-		this.citizenship = citizenship;
-		this.countryOfResidence = countryOfResidence;
-	}
+
+    public Account(String username, String password, String name, String nric,
+                   String email, String phoneNumber, String gender, String address,
+                   String maritalStatus, Calendar dob, String citizenship,
+                   String countryOfResidence) {
+        this.username = username;
+        this.password = password;
+        this.name = name;
+        this.nric = nric;
+        this.email = email;
+        this.phoneNumber = phoneNumber;
+        this.gender = gender;
+        this.address = address;
+        this.maritalStatus = maritalStatus;
+        this.dob = dob;
+        this.citizenship = citizenship;
+        this.countryOfResidence = countryOfResidence;
+    }
+
+    public Account(int id, String username, String password, String name, String nric,
+                   String email, String phoneNumber, String gender, String address,
+                   String maritalStatus, Calendar dob, String citizenship,
+                   String countryOfResidence) {
+        this.id = id;
+        this.username = username;
+        this.password = password;
+        this.name = name;
+        this.nric = nric;
+        this.email = email;
+        this.phoneNumber = phoneNumber;
+        this.gender = gender;
+        this.address = address;
+        this.maritalStatus = maritalStatus;
+        this.dob = dob;
+        this.citizenship = citizenship;
+        this.countryOfResidence = countryOfResidence;
+    }
 
     public Account(String name, String nric, String email, String phoneNumber, String address) {
 

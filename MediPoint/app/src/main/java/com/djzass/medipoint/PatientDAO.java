@@ -9,6 +9,7 @@ import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
 
@@ -34,7 +35,6 @@ public class PatientDAO extends DbDAO{
      */
     public long insertPatient(Patient patient){
         ContentValues values = new ContentValues();
-        values.put(DbContract.PatientEntry.COLUMN_NAME_PATIENT_ID_STRING, patient.getPatientId());
         values.put(DbContract.PatientEntry.COLUMN_NAME_AGE, patient.getAge());
         values.put(DbContract.PatientEntry.COLUMN_NAME_MEDICAL_HISTORY, patient.getMedicalHistory());
         values.put(DbContract.PatientEntry.COLUMN_NAME_ALLERGIES, patient.getAllergy());
@@ -69,7 +69,6 @@ public class PatientDAO extends DbDAO{
                 ACCOUNT_ID_WITH_PREFIX + DbContract.AccountEntry.COLUMN_NAME_USERNAME +
                 ACCOUNT_ID_WITH_PREFIX + DbContract.AccountEntry.COLUMN_NAME_PASSWORD +
                 PATIENT_ID_WITH_PREFIX + DbContract.PatientEntry.COLUMN_NAME_PATIENT_ID +
-                PATIENT_ID_WITH_PREFIX + DbContract.PatientEntry.COLUMN_NAME_PATIENT_ID_STRING +
                 PATIENT_ID_WITH_PREFIX + DbContract.PatientEntry.COLUMN_NAME_ACCOUNT_ID +
                 PATIENT_ID_WITH_PREFIX + DbContract.PatientEntry.COLUMN_NAME_AGE +
                 PATIENT_ID_WITH_PREFIX + DbContract.PatientEntry.COLUMN_NAME_MEDICAL_HISTORY +
@@ -81,43 +80,41 @@ public class PatientDAO extends DbDAO{
                 DbContract.PatientEntry.COLUMN_NAME_ACCOUNT_ID + " = " + ACCOUNT_ID_WITH_PREFIX +
                 DbContract.AccountEntry.COLUMN_NAME_ACCOUNT_ID ;
 
-//        Cursor cursor = database.rawQuery(query, null);
-
-        // Select all rows
-        // String selectQuery = "SELECT  * FROM " + DbContract.PatientEntry.TABLE_NAME;
-        Cursor cursor = database.query(DbContract.PatientEntry.TABLE_NAME,
-                new String[] { DbContract.PatientEntry.COLUMN_NAME_PATIENT_ID,
-                        }, null, null, null, null,
-                null);
+        Cursor cursor = database.rawQuery(query, null);
 
         while (cursor.moveToNext()) {
-            Patient patient= new Patient();
-            patient.setId(cursor.getInt(cursor.getColumnIndex(DbContract.AccountEntry.COLUMN_NAME_ACCOUNT_ID)));
-            patient.setUsername(cursor.getString(cursor.getColumnIndex(DbContract.AccountEntry.COLUMN_NAME_USERNAME)));
-            patient.setPassword(cursor.getString(cursor.getColumnIndex(DbContract.AccountEntry.COLUMN_NAME_PASSWORD)));
-            patient.setName(cursor.getString(cursor.getColumnIndex(DbContract.AccountEntry.COLUMN_NAME_NAME)));
-            patient.setNric(cursor.getString(cursor.getColumnIndex(DbContract.AccountEntry.COLUMN_NAME_NRIC)));
-            patient.setEmail(cursor.getString(cursor.getColumnIndex(DbContract.AccountEntry.COLUMN_NAME_EMAIL)));
-            patient.setPhoneNumber(cursor.getString(cursor.getColumnIndex(DbContract.AccountEntry.COLUMN_NAME_CONTACTNO)));
-            patient.setGender(cursor.getString(cursor.getColumnIndex(DbContract.AccountEntry.COLUMN_NAME_GENDER)));
-            patient.setAddress(cursor.getString(cursor.getColumnIndex(DbContract.AccountEntry.COLUMN_NAME_ADDRESS)));
-            patient.setMaritalStatus(cursor.getString(cursor.getColumnIndex(DbContract.AccountEntry.COLUMN_NAME_MARITAL_STATUS)));
+            /*public Patient(   int Pid, String username,        String password,        String name,        String nric,
+                                String email,           String phoneNumber,     String gender,      String address,
+                                String maritalStatus,   Calendar dob,           String citizenship, String countryOfResidence,
+                                String listOfTreatments,    String listOfMedications,   String allergy) {
+            */
+            Calendar dob = Calendar.getInstance();
             try {
-                patient.setDob(formatter.parse(cursor.getString(cursor.getColumnIndex(DbContract.AccountEntry.COLUMN_NAME_DOB))));
-            } catch (ParseException e) {
-                patient.setDob(null);
-            }
-            patient.setCitizenship(DbContract.AccountEntry.COLUMN_NAME_CITIZENSHIP);
-            patient.setCountryOfResidence(cursor.getString(cursor.getColumnIndex(DbContract.AccountEntry.COLUMN_NAME_COUNTRY_OF_RESIDENCE)));
-            patient.setAge(cursor.getInt(cursor.getColumnIndex(DbContract.PatientEntry.COLUMN_NAME_AGE)));
-            patient.setAllergy(cursor.getString(cursor.getColumnIndex(DbContract.PatientEntry.COLUMN_NAME_ALLERGIES)));
-            patient.setMedicalHistory(cursor.getString(cursor.getColumnIndex(DbContract.PatientEntry.COLUMN_NAME_MEDICAL_HISTORY)));
-            patient.setListOfTreatments(cursor.getString(cursor.getColumnIndex(DbContract.PatientEntry.COLUMN_NAME_TREATMENTS)));
-            patient.setListOfMedications(cursor.getString(cursor.getColumnIndex(DbContract.PatientEntry.COLUMN_NAME_MEDICATIONS)));
-            patient.setPatientId(cursor.getInt(cursor.getColumnIndex(DbContract.PatientEntry.COLUMN_NAME_PATIENT_ID)));
-            patient.setName(cursor.getString());
+                dob.setTime(formatter.parse(cursor.getString(cursor.getColumnIndex(DbContract.AccountEntry.COLUMN_NAME_DOB))));
+            } catch (ParseException e) { dob = null; }
+
+            Patient patient= new Patient(cursor.getInt(cursor.getColumnIndex(DbContract.AccountEntry.COLUMN_NAME_ACCOUNT_ID)),
+                                        cursor.getInt(cursor.getColumnIndex(DbContract.PatientEntry.COLUMN_NAME_PATIENT_ID)),
+                                        cursor.getString(cursor.getColumnIndex(DbContract.AccountEntry.COLUMN_NAME_USERNAME)),
+                                        cursor.getString(cursor.getColumnIndex(DbContract.AccountEntry.COLUMN_NAME_PASSWORD)),
+                                        cursor.getString(cursor.getColumnIndex(DbContract.AccountEntry.COLUMN_NAME_NAME)),
+                                        cursor.getString(cursor.getColumnIndex(DbContract.AccountEntry.COLUMN_NAME_NRIC)),
+                                        cursor.getString(cursor.getColumnIndex(DbContract.AccountEntry.COLUMN_NAME_EMAIL)),
+                                        cursor.getString(cursor.getColumnIndex(DbContract.AccountEntry.COLUMN_NAME_CONTACTNO)),
+                                        cursor.getString(cursor.getColumnIndex(DbContract.AccountEntry.COLUMN_NAME_GENDER)),
+                                        cursor.getString(cursor.getColumnIndex(DbContract.AccountEntry.COLUMN_NAME_ADDRESS)),
+                                        cursor.getString(cursor.getColumnIndex(DbContract.AccountEntry.COLUMN_NAME_MARITAL_STATUS)),
+                                        dob,
+                                        cursor.getString(cursor.getColumnIndex(DbContract.AccountEntry.COLUMN_NAME_CITIZENSHIP)),
+                                        cursor.getString(cursor.getColumnIndex(DbContract.AccountEntry.COLUMN_NAME_COUNTRY_OF_RESIDENCE)),
+                                        cursor.getString(cursor.getColumnIndex(DbContract.PatientEntry.COLUMN_NAME_TREATMENTS)),
+                                        cursor.getString(cursor.getColumnIndex(DbContract.PatientEntry.COLUMN_NAME_MEDICATIONS)),
+                                        cursor.getString(cursor.getColumnIndex(DbContract.PatientEntry.COLUMN_NAME_ALLERGIES))
+                    );
+
             patients.add(patient);
         }
+
 
         return patients;
     }
@@ -150,7 +147,6 @@ public class PatientDAO extends DbDAO{
 
     public long update(Patient patient) {
         ContentValues values = new ContentValues();
-        values.put(DbContract.PatientEntry.COLUMN_NAME_PATIENT_ID_STRING, patient.getPatientId());
         values.put(DbContract.PatientEntry.COLUMN_NAME_AGE, patient.getAge());
         values.put(DbContract.PatientEntry.COLUMN_NAME_MEDICAL_HISTORY, patient.getMedicalHistory());
         values.put(DbContract.PatientEntry.COLUMN_NAME_ALLERGIES, patient.getAllergy());
@@ -191,3 +187,23 @@ public class PatientDAO extends DbDAO{
         }
     }
 }
+/*
+            patient.setUsername(cursor.getString(cursor.getColumnIndex(DbContract.AccountEntry.COLUMN_NAME_USERNAME)));
+            patient.setPassword(cursor.getString(cursor.getColumnIndex(DbContract.AccountEntry.COLUMN_NAME_PASSWORD)));
+            patient.setName(cursor.getString(cursor.getColumnIndex(DbContract.AccountEntry.COLUMN_NAME_NAME)));
+            patient.setNric(cursor.getString(cursor.getColumnIndex(DbContract.AccountEntry.COLUMN_NAME_NRIC)));
+            patient.setEmail(cursor.getString(cursor.getColumnIndex(DbContract.AccountEntry.COLUMN_NAME_EMAIL)));
+            patient.setPhoneNumber(cursor.getString(cursor.getColumnIndex(DbContract.AccountEntry.COLUMN_NAME_CONTACTNO)));
+            patient.setGender(cursor.getString(cursor.getColumnIndex(DbContract.AccountEntry.COLUMN_NAME_GENDER)));
+            patient.setAddress(cursor.getString(cursor.getColumnIndex(DbContract.AccountEntry.COLUMN_NAME_ADDRESS)));
+            patient.setMaritalStatus(cursor.getString(cursor.getColumnIndex(DbContract.AccountEntry.COLUMN_NAME_MARITAL_STATUS)));
+            patient.setCitizenship(DbContract.AccountEntry.COLUMN_NAME_CITIZENSHIP);
+            patient.setCountryOfResidence(cursor.getString(cursor.getColumnIndex(DbContract.AccountEntry.COLUMN_NAME_COUNTRY_OF_RESIDENCE)));
+            patient.setAge(cursor.getInt(cursor.getColumnIndex(DbContract.PatientEntry.COLUMN_NAME_AGE)));
+            patient.setAllergy(cursor.getString(cursor.getColumnIndex(DbContract.PatientEntry.COLUMN_NAME_ALLERGIES)));
+            patient.setMedicalHistory(cursor.getString(cursor.getColumnIndex(DbContract.PatientEntry.COLUMN_NAME_MEDICAL_HISTORY)));
+            patient.setListOfTreatments(cursor.getString(cursor.getColumnIndex(DbContract.PatientEntry.COLUMN_NAME_TREATMENTS)));
+            patient.setListOfMedications(cursor.getString(cursor.getColumnIndex(DbContract.PatientEntry.COLUMN_NAME_MEDICATIONS)));
+            patient.setPatientId(cursor.getInt(cursor.getColumnIndex(DbContract.PatientEntry.COLUMN_NAME_PATIENT_ID)));
+
+            patient.setId(cursor.getInt(cursor.getColumnIndex(DbContract.AccountEntry.COLUMN_NAME_ACCOUNT_ID)));*/

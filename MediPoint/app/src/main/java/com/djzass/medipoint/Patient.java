@@ -9,10 +9,8 @@ import java.util.Calendar;
  */
 
 public class Patient extends Account{
-    private int PID;
-    private String patientId;
+    private int patientId;
     private int age;
-    private ArrayList<Appointment> listOfAppointments;
     private String allergy;
     private String medicalHistory;
     private String listOfTreatments;
@@ -23,13 +21,23 @@ public class Patient extends Account{
     };
 
     public Patient(String username, String password, String name, String nric, String email, String phoneNumber, String gender,
-        String address, String maritalStatus, Calendar dob, String citizenship, String countryOfResidence,String listOfTreatments, String listOfMedications, String allergy) {
+                   String address, String maritalStatus, Calendar dob, String citizenship, String countryOfResidence,String listOfTreatments, String listOfMedications, String allergy) {
         super(username, password, name, nric, email, phoneNumber, gender, address, maritalStatus, dob, citizenship, countryOfResidence);
         this.age = getAge();
         this.listOfTreatments = listOfTreatments;
         this.listOfMedications = listOfMedications;
         this.allergy = allergy;
-        this.listOfAppointments = new ArrayList<Appointment>();
+    }
+
+    //to read from database
+    public Patient(int accountId, int patientId, String username, String password, String name, String nric, String email, String phoneNumber, String gender,
+                   String address, String maritalStatus, Calendar dob, String citizenship, String countryOfResidence,String listOfTreatments, String listOfMedications, String allergy) {
+        super(accountId, username, password, name, nric, email, phoneNumber, gender, address, maritalStatus, dob, citizenship, countryOfResidence);
+        this.patientId = patientId;
+        this.age = getAge();
+        this.listOfTreatments = listOfTreatments;
+        this.listOfMedications = listOfMedications;
+        this.allergy = allergy;
     }
 
     public Patient(String name, String nric, String email, String phoneNumber, String address, String listOfTreatments, String listOfMedications, String allergy) {
@@ -38,15 +46,14 @@ public class Patient extends Account{
         this.listOfTreatments = listOfTreatments;
         this.listOfMedications = listOfMedications;
         this.allergy = allergy;
-        this.listOfAppointments = new ArrayList<Appointment>();
     }
 
-    public String getPatientId() {
-        return patientId;
+    public int getPatientId() {
+        return this.patientId;
     }
 
-    public void setPatientId(int anInt) {
-        this.patientId = "P" + String.format("%07d", this.PID);
+    public void setPatientId(int patientID) {
+        this.patientId = patientID;
     }
 
     public int getAge() {
@@ -61,20 +68,8 @@ public class Patient extends Account{
         return age;
     }
 
-    public int getPID() {
-        return this.PID;
-    }
-
-    public void setPID(int PID) {
-        this.PID = PID;
-    }
-
     public void setAge(int age) {
         this.age = age;
-    }
-
-    public ArrayList<Appointment> getListOfAppointments() {
-        return listOfAppointments;
     }
 
     public String getListOfTreatments() {
