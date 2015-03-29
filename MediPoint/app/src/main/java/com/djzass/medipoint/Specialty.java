@@ -20,15 +20,11 @@ public class Specialty {
     public void setName(String name) {
         this.name = name;
     }
-    public int getId() {
-<<<<<<< HEAD
-        return id;
-    }
 
-=======
+    public int getId() {
         return this.id;
     }
->>>>>>> origin/master
+
     public void setId(int id) {
         this.id = id;
     }

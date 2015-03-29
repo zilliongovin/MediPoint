@@ -57,10 +57,6 @@ public class SpecialtyDAO extends DbDAO{
         return specialties;
     }
     //READ SINGLE ROW
-<<<<<<< HEAD
-
-=======
->>>>>>> origin/master
     public Specialty getSpecialtyById(int specialtyId) {
         String selectQuery = "SELECT  * FROM " + DbContract.SpecialtyEntry.TABLE_NAME + " WHERE "
                 + DbContract.SpecialtyEntry.COLUMN_NAME_SPECIALTY_ID + " = " + specialtyId;
@@ -81,11 +77,7 @@ public class SpecialtyDAO extends DbDAO{
     /*  UPDATE
         returns the number of rows affected by the update
      */
-<<<<<<< HEAD
-    public int update(Specialty specialty) {
-=======
     public long update(Specialty specialty) {
->>>>>>> origin/master
         ContentValues values = new ContentValues();
         values.put(DbContract.SpecialtyEntry.COLUMN_NAME_SPECIALTY_NAME, specialty.getName());
 

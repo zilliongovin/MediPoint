@@ -20,6 +20,9 @@ public class Doctor {
 
     public Doctor(String name, Specialty specialization,
                   int practiceDuration) {
+        this.name = name;
+        this.specializationId = specialization.getId();
+    }
 
     public Doctor(String name, int specializationId, int practiceDuration) {
         this.name = name;
@@ -38,11 +41,7 @@ public class Doctor {
     }
 
     public void setDoctorId() {
-<<<<<<< HEAD
-        this.doctorId = "D" + String.format("%07d", this.DId);
-=======
         this.doctorId = "D" + String.format("%07d", this.DID);
->>>>>>> origin/master
     }
 
     public String getName() {
@@ -93,30 +92,17 @@ public class Doctor {
         }
     }
 
-<<<<<<< HEAD
-    public int getDId() {
-        return DId;
-    }
-
-    public void setDId(int DId) {
-        this.DId = DId;
-=======
     public int getDID() {
         return this.DID;
     }
 
     public void setId(int DID) {
         this.DID = DID;
->>>>>>> origin/master
     }
 
     public String toString(){
         return 	"=== Printing Doctor Info ==="+"\n"+
-<<<<<<< HEAD
-                "ID: " + this.id + "\n" +
-=======
                 "ID: " + this.DID + "\n" +
->>>>>>> origin/master
                 "Name: " + this.name + "\n" +
                 "Practice Duration: " + this.practiceDuration+ "\n" +
                 "Specialization: " + this.specializationId + "\n"

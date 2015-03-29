@@ -4,11 +4,8 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import android.app.IntentService;
-<<<<<<< HEAD
-=======
 import android.app.Service;
-import android.content.Context;
->>>>>>> origin/master
+import android.content.Context; 
 import android.content.Intent;
 import android.os.Handler;
 import android.os.Message;

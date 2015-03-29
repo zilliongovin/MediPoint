@@ -62,7 +62,7 @@ public class Login extends Activity {
             Toast.makeText(this,country,Toast.LENGTH_LONG).show();
             Toast.makeText(this,username,Toast.LENGTH_LONG).show();
             Toast.makeText(this,password,Toast.LENGTH_LONG).show();
-            */
+
         }
         */
                //--------------------------------TEST----------------------------------------
