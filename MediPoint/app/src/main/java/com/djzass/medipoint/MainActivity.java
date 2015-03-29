@@ -90,6 +90,15 @@ public class MainActivity extends Activity {
             return true;
         }
 
+        //logout menu item selected
+        else if(id==R.id.action_logout){
+            AccountManager acctMgr = new AccountManager(this);
+            acctMgr.logout();
+            Intent intent = new Intent(this,Login.class);
+            startActivity(intent);
+            return true;
+        }
+
         return super.onOptionsItemSelected(item);
     }
 
