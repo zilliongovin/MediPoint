@@ -23,7 +23,7 @@
 
     <!-- Button Style -->
     <style name="ButtonStyle">
-        <item name="android:background">@drawable/frame</item>
+        <item name="android:background">@drawable/positive_button</item>
         <item name="android:textColor">@color/button_font_color</item>
         <item name="android:textSize">14sp</item>
         <item name="android:textAllCaps">true</item>
@@ -79,6 +79,16 @@
         <item name="android:padding">10dp</item>
         <item name="android:background">@drawable/textfield</item>
         <item name="android:layout_marginBottom">20dp</item>
+    </style>
+
+    <!-- Fragment Style -->
+    <style name="FragmentStyle">
+        <item name="android:background">@drawable/fragment_frame</item>
+        <item name="android:textColor">@color/frame</item>
+        <item name="android:textSize">15sp</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
     </style>
 
 </resources>

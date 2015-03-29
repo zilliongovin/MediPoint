@@ -17,7 +17,6 @@ public class AppointmentDAO extends DbDAO{
     public static final String DOCTOR_WITH_PREFIX = "doctor.";
     public static final String SPECIALTY_WITH_PREFIX = "specialty.";
     public static final String SERVICE_WITH_PREFIX = "service.";
-
     private static final String WHERE_ID_EQUALS = DbContract.AppointmentEntry.COLUMN_NAME_APPOINTMENT_ID
             + " =?";
 
@@ -25,14 +24,61 @@ public class AppointmentDAO extends DbDAO{
         super(context);
     }
 
+    /*
+    public long save(Appointment appointment) {
+        ContentValues values = new ContentValues();
+        values.put(DbHelper.NAME_COLUMN, appointment.getName());
+
+        return database.insert(DbHelper.DEPARTMENT_TABLE, null, values);
+    }
+
+    public long update(Appointment appointment) {
+        ContentValues values = new ContentValues();
+        values.put(DbHelper.NAME_COLUMN, appointment.getName());
+
+        long result = database.update(DbHelper.DEPARTMENT_TABLE, values,
+                WHERE_ID_EQUALS,
+                new String[] { String.valueOf(department.getId()) });
+        Log.d("Update Result:", "=" + result);
+        return result;
+
+    }
+
+    public int deleteDept(Department department) {
+        return database.delete(DataBaseHelper.DEPARTMENT_TABLE,
+                WHERE_ID_EQUALS, new String[] { department.getId() + "" });
+    }
+
+
+    public void loadAppointments() {
+
+        Appointment app1 = new Appointment();
+        Appointment app2 = new Appointment();
+        Appointment app3 = new Appointment();
+
+        ArrayList<Appointment> appointments = new ArrayList<Appointment>();
+        appointments.add(app1);
+        appointments.add(app2);
+        appointments.add(app3);
+
+        for (Appointment appt : appointments) {
+            ContentValues values = new ContentValues();
+            values.put(DbContract.AppointmentEntry.COLUMN_NAME_CLINIC_ID, appt.getClinicId());
+            values.put(DbContract.AppointmentEntry.COLUMN_NAME_CLINIC_ID, appt.getClinicId());
+            values.put(DbContract.AppointmentEntry.COLUMN_NAME_CLINIC_ID, appt.getClinicId());
+            values.put(DbContract.AppointmentEntry.COLUMN_NAME_CLINIC_ID, appt.getClinicId());
+            values.put(DbContract.AppointmentEntry.COLUMN_NAME_CLINIC_ID, appt.getClinicId());
+            values.put(DbContract.AppointmentEntry.COLUMN_NAME_CLINIC_ID, appt.getClinicId());
+            database.insert(DbContract.AppointmentEntry.TABLE_NAME, null, values);
+        }*/
     public long insertAppointment(Appointment appointment) {
         ContentValues values = new ContentValues();
-        values.put(DbContract.AppointmentEntry.COLUMN_NAME_CLINIC_ID, appointment.getClinic().getId());
-        values.put(DbContract.AppointmentEntry.COLUMN_NAME_PATIENT_ID, appointment.getPatient().getPID());
-        values.put(DbContract.AppointmentEntry.COLUMN_NAME_DOCTOR_ID, appointment.getDoctor().getDID());
-        values.put(DbContract.AppointmentEntry.COLUMN_NAME_DATE_TIME, String.valueOf(appointment.getDate()));
-        values.put(DbContract.AppointmentEntry.COLUMN_NAME_SERVICE_ID, appointment.getService().getId());
-        values.put(DbContract.AppointmentEntry.COLUMN_NAME_SPECIALTY_ID,appointment.getSpecialty().getId());
+        values.put(DbContract.AppointmentEntry.COLUMN_NAME_CLINIC_ID, appointment.getClinic());
+        values.put(DbContract.AppointmentEntry.COLUMN_NAME_PATIENT_ID, appointment.getPatient());
+        values.put(DbContract.AppointmentEntry.COLUMN_NAME_DOCTOR_ID, appointment.getDoctor());
+        values.put(DbContract.AppointmentEntry.COLUMN_NAME_DATE_TIME, String.valueOf(appointment));
+        values.put(DbContract.AppointmentEntry.COLUMN_NAME_SERVICE_ID, appointment.getService());
+        values.put(DbContract.AppointmentEntry.COLUMN_NAME_SPECIALTY_ID,appointment.getSpecialty());
         values.put(DbContract.AppointmentEntry.COLUMN_NAME_PREAPPOINTMENT_ACTIONS, appointment.getPreAppointmentActions());
         values.put(DbContract.AppointmentEntry.COLUMN_NAME_START_TIME, appointment.getTimeframe().getStartTime());
         values.put(DbContract.AppointmentEntry.COLUMN_NAME_END_TIME, appointment.getTimeframe().getEndTime());
@@ -68,7 +114,17 @@ public class AppointmentDAO extends DbDAO{
 
         while (cursor.moveToNext()) {
             Appointment appointment= new Appointment();
-
+            appointment.setClinic(cursor.getInt(0));
+            appointment.setPatient(cursor.getInt(1));
+            appointment.setDoctor(cursor.getInt(2));
+            String temp = cursor.getString(3);
+            //Figure out how to parse temp into calendar
+            //appointment.setDate();
+            appointment.setService(cursor.getInt(4));
+            appointment.setSpecialty(cursor.getInt(5));
+            appointment.setPreAppointmentActions(cursor.getString(6));
+            Timeframe timeframe= new Timeframe(cursor.getInt(7),cursor.getInt(8));
+            appointment.setTimeframe(timeframe);
             appointments.add(appointment);
         }
 
@@ -102,12 +158,12 @@ public class AppointmentDAO extends DbDAO{
      */
     public long update(Appointment appointment) {
         ContentValues values = new ContentValues();
-        values.put(DbContract.AppointmentEntry.COLUMN_NAME_CLINIC_ID, appointment.getClinic().getId());
-        values.put(DbContract.AppointmentEntry.COLUMN_NAME_PATIENT_ID, appointment.getPatient().getPID());
-        values.put(DbContract.AppointmentEntry.COLUMN_NAME_DOCTOR_ID, appointment.getDoctor().getDID());
+        values.put(DbContract.AppointmentEntry.COLUMN_NAME_CLINIC_ID, appointment.getClinic());
+        values.put(DbContract.AppointmentEntry.COLUMN_NAME_PATIENT_ID, appointment.getPatient());
+        values.put(DbContract.AppointmentEntry.COLUMN_NAME_DOCTOR_ID, appointment.getDoctor());
         values.put(DbContract.AppointmentEntry.COLUMN_NAME_DATE_TIME, String.valueOf(appointment.getDate()));
-        values.put(DbContract.AppointmentEntry.COLUMN_NAME_SERVICE_ID, appointment.getService().getId());
-        values.put(DbContract.AppointmentEntry.COLUMN_NAME_SPECIALTY_ID,appointment.getSpecialty().getId());
+        values.put(DbContract.AppointmentEntry.COLUMN_NAME_SERVICE_ID, appointment.getService());
+        values.put(DbContract.AppointmentEntry.COLUMN_NAME_SPECIALTY_ID,appointment.getSpecialty());
         values.put(DbContract.AppointmentEntry.COLUMN_NAME_PREAPPOINTMENT_ACTIONS, appointment.getPreAppointmentActions());
         values.put(DbContract.AppointmentEntry.COLUMN_NAME_START_TIME, appointment.getTimeframe().getStartTime());
         values.put(DbContract.AppointmentEntry.COLUMN_NAME_END_TIME, appointment.getTimeframe().getEndTime());
@@ -134,7 +190,7 @@ public class AppointmentDAO extends DbDAO{
         Load the initial values of the appointments
      */
     public void loadAppointments() {
-        Appointment a1 = new Appointment();
+        /*Appointment a1 = new Appointment();
         Appointment a2 = new Appointment();
         Appointment a3 = new Appointment();
 
@@ -144,7 +200,7 @@ public class AppointmentDAO extends DbDAO{
         appointments.add(a3);
         for (Appointment appt: appointments) {
             insertAppointment(appt);
-        }
+        }*/
     }
 
 }

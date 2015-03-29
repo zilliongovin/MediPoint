@@ -41,7 +41,7 @@ public class Patient extends Account{
         this.listOfAppointments = new ArrayList<Appointment>();
     }
 
-    public String getPatientIdString() {
+    public String getPatientId() {
         return patientId;
     }
 

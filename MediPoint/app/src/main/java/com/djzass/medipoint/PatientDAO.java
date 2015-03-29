@@ -30,7 +30,7 @@ public class PatientDAO extends DbDAO{
      */
     public long insertPatient(Patient patient){
         ContentValues values = new ContentValues();
-        values.put(DbContract.PatientEntry.COLUMN_NAME_PATIENT_ID_STRING, patient.getPatientIdString());
+        values.put(DbContract.PatientEntry.COLUMN_NAME_PATIENT_ID_STRING, patient.getPatientId());
         values.put(DbContract.PatientEntry.COLUMN_NAME_AGE, patient.getAge());
         values.put(DbContract.PatientEntry.COLUMN_NAME_MEDICAL_HISTORY, patient.getMedicalHistory());
         values.put(DbContract.PatientEntry.COLUMN_NAME_ALLERGIES, patient.getAllergy());
@@ -65,13 +65,19 @@ public class PatientDAO extends DbDAO{
                 ACCOUNT_ID_WITH_PREFIX + DbContract.AccountEntry.COLUMN_NAME_USERNAME +
                 ACCOUNT_ID_WITH_PREFIX + DbContract.AccountEntry.COLUMN_NAME_USERNAME +
 
-
                 " FROM " + DbContract.PatientEntry.TABLE_NAME + " patient, " +
                 DbContract.AccountEntry.TABLE_NAME + " account, WHERE " + PATIENT_ID_WITH_PREFIX +
                 DbContract.PatientEntry.COLUMN_NAME_ACCOUNT_ID + " = " + ACCOUNT_ID_WITH_PREFIX +
                 DbContract.AccountEntry.COLUMN_NAME_ACCOUNT_ID ;
 
-        Cursor cursor = database.rawQuery(query, null);
+//        Cursor cursor = database.rawQuery(query, null);
+
+        // Select all rows
+        // String selectQuery = "SELECT  * FROM " + DbContract.PatientEntry.TABLE_NAME;
+        Cursor cursor = database.query(DbContract.PatientEntry.TABLE_NAME,
+                new String[] { DbContract.PatientEntry.COLUMN_NAME_PATIENT_ID,
+                        }, null, null, null, null,
+                null);
 
         while (cursor.moveToNext()) {
             Patient patient= new Patient();
@@ -126,9 +132,10 @@ public class PatientDAO extends DbDAO{
         UPDATE
        returns the number of rows affected by the update
      */
+
     public long update(Patient patient) {
         ContentValues values = new ContentValues();
-        values.put(DbContract.PatientEntry.COLUMN_NAME_PATIENT_ID_STRING, patient.getPatientIdString());
+        values.put(DbContract.PatientEntry.COLUMN_NAME_PATIENT_ID_STRING, patient.getPatientId());
         values.put(DbContract.PatientEntry.COLUMN_NAME_AGE, patient.getAge());
         values.put(DbContract.PatientEntry.COLUMN_NAME_MEDICAL_HISTORY, patient.getMedicalHistory());
         values.put(DbContract.PatientEntry.COLUMN_NAME_ALLERGIES, patient.getAllergy());

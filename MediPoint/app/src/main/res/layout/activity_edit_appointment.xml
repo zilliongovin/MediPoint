@@ -52,25 +52,49 @@
             android:id="@+id/EditApptType"
             style="@style/MySpinner"/>
 
-        <!-- Select time -->
-        <TextView
-            android:id="@+id/edit_time"
-            android:text="@string/select_time"
-            style="@style/TextviewLayout" />
 
-        <Spinner
-            android:id="@+id/EditApptTimeSpinner"
-            style="@style/MySpinner"/>
+        <!-- Date -->
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="20dp">
+            <TextView
+                android:id="@+id/LabelChooseDate"
+                android:text="@string/select_date"
+                android:layout_width="match_parent"
+                style="@style/TextviewLayout"
+                android:layout_weight="1"/>
 
-        <!-- Select Date -->
-        <TextView
-            android:id="@+id/edit_date"
-            android:text="@string/select_date"
-            style="@style/TextviewLayout"/>
+            <Button
+                style="@style/FragmentStyle"
+                android:text="TAP TO CHOOSE DATE"
+                android:id="@+id/datepicker"
+                android:onClick="showDatePicker"
+                android:layout_weight="1"/>
+        </LinearLayout>
 
-        <DatePicker
-            android:id="@+id/EditApptDatePicker"
-            style="@style/DatepickerLayout"/>
+        <!-- Time -->
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="20dp">
+
+            <TextView
+                android:id="@+id/LabelAppointmentTime"
+                android:text="@string/select_time"
+                android:layout_width="match_parent"
+                style="@style/TextviewLayout"
+                android:layout_weight="1"/>
+
+
+            <Button
+                style="@style/FragmentStyle"
+                android:text="TAP TO CHOOSE TIME"
+                android:id="@+id/timepicker"
+                android:onClick="showTimepicker"
+                android:layout_weight="1"/>
+
+        </LinearLayout>
 
         <Button
             android:id="@+id/ConfirmEditAppt"

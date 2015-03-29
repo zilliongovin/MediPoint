@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:paddingTop="16dp"
+        android:orientation="vertical">
+
+        <!-- Time -->
+
+            <RadioGroup
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                android:id="@+id/timeslot">
+
+               <RadioButton
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:padding="5dp"
+                   android:layout_marginBottom="3dp"
+                   android:id="@+id/timebutton1"
+                   android:textSize="17sp"
+                   android:text="@string/time1"
+                   android:textColor="@color/frame"/>
+
+               <RadioButton
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:padding="5dp"
+                   android:layout_marginBottom="3dp"
+                   android:id="@+id/timebutton2"
+                   android:textSize="17sp"
+                   android:text="@string/time2"
+                   android:textColor="@color/frame"/>
+
+               <RadioButton
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:padding="5dp"
+                   android:layout_marginBottom="3dp"
+                   android:id="@+id/timebutton3"
+                   android:textSize="17sp"
+                   android:text="@string/time3"
+                   android:textColor="@color/frame"/>
+
+               <RadioButton
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:padding="5dp"
+                   android:layout_marginBottom="3dp"
+                   android:id="@+id/timebutton4"
+                   android:textSize="17sp"
+                   android:text="@string/time4"
+                   android:textColor="@color/frame"/>
+
+               <RadioButton
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:padding="5dp"
+                   android:layout_marginBottom="3dp"
+                   android:id="@+id/timebutton5"
+                   android:text="@string/time5"
+                   android:textSize="17sp"
+                   android:textColor="@color/frame"/>
+
+
+               <RadioButton
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:padding="5dp"
+                   android:layout_marginBottom="3dp"
+                   android:id="@+id/timebutton6"
+                   android:text="@string/time6"
+                   android:textSize="17sp"
+                   android:textColor="@color/frame"/>
+
+
+               <RadioButton
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:padding="5dp"
+                   android:layout_marginBottom="3dp"
+                   android:id="@+id/timebutton7"
+                   android:text="@string/time7"
+                   android:textSize="17sp"
+                   android:textColor="@color/frame"/>
+
+               <RadioButton
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:padding="5dp"
+                   android:layout_marginBottom="3dp"
+                   android:id="@+id/timebutton8"
+                   android:text="@string/time8"
+                   android:textSize="17sp"
+                   android:textColor="@color/frame"/>
+
+               <RadioButton
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:padding="5dp"
+                   android:layout_marginBottom="3dp"
+                   android:id="@+id/timebutton9"
+                   android:text="@string/time9"
+                   android:textSize="17sp"
+                   android:textColor="@color/frame"/>
+
+               <RadioButton
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:padding="5dp"
+                   android:layout_marginBottom="3dp"
+                   android:id="@+id/timebutton10"
+                   android:text="@string/time10"
+                   android:textSize="17sp"
+                   android:textColor="@color/frame"/>
+
+               <RadioButton
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:padding="5dp"
+                   android:layout_marginBottom="3dp"
+                   android:id="@+id/timebutton11"
+                   android:text="@string/time11"
+                   android:textSize="17sp"
+                   android:textColor="@color/frame"/>
+
+               <RadioButton
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:padding="5dp"
+                   android:layout_marginBottom="3dp"
+                   android:id="@+id/timebutton12"
+                   android:text="@string/time12"
+                   android:textSize="17sp"
+                   android:textColor="@color/frame"/>
+
+               <RadioButton
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:padding="5dp"
+                   android:layout_marginBottom="3dp"
+                   android:id="@+id/timebutton13"
+                   android:text="@string/time13"
+                   android:textSize="17sp"
+                   android:textColor="@color/frame"/>
+
+               <RadioButton
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:padding="5dp"
+                   android:layout_marginBottom="3dp"
+                   android:id="@+id/timebutton14"
+                   android:text="@string/time14"
+                   android:textSize="17sp"
+                   android:textColor="@color/frame"/>
+
+               <RadioButton
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:padding="5dp"
+                   android:layout_marginBottom="3dp"
+                   android:id="@+id/timebutton15"
+                   android:text="@string/time15"
+                   android:textSize="17sp"
+                   android:textColor="@color/frame"/>
+
+               <RadioButton
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:padding="5dp"
+                   android:layout_marginBottom="3dp"
+                   android:id="@+id/timebutton16"
+                   android:text="@string/time16"
+                   android:textSize="17sp"
+                   android:textColor="@color/frame"/>
+
+               <RadioButton
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:padding="5dp"
+                   android:layout_marginBottom="3dp"
+                   android:id="@+id/timebutton17"
+                   android:text="@string/time17"
+                   android:textSize="17sp"
+                   android:textColor="@color/frame"/>
+
+               <RadioButton
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:padding="5dp"
+                   android:layout_marginBottom="3dp"
+                   android:id="@+id/timebutton18"
+                   android:text="@string/time18"
+                   android:textSize="17sp"
+                   android:textColor="@color/frame"/>
+
+               <RadioButton
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:padding="5dp"
+                   android:layout_marginBottom="3dp"
+                   android:id="@+id/timebutton19"
+                   android:text="@string/time19"
+                   android:textSize="17sp"
+                   android:textColor="@color/frame"/>
+
+               <RadioButton
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:padding="5dp"
+                   android:layout_marginBottom="3dp"
+                   android:id="@+id/timebutton20"
+                   android:text="@string/time20"
+                   android:textSize="17sp"
+                   android:textColor="@color/frame"/>
+
+               <RadioButton
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:padding="5dp"
+                   android:layout_marginBottom="3dp"
+                   android:id="@+id/timebutton21"
+                   android:text="@string/time21"
+                   android:textSize="17sp"
+                   android:textColor="@color/frame"/>
+
+               <RadioButton
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:padding="5dp"
+                   android:layout_marginBottom="3dp"
+                   android:id="@+id/timebutton22"
+                   android:text="@string/time22"
+                   android:textSize="17sp"
+                   android:textColor="@color/frame"/>
+
+               <RadioButton
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:padding="5dp"
+                   android:layout_marginBottom="3dp"
+                   android:id="@+id/timebutton23"
+                   android:text="@string/time23"
+                   android:textSize="17sp"
+                   android:textColor="@color/frame"/>
+
+            </RadioGroup>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center">
+
+            <Button
+                android:id="@+id/setTime"
+                android:text="@string/set"
+                style="@style/ButtonStyle"
+                android:layout_marginBottom="16dp"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+</ScrollView>
+

@@ -5,7 +5,6 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteQueryBuilder;
 import android.util.Log;
-
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -59,6 +58,23 @@ public class ClinicDAO extends DbDAO{
                 }, null, null, null, null,
                 null);
 
+        //String query = "Select * FROM " + DbContract.ClinicEntry.TABLE_NAME + ", " + DbContract.CountryEntry.TABLE_NAME
+        //       + " WHERE " + DbContract.ClinicEntry.COLUMN_NAME_COUNTRY_ID + " = " + DbContract.CountryEntry.COLUMN_NAME_COUNTRY_ID;
+
+        // Building query using INNER JOIN keyword
+		/*String query = "SELECT " + EMPLOYEE_ID_WITH_PREFIX + ","
+		+ EMPLOYEE_NAME_WITH_PREFIX + "," + DataBaseHelper.EMPLOYEE_DOB
+		+ "," + DataBaseHelper.EMPLOYEE_SALARY + ","
+		+ DataBaseHelper.EMPLOYEE_DEPARTMENT_ID + ","
+		+ DEPT_NAME_WITH_PREFIX + " FROM "
+		+ DataBaseHelper.EMPLOYEE_TABLE + " emp INNER JOIN "
+		+ DataBaseHelper.DEPARTMENT_TABLE + " dept ON emp."
+		+ DataBaseHelper.EMPLOYEE_DEPARTMENT_ID + " = dept."
+		+ DataBaseHelper.ID_COLUMN;*/
+
+        //Log.d("query", query);
+        //Cursor c = database.rawQuery(query, null);
+
         while (cursor.moveToNext()) {
             Clinic clinic= new Clinic();
             clinic.setId(cursor.getInt(0));
@@ -109,6 +125,7 @@ public class ClinicDAO extends DbDAO{
         clinic.setName(c.getString(c.getColumnIndex(DbContract.ClinicEntry.COLUMN_NAME_CLINIC_ID)));
         clinic.setAddress(c.getString(c.getColumnIndex(DbContract.ClinicEntry.COLUMN_NAME_ADDRESS)));
         //clinic.setCountry(c.getString(countryDao.getCountryById(c.getColumnIndex(DbContract.ClinicEntry.COLUMN_NAME_COUNTRY_ID))));
+
         //Country country = new Country();
         //country.setName();
 

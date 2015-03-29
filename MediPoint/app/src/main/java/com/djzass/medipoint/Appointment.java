@@ -107,9 +107,12 @@ public class Appointment {
     }
 
 }
+/*import android.os.Parcel;
+=======
 /*
 =======
 import android.os.Parcel;
+>>>>>>> origin/master
 import android.os.Parcelable;
 
 import java.util.Calendar;
@@ -117,9 +120,14 @@ import java.util.Date;
 
 /**
  * Created by Deka on 25/3/2015.
+<<<<<<< HEAD
+public class Appointment implements Parcelable{
+    private int appoinmentId;
+=======
  *//*
 public class Appointment implements Parcelable{
     /*private int appoinmentId;
+>>>>>>> origin/master
     private Clinic clinic;
     //private Doctor doctor;
     //private Timestamp ;
@@ -131,6 +139,20 @@ public class Appointment implements Parcelable{
     private Date startTime;
     private Date endTime;
 
+<<<<<<< HEAD
+    public static final String TABLE_NAME = "appointment";
+    public static final String COLUMN_NAME_APPOINTMENT_ID = "appoinmentId";
+    public static final String COLUMN_NAME_CLINIC_ID = "clinicId";
+    public static final String COLUMN_NAME_PATIENT_ID = "patientId";
+    public static final String COLUMN_NAME_DOCTOR_ID = "doctorId";
+    public static final String COLUMN_NAME_DATE_TIME = "dateTime";
+    public static final String COLUMN_NAME_SERVICE_ID = "service";
+    public static final String COLUMN_NAME_SPECIALTY_ID = "specialty";
+    public static final String COLUMN_NAME_PREAPPOINTMENT_ACTIONS = "preAppointmentActions";
+    public static final String COLUMN_NAME_START_TIME = "startTime";
+    public static final String COLUMN_NAME_END_TIME = "endTime";
+=======
+>>>>>>> origin/master
 
 
     public Appointment() {
@@ -214,6 +236,7 @@ public class Appointment implements Parcelable{
         if (id != other.id)
             return false;
         return true;
-    }
-}*/
 
+    }
+}
+*/

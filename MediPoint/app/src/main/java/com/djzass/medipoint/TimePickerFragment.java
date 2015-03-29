@@ -6,37 +6,35 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.DatePicker;
-
-import java.text.DateFormatSymbols;
-
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 
 /**
  * Created by Zillion Govin on 28/3/2015.
  */
-public class DatePickerFragment extends DialogFragment implements View.OnClickListener {
+public class TimePickerFragment extends DialogFragment implements View.OnClickListener {
 
     Button set, cancel;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
 
-        View view = inflater.inflate(R.layout.datepicker_fragment, null);
+        View view = inflater.inflate(R.layout.timepicker_fragment, null);
 
-        //button for datepicker fragment
-        set = (Button) view.findViewById(R.id.setDate);
+        //button for timepicker fragment
+        set = (Button) view.findViewById(R.id.setTime);
 
         //set listener when button is clicked
         set.setOnClickListener(this);
 
         //set dialog title
-        getDialog().setTitle("Select Date");
+        getDialog().setTitle("Timeslot");
 
         return view;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState){
-        super.onCreate(savedInstanceState);
+            super.onCreate(savedInstanceState);
     }
 
     @Override
@@ -88,23 +86,21 @@ public class DatePickerFragment extends DialogFragment implements View.OnClickLi
     @Override
     public void onClick(View v) {
 
-        if (v.getId() ==  R.id.setDate){
-            //instantiate datepicker
-            DatePicker datepicker = (DatePicker)getView().findViewById(R.id.chooseDate);
+        if (v.getId() ==  R.id.setTime){
 
-            //string representation for month
-            String[] month_str = new DateFormatSymbols().getMonths();
+            //instantiate the radio group
+            RadioGroup time = (RadioGroup) getView().findViewById(R.id.timeslot);
 
-            //get input from datepicker
-            int date = datepicker.getDayOfMonth();
-            int month = datepicker.getMonth();
-            int year = datepicker.getYear();
+            //find id of selected radio button
+            int selectedId = time.getCheckedRadioButtonId();
 
-            //change the button text according to date selected
-            Button datefrag = (Button) getActivity().findViewById(R.id.datepicker);
-            datefrag.setText(date + " " + month_str[month] + " " + year);
-
-            //close dialog
+            //get text from selected radio button
+            //if radio button is selected
+             if(selectedId != -1) {
+                CharSequence timeSelected = ((RadioButton)getView().findViewById(selectedId)).getText();
+                Button timefrag = (Button) getActivity().findViewById(R.id.timepicker);
+                timefrag.setText(timeSelected);
+            }
             dismiss();
         }
     }
