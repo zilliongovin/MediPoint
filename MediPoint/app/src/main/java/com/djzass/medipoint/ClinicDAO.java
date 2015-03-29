@@ -38,13 +38,9 @@ public class ClinicDAO extends DbDAO{
 
     /*  READ
      */
-    public List<Clinic> getClinics() {
+    public List<Clinic> getClinics(String whereclause) {
         List<Clinic> clinics = new ArrayList<Clinic>();
 
-        // Select All rows
-        //String selectQuery = "SELECT  * FROM " + DbContract.ClinicEntry.TABLE_NAME;
-        //Log.d("query", query);
-        //Cursor cursor = database.rawQuery(query, null);
         Cursor cursor = database.query(DbContract.ClinicEntry.TABLE_NAME,
                 new String[] { DbContract.ClinicEntry.COLUMN_NAME_CLINIC_ID,
                         DbContract.ClinicEntry.COLUMN_NAME_CLINIC_NAME,
@@ -54,39 +50,18 @@ public class ClinicDAO extends DbDAO{
                         DbContract.ClinicEntry.COLUMN_NAME_TEL_NUMBER,
                         DbContract.ClinicEntry.COLUMN_NAME_FAX_NUMBER,
                         DbContract.ClinicEntry.COLUMN_NAME_EMAIL
-                }, null, null, null, null,
+                }, whereclause, null, null, null,
                 null);
-
-        //String query = "Select * FROM " + DbContract.ClinicEntry.TABLE_NAME + ", " + DbContract.CountryEntry.TABLE_NAME
-        //       + " WHERE " + DbContract.ClinicEntry.COLUMN_NAME_COUNTRY_ID + " = " + DbContract.CountryEntry.COLUMN_NAME_COUNTRY_ID;
-
-        // Building query using INNER JOIN keyword
-		/*String query = "SELECT " + EMPLOYEE_ID_WITH_PREFIX + ","
-		+ EMPLOYEE_NAME_WITH_PREFIX + "," + DataBaseHelper.EMPLOYEE_DOB
-		+ "," + DataBaseHelper.EMPLOYEE_SALARY + ","
-		+ DataBaseHelper.EMPLOYEE_DEPARTMENT_ID + ","
-		+ DEPT_NAME_WITH_PREFIX + " FROM "
-		+ DataBaseHelper.EMPLOYEE_TABLE + " emp INNER JOIN "
-		+ DataBaseHelper.DEPARTMENT_TABLE + " dept ON emp."
-		+ DataBaseHelper.EMPLOYEE_DEPARTMENT_ID + " = dept."
-		+ DataBaseHelper.ID_COLUMN;*/
-
-        //Log.d("query", query);
-        //Cursor c = database.rawQuery(query, null);
 
         while (cursor.moveToNext()) {
             Clinic clinic= new Clinic();
             clinic.setId(cursor.getInt(0));
             clinic.setName(cursor.getString(1));
             clinic.setAddress(cursor.getString(2));
-
-            //Country country = new Country();
-            //country.setId(cursor.getInt(3));
-            //clinic.setCountry(country);
-
-            //clinic.setZipCode(cursor.getString(4));
-            //clinic.setTelNumber(cursor.getString(5));
-            //clinic.setFaxNumber(cursor.getString(6));
+            clinic.setCountry(cursor.getString(3));
+            clinic.setZipCode(cursor.getInt(4));
+            clinic.setTelNumber(cursor.getInt(5));
+            clinic.setFaxNumber(cursor.getInt(6));
             clinic.setEmail(cursor.getString(7));
             clinics.add(clinic);
         }
@@ -94,49 +69,19 @@ public class ClinicDAO extends DbDAO{
         return clinics;
     }
 
-    //READ SINGLE ROW
-    public Clinic getClinic(long clinicId) {
-        //String selectQuery = "SELECT  * FROM " + DbContract.ClinicEntry.TABLE_NAME + " WHERE "
-        //        + DbContract.ClinicEntry.COLUMN_NAME_CLINIC_ID + " = " + clinicId;
-        //Cursor c = database.rawQuery(selectQuery, null);
-        //Log.e(LOG, selectQuery);
-
-
-        Cursor c = database.query(DbContract.ClinicEntry.TABLE_NAME, new String[]{
-                DbContract.ClinicEntry.COLUMN_NAME_CLINIC_ID,
-                DbContract.ClinicEntry.COLUMN_NAME_CLINIC_NAME,
-                DbContract.ClinicEntry.COLUMN_NAME_ADDRESS,
-                DbContract.ClinicEntry.COLUMN_NAME_COUNTRY,
-                DbContract.ClinicEntry.COLUMN_NAME_ZIPCODE,
-                DbContract.ClinicEntry.COLUMN_NAME_TEL_NUMBER,
-                DbContract.ClinicEntry.COLUMN_NAME_FAX_NUMBER,
-                DbContract.ClinicEntry.COLUMN_NAME_EMAIL
-        },DbContract.ClinicEntry.COLUMN_NAME_CLINIC_ID + " = ?",new String[]{
-                clinicId+""},null, null, null  );
-
-        if (c != null)
-            c.moveToFirst();
-
-
-        // Create the class object, then set the attribute from content of the exisiting data in the table
-        Clinic clinic = new Clinic();
-        clinic.setId(c.getInt(c.getColumnIndex(DbContract.ClinicEntry.COLUMN_NAME_CLINIC_ID)));
-        clinic.setName(c.getString(c.getColumnIndex(DbContract.ClinicEntry.COLUMN_NAME_CLINIC_ID)));
-        clinic.setAddress(c.getString(c.getColumnIndex(DbContract.ClinicEntry.COLUMN_NAME_ADDRESS)));
-        //clinic.setCountry(c.getString(countryDao.getCountryById(c.getColumnIndex(DbContract.ClinicEntry.COLUMN_NAME_COUNTRY_ID))));
-
-        //Country country = new Country();
-        //country.setName();
-
-
-        //clinic.setZipCode(c.getString(c.getColumnIndex(DbContract.ClinicEntry.COLUMN_NAME_ZIPCODE)));
-        //clinic.setTelNumber(c.getString(c.getColumnIndex(DbContract.ClinicEntry.COLUMN_NAME_TEL_NUMBER)));
-        //clinic.setFaxNumber(c.getString(c.getColumnIndex(DbContract.ClinicEntry.COLUMN_NAME_FAX_NUMBER)));
-        clinic.setEmail(c.getString(c.getColumnIndex(DbContract.ClinicEntry.COLUMN_NAME_EMAIL)));
-
-        return clinic;
+    public List<Clinic> getAllClinics() {
+        return getClinics(null);
     }
 
+    public List<Clinic> getClinicsByID(int id) {
+        String whereclause = DbContract.ClinicEntry.COLUMN_NAME_CLINIC_ID + " = " + id;
+        return getClinics(whereclause);
+    }
+
+    public List<Clinic> getClinicsByCountry(String country) {
+        String whereclause = DbContract.ClinicEntry.COLUMN_NAME_CLINIC_ID + " = " + country;
+        return getClinics(whereclause);
+    }
     /*
         UPDATE
         returns the number of rows affected by the update

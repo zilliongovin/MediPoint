@@ -1,8 +1,13 @@
 package com.djzass.medipoint;
 
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.text.DateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
+import java.lang.String;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -24,7 +29,142 @@ public class AppointmentDAO extends DbDAO{
         super(context);
     }
 
+    public long insertAppointment(Appointment appointment) {
+        ContentValues values = new ContentValues();
+        values.put(DbContract.AppointmentEntry.COLUMN_NAME_CLINIC_ID, appointment.getClinic());
+        values.put(DbContract.AppointmentEntry.COLUMN_NAME_PATIENT_ID, appointment.getPatient());
+        values.put(DbContract.AppointmentEntry.COLUMN_NAME_DOCTOR_ID, appointment.getDoctor());
+        values.put(DbContract.AppointmentEntry.COLUMN_NAME_DATE_TIME, String.valueOf(appointment));
+        values.put(DbContract.AppointmentEntry.COLUMN_NAME_SERVICE_ID, appointment.getService());
+        values.put(DbContract.AppointmentEntry.COLUMN_NAME_SPECIALTY_ID,appointment.getSpecialty());
+        values.put(DbContract.AppointmentEntry.COLUMN_NAME_PREAPPOINTMENT_ACTIONS, appointment.getPreAppointmentActions());
+        values.put(DbContract.AppointmentEntry.COLUMN_NAME_START_TIME, appointment.getTimeframe().getStartTime());
+        values.put(DbContract.AppointmentEntry.COLUMN_NAME_END_TIME, appointment.getTimeframe().getEndTime());
+
+        return database.insert(DbContract.AppointmentEntry.TABLE_NAME, null, values);
+    }
+
+
+    /* READ
+     * Getting all appointments from the table using whereclause as where clause
+     * Null means get all
+     * */
+    public List<Appointment> getAppointments(String whereclause) {
+        List<Appointment> appointments = new ArrayList<Appointment>();
+
+        Cursor cursor = database.query(DbContract.AppointmentEntry.TABLE_NAME,
+                new String[] {DbContract.AppointmentEntry.COLUMN_NAME_APPOINTMENT_ID,
+                        DbContract.AppointmentEntry.COLUMN_NAME_CLINIC_ID,
+                        DbContract.AppointmentEntry.COLUMN_NAME_PATIENT_ID,
+                        DbContract.AppointmentEntry.COLUMN_NAME_DOCTOR_ID,
+                        DbContract.AppointmentEntry.COLUMN_NAME_DATE_TIME,
+                        DbContract.AppointmentEntry.COLUMN_NAME_SERVICE_ID,
+                        DbContract.AppointmentEntry.COLUMN_NAME_SPECIALTY_ID,
+                        DbContract.AppointmentEntry.COLUMN_NAME_PREAPPOINTMENT_ACTIONS,
+                        DbContract.AppointmentEntry.COLUMN_NAME_START_TIME,
+                        DbContract.AppointmentEntry.COLUMN_NAME_END_TIME
+                         }, whereclause, null, null, null, null);
+
+        while (cursor.moveToNext()) {
+            Appointment appointment= new Appointment();
+            appointment.setClinic(cursor.getInt(0));
+            appointment.setPatient(cursor.getInt(1));
+            appointment.setDoctor(cursor.getInt(2));
+
+            String temp = cursor.getString(3);
+            DateFormat dateformat = new SimpleDateFormat("yyyy-MM-dd");
+            Calendar cal  = Calendar.getInstance();
+            try {
+                cal.setTime(dateformat.parse(temp));
+            } catch (ParseException e) {
+                Log.d("DAO", "Date parsing exception");
+            }
+            appointment.setDate(cal);
+            appointment.setService(cursor.getInt(4));
+            appointment.setSpecialty(cursor.getInt(5));
+            appointment.setPreAppointmentActions(cursor.getString(6));
+            Timeframe timeframe= new Timeframe(cursor.getInt(7),cursor.getInt(8));
+            appointment.setTimeframe(timeframe);
+            appointments.add(appointment);
+        }
+        return appointments;
+    }
+
+
+    public List<Appointment> getAllAppointments() {
+        return getAppointments(null);
+    }
+
+    public List<Appointment> getAppointmentsByID(int id) {
+        String whereclause = DbContract.AppointmentEntry.COLUMN_NAME_APPOINTMENT_ID + " = " + id;
+        return getAppointments(whereclause);
+    }
+    public List<Appointment> getAppointmentsByPatientID(int pid) {
+        String whereclause = DbContract.AppointmentEntry.COLUMN_NAME_PATIENT_ID + " = " + pid;
+        return getAppointments(whereclause);
+    }
+    public List<Appointment> getAppointmentsByDoctorID(int did) {
+        String whereclause = DbContract.AppointmentEntry.COLUMN_NAME_DOCTOR_ID + " = " + did;
+        return getAppointments(whereclause);
+    }
+
+
+
     /*
+        UPDATE
+        returns the number of rows affected by the update
+     */
+    public long update(Appointment appointment) {
+        ContentValues values = new ContentValues();
+        values.put(DbContract.AppointmentEntry.COLUMN_NAME_CLINIC_ID, appointment.getClinic());
+        values.put(DbContract.AppointmentEntry.COLUMN_NAME_PATIENT_ID, appointment.getPatient());
+        values.put(DbContract.AppointmentEntry.COLUMN_NAME_DOCTOR_ID, appointment.getDoctor());
+        values.put(DbContract.AppointmentEntry.COLUMN_NAME_DATE_TIME, String.valueOf(appointment.getDate()));
+        values.put(DbContract.AppointmentEntry.COLUMN_NAME_SERVICE_ID, appointment.getService());
+        values.put(DbContract.AppointmentEntry.COLUMN_NAME_SPECIALTY_ID,appointment.getSpecialty());
+        values.put(DbContract.AppointmentEntry.COLUMN_NAME_PREAPPOINTMENT_ACTIONS, appointment.getPreAppointmentActions());
+        values.put(DbContract.AppointmentEntry.COLUMN_NAME_START_TIME, appointment.getTimeframe().getStartTime());
+        values.put(DbContract.AppointmentEntry.COLUMN_NAME_END_TIME, appointment.getTimeframe().getEndTime());
+
+
+        long result = database.update(DbContract.AppointmentEntry.TABLE_NAME, values,
+                WHERE_ID_EQUALS,
+                new String[] { String.valueOf(appointment.getId()) });
+        Log.d("Update Result:", "=" + result);
+
+        return result;
+    }
+
+    /*
+        DELETE
+        returns the number of rows affected if a whereClause is passed in, 0 otherwise
+     */
+    public int deleteAppointment(Appointment appointment) {
+        return database.delete(DbContract.AppointmentEntry.TABLE_NAME,
+                WHERE_ID_EQUALS, new String[] { appointment.getId() + "" });
+    }
+    /*
+        LOAD
+        Load the initial values of the appointments ??
+     */
+    public void loadAppointments() {
+        /*Appointment a1 = new Appointment();
+        Appointment a2 = new Appointment();
+        Appointment a3 = new Appointment();
+
+        List<Appointment> appointments = new ArrayList<Appointment>();
+        appointments.add(a1);
+        appointments.add(a2);
+        appointments.add(a3);
+        for (Appointment appt: appointments) {
+            insertAppointment(appt);
+        }*/
+    }
+
+}
+
+    /*
+    //Conflicting code??
     public long save(Appointment appointment) {
         ContentValues values = new ContentValues();
         values.put(DbHelper.NAME_COLUMN, appointment.getName());
@@ -71,136 +211,3 @@ public class AppointmentDAO extends DbDAO{
             values.put(DbContract.AppointmentEntry.COLUMN_NAME_CLINIC_ID, appt.getClinicId());
             database.insert(DbContract.AppointmentEntry.TABLE_NAME, null, values);
         }*/
-    public long insertAppointment(Appointment appointment) {
-        ContentValues values = new ContentValues();
-        values.put(DbContract.AppointmentEntry.COLUMN_NAME_CLINIC_ID, appointment.getClinic());
-        values.put(DbContract.AppointmentEntry.COLUMN_NAME_PATIENT_ID, appointment.getPatient());
-        values.put(DbContract.AppointmentEntry.COLUMN_NAME_DOCTOR_ID, appointment.getDoctor());
-        values.put(DbContract.AppointmentEntry.COLUMN_NAME_DATE_TIME, String.valueOf(appointment));
-        values.put(DbContract.AppointmentEntry.COLUMN_NAME_SERVICE_ID, appointment.getService());
-        values.put(DbContract.AppointmentEntry.COLUMN_NAME_SPECIALTY_ID,appointment.getSpecialty());
-        values.put(DbContract.AppointmentEntry.COLUMN_NAME_PREAPPOINTMENT_ACTIONS, appointment.getPreAppointmentActions());
-        values.put(DbContract.AppointmentEntry.COLUMN_NAME_START_TIME, appointment.getTimeframe().getStartTime());
-        values.put(DbContract.AppointmentEntry.COLUMN_NAME_END_TIME, appointment.getTimeframe().getEndTime());
-
-        return database.insert(DbContract.AppointmentEntry.TABLE_NAME, null, values);
-    }
-
-
-    /*
-        READ
-      * Getting all appointments from the table
-     * returns list of appointments
-     * */
-    public List<Appointment> getAppointments() {
-        List<Appointment> appointments = new ArrayList<Appointment>();
-
-        //MUST JOIN
-        // Select all rows
-        // String selectQuery = "SELECT  * FROM " + DbContract.AppointmentEntry.TABLE_NAME;
-
-        Cursor cursor = database.query(DbContract.AppointmentEntry.TABLE_NAME,
-                new String[] {DbContract.AppointmentEntry.COLUMN_NAME_APPOINTMENT_ID,
-                        DbContract.AppointmentEntry.COLUMN_NAME_CLINIC_ID,
-                        DbContract.AppointmentEntry.COLUMN_NAME_PATIENT_ID,
-                        DbContract.AppointmentEntry.COLUMN_NAME_DOCTOR_ID,
-                        DbContract.AppointmentEntry.COLUMN_NAME_DATE_TIME,
-                        DbContract.AppointmentEntry.COLUMN_NAME_SERVICE_ID,
-                        DbContract.AppointmentEntry.COLUMN_NAME_SPECIALTY_ID,
-                        DbContract.AppointmentEntry.COLUMN_NAME_PREAPPOINTMENT_ACTIONS,
-                        DbContract.AppointmentEntry.COLUMN_NAME_START_TIME,
-                        DbContract.AppointmentEntry.COLUMN_NAME_END_TIME
-                         }, null, null, null, null, null);
-
-        while (cursor.moveToNext()) {
-            Appointment appointment= new Appointment();
-            appointment.setClinic(cursor.getInt(0));
-            appointment.setPatient(cursor.getInt(1));
-            appointment.setDoctor(cursor.getInt(2));
-            String temp = cursor.getString(3);
-            //Figure out how to parse temp into calendar
-            //appointment.setDate();
-            appointment.setService(cursor.getInt(4));
-            appointment.setSpecialty(cursor.getInt(5));
-            appointment.setPreAppointmentActions(cursor.getString(6));
-            Timeframe timeframe= new Timeframe(cursor.getInt(7),cursor.getInt(8));
-            appointment.setTimeframe(timeframe);
-            appointments.add(appointment);
-        }
-
-        return appointments;
-    }
-
-    /*
-        FETCH BY ID
-     */
-    //READ SINGLE ROW
-    //MUST JOIN
-    public Appointment getAppointmentById(long appointmentId) {
-        String selectQuery = "SELECT  * FROM " + DbContract.AppointmentEntry.TABLE_NAME + " WHERE "
-                + DbContract.AppointmentEntry.COLUMN_NAME_APPOINTMENT_ID + " = " + appointmentId;
-
-        Cursor c = database.rawQuery(selectQuery, null);
-
-        if (c != null)
-            c.moveToFirst();
-
-        // Create the class object, then set the attribute from content of the exisiting data in the table
-        Appointment appointment = new Appointment();
-        appointment.setId(c.getInt(c.getColumnIndex(DbContract.AppointmentEntry.COLUMN_NAME_APPOINTMENT_ID)));
-
-
-        return appointment;
-    }
-    /*
-        UPDATE
-       returns the number of rows affected by the update
-     */
-    public long update(Appointment appointment) {
-        ContentValues values = new ContentValues();
-        values.put(DbContract.AppointmentEntry.COLUMN_NAME_CLINIC_ID, appointment.getClinic());
-        values.put(DbContract.AppointmentEntry.COLUMN_NAME_PATIENT_ID, appointment.getPatient());
-        values.put(DbContract.AppointmentEntry.COLUMN_NAME_DOCTOR_ID, appointment.getDoctor());
-        values.put(DbContract.AppointmentEntry.COLUMN_NAME_DATE_TIME, String.valueOf(appointment.getDate()));
-        values.put(DbContract.AppointmentEntry.COLUMN_NAME_SERVICE_ID, appointment.getService());
-        values.put(DbContract.AppointmentEntry.COLUMN_NAME_SPECIALTY_ID,appointment.getSpecialty());
-        values.put(DbContract.AppointmentEntry.COLUMN_NAME_PREAPPOINTMENT_ACTIONS, appointment.getPreAppointmentActions());
-        values.put(DbContract.AppointmentEntry.COLUMN_NAME_START_TIME, appointment.getTimeframe().getStartTime());
-        values.put(DbContract.AppointmentEntry.COLUMN_NAME_END_TIME, appointment.getTimeframe().getEndTime());
-
-
-        long result = database.update(DbContract.AppointmentEntry.TABLE_NAME, values,
-                WHERE_ID_EQUALS,
-                new String[] { String.valueOf(appointment.getId()) });
-        Log.d("Update Result:", "=" + result);
-
-        return result;
-    }
-
-    /*
-        DELETE
-        returns the number of rows affected if a whereClause is passed in, 0 otherwise
-     */
-    public int deleteAppointment(Appointment appointment) {
-        return database.delete(DbContract.AppointmentEntry.TABLE_NAME,
-                WHERE_ID_EQUALS, new String[] { appointment.getId() + "" });
-    }
-    /*
-        LOAD
-        Load the initial values of the appointments
-     */
-    public void loadAppointments() {
-        /*Appointment a1 = new Appointment();
-        Appointment a2 = new Appointment();
-        Appointment a3 = new Appointment();
-
-        List<Appointment> appointments = new ArrayList<Appointment>();
-        appointments.add(a1);
-        appointments.add(a2);
-        appointments.add(a3);
-        for (Appointment appt: appointments) {
-            insertAppointment(appt);
-        }*/
-    }
-
-}
