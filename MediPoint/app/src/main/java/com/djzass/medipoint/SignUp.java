@@ -24,6 +24,10 @@ public class SignUp extends Activity {
     //DbHelper mDbHelper;
     //SQLiteDatabase db;
 
+    int dateOB = 0;
+    int monthOB = 0;
+    int yearOB = 0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -140,8 +144,10 @@ public class SignUp extends Activity {
                 RadioButton selMaritalStatusButton = (RadioButton)findViewById(selMaritalStatus);
                 Spinner citizenshipSpinner = (Spinner)findViewById(R.id.CitizenshipSpinner);
                 Spinner countryOfResidenceSpinner = (Spinner)findViewById(R.id.CountryOfResidenceSpinner);
-                DatePicker dobPicker = (DatePicker)findViewById(R.id.DateOfBirthDatePicker);
-                Calendar dobCal = getDate(dobPicker);
+
+                Calendar dobCal = Calendar.getInstance();
+                dobCal.set(yearOB, monthOB + 1, dateOB);
+
                 Calendar currentDate = Calendar.getInstance();
 
                 if(selGender==-1||selMaritalStatus==-1)
@@ -249,6 +255,12 @@ public class SignUp extends Activity {
         calendar.set(year, month, day);
 
         return calendar;
+    }
+
+    public void setDate(DatePicker datepicker){
+        dateOB = datepicker.getDayOfMonth();
+        monthOB = datepicker.getMonth();
+        yearOB = datepicker.getYear();
     }
 
 }
