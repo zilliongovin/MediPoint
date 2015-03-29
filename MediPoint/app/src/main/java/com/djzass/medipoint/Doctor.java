@@ -6,7 +6,11 @@ import java.util.ArrayList;
  * Created by Deka on 26/3/2015.
  */
 public class Doctor {
+<<<<<<< HEAD
+    private int DId;
+=======
     private int DID;
+>>>>>>> origin/master
     private String doctorId;
     private String name;
     private int specializationId;
@@ -18,7 +22,18 @@ public class Doctor {
     public Doctor(){
     }
 
+<<<<<<< HEAD
+<<<<<<< HEAD
+    public Doctor(int id, String name, Specialty specialization,
+                  int practiceDuration) {
+        this.id = id;
+=======
+    public Doctor(String name, Specialty specialization,
+                  int practiceDuration) {
+>>>>>>> origin/master
+=======
     public Doctor(String name, int specializationId, int practiceDuration) {
+>>>>>>> 49e9b696f1b6c1c2563389694bac34700083f3c5
         this.name = name;
         this.specializationId = specializationId;
         this.practiceDuration = practiceDuration;
@@ -35,7 +50,11 @@ public class Doctor {
     }
 
     public void setDoctorId() {
+<<<<<<< HEAD
+        this.doctorId = "D" + String.format("%07d", this.DId);
+=======
         this.doctorId = "D" + String.format("%07d", this.DID);
+>>>>>>> origin/master
     }
 
     public String getName() {
@@ -86,17 +105,30 @@ public class Doctor {
         }
     }
 
+<<<<<<< HEAD
+    public int getDId() {
+        return DId;
+    }
+
+    public void setDId(int DId) {
+        this.DId = DId;
+=======
     public int getDID() {
         return this.DID;
     }
 
     public void setId(int DID) {
         this.DID = DID;
+>>>>>>> origin/master
     }
 
     public String toString(){
         return 	"=== Printing Doctor Info ==="+"\n"+
+<<<<<<< HEAD
+                "ID: " + this.id + "\n" +
+=======
                 "ID: " + this.DID + "\n" +
+>>>>>>> origin/master
                 "Name: " + this.name + "\n" +
                 "Practice Duration: " + this.practiceDuration+ "\n" +
                 "Specialization: " + this.specializationId + "\n"
