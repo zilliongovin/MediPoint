@@ -49,16 +49,16 @@ public class DbHelper extends SQLiteOpenHelper {
 
     private static final String SQL_VERIFY_USER =
             "SELECT " + DbContract.AccountEntry.COLUMN_NAME_USERNAME + COMMA_SEP +
-    DbContract.AccountEntry.COLUMN_NAME_PASSWORD +
-            " FROM " + DbContract.AccountEntry.TABLE_NAME +
-            " WHERE " + DbContract.AccountEntry.COLUMN_NAME_USERNAME + "=? AND " +
-    DbContract.AccountEntry.COLUMN_NAME_PASSWORD + "=?";
+                    DbContract.AccountEntry.COLUMN_NAME_PASSWORD +
+                    " FROM " + DbContract.AccountEntry.TABLE_NAME +
+                    " WHERE " + DbContract.AccountEntry.COLUMN_NAME_USERNAME + "=? AND " +
+                    DbContract.AccountEntry.COLUMN_NAME_PASSWORD + "=?";
 
     private static final String SQL_FIND_NRIC =
             "SELECT " + DbContract.AccountEntry.COLUMN_NAME_NRIC + COMMA_SEP +
                     DbContract.AccountEntry.COLUMN_NAME_EMAIL +
-            " FROM " + DbContract.AccountEntry.TABLE_NAME +
-            " WHERE " + DbContract.AccountEntry.COLUMN_NAME_NRIC + "=?";
+                    " FROM " + DbContract.AccountEntry.TABLE_NAME +
+                    " WHERE " + DbContract.AccountEntry.COLUMN_NAME_NRIC + "=?";
 
     public int onLogin(String username,String password,SQLiteDatabase db){
         String[] selArgs = {username,password};
@@ -83,13 +83,13 @@ public class DbHelper extends SQLiteOpenHelper {
             DbContract.AppointmentEntry.COLUMN_NAME_START_TIME + INT_TYPE + COMMA_SEP +
             DbContract.AppointmentEntry.COLUMN_NAME_END_TIME + INT_TYPE + COMMA_SEP +
             FOREIGN_KEY + DbContract.AppointmentEntry.COLUMN_NAME_CLINIC_ID + REFERENCES + DbContract.ClinicEntry.TABLE_NAME +
-                "(" + DbContract.ClinicEntry.COLUMN_NAME_CLINIC_ID + ")" + COMMA_SEP +
+            "(" + DbContract.ClinicEntry.COLUMN_NAME_CLINIC_ID + ")" + COMMA_SEP +
             FOREIGN_KEY + DbContract.AppointmentEntry.COLUMN_NAME_PATIENT_ID + REFERENCES + DbContract.PatientEntry.TABLE_NAME +
-                "(" + DbContract.PatientEntry.COLUMN_NAME_PATIENT_ID + ")" + COMMA_SEP +
+            "(" + DbContract.PatientEntry.COLUMN_NAME_PATIENT_ID + ")" + COMMA_SEP +
             FOREIGN_KEY + DbContract.AppointmentEntry.COLUMN_NAME_DOCTOR_ID + REFERENCES + DbContract.DoctorEntry.TABLE_NAME +
-                "(" + DbContract.DoctorEntry.COLUMN_NAME_DOCTOR_ID + ")" + COMMA_SEP +
+            "(" + DbContract.DoctorEntry.COLUMN_NAME_DOCTOR_ID + ")" + COMMA_SEP +
             FOREIGN_KEY + DbContract.AppointmentEntry.COLUMN_NAME_SERVICE_ID + REFERENCES + DbContract.ServiceEntry.TABLE_NAME +
-                "(" + DbContract.ServiceEntry.COLUMN_NAME_SERVICE_ID + ")" + " );";
+            "(" + DbContract.ServiceEntry.COLUMN_NAME_SERVICE_ID + ")" + " );";
 
     private static final String SQL_DELETE_APPOINTMENT =
             "DROP TABLE IF EXISTS " + DbContract.AppointmentEntry.TABLE_NAME + ";";
@@ -99,7 +99,7 @@ public class DbHelper extends SQLiteOpenHelper {
             DbContract.DoctorEntry.COLUMN_NAME_DOCTOR_ID + INT_KEY_TYPE + COMMA_SEP +
             DbContract.DoctorEntry.COLUMN_NAME_DOCTOR_NAME + VARCHAR_THIRTY_TYPE + COMMA_SEP +
             DbContract.DoctorEntry.COLUMN_NAME_SPECIALIZATION_ID + VARCHAR_FIFTY_TYPE + COMMA_SEP +
-            DbContract.DoctorEntry.COLUMN_NAME_PRACTICE_DURATION + INT_TYPE + COMMA_SEP + " );";
+            DbContract.DoctorEntry.COLUMN_NAME_PRACTICE_DURATION + INT_TYPE  + " );";
 
     private static final String SQL_DELETE_DOCTOR =
             "DROP TABLE IF EXISTS " + DbContract.DoctorEntry.TABLE_NAME + ";";
@@ -113,9 +113,9 @@ public class DbHelper extends SQLiteOpenHelper {
             DbContract.DoctorScheduleEntry.COLUMN_NAME_START_TIME + DATETIME_TYPE + COMMA_SEP +
             DbContract.DoctorScheduleEntry.COLUMN_NAME_END_TIME + DATETIME_TYPE  + COMMA_SEP +
             FOREIGN_KEY + DbContract.DoctorScheduleEntry.COLUMN_NAME_DOCTOR_SCHEDULE_ID + REFERENCES + DbContract.DoctorEntry.TABLE_NAME +
-                "(" + DbContract.DoctorEntry.COLUMN_NAME_DOCTOR_ID + ")" + COMMA_SEP +
+            "(" + DbContract.DoctorEntry.COLUMN_NAME_DOCTOR_ID + ")" + COMMA_SEP +
             FOREIGN_KEY + DbContract.DoctorScheduleEntry.COLUMN_NAME_CLINIC_ID + REFERENCES + DbContract.ClinicEntry.TABLE_NAME +
-                "(" + DbContract.ClinicEntry.COLUMN_NAME_CLINIC_ID + ")" + ")";
+            "(" + DbContract.ClinicEntry.COLUMN_NAME_CLINIC_ID + ")" + ")";
 
     private static final String SQL_DELETE_DOCTOR_SCHEDULE =
             "DROP TABLE IF EXISTS " + DbContract.DoctorScheduleEntry.TABLE_NAME + ";";
@@ -128,11 +128,11 @@ public class DbHelper extends SQLiteOpenHelper {
             DbContract.ClinicEntry.COLUMN_NAME_ZIPCODE + VARCHAR_TEN_TYPE + COMMA_SEP +
             DbContract.ClinicEntry.COLUMN_NAME_TEL_NUMBER + VARCHAR_TEN_TYPE + COMMA_SEP +
             DbContract.ClinicEntry.COLUMN_NAME_FAX_NUMBER + VARCHAR_TEN_TYPE + COMMA_SEP +
-            DbContract.ClinicEntry.COLUMN_NAME_EMAIL + VARCHAR_THIRTY_TYPE + COMMA_SEP + " );";
+            DbContract.ClinicEntry.COLUMN_NAME_EMAIL + VARCHAR_THIRTY_TYPE + " );";
 
 
     private static final String SQL_DELETE_CLINIC =
-        "DROP TABLE IF EXISTS " + DbContract.ClinicEntry.TABLE_NAME + ";";
+            "DROP TABLE IF EXISTS " + DbContract.ClinicEntry.TABLE_NAME + ";";
 
     /*SPECIALTY TABLE*/
     private static final String SQL_CREATE_SPECIALTY = "CREATE TABLE " + DbContract.SpecialtyEntry.TABLE_NAME + " (" +
@@ -147,10 +147,10 @@ public class DbHelper extends SQLiteOpenHelper {
             DbContract.ServiceEntry.COLUMN_NAME_SERVICE_ID + INT_KEY_TYPE + COMMA_SEP +
             DbContract.ServiceEntry.COLUMN_NAME_SERVICE_NAME + VARCHAR_THIRTY_TYPE + COMMA_SEP +
             DbContract.ServiceEntry.COLUMN_NAME_SPECIALTY_ID + INT_TYPE + COMMA_SEP +
-            DbContract.ServiceEntry.COLUMN_NAME_SERVICE_DURATION + INT_TYPE +
-            DbContract.ServiceEntry.COLUMN_NAME_PREAPPOINTMENT_ACTIONS + TEXT_TYPE +
+            DbContract.ServiceEntry.COLUMN_NAME_SERVICE_DURATION + INT_TYPE + COMMA_SEP +
+            DbContract.ServiceEntry.COLUMN_NAME_PREAPPOINTMENT_ACTIONS + TEXT_TYPE + COMMA_SEP +
             FOREIGN_KEY + DbContract.ServiceEntry.COLUMN_NAME_SPECIALTY_ID + REFERENCES + DbContract.SpecialtyEntry.TABLE_NAME +
-                "(" + DbContract.SpecialtyEntry.COLUMN_NAME_SPECIALTY_ID + ")" + " );";
+            "(" + DbContract.SpecialtyEntry.COLUMN_NAME_SPECIALTY_ID + ")" + " );";
 
     private static final String SQL_DELETE_SERVICE =
             "DROP TABLE IF EXISTS " + DbContract.ServiceEntry.TABLE_NAME + ";";
@@ -165,7 +165,7 @@ public class DbHelper extends SQLiteOpenHelper {
             DbContract.PatientEntry.COLUMN_NAME_TREATMENTS + TEXT_TYPE + COMMA_SEP +
             DbContract.PatientEntry.COLUMN_NAME_MEDICATIONS + TEXT_TYPE + COMMA_SEP +
             FOREIGN_KEY + DbContract.PatientEntry.COLUMN_NAME_ACCOUNT_ID + REFERENCES + DbContract.AccountEntry.TABLE_NAME +
-                "(" + DbContract.AccountEntry.COLUMN_NAME_ACCOUNT_ID + ")" +  " );";
+            "(" + DbContract.AccountEntry.COLUMN_NAME_ACCOUNT_ID + ")" +  " );";
 
     private static final String SQL_DELETE_PATIENT =
             "DROP TABLE IF EXISTS " + DbContract.PatientEntry.TABLE_NAME + ";";
