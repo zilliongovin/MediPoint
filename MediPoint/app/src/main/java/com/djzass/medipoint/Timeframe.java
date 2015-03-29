@@ -1,5 +1,4 @@
 package com.djzass.medipoint;
-
 /**
  * Created by Joshua on 25/3/2015.
  *
