@@ -11,7 +11,7 @@ public class Service {
     private String preAppointmentActions;
 
     public Service(){
-        this.duration = 30;
+        this.duration = 1;
         this.preAppointmentActions = "None";
     }
     public Service(String name, int specialtyId) {
@@ -19,7 +19,7 @@ public class Service {
         this.specialtyId = specialtyId;
 
         //The regular timing is 30 minutes
-        this.duration = 30;
+        this.duration = 1;
         this.preAppointmentActions = "None";
     }
     public Service(String name, int specialtyId, int duration) {

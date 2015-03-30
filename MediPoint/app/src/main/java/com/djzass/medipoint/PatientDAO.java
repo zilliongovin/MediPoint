@@ -141,6 +141,10 @@ public class PatientDAO extends DbDAO{
         Load the initial values of the patients
      */
     public void loadPatients() {
+        List<Patient> temp = getAllPatients();
+        for (Patient tmp : temp) {
+            tmp.print();
+        }
     }
 
     public int getPatientCount(){

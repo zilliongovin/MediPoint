@@ -105,6 +105,10 @@ public class SpecialtyDAO extends DbDAO{
 
     private void initializeDAO(){
         if (getSpecialtyCount()==0){
+            insertSpecialty(new Specialty("ENT")); //0
+            insertSpecialty(new Specialty("Dental Services")); //1
+            insertSpecialty(new Specialty("Women's Health")); //2
+            insertSpecialty(new Specialty("General Medicine")); //3
         }
     }
 }

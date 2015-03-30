@@ -63,6 +63,17 @@ public class Patient{
         this.dob = dob;
     }
 
+    public String print(){
+        String temp = "";
+        temp+= patientId + " ";
+        temp+= String.valueOf(dob) + " ";
+        temp+= allergy + " ";
+        temp+= medicalHistory + " ";
+        temp+= listOfTreatments + " ";
+        temp+= listOfMedications + " ";
+        return temp;
+    }
+
     public void setAge(int age) {
         this.age = age;
     }
