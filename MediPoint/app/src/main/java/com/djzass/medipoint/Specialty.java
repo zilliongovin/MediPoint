@@ -16,7 +16,7 @@ public class Specialty {
     public String print(){
         String temp = "";
         temp+= id + " ";
-        temp+= name + " ";
+        temp+= name + " \n";
         return temp;
     }
 
