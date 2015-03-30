@@ -121,14 +121,24 @@
     </LinearLayout>
 
 
-    <TextView
-        android:text="Date of Birth"
-        android:id="@+id/textView15"
-        style="@style/TextviewLayout"/>
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="20dp">
+        <TextView
+            android:text="Date of Birth"
+            android:layout_width="match_parent"
+            android:id="@+id/textView15"
+            style="@style/TextviewLayout"
+            android:layout_weight="1"/>
 
-        <DatePicker
+        <Button
+            style="@style/FragmentStyle"
+            android:text="TAP TO CHOOSE TIME"
             android:id="@+id/DateOfBirthDatePicker"
-            style="@style/DatepickerLayout" />
+            android:onClick="showDatePicker"
+            android:layout_weight="1"/>
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="fill_parent"

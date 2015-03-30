@@ -24,6 +24,10 @@ public class SignUp extends Activity {
     //DbHelper mDbHelper;
     //SQLiteDatabase db;
 
+    int dateOB = 0;
+    int monthOB = 0;
+    int yearOB = 0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -112,7 +116,28 @@ public class SignUp extends Activity {
                 checkViews[4] = (EditText) findViewById(R.id.AddressTextbox);
 
                 boolean isFilled = isFormFilled(checkViews,5);
-                if(isFilled)
+                boolean newAccount = AccountCreator.isNewAccount(checkViews[1].getText().toString());
+
+                if(!isFilled)
+                {
+                    incompleteForm();
+                }
+
+                else if(!newAccount){
+                    Runnable r = new Runnable() {
+                        @Override
+                        public void run() {
+                            goToLoginPage();
+                        }
+                    };
+                    String title = "Existing account";
+                    String message = "You already have an existing account";
+                    AlertDialogInterface AlertDisplayer = new AlertDialogInterface(title,message,this);
+                    AlertDisplayer.AccountAlreadyExists(r);
+
+                }
+
+                else
                 {
 
                     String name = checkViews[0].getText().toString();
@@ -124,10 +149,6 @@ public class SignUp extends Activity {
                     goToPage2();
                 }
 
-                else
-                {
-                    incompleteForm();
-                }
                 break;
             }
             case R.id.sign_up2_right:
@@ -140,8 +161,10 @@ public class SignUp extends Activity {
                 RadioButton selMaritalStatusButton = (RadioButton)findViewById(selMaritalStatus);
                 Spinner citizenshipSpinner = (Spinner)findViewById(R.id.CitizenshipSpinner);
                 Spinner countryOfResidenceSpinner = (Spinner)findViewById(R.id.CountryOfResidenceSpinner);
-                DatePicker dobPicker = (DatePicker)findViewById(R.id.DateOfBirthDatePicker);
-                Calendar dobCal = getDate(dobPicker);
+
+                Calendar dobCal = Calendar.getInstance();
+                dobCal.set(yearOB, monthOB + 1, dateOB);
+
                 Calendar currentDate = Calendar.getInstance();
 
                 if(selGender==-1||selMaritalStatus==-1)
@@ -175,8 +198,9 @@ public class SignUp extends Activity {
                 checkViews[2] = (EditText) findViewById(R.id.ConfirmPasswordTextbox);
 
                 boolean isFilled = isFormFilled(checkViews,3);
+                boolean usernameExists = AccountCreator.doesUsernameExist(checkViews[0].getText().toString());
                 boolean isPasswordEqual = checkPassword(checkViews[1],checkViews[2]);
-                if(isFilled && isPasswordEqual)
+                if(isFilled && !usernameExists && isPasswordEqual)
                 {
 
                     String username = checkViews[0].getText().toString();
@@ -191,6 +215,12 @@ public class SignUp extends Activity {
                 {
                     incompleteForm();
                 }
+
+                else if(usernameExists)
+                {
+                    Toast.makeText(this,"Username already exists",Toast.LENGTH_LONG).show();
+                }
+
                 else
                 {
                     unequalPassword();
@@ -249,6 +279,12 @@ public class SignUp extends Activity {
         calendar.set(year, month, day);
 
         return calendar;
+    }
+
+    public void setDate(DatePicker datepicker){
+        dateOB = datepicker.getDayOfMonth();
+        monthOB = datepicker.getMonth();
+        yearOB = datepicker.getYear();
     }
 
 }

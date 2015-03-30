@@ -99,5 +99,17 @@ public class AccountManager {
         return sdf.format(calendar.getTime());
     }
 
+    public boolean isNewAccount(String nric){
+        Cursor cursor = findAccount(nric);
+        if(cursor==null)
+            return true;
+        else
+            return false;
+    }
+
+    public boolean doesUsernameExist(String username){
+        return dbHelper.checkUsername(username,db)>0? true:false;
+    }
+
 
 }

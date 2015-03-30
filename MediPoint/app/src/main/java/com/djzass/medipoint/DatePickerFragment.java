@@ -95,14 +95,29 @@ public class DatePickerFragment extends DialogFragment implements View.OnClickLi
             //string representation for month
             String[] month_str = new DateFormatSymbols().getMonths();
 
+            //get the selected date for sign up activity
+            SignUp signupActivity = (SignUp) getActivity();
+            signupActivity.setDate(datepicker);
+
             //get input from datepicker
             int date = datepicker.getDayOfMonth();
             int month = datepicker.getMonth();
             int year = datepicker.getYear();
 
             //change the button text according to date selected
+            //sign up datepicker
+            Button DOB = (Button) getActivity().findViewById(R.id.DateOfBirthDatePicker);
+
+            //create and edit appointment datepicker
             Button datefrag = (Button) getActivity().findViewById(R.id.datepicker);
-            datefrag.setText(date + " " + month_str[month] + " " + year);
+
+            //set button text depend on which activity is active
+            if(DOB != null){
+                DOB.setText(date + " " + month_str[month] + " " + year);
+            }
+            else if (datefrag != null){
+                datefrag.setText(date + " " + month_str[month] + " " + year);
+            }
 
             //close dialog
             dismiss();

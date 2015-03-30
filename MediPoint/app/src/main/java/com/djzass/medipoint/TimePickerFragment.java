@@ -98,6 +98,8 @@ public class TimePickerFragment extends DialogFragment implements View.OnClickLi
             //if radio button is selected
              if(selectedId != -1) {
                 CharSequence timeSelected = ((RadioButton)getView().findViewById(selectedId)).getText();
+
+                 //get button from create OR edit appointment layout
                 Button timefrag = (Button) getActivity().findViewById(R.id.timepicker);
                 timefrag.setText(timeSelected);
             }
