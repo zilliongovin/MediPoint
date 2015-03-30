@@ -12,12 +12,12 @@ import java.util.List;
 /**
  * Created by Deka on 26/3/2015.
  */
-public class DoctorDAO extends DbDAO{
+public class AccountDAO extends DbDAO{
     private static final String WHERE_ID_EQUALS = DbContract.DoctorEntry.COLUMN_NAME_DOCTOR_ID
             + " =?";
     //private SpecialtyDAO specialtyDao;
 
-    public DoctorDAO(Context context) throws SQLException {
+    public AccountDAO(Context context) throws SQLException {
         super(context);
         initializeDAO();
     }
@@ -111,6 +111,11 @@ public class DoctorDAO extends DbDAO{
             tmp.print();
         }
     }
+
+    public int getDoctorCount(){
+        return getAllDoctors().size();
+    }
+
     private void initializeDAO(){
         if (getAllDoctors().size()==0){
         }

@@ -20,6 +20,7 @@ public class SpecialtyDAO extends DbDAO{
 
     public SpecialtyDAO(Context context) throws SQLException {
         super(context);
+        initializeDAO();
     }
 
     /* CREATE/SAVE
@@ -28,6 +29,7 @@ public class SpecialtyDAO extends DbDAO{
      */
     public long insertSpecialty(Specialty specialty){
         ContentValues values = new ContentValues();
+        values.put(DbContract.SpecialtyEntry.COLUMN_NAME_SPECIALTY_ID, getSpecialtyCount());
         values.put(DbContract.SpecialtyEntry.COLUMN_NAME_SPECIALTY_NAME, specialty.getName());
 
         return database.insert(DbContract.SpecialtyEntry.TABLE_NAME, null, values);
@@ -94,6 +96,15 @@ public class SpecialtyDAO extends DbDAO{
         List<Specialty> temp= getAllSpecialties();
         for (Specialty tmp : temp) {
             tmp.print();
+        }
+    }
+
+    public int getSpecialtyCount(){
+        return getAllSpecialties().size();
+    }
+
+    private void initializeDAO(){
+        if (getSpecialtyCount()==0){
         }
     }
 }

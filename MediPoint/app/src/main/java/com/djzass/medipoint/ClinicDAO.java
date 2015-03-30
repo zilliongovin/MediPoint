@@ -19,12 +19,14 @@ public class ClinicDAO extends DbDAO{
 
     public ClinicDAO(Context context) throws SQLException {
         super(context);
+        initializeDAO();
     }
 
     /*  CREATE
      */
     public long insertClinic(Clinic clinic){
         ContentValues values = new ContentValues();
+        values.put(DbContract.ClinicEntry.COLUMN_NAME_CLINIC_ID, getClinicCount());
         values.put(DbContract.ClinicEntry.COLUMN_NAME_CLINIC_NAME, clinic.getName());
         values.put(DbContract.ClinicEntry.COLUMN_NAME_COUNTRY, clinic.getCountry());
         values.put(DbContract.ClinicEntry.COLUMN_NAME_ZIPCODE, clinic.getZipCode());
@@ -114,6 +116,15 @@ public class ClinicDAO extends DbDAO{
         List<Clinic> temp= getAllClinics();
         for (Clinic tmp : temp) {
             tmp.print();
+        }
+    }
+
+    public int getClinicCount(){
+        return getAllClinics().size();
+    }
+
+    private void initializeDAO(){
+        if (getAllClinics().size()==0){
         }
     }
 }

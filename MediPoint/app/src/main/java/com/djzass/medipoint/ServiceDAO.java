@@ -21,6 +21,7 @@ public class ServiceDAO  extends DbDAO{
 
     public ServiceDAO(Context context) throws SQLException {
         super(context);
+        initializeDAO();
     }
 
     /*
@@ -30,6 +31,7 @@ public class ServiceDAO  extends DbDAO{
      */
     public long insertService(Service service){
         ContentValues values = new ContentValues();
+        values.put(DbContract.ServiceEntry.COLUMN_NAME_SERVICE_ID, getServiceCount());
         values.put(DbContract.ServiceEntry.COLUMN_NAME_SERVICE_NAME, service.getName());
         values.put(DbContract.ServiceEntry.COLUMN_NAME_SPECIALTY_ID, service.getSpecialtyId());
         values.put(DbContract.ServiceEntry.COLUMN_NAME_SERVICE_DURATION, service.getDuration());
@@ -145,6 +147,15 @@ public class ServiceDAO  extends DbDAO{
         List<Service> temp= getAllServices();
         for (Service tmp : temp) {
             tmp.print();
+        }
+    }
+
+    public int getServiceCount(){
+        return getAllServices().size();
+    }
+
+    private void initializeDAO(){
+        if (getServiceCount()==0){
         }
     }
 }

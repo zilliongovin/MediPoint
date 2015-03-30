@@ -175,6 +175,8 @@ public class PatientDAO extends DbDAO{
      */
     public void loadPatients() {
     }
+    private void initializeDAO(){
+    }
 }
 /*
             patient.setUsername(cursor.getString(cursor.getColumnIndex(DbContract.AccountEntry.COLUMN_NAME_USERNAME)));
