@@ -168,13 +168,13 @@ public class DbHelper extends SQLiteOpenHelper {
     /*PATIENT ENTRY*/
     private static final String SQL_CREATE_PATIENT = "CREATE TABLE " + DbContract.PatientEntry.TABLE_NAME + " (" +
             DbContract.PatientEntry.COLUMN_NAME_PATIENT_ID + INT_KEY_TYPE + COMMA_SEP +
-            DbContract.PatientEntry.COLUMN_NAME_ACCOUNT_ID + INT_TYPE + COMMA_SEP +
+            DbContract.PatientEntry.COLUMN_NAME_DOB + DATETIME_TYPE + COMMA_SEP +
             DbContract.PatientEntry.COLUMN_NAME_AGE + INT_TYPE + COMMA_SEP +
             DbContract.PatientEntry.COLUMN_NAME_MEDICAL_HISTORY + TEXT_TYPE + COMMA_SEP +
             DbContract.PatientEntry.COLUMN_NAME_ALLERGIES + TEXT_TYPE + COMMA_SEP +
             DbContract.PatientEntry.COLUMN_NAME_TREATMENTS + TEXT_TYPE + COMMA_SEP +
             DbContract.PatientEntry.COLUMN_NAME_MEDICATIONS + TEXT_TYPE + COMMA_SEP +
-            FOREIGN_KEY + DbContract.PatientEntry.COLUMN_NAME_ACCOUNT_ID + REFERENCES + DbContract.AccountEntry.TABLE_NAME +
+            FOREIGN_KEY + DbContract.PatientEntry.COLUMN_NAME_PATIENT_ID + REFERENCES + DbContract.AccountEntry.TABLE_NAME +
             "(" + DbContract.AccountEntry.COLUMN_NAME_ACCOUNT_ID + ")" +  " );";
 
     private static final String SQL_DELETE_PATIENT =

@@ -85,10 +85,10 @@ public class DbContract {
         public static final String COLUMN_NAME_PREAPPOINTMENT_ACTIONS = "preAppointmentActions";
     }
 
-    public static abstract class PatientEntry extends AccountEntry implements BaseColumns{
+    public static abstract class PatientEntry implements BaseColumns{
         public static final String TABLE_NAME = "patient";
-        public static final String COLUMN_NAME_PATIENT_ID = "patientId"; 
-        public static final String COLUMN_NAME_ACCOUNT_ID = "accountId";
+        public static final String COLUMN_NAME_PATIENT_ID = "patientId";
+        public static final String COLUMN_NAME_DOB = "dob";
         public static final String COLUMN_NAME_AGE = "age";
         public static final String COLUMN_NAME_MEDICAL_HISTORY = "medicalHistory";
         public static final String COLUMN_NAME_ALLERGIES = "allergies";

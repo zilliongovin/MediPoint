@@ -25,9 +25,11 @@ public class DoctorDAO extends DbDAO{
     /* CREATE/SAVE
     Inserting doctor into doctors table and return the row id if insertion successful,
     otherwise -1 will be returned
+    IMPORTANT: For doctor & patient, ID is received in the passed object, not auto-increment
      */
     public long insertDoctor(Doctor doctor){
         ContentValues values = new ContentValues();
+        values.put(DbContract.DoctorEntry.COLUMN_NAME_DOCTOR_ID, doctor.getDoctorId());
         values.put(DbContract.DoctorEntry.COLUMN_NAME_DOCTOR_NAME, doctor.getName());
         values.put(DbContract.DoctorEntry.COLUMN_NAME_SPECIALIZATION_ID, doctor.getSpecializationId());
         values.put(DbContract.DoctorEntry.COLUMN_NAME_PRACTICE_DURATION, doctor.getPracticeDuration());

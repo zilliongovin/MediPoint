@@ -6,15 +6,18 @@ import android.database.Cursor;
 import android.util.Log;
 
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 /**
  * Created by Deka on 26/3/2015.
  */
 public class AccountDAO extends DbDAO{
-    private static final String WHERE_ID_EQUALS = DbContract.DoctorEntry.COLUMN_NAME_DOCTOR_ID
-            + " =?";
+    private static final String WHERE_ID_EQUALS = DbContract.AccountEntry.COLUMN_NAME_ACCOUNT_ID + " =?";
     //private SpecialtyDAO specialtyDao;
 
     public AccountDAO(Context context) throws SQLException {
@@ -23,71 +26,133 @@ public class AccountDAO extends DbDAO{
     }
 
     /* CREATE/SAVE
-    Inserting doctor into doctors table and return the row id if insertion successful,
+    Inserting account into accounts table and return the row id if insertion successful,
     otherwise -1 will be returned
      */
-    public long insertDoctor(Doctor doctor){
+    public long insertAccount(Account account){
         ContentValues values = new ContentValues();
-        values.put(DbContract.DoctorEntry.COLUMN_NAME_DOCTOR_NAME, doctor.getName());
-        values.put(DbContract.DoctorEntry.COLUMN_NAME_SPECIALIZATION_ID, doctor.getSpecializationId());
-        values.put(DbContract.DoctorEntry.COLUMN_NAME_PRACTICE_DURATION, doctor.getPracticeDuration());
+        values.put(DbContract.AccountEntry.COLUMN_NAME_ACCOUNT_ID, account.getId());
+        values.put(DbContract.AccountEntry.COLUMN_NAME_NAME, account.getName());
+        values.put(DbContract.AccountEntry.COLUMN_NAME_NRIC, account.getNric());
+        values.put(DbContract.AccountEntry.COLUMN_NAME_EMAIL, account.getEmail());
+        values.put(DbContract.AccountEntry.COLUMN_NAME_CONTACTNO, account.getPhoneNumber());
+        values.put(DbContract.AccountEntry.COLUMN_NAME_ADDRESS, account.getAddress());
+        values.put(DbContract.AccountEntry.COLUMN_NAME_DOB, String.valueOf(account.getDob()));
+        values.put(DbContract.AccountEntry.COLUMN_NAME_GENDER, account.getGender());
+        values.put(DbContract.AccountEntry.COLUMN_NAME_MARITAL_STATUS, account.getMaritalStatus());
+        values.put(DbContract.AccountEntry.COLUMN_NAME_CITIZENSHIP, account.getCitizenship());
+        values.put(DbContract.AccountEntry.COLUMN_NAME_COUNTRY_OF_RESIDENCE, account.getCountryOfResidence());
+        values.put(DbContract.AccountEntry.COLUMN_NAME_USERNAME, account.getUsername());
+        values.put(DbContract.AccountEntry.COLUMN_NAME_PASSWORD, account.getPassword());
 
-        return database.insert(DbContract.DoctorEntry.TABLE_NAME, null, values);
+        return database.insert(DbContract.AccountEntry.TABLE_NAME, null, values);
     }
 
     /** READ
-     * Getting all doctors from the table
-     * returns list of doctors
+     * Getting all accounts from the table
+     * returns list of accounts
      * */
-    public List<Doctor> getDoctors(String whereclause) {
-        List<Doctor> doctors = new ArrayList<Doctor>();
+    public List<Account> getAccounts(String whereclause) {
+        List<Account> accounts = new ArrayList<Account>();
 
-        Cursor cursor = database.query(DbContract.DoctorEntry.TABLE_NAME,
-                new String[] { DbContract.DoctorEntry.COLUMN_NAME_DOCTOR_ID,
-                        DbContract.DoctorEntry.COLUMN_NAME_DOCTOR_NAME,
-                        DbContract.DoctorEntry.COLUMN_NAME_SPECIALIZATION_ID,
-                        DbContract.DoctorEntry.COLUMN_NAME_PRACTICE_DURATION
+        Cursor cursor = database.query(DbContract.AccountEntry.TABLE_NAME,
+                new String[] {DbContract.AccountEntry.COLUMN_NAME_ACCOUNT_ID,
+                             DbContract.AccountEntry.COLUMN_NAME_NAME,
+                             DbContract.AccountEntry.COLUMN_NAME_NRIC,
+                             DbContract.AccountEntry.COLUMN_NAME_EMAIL,
+                             DbContract.AccountEntry.COLUMN_NAME_CONTACTNO,
+                             DbContract.AccountEntry.COLUMN_NAME_ADDRESS,
+                             DbContract.AccountEntry.COLUMN_NAME_DOB,
+                             DbContract.AccountEntry.COLUMN_NAME_GENDER,
+                             DbContract.AccountEntry.COLUMN_NAME_MARITAL_STATUS,
+                             DbContract.AccountEntry.COLUMN_NAME_CITIZENSHIP,
+                             DbContract.AccountEntry.COLUMN_NAME_COUNTRY_OF_RESIDENCE,
+                             DbContract.AccountEntry.COLUMN_NAME_USERNAME,
+                             DbContract.AccountEntry.COLUMN_NAME_PASSWORD
                 }, whereclause, null, null, null,
                 null);
 
         while (cursor.moveToNext()) {
-            Doctor doctor = new Doctor();
-            doctor.setDoctorId(cursor.getInt(0));
-            doctor.setName(cursor.getString(1));
-            doctor.setSpecializationId(cursor.getInt(2));
-            doctor.setPracticeDuration(cursor.getInt(3));
-            doctors.add(doctor);
+            Account account = new Account();
+            account.setId(cursor.getInt(0));
+            account.setName(cursor.getString(1));
+            account.setNric(cursor.getString(2));
+            account.setEmail(cursor.getString(3));
+            account.setPhoneNumber(cursor.getString(4));
+            account.setAddress(cursor.getString(5));
+
+            String temp = cursor.getString(6);
+            DateFormat dateformat = new SimpleDateFormat("yyyy-MM-dd");
+            Calendar cal  = Calendar.getInstance();
+            try {
+                cal.setTime(dateformat.parse(temp));
+            } catch (ParseException e) {
+                Log.d("DAO", "Date parsing exception");
+            }
+
+            account.setDob(cal);
+            account.setGender(cursor.getString(7));
+            account.setMaritalStatus(cursor.getString(8));
+            account.setCitizenship(cursor.getString(9));
+            account.setCountryOfResidence(cursor.getString(10));
+            account.setUsername(cursor.getString(11));
+            account.setPassword(cursor.getString(12));
+            accounts.add(account);
         }
 
-        return doctors;
+        return accounts;
     }
 
-    public List<Doctor> getAllDoctors() {
-        return getDoctors(null);
+    public List<Account> getAllAccounts() {
+        return getAccounts(null);
     }
 
-    public List<Doctor> getDoctorById(int doctorId) {
-        String whereclause = DbContract.DoctorEntry.COLUMN_NAME_DOCTOR_ID + " = " + doctorId;
-        return getDoctors(whereclause);
+    public List<Account> getAccountById(int accountId) {
+        String whereclause = DbContract.AccountEntry.COLUMN_NAME_ACCOUNT_ID + " = " + accountId;
+        return getAccounts(whereclause);
     }
 
-    public List<Doctor> getDoctorBySpecialization(int specializationId) {
-        String whereclause = DbContract.DoctorEntry.COLUMN_NAME_SPECIALIZATION_ID + " = " + specializationId;
-        return getDoctors(whereclause);
+    public List<Account> getAccountByNRIC(String nric) {
+        String whereclause = DbContract.AccountEntry.COLUMN_NAME_NRIC + " = " + nric;
+        return getAccounts(whereclause);
+    }
+
+    public List<Account> getAccountByCitizenship(String citizenship) {
+        String whereclause = DbContract.AccountEntry.COLUMN_NAME_CITIZENSHIP + " = " + citizenship;
+        return getAccounts(whereclause);
+    }
+
+    public List<Account> getAccountByUsername(String username) {
+        String whereclause = DbContract.AccountEntry.COLUMN_NAME_USERNAME + " = " + username;
+        return getAccounts(whereclause);
+    }
+
+    public List<Account> getAccountByEmail(String email) {
+        String whereclause = DbContract.AccountEntry.COLUMN_NAME_EMAIL + " = " + email;
+        return getAccounts(whereclause);
     }
 
     /*  UPDATE
         returns the number of rows affected by the update
      */
-    public long update(Doctor doctor) {
+    public long update(Account account) {
         ContentValues values = new ContentValues();
-        values.put(DbContract.DoctorEntry.COLUMN_NAME_DOCTOR_NAME, doctor.getName());
-        values.put(DbContract.DoctorEntry.COLUMN_NAME_SPECIALIZATION_ID, doctor.getSpecializationId());
-        values.put(DbContract.DoctorEntry.COLUMN_NAME_PRACTICE_DURATION, doctor.getPracticeDuration());
+        values.put(DbContract.AccountEntry.COLUMN_NAME_NAME, account.getName());
+        values.put(DbContract.AccountEntry.COLUMN_NAME_NRIC, account.getNric());
+        values.put(DbContract.AccountEntry.COLUMN_NAME_EMAIL, account.getEmail());
+        values.put(DbContract.AccountEntry.COLUMN_NAME_CONTACTNO, account.getPhoneNumber());
+        values.put(DbContract.AccountEntry.COLUMN_NAME_ADDRESS, account.getAddress());
+        values.put(DbContract.AccountEntry.COLUMN_NAME_DOB, String.valueOf(account.getDob()));
+        values.put(DbContract.AccountEntry.COLUMN_NAME_GENDER, account.getGender());
+        values.put(DbContract.AccountEntry.COLUMN_NAME_MARITAL_STATUS, account.getMaritalStatus());
+        values.put(DbContract.AccountEntry.COLUMN_NAME_CITIZENSHIP, account.getCitizenship());
+        values.put(DbContract.AccountEntry.COLUMN_NAME_COUNTRY_OF_RESIDENCE, account.getCountryOfResidence());
+        values.put(DbContract.AccountEntry.COLUMN_NAME_USERNAME, account.getUsername());
+        values.put(DbContract.AccountEntry.COLUMN_NAME_PASSWORD, account.getPassword());
 
-        long result = database.update(DbContract.DoctorEntry.TABLE_NAME, values,
+        long result = database.update(DbContract.AccountEntry.TABLE_NAME, values,
                 WHERE_ID_EQUALS,
-                new String[] { String.valueOf(doctor.getDoctorId()) });
+                new String[] { String.valueOf(account.getId()) });
         Log.d("Update Result:", "=" + result);
 
         return result;
@@ -97,27 +162,27 @@ public class AccountDAO extends DbDAO{
         DELETE
         returns the number of rows affected if a whereClause is passed in, 0 otherwise
      */
-    public int deleteDoctor(Doctor doctor) {
-        return database.delete(DbContract.DoctorEntry.TABLE_NAME,
-                WHERE_ID_EQUALS, new String[] { doctor.getDoctorId() + "" });
+    public int deleteAccount(Account account) {
+        return database.delete(DbContract.AccountEntry.TABLE_NAME,
+                WHERE_ID_EQUALS, new String[] { account.getId() + "" });
     }
     /*
         LOAD
-        Load the initial values of the doctors
+        Load the initial values of the accounts
      */
-    public void loadDoctors() {
-        List<Doctor> temp= getAllDoctors();
-        for (Doctor tmp : temp) {
+    public void loadAccounts() {
+        List<Account> temp= getAllAccounts();
+        for (Account tmp : temp) {
             tmp.print();
         }
     }
 
-    public int getDoctorCount(){
-        return getAllDoctors().size();
+    public int getAccountCount(){
+        return getAllAccounts().size();
     }
 
     private void initializeDAO(){
-        if (getAllDoctors().size()==0){
+        if (getAccountCount()==0){
         }
     }
 }

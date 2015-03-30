@@ -8,9 +8,8 @@ import java.util.Calendar;
  * Created by Deka on 25/3/2015.
  */
 
-public class Patient{
+public class Patient extends Account{
     private int patientId;
-    private Calendar dob;
     private int age;
     private String allergy;
     private String medicalHistory;
@@ -21,17 +20,28 @@ public class Patient{
         super();
     };
 
-    public Patient(int id, Calendar dob, String listOfTreatments, String listOfMedications, String allergy) {
-        this.patientId = id;
-        this.dob = dob;
+    public Patient(String username, String password, String name, String nric, String email, String phoneNumber, String gender,
+                   String address, String maritalStatus, Calendar dob, String citizenship, String countryOfResidence,String listOfTreatments, String listOfMedications, String allergy) {
+        super(username, password, name, nric, email, phoneNumber, gender, address, maritalStatus, dob, citizenship, countryOfResidence);
         this.age = getAge();
         this.listOfTreatments = listOfTreatments;
         this.listOfMedications = listOfMedications;
         this.allergy = allergy;
     }
 
-    public Patient(Calendar dob, String listOfTreatments, String listOfMedications, String allergy) {
-        this.dob = dob;
+    //to read from database
+    public Patient(int accountId, int patientId, String username, String password, String name, String nric, String email, String phoneNumber, String gender,
+                   String address, String maritalStatus, Calendar dob, String citizenship, String countryOfResidence,String listOfTreatments, String listOfMedications, String allergy) {
+        super(accountId, username, password, name, nric, email, phoneNumber, gender, address, maritalStatus, dob, citizenship, countryOfResidence);
+        this.patientId = patientId;
+        this.age = getAge();
+        this.listOfTreatments = listOfTreatments;
+        this.listOfMedications = listOfMedications;
+        this.allergy = allergy;
+    }
+
+    public Patient(String name, String nric, String email, String phoneNumber, String address, String listOfTreatments, String listOfMedications, String allergy) {
+        super(name, nric, email, phoneNumber, address);
         this.age = getAge();
         this.listOfTreatments = listOfTreatments;
         this.listOfMedications = listOfMedications;
@@ -46,21 +56,16 @@ public class Patient{
         this.patientId = patientID;
     }
 
-    public int getAge( ) {
+    public int getAge() {
+        Calendar dob = this.getDob();
         Calendar now = Calendar.getInstance();
         int age =  now.YEAR - dob.YEAR;
+
         if ( (dob.MONTH > now.MONTH) || (dob.MONTH == now.MONTH) && (dob.DATE > now.DATE) ){
             age--;
         }
+
         return age;
-    }
-
-    public Calendar getDob() {
-        return dob;
-    }
-
-    public void setDob(Calendar dob) {
-        this.dob = dob;
     }
 
     public void setAge(int age) {
