@@ -3,23 +3,33 @@
 <ScrollView
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingLeft="10dp"
-    android:paddingRight="10dp"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:paddingTop="?android:attr/actionBarSize"
-        android:layout_height="match_parent">
+        style="@style/LinearLayoutStyle"
+        android:orientation="vertical">
 
-
+        <!-- Form Header (Content will be programmatically defined in java) -->
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:id="@+id/FormHeader"
+            style="@style/TextviewLayout"
+            android:layout_marginBottom="5dp"/>
+
+        <!-- separator line -->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@color/frame"
+            android:layout_marginBottom="10dp"/>
+
+        <TextView
+            style="@style/TextviewLayout"
+            android:textSize="22sp"
+            android:textStyle="bold"
             android:text="Personal History"
-            android:layout_marginBottom="15dp"
+            android:layout_marginBottom="10dp"
             android:id="@+id/textView"/>
 
         <LinearLayout
@@ -31,35 +41,38 @@
             <LinearLayout
                 android:orientation="vertical"
                 android:layout_width="fill_parent"
-                android:layout_height="fill_parent">
+                android:layout_height="fill_parent"
+                android:layout_marginBottom="10dp">
 
                 <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:layout_marginBottom="10dp"
+                    style="@style/TextviewLayout"
+                    android:textSize="20sp"
                     android:text="Dental Information"/>
 
 
                 <CheckBox
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/dental_1"/>
+                    style="@style/TextviewLayout"
+                    android:text="@string/dental_1"
+                    android:id="@+id/bleedingGums"
+                    android:onClick="onCheckboxClicked"/>
 
                 <CheckBox
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/dental_2"/>
+                    style="@style/TextviewLayout"
+                    android:text="@string/dental_2"
+                    android:id="@+id/bracesTreatment"
+                    android:onClick="onCheckboxClicked"/>
 
                 <CheckBox
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/dental_3"/>
+                    style="@style/TextviewLayout"
+                    android:text="@string/dental_3"
+                    android:id="@+id/teethSensitiveToHotCold"
+                    android:onClick="onCheckboxClicked"/>
 
                 <CheckBox
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/dental_4"/>
+                    style="@style/TextviewLayout"
+                    android:text="@string/dental_4"
+                    android:id="@+id/earachesOrNeckPain"
+                    android:onClick="onCheckboxClicked"/>
 
             </LinearLayout>
 
@@ -67,30 +80,31 @@
             <LinearLayout
                 android:orientation="vertical"
                 android:layout_width="fill_parent"
-                android:layout_height="fill_parent">
+                android:layout_height="fill_parent"
+                android:layout_marginBottom="10dp">
 
                 <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:text="Ear, Nose, Throat"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginBottom="10dp"/>
+                    style="@style/TextviewLayout"
+                    android:textSize="20sp"
+                    android:text="Ear, Nose, Throat"/>
 
                 <CheckBox
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/ent_1"/>
+                    style="@style/TextviewLayout"
+                    android:text="@string/ent_1"
+                    android:id="@+id/hearingProblems"
+                    android:onClick="onCheckboxClicked"/>
 
                 <CheckBox
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/ent_2"/>
+                    style="@style/TextviewLayout"
+                    android:text="@string/ent_2"
+                    android:id="@+id/earInfection"
+                    android:onClick="onCheckboxClicked"/>
 
                 <CheckBox
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/ent_3"/>
+                    style="@style/TextviewLayout"
+                    android:text="@string/ent_3"
+                    android:id="@+id/noseBleeding"
+                    android:onClick="onCheckboxClicked"/>
 
 
             </LinearLayout>
@@ -98,115 +112,123 @@
             <LinearLayout
                 android:orientation="vertical"
                 android:layout_width="fill_parent"
-                android:layout_height="fill_parent">
+                android:layout_height="fill_parent"
+                android:layout_marginBottom="10dp">
 
                 <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:text="Genital-Urinary System"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginBottom="10dp"/>
+                    style="@style/TextviewLayout"
+                    android:textSize="20sp"
+                    android:text="Genital-Urinary System"/>
 
                 <CheckBox
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/gen_1"/>
+                    style="@style/TextviewLayout"
+                    android:text="@string/gen_1"
+                    android:id="@+id/bloodInUrine"
+                    android:onClick="onCheckboxClicked"/>
 
                 <CheckBox
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/gen_2"/>
+                    style="@style/TextviewLayout"
+                    android:text="@string/gen_2"
+                    android:id="@+id/hernia"
+                    android:onClick="onCheckboxClicked"/>
 
                 <CheckBox
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/gen_3"/>
+                    style="@style/TextviewLayout"
+                    android:text="@string/gen_3"
+                    android:id="@+id/sexuallyTransmittedInfections"
+                    android:onClick="onCheckboxClicked"/>
 
                 <CheckBox
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/gen_4"/>
+                    style="@style/TextviewLayout"
+                    android:text="@string/gen_4"
+                    android:id="@+id/menstrualPeriodProblems"
+                    android:onClick="onCheckboxClicked"/>
 
             </LinearLayout>
 
             <LinearLayout
                 android:orientation="vertical"
                 android:layout_width="fill_parent"
-                android:layout_height="fill_parent">
+                android:layout_height="fill_parent"
+                android:layout_marginBottom="10dp">
 
                 <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:text="Others"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginBottom="10dp"/>
+                    style="@style/TextviewLayout"
+                    android:textSize="20sp"
+                    android:text="Others"/>
 
                 <CheckBox
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/others_1"/>
+                    style="@style/TextviewLayout"
+                    android:text="@string/others_1"
+                    android:id="@+id/highBloodPressure"
+                    android:onClick="onCheckboxClicked"/>
 
                 <CheckBox
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/others_2"/>
+                    style="@style/TextviewLayout"
+                    android:text="@string/others_2"
+                    android:id="@+id/diabetes"
+                    android:onClick="onCheckboxClicked"/>
 
                 <CheckBox
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/others_3"/>
+                    style="@style/TextviewLayout"
+                    android:text="@string/others_3"
+                    android:id="@+id/gastricProblems"
+                    android:onClick="onCheckboxClicked"/>
 
                 <CheckBox
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/others_4"/>
+                    style="@style/TextviewLayout"
+                    android:text="@string/others_4"
+                    android:id="@+id/heartDiseases"
+                    android:onClick="onCheckboxClicked"/>
 
             </LinearLayout>
 
             <LinearLayout
                 android:orientation="vertical"
                 android:layout_width="fill_parent"
-                android:layout_height="fill_parent">
+                android:layout_height="fill_parent"
+                android:layout_marginBottom="10dp">
 
                 <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:text="Drug Allergy"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginBottom="10dp"/>
+                    style="@style/TextviewLayout"
+                    android:textSize="20sp"
+                    android:text="Drug Allergy"/>
 
                 <CheckBox
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/drug_1"/>
+                    style="@style/TextviewLayout"
+                    android:text="@string/drug_1"
+                    android:id="@+id/localAnesthetics"
+                    android:onClick="onCheckboxClicked"/>
 
                 <CheckBox
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/drug_2"/>
+                    style="@style/TextviewLayout"
+                    android:text="@string/drug_2"
+                    android:id="@+id/aspirin"
+                    android:onClick="onCheckboxClicked"/>
 
                 <CheckBox
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/drug_3"/>
+                    style="@style/TextviewLayout"
+                    android:text="@string/drug_3"
+                    android:id="@+id/antibiotics"
+                    android:onClick="onCheckboxClicked"/>
 
                 <CheckBox
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/drug_4"/>
+                    style="@style/TextviewLayout"
+                    android:text="@string/drug_4"
+                    android:id="@+id/sulfaDrugs"
+                    android:onClick="onCheckboxClicked"/>
 
                 <CheckBox
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/drug_5"/>
+                    style="@style/TextviewLayout"
+                    android:text="@string/drug_5"
+                    android:onClick="onCheckboxClicked"
+                    android:id="@+id/Other"/>
 
                 <EditText
                     android:hint="Please Specify Here."
-                    android:layout_marginTop="5dp"
                     android:layout_marginLeft="30dp"
+                    android:id="@+id/Specification"
+                    android:visibility="gone"
                     style="@style/EditTextStyle"
                     android:layout_width="match_parent" />
 
@@ -218,19 +240,19 @@
             android:orientation="vertical"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
-            android:layout_marginTop="10dp">
+            android:layout_marginBottom="10dp">
 
             <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceLarge"
+                style="@style/TextviewLayout"
+                android:textSize="22sp"
+                android:textStyle="bold"
                 android:text="Ongoing Treatment"/>
 
             <EditText
                 android:hint="Please Provide Details Here."
                 android:layout_marginTop="10dp"
                 style="@style/EditTextStyle"
-                android:layout_marginLeft="10dp"/>
+                android:id="@+id/ongoingTreatment"/>
 
         </LinearLayout>
 
@@ -238,27 +260,27 @@
             android:orientation="vertical"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
-            android:layout_marginTop="10dp">
+            android:layout_marginBottom="10dp">
 
             <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceLarge"
+                style="@style/TextviewLayout"
+                android:textSize="22sp"
+                android:textStyle="bold"
                 android:text="Ongoing Medication"/>
 
             <EditText
                 android:hint="Please Provide Details Here."
                 android:layout_marginTop="10dp"
                 style="@style/EditTextStyle"
-                android:layout_marginLeft="10dp"/>
+                android:id="@+id/ongoingMedication"/>
 
         </LinearLayout>
 
         <Button
-            android:layout_marginTop="5dp"
             android:layout_marginBottom="16dp"
             android:text="@string/submit"
-            style="@style/ButtonStyle"/>
+            style="@style/ButtonStyle"
+            android:onClick="onSubmit"/>
 
     </LinearLayout>
 

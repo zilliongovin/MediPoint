@@ -5,23 +5,51 @@ package com.djzass.medipoint;
  */
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.text.Html;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.Toast;
 
 
 public class MedicalHistory extends Activity {
+    //Personal History
+    String dentalInfo = "";
+    String ENTInfo = "";
+    String genitalInfo = "";
+    String otherInfo = "";
+    String allergyInfo = "";
+
+    //Ongoing Treatment
+    String ongoingTreatment;
+
+    //Ongoing Medication
+    String ongoingMedication;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_medical_history);
+
+        //Form header style and content
+        TextView header = (TextView)findViewById(R.id.FormHeader);
+        String headerText = "<i>Please <b>fill in this medical history form</b> before proceeding to the application.</i>";
+        header.setText(Html.fromHtml(headerText));
+
     }
 
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
+        getMenuInflater().inflate(R.menu.menu_login, menu);
         return true;
     }
 
@@ -38,5 +66,238 @@ public class MedicalHistory extends Activity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    //checkbox listener
+    public void onCheckboxClicked(View view){
+
+        //define boolean checked
+        boolean checked = ((CheckBox) view).isChecked();
+
+        // Check which checkbox was clicked
+        switch(view.getId()) {
+
+            //case for dental info
+            //bleeding gums
+            case R.id.bleedingGums:
+                if (checked){
+                    dentalInfo += ((CheckBox)findViewById(R.id.bleedingGums)).getText() + "\n";
+                }
+                else{
+                    dentalInfo = dentalInfo.replace(((CheckBox)findViewById(R.id.bleedingGums)).getText() + "\n", "");
+                }
+                break;
+            //braces treatment
+            case R.id.bracesTreatment:
+                if (checked){
+                    dentalInfo += ((CheckBox)findViewById(R.id.bracesTreatment)).getText() + "\n";
+                }
+                else{
+                    dentalInfo = dentalInfo.replace(((CheckBox)findViewById(R.id.bracesTreatment)).getText() + "\n", "");
+                }
+                break;
+            //teeth sensitive to hot and cold
+            case R.id.teethSensitiveToHotCold:
+                if (checked){
+                    dentalInfo += ((CheckBox)findViewById(R.id.teethSensitiveToHotCold)).getText() + "\n";
+                }
+                else{
+                    dentalInfo = dentalInfo.replace(((CheckBox)findViewById(R.id.teethSensitiveToHotCold)).getText() + "\n", "");
+                }
+                break;
+            //earaches or neck pains
+            case R.id.earachesOrNeckPain:
+                if (checked){
+                    dentalInfo += ((CheckBox)findViewById(R.id.earachesOrNeckPain)).getText() + "\n";
+                }
+                else{
+                    dentalInfo = dentalInfo.replace(((CheckBox)findViewById(R.id.earachesOrNeckPain)).getText() + "\n", "");
+                }
+                break;
+
+            //case for ENT
+            //Hearing problems
+            case R.id.hearingProblems:
+                if (checked){
+                    ENTInfo += ((CheckBox)findViewById(R.id.hearingProblems)).getText() + "\n";
+                }
+                else{
+                    ENTInfo = ENTInfo.replace( ((CheckBox)findViewById(R.id.hearingProblems)).getText() + "\n", "");
+                }
+                break;
+            //ear infection
+            case R.id.earInfection:
+                if (checked){
+                    ENTInfo += ((CheckBox)findViewById(R.id.earInfection)).getText() + "\n";
+                }
+                else{
+                    ENTInfo = ENTInfo.replace( ((CheckBox)findViewById(R.id.earInfection)).getText() + "\n", "");
+                }
+                break;
+            //nose bleeding
+            case R.id.noseBleeding:
+                if (checked){
+                    ENTInfo += ((CheckBox)findViewById(R.id.noseBleeding)).getText() + "\n";
+                }
+                else{
+                    ENTInfo = ENTInfo.replace( ((CheckBox)findViewById(R.id.noseBleeding)).getText() + "\n", "");
+                }
+                break;
+
+            //case for genital urinary system
+            //blood in urine
+            case R.id.bloodInUrine:
+                if (checked){
+                    genitalInfo += ((CheckBox)findViewById(R.id.bloodInUrine)).getText() + "\n";
+                }
+                else{
+                    genitalInfo = genitalInfo.replace( ((CheckBox)findViewById(R.id.bloodInUrine)).getText() + "\n", "");
+                }
+                break;
+            //hernia
+            case R.id.hernia:
+                if (checked){
+                    genitalInfo += ((CheckBox)findViewById(R.id.hernia)).getText() + "\n";
+                }
+                else{
+                    genitalInfo = genitalInfo.replace( ((CheckBox)findViewById(R.id.hernia)).getText() + "\n", "");
+                }
+                break;
+            //sexually transmitted infections
+            case R.id.sexuallyTransmittedInfections:
+                if (checked){
+                    genitalInfo += ((CheckBox)findViewById(R.id.sexuallyTransmittedInfections)).getText() + "\n";
+                }
+                else{
+                    genitalInfo = genitalInfo.replace( ((CheckBox)findViewById(R.id.sexuallyTransmittedInfections)).getText() + "\n", "");
+                }
+                break;
+            //menstrual period problem
+            case R.id.menstrualPeriodProblems:
+                if (checked){
+                    genitalInfo += ((CheckBox)findViewById(R.id.menstrualPeriodProblems)).getText() + "\n";
+                }
+                else{
+                    genitalInfo = genitalInfo.replace( ((CheckBox)findViewById(R.id.menstrualPeriodProblems)).getText() + "\n", "");
+                }
+                break;
+
+            //case others
+            //high blood pressure
+            case R.id.highBloodPressure:
+                if (checked){
+                    otherInfo += ((CheckBox)findViewById(R.id.highBloodPressure)).getText() + "\n";
+                }
+                else{
+                    otherInfo = otherInfo.replace( ((CheckBox)findViewById(R.id.highBloodPressure)).getText() + "\n", "");
+                }
+                break;
+            //diabetes
+            case R.id.diabetes:
+                if (checked){
+                    otherInfo += ((CheckBox)findViewById(R.id.diabetes)).getText() + "\n";
+                }
+                else{
+                    otherInfo = otherInfo.replace( ((CheckBox)findViewById(R.id.diabetes)).getText() + "\n", "");
+                }
+                break;
+            //gastric problems
+            case R.id.gastricProblems:
+                if (checked){
+                    otherInfo += ((CheckBox)findViewById(R.id.gastricProblems)).getText() + "\n";
+                }
+                else{
+                    otherInfo = otherInfo.replace( ((CheckBox)findViewById(R.id.gastricProblems)).getText() + "\n", "");
+                }
+                break;
+            //heart diseases
+            case R.id.heartDiseases:
+                if (checked){
+                    otherInfo += ((CheckBox)findViewById(R.id.heartDiseases)).getText() + "\n";
+                }
+                else{
+                    otherInfo = otherInfo.replace( ((CheckBox)findViewById(R.id.heartDiseases)).getText() + "\n", "");
+                }
+                break;
+
+            //case for drug allergies
+            //local anesthetics
+            case R.id.localAnesthetics:
+                if (checked){
+                    allergyInfo += ((CheckBox)findViewById(R.id.localAnesthetics)).getText() + "\n";
+                }
+                else{
+                    allergyInfo = allergyInfo.replace( ((CheckBox)findViewById(R.id.localAnesthetics)).getText() + "\n", "");
+                }
+                break;
+            //aspirin
+            case R.id.aspirin:
+                if (checked){
+                    allergyInfo += ((CheckBox)findViewById(R.id.aspirin)).getText() + "\n";
+                }
+                else{
+                    allergyInfo = allergyInfo.replace( ((CheckBox)findViewById(R.id.aspirin)).getText() + "\n", "");
+                }
+                break;
+            //penicillin or other antibiotics
+            case R.id.antibiotics:
+                if (checked){
+                    allergyInfo += ((CheckBox)findViewById(R.id.antibiotics)).getText() + "\n";
+                }
+                else{
+                    allergyInfo = allergyInfo.replace( ((CheckBox)findViewById(R.id.antibiotics)).getText() + "\n", "");
+                }
+                break;
+            //sulfa drugs
+            case R.id.sulfaDrugs:
+                if (checked){
+                    allergyInfo += ((CheckBox)findViewById(R.id.sulfaDrugs)).getText() + "\n";
+                }
+                else{
+                    allergyInfo = allergyInfo.replace( ((CheckBox)findViewById(R.id.sulfaDrugs)).getText() + "\n", "");
+                }
+                break;
+            //others
+            case R.id.Other:
+                //will take the edittext input after pressing submit
+                //in this case, just show the visibility
+                EditText spec = (EditText) findViewById(R.id.Specification);
+                if (checked){
+                    spec.setVisibility(View.VISIBLE);
+                }
+                else{
+                    spec.setText("");
+                    spec.setVisibility(View.GONE);
+                }
+                break;
+        }
+    }
+
+    //method for submit button
+    public void onSubmit(View v){
+
+        //get edittext
+        EditText spec = (EditText) findViewById(R.id.Specification);
+        EditText ongoingTreatmentEditable = (EditText) findViewById(R.id.ongoingTreatment);
+        EditText ongoingMedicationEditable = (EditText) findViewById(R.id.ongoingMedication);
+
+        //make a copy of each text
+        CharSequence specTest = spec.getText();
+        CharSequence treatmentTest = ongoingTreatmentEditable.getText();
+        CharSequence medicationTest = ongoingMedicationEditable.getText();
+
+        //check if they only contain whitespaces
+        if( !((specTest.toString().trim()).equals("")) ){
+            allergyInfo += "Other : " + spec.getText() + "\n";
+        }
+
+        if( !((treatmentTest.toString().trim()).equals("")) ){
+            ongoingTreatment = treatmentTest.toString();
+        }
+
+        if( !((medicationTest.toString().trim()).equals("")) ){
+            ongoingMedication = medicationTest.toString();
+        }
+
     }
 }
