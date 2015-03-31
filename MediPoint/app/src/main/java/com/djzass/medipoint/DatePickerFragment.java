@@ -96,7 +96,7 @@ public class DatePickerFragment extends DialogFragment implements View.OnClickLi
             String[] month_str = new DateFormatSymbols().getMonths();
 
             //get the selected date for sign up activity
-            SignUp signupActivity = (SignUp) getActivity();
+            SignUpPageTwo signupActivity = (SignUpPageTwo) getActivity();
             signupActivity.setDate(datepicker);
 
             //get input from datepicker

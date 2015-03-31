@@ -46,16 +46,6 @@
 
 
         <activity
-            android:name=".SignUp"
-            android:label="@string/title_activity_sign_up"
-            android:parentActivityName=".Login" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.djzass.medipoint.Login" />
-        </activity>
-
-
-        <activity
             android:name=".CreateAppointmentActivity"
             android:label="Create an Appointment" />
 
