@@ -29,7 +29,7 @@ public class SignUpPageTwo extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_sign_up);
+        setContentView(R.layout.activity_sign_up2);
         //mDbHelper = new DbHelper(this);
 
         // Gets the data repository in write mode
