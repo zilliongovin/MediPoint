@@ -105,7 +105,7 @@ public class SignUpPageThree extends Activity {
         {
             String username = checkViews[0].getText().toString();
             String password = checkViews[1].getText().toString();
-            AccountCreator.savePageThree(username,password);
+            //AccountCreator.savePageThree(username,password);
             AccountCreatedDialog(username,password);
             AccountCreator.createAccount(getIntent().getExtras());
         }

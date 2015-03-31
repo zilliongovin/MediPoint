@@ -71,14 +71,15 @@ public class SignUpPageTwo extends Activity {
         setContentView(R.layout.activity_sign_up2);
     }*/
 
-    public void goToPage3(String gender,String maritalStatus,String citizenship,String countryOfResidence){
+    public void goToPage3(String gender,String maritalStatus,String citizenship,String countryOfResidence,long dob){
         Intent PageTwoToThree = new Intent(this,SignUpPageTwo.class);
         Bundle pageTwo = new Bundle();
         pageTwo.putString("GENDER",gender);
         pageTwo.putString("MARITAL_STATUS",maritalStatus);
         pageTwo.putString("CITIZENSHIP",citizenship);
         pageTwo.putString("COUNTRY_OF_RESIDENCE",countryOfResidence);
-        PageTwoToThree.putExtra("PAGE_TWO", pageTwo);
+        pageTwo.putLong("DOB",dob);
+        PageTwoToThree.putExtra("PAGE_TWO",pageTwo);
         PageTwoToThree.putExtra("PAGE_ONE",getIntent().getExtras());
         PageTwoToThree.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(PageTwoToThree);
@@ -133,8 +134,9 @@ public class SignUpPageTwo extends Activity {
             String maritalStatus = selMaritalStatusButton.getText().toString();
             String citizenship = citizenshipSpinner.toString();
             String countryOfResidence = countryOfResidenceSpinner.toString();
+            long dobLong = dobCal.getTimeInMillis();
             //AccountCreator.savePageTwo(gender,maritalStatus,citizenship,countryOfResidence,dobCal);
-            goToPage3(gender,maritalStatus,citizenship,countryOfResidence);
+            goToPage3(gender,maritalStatus,citizenship,countryOfResidence,dobLong);
         }
     }
 

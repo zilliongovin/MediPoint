@@ -104,10 +104,13 @@ public class AccountManager {
         String maritalStatus = PageTwo.getString("MARITAL_STATUS");
         String citizenship = PageTwo.getString("CITIZENSHIP");
         String countryOfResidence = PageTwo.getString("COUNTRY_OF_RESIDENCE");
+        long dob = PageTwo.getLong("DOB");
+        Calendar dobCal = Calendar.getInstance();
+        dobCal.setTimeInMillis(dob);
 
         String username = PageThree.getString("USERNAME");
         String password = PageThree.getString("PASSWORD");
-        Account newAccount = new Account(name,nric,email,contact,address,gender,maritalStatus,citizenship,countryOfResidence,username,password);
+        Account newAccount = new Account(username,password,name,nric,email,contact,gender,address,maritalStatus,dobCal,citizenship,countryOfResidence);
         return newAccount;
     }
 
