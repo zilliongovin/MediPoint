@@ -19,7 +19,6 @@ import android.widget.Toast;
 public class EditAppointmentActivity extends Activity implements AdapterView.OnItemSelectedListener {
 
     //Spinner
-    Spinner timeSpinner_edit;
     Spinner specialtySpinner_edit;
 
 
@@ -29,12 +28,6 @@ public class EditAppointmentActivity extends Activity implements AdapterView.OnI
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_appointment);
 
-        //time spinner and array adapter
-        timeSpinner_edit = (Spinner) findViewById(R.id.EditApptTimeSpinner);
-        ArrayAdapter timeAdapter = ArrayAdapter.createFromResource(this, R.array.time_slot, android.R.layout.simple_spinner_dropdown_item);
-        timeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        timeSpinner_edit.setAdapter(timeAdapter);
-        timeSpinner_edit.setOnItemSelectedListener(this);
 
         //specialty spinner and array adapter
         specialtySpinner_edit = (Spinner) findViewById(R.id.EditApptSpecialty);

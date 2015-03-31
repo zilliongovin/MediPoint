@@ -2,12 +2,23 @@ package com.djzass.medipoint;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
+import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
+import android.widget.ScrollView;
+import android.widget.Spinner;
 import android.widget.Toast;
+
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
 
 public class SignUpPageThree extends Activity {
@@ -18,7 +29,7 @@ public class SignUpPageThree extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_sign_up);
+        setContentView(R.layout.activity_sign_up3);
         //mDbHelper = new DbHelper(this);
 
         // Gets the data repository in write mode
@@ -71,23 +82,25 @@ public class SignUpPageThree extends Activity {
         return pass1.equals(pass2);
     }
 
-    public void goToLoginPage(String username,String password)
+    public void goToLoginPage(String username,String password,Intent PageThreeToLogin)
     {
         /*Intent intent = new Intent(this,Login.class);
         startActivity(intent);*/
-        Intent PageThreeToLogin = new Intent(this,Login.class);
+        /*Intent PageThreeToLogin = new Intent(this,Login.class);
         Bundle pageThree = new Bundle();
         pageThree.putString("USERNAME",username);
         pageThree.putString("PASSWORD",password);
         PageThreeToLogin.putExtra("PAGE_THREE",pageThree);
-        PageThreeToLogin.putExtra("PAGE_ONE_AND_TWO",getIntent().getExtras());
+        PageThreeToLogin.putExtra("PAGE_TWO",getIntent().getBundleExtra("PAGE_TWO"));
+        PageThreeToLogin.putExtra("PAGE_ONE",getIntent().getBundleExtra("PAGE_ONE"));*/
         //PageThreeToLogin.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(PageThreeToLogin);
+        //return PageThreeToLogin;
     }
 
     public void goToPrevious(View view)
     {
-       goToPage2();
+        goToPage2();
     }
 
     public void goToNext(View view)
@@ -106,8 +119,11 @@ public class SignUpPageThree extends Activity {
             String username = checkViews[0].getText().toString();
             String password = checkViews[1].getText().toString();
             //AccountCreator.savePageThree(username,password);
-            AccountCreatedDialog(username,password);
-            AccountCreator.createAccount(getIntent().getExtras());
+            Intent PageThreeToLogin = createIntentToLogin(username,password);
+            AccountCreatedDialog(username,password,PageThreeToLogin);
+            AccountCreator.createAccount(PageThreeToLogin.getExtras());
+
+
         }
 
         else if(!isFilled)
@@ -143,14 +159,14 @@ public class SignUpPageThree extends Activity {
         Toast.makeText(this,"Please fill all fields",Toast.LENGTH_LONG).show();
     }
 
-    public void AccountCreatedDialog(final String username, final String password)
+    public void AccountCreatedDialog(final String username, final String password,final Intent intent)
     {
         String message = "Congratulations! Your account has been successfully created.";
         String title = "Success";
         Runnable r = new Runnable() {
             @Override
             public void run() {
-                goToLoginPage(username,password);
+                goToLoginPage(username,password,intent);
             }
         };
 
@@ -162,6 +178,18 @@ public class SignUpPageThree extends Activity {
     {
         Toast.makeText(this,"Confirmed Password is incorrect",Toast.LENGTH_LONG).show();
 
+    }
+
+    public Intent createIntentToLogin(String username,String password)
+    {
+        Intent PageThreeToLogin = new Intent(this,Login.class);
+        Bundle pageThree = new Bundle();
+        pageThree.putString("USERNAME",username);
+        pageThree.putString("PASSWORD",password);
+        PageThreeToLogin.putExtra("PAGE_THREE",pageThree);
+        PageThreeToLogin.putExtra("PAGE_TWO",getIntent().getBundleExtra("PAGE_TWO"));
+        PageThreeToLogin.putExtra("PAGE_ONE",getIntent().getBundleExtra("PAGE_ONE"));
+        return PageThreeToLogin;
     }
 
     /*public Calendar getDate(DatePicker datePicker){

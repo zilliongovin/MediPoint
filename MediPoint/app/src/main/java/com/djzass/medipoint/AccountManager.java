@@ -89,9 +89,9 @@ public class AccountManager {
     }
 
     public Account extractAccountDetails(Bundle AccountDetails){
-        Bundle PageOneAndTwo = AccountDetails.getBundle("PAGE_ONE_AND_TWO");
-        Bundle PageOne = PageOneAndTwo.getBundle("PAGE_ONE");
-        Bundle PageTwo = PageOneAndTwo.getBundle("PAGE_TWO");
+        //Bundle PageOneAndTwo = AccountDetails.getBundle("PAGE_ONE_AND_TWO");
+        Bundle PageOne = AccountDetails.getBundle("PAGE_ONE");
+        Bundle PageTwo = AccountDetails.getBundle("PAGE_TWO");
         Bundle PageThree = AccountDetails.getBundle("PAGE_THREE");
 
         String name = PageOne.getString("NAME");

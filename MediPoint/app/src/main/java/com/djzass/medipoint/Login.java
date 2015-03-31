@@ -132,7 +132,7 @@ public class Login extends Activity {
 
     public void createSignUpForm(View view)
     {
-        Intent intent = new Intent(this,SignUp.class);
+        Intent intent = new Intent(this,SignUpPageOne.class);
         startActivity(intent);
     }
 

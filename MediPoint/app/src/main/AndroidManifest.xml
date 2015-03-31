@@ -23,6 +23,27 @@
             android:name=".PasswordRetriever"
             android:label="@string/title_activity_password_retriever" />
 
+        <activity
+            android:name=".SignUpPageOne"
+            android:label="@string/title_activity_sign_up" >
+
+
+        </activity>
+
+        <activity
+            android:name=".SignUpPageTwo"
+            android:label="@string/title_activity_sign_up" >
+
+
+        </activity>
+
+        <activity
+            android:name=".SignUpPageThree"
+            android:label="@string/title_activity_sign_up" >
+
+
+        </activity>
+
 
         <activity
             android:name=".SignUp"

@@ -1,6 +1,7 @@
 package com.djzass.medipoint;
 
 import android.app.Activity;
+import android.app.FragmentManager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -78,9 +79,9 @@ public class SignUpPageTwo extends Activity {
         pageTwo.putString("MARITAL_STATUS",maritalStatus);
         pageTwo.putString("CITIZENSHIP",citizenship);
         pageTwo.putString("COUNTRY_OF_RESIDENCE",countryOfResidence);
-        pageTwo.putLong("DOB",dob);
+        pageTwo.putLong("DOB", dob);
         PageTwoToThree.putExtra("PAGE_TWO",pageTwo);
-        PageTwoToThree.putExtra("PAGE_ONE",getIntent().getExtras());
+        PageTwoToThree.putExtra("PAGE_ONE",getIntent().getBundleExtra("PAGE_ONE"));
         PageTwoToThree.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(PageTwoToThree);
     }
@@ -187,6 +188,12 @@ public class SignUpPageTwo extends Activity {
         calendar.set(year, month, day);
 
         return calendar;
+    }
+
+    public void showDatePicker(View v){
+        FragmentManager manager = getFragmentManager();
+        DatePickerFragment datepicker = new DatePickerFragment();
+        datepicker.show(manager, "Datepicker");
     }
 
     public void setDate(DatePicker datepicker){
