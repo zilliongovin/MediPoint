@@ -95,6 +95,7 @@ public class MainActivity extends Activity {
         else if(id==R.id.action_logout){
             AccountManager acctMgr = new AccountManager(this);
             acctMgr.logout();
+            finish();
             Intent intent = new Intent(this,Login.class);
             startActivity(intent);
             return true;
