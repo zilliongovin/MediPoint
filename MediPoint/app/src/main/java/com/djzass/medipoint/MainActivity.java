@@ -2,6 +2,8 @@ package com.djzass.medipoint;
 
 
 import android.app.Activity;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.text.Html;
 import android.view.Menu;
@@ -49,7 +51,7 @@ public class MainActivity extends Activity {
         tabspec.setIndicator("History");
         //add tab
         tabhost.addTab(tabspec);
-        tabhost.getTabWidget().setCurrentTab(1);
+        tabhost.setCurrentTab(1);
 
         //set tab color
         setTabColor(tabhost);
@@ -68,6 +70,27 @@ public class MainActivity extends Activity {
             TextView tv = (TextView) tabwidget.getChildAt(i).findViewById(android.R.id.title);
             tv.setTextColor(this.getResources().getColorStateList(R.color.theme_bg));
         }
+
+        //set up fragment manager
+        FragmentManager fragManager = getFragmentManager();
+        MedicalHistoryFragment historyFrag;
+
+        //prevent the fragment from being duplicated
+        if (fragManager.findFragmentById(R.id.HistoryTabContent) == null) {
+            historyFrag = new MedicalHistoryFragment();
+
+            //begin transaction
+            FragmentTransaction fragTransaction = fragManager.beginTransaction();
+
+            //add fragment to tab
+            fragTransaction.add(R.id.HistoryTabContent, historyFrag, "Medical History Fragment");
+            fragTransaction.commit();
+
+        }
+        else {
+            historyFrag = (MedicalHistoryFragment) fragManager.findFragmentById(R.id.HistoryTabContent);
+        }
+
     }
 
 

@@ -7,8 +7,8 @@
 
 
     <TabHost
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
         android:paddingTop="?android:attr/actionBarSize"
         android:id="@+id/tabHost">
 
@@ -44,22 +44,14 @@
                     style="@style/TabLinearLayoutStyle"
                     android:orientation="vertical">
 
-                    <TextView
-                        style="@style/TextviewLayout"
-                        android:text="Appointment content"/>
-
                 </LinearLayout>
 
                 <LinearLayout
                     android:id="@+id/HistoryTabContent"
                     style="@style/TabLinearLayoutStyle"
                     android:orientation="vertical">
-
-                    <TextView
-                        style="@style/TextviewLayout"
-                        android:text="History content"/>
-
                 </LinearLayout>
+
 
             </FrameLayout>
         </LinearLayout>

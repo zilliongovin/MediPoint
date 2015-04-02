@@ -5,17 +5,17 @@ package com.djzass.medipoint;
  */
 
 import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.text.Html;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
+
+import java.sql.SQLException;
+import java.util.Calendar;
 
 
 public class MedicalHistory extends Activity {
@@ -32,16 +32,29 @@ public class MedicalHistory extends Activity {
     //Ongoing Medication
     String ongoingMedication;
 
+    //create new patient
+    PatientDAO patientDAO;
+
+    //get from intent
+    Calendar DOB;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_medical_history);
 
+
         //Form header style and content
         TextView header = (TextView)findViewById(R.id.FormHeader);
         String headerText = "<i>Please <b>fill in this medical history form</b> before proceeding to the application.</i>";
         header.setText(Html.fromHtml(headerText));
+
+        try {
+            patientDAO = new PatientDAO(this);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
 
     }
 
@@ -297,7 +310,13 @@ public class MedicalHistory extends Activity {
 
         if( !((medicationTest.toString().trim()).equals("")) ){
             ongoingMedication = medicationTest.toString();
-        }
+        }   
+
+        //combine all personal history
+        String medicalHistory = dentalInfo + ENTInfo + genitalInfo + otherInfo;
+
+        //store medicalHistory, allergyInfo, ongoingTreatment, ongoingMedication to DB
+        patientDAO.insertPatient(new Patient(DOB, medicalHistory, ongoingTreatment, ongoingMedication, allergyInfo));
 
     }
 }
