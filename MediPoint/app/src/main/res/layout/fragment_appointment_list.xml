@@ -1,0 +1,14 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent" tools:context="com.djzass.medipoint.AppointmentList">
+
+    <!-- TODO: Update blank fragment layout -->
+    <ListView
+        android:id="@+id/listCustomView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbarStyle="outsideInset"
+        >
+    </ListView>
+
+</FrameLayout>

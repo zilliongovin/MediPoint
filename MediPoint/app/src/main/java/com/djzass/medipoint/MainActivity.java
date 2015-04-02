@@ -73,9 +73,25 @@ public class MainActivity extends Activity {
 
         //set up fragment manager
         FragmentManager fragManager = getFragmentManager();
+        AppointmentListFragment appointmentFrag;
         MedicalHistoryFragment historyFrag;
 
         //prevent the fragment from being duplicated
+        if (fragManager.findFragmentById(R.id.AppointmentTabContent) == null) {
+            appointmentFrag = new AppointmentListFragment();
+
+            //begin transaction
+            FragmentTransaction fragTransaction = fragManager.beginTransaction();
+
+            //add fragment to tab
+            fragTransaction.add(R.id.AppointmentTabContent, appointmentFrag, "Appointment List Fragment");
+            fragTransaction.commit();
+
+        }
+        else {
+            appointmentFrag = (AppointmentListFragment) fragManager.findFragmentById(R.id.AppointmentTabContent);
+        }
+
         if (fragManager.findFragmentById(R.id.HistoryTabContent) == null) {
             historyFrag = new MedicalHistoryFragment();
 
