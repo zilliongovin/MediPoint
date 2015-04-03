@@ -19,13 +19,13 @@ import com.djzass.medipoint.logic_manager.AccountManager;
 public class MainActivity extends Activity {
 
     public static boolean SERVICE_TIMER_STARTED = false;
-    public static Container Global = new Container();
+    public static Container GlobalContainer = new Container();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         //start bg timer service
         startService(new Intent(this, TimerService.class));
         //set up the tab host
@@ -133,7 +133,7 @@ public class MainActivity extends Activity {
 
         //logout menu item selected
         else if(id==R.id.action_logout){
-            Global.GlobalAccountManager.logout();
+            Container.GlobalAccountManager.logout();
             //acctMgr.logout();
             finish();
             Intent intent = new Intent(this,Login.class);

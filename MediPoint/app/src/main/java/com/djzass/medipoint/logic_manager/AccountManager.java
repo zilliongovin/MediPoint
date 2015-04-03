@@ -6,7 +6,10 @@ import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 
 import java.sql.SQLException;
+
+import com.djzass.medipoint.Container;
 import com.djzass.medipoint.DbContract;
+import com.djzass.medipoint.MainActivity;
 import com.djzass.medipoint.SessionManager;
 import com.djzass.medipoint.entity.Account;
 import com.djzass.medipoint.logic_database.AccountDAO;

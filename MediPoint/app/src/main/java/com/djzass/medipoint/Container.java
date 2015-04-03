@@ -5,7 +5,6 @@ import android.content.Context;
 import android.database.SQLException;
 import android.util.Log;
 
-import com.djzass.medipoint.entity.DoctorSchedule;
 import com.djzass.medipoint.logic_database.AccountDAO;
 import com.djzass.medipoint.logic_database.AppointmentDAO;
 import com.djzass.medipoint.logic_database.ClinicDAO;
