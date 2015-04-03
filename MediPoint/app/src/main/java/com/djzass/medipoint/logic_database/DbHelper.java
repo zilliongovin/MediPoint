@@ -49,6 +49,7 @@ public class DbHelper extends SQLiteOpenHelper {
     private static final String SQL_DELETE_ACCOUNT =
             "DROP TABLE IF EXISTS " + DbContract.AccountEntry.TABLE_NAME + ";";
 
+    /*
     private static final String SQL_VERIFY_USER =
             "SELECT " + DbContract.AccountEntry.COLUMN_NAME_USERNAME + COMMA_SEP +
                     DbContract.AccountEntry.COLUMN_NAME_PASSWORD +
@@ -92,6 +93,7 @@ public class DbHelper extends SQLiteOpenHelper {
         String[] selArgs = {username};
         return db.rawQuery(SQL_FIND_ACCOUNTID,selArgs);
     }
+    */
 
     /* APPOINTMENT TABLE */
     private static final String SQL_CREATE_APPOINTMENT = "CREATE TABLE " + DbContract.AppointmentEntry.TABLE_NAME + " (" +

@@ -21,6 +21,28 @@ import java.util.List;
  */
 public class AccountDAO extends DbDAO{
     private static final String WHERE_ID_EQUALS = DbContract.AccountEntry.COLUMN_NAME_ACCOUNT_ID + " =?";
+    private static final String SQL_VERIFY_USER =
+            "SELECT " + DbContract.AccountEntry.COLUMN_NAME_USERNAME + "," +
+                    DbContract.AccountEntry.COLUMN_NAME_PASSWORD +
+                    " FROM " + DbContract.AccountEntry.TABLE_NAME +
+                    " WHERE " + DbContract.AccountEntry.COLUMN_NAME_USERNAME + "=? AND " +
+                    DbContract.AccountEntry.COLUMN_NAME_PASSWORD + "=?";
+
+    private static final String SQL_FIND_NRIC =
+            "SELECT " + DbContract.AccountEntry.COLUMN_NAME_NRIC + "," +
+                    DbContract.AccountEntry.COLUMN_NAME_EMAIL +
+                    " FROM " + DbContract.AccountEntry.TABLE_NAME +
+                    " WHERE " + DbContract.AccountEntry.COLUMN_NAME_NRIC + "=?";
+
+    private static final String SQL_FIND_USERNAME =
+            "SELECT " + DbContract.AccountEntry.COLUMN_NAME_USERNAME +
+                    " FROM " + DbContract.AccountEntry.TABLE_NAME +
+                    " WHERE " + DbContract.AccountEntry.COLUMN_NAME_USERNAME + "=?";
+
+    private static final String SQL_FIND_ACCOUNTID =
+            "SELECT " + DbContract.AccountEntry.COLUMN_NAME_ACCOUNT_ID +
+                    " FROM " + DbContract.AccountEntry.TABLE_NAME +
+                    " WHERE " + DbContract.AccountEntry.COLUMN_NAME_USERNAME + "=?";
     //private SpecialtyDAO specialtyDao;
 
     public AccountDAO(Context context) throws SQLException {
@@ -189,5 +211,27 @@ public class AccountDAO extends DbDAO{
     private void initializeDAO(){
         if (getAccountCount()==0){
         }
+    }
+
+    public int onLogin(String username,String password){
+        String[] selArgs = {username,password};
+        Cursor userCursor = database.rawQuery(SQL_VERIFY_USER, selArgs);
+        return userCursor.getCount();
+    }
+
+    public Cursor checkAccount(String nric){
+        String[] selArgs = {nric};
+        return database.rawQuery(SQL_FIND_NRIC,selArgs);
+    }
+
+    public int checkUsername(String username){
+        String[] selArgs = {username};
+        return database.rawQuery(SQL_FIND_USERNAME,selArgs).getCount();
+
+    }
+
+    public Cursor findAccountId(String username){
+        String[] selArgs = {username};
+        return database.rawQuery(SQL_FIND_ACCOUNTID,selArgs);
     }
 }

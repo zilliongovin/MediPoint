@@ -20,35 +20,44 @@ import java.util.Calendar;
 
 
 public class AccountManager {
-	//private ArrayList<Account> accounts;
+    //private ArrayList<Account> accounts;
     private Account newAccount;
-    DbHelper dbHelper;
-    SQLiteDatabase db;
+    //DbHelper dbHelper;
+    //SQLiteDatabase db;
+    AccountDAO accountDAO;
     SessionManager session;
-	public AccountManager(Context context) {
+    public AccountManager(Context context) {
         //accounts = new ArrayList<Account>();
-        dbHelper = new DbHelper(context);
-        db = dbHelper.getWritableDatabase();
-        session = new SessionManager(context);
-	}
+        //dbHelper = new DbHelper(context);
+        //db = dbHelper.getWritableDatabase();
+        try {
+            accountDAO = new AccountDAO(context);
+            session = new SessionManager(context);
+        }
+        catch(SQLException sqlEx)
+        {
+            sqlEx.getStackTrace();
+        }
+    }
 
     public Cursor findAccount(String nric){
-        Cursor cursor = dbHelper.checkAccount(nric,db);
+        //Cursor cursor = dbHelper.checkAccount(nric,db);
+        Cursor cursor = accountDAO.checkAccount(nric);
         return cursor.getCount()>0? cursor:null;
-		
-	}
-	
-	public void updateAccount(){
-		
-	}
-	
-	public boolean authenticate(String username,String password){
-        int numUsers = dbHelper.onLogin(username,password,db);
+
+    }
+
+    public void updateAccount(){
+
+    }
+
+    public boolean authenticate(String username,String password){
+        int numUsers = accountDAO.onLogin(username,password);
         return numUsers>0? true:false;
-		
-	}
-	
-	public void createAccount(Bundle AccountDetails,Context context){
+
+    }
+
+    public void createAccount(Bundle AccountDetails,Context context){
         Account newAccount = extractAccountDetails(AccountDetails);
         //updateDatabase(newAccount);
         try {
@@ -102,7 +111,7 @@ public class AccountManager {
     }
 
     public boolean doesUsernameExist(String username){
-        return dbHelper.checkUsername(username,db)>0? true:false;
+        return accountDAO.checkUsername(username)>0? true:false;
     }
 
     public Account extractAccountDetails(Bundle AccountDetails){
@@ -163,9 +172,9 @@ public class AccountManager {
         db.update(DbContract.AccountEntry.TABLE_NAME,temp, DbContract.AccountEntry.COLUMN_NAME_USERNAME + "='" + newAccount.getUsername() + "'",null);
     }*/
 
-   public String getLoggedInAccountId(){
-       return session.getAccountId(dbHelper, db);
-   }
+    public String getLoggedInAccountId(){
+        return session.getAccountId(accountDAO);
+    }
 
 
 }

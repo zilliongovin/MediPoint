@@ -5,6 +5,8 @@ import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
+import com.djzass.medipoint.logic_database.AccountDAO;
+
 /**
  * Created by Shreyas on 3/24/2015.
  */
@@ -62,9 +64,9 @@ public class SessionManager {
         editor.commit();
     }
 
-    public String getAccountId(DbHelper dbHelper,SQLiteDatabase db){
+    public String getAccountId(AccountDAO accountDAO){
         String username = pref.getString(KEY_USERNAME,"");
-        Cursor cursor = dbHelper.findAccountId(username,db);
+        Cursor cursor = accountDAO.findAccountId(username);
         if(cursor!=null && cursor.moveToFirst())
             return cursor.getString(0);
         return null;
