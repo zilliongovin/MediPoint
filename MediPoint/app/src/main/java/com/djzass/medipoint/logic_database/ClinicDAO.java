@@ -129,6 +129,12 @@ public class ClinicDAO extends DbDAO{
 
     private void initializeDAO(){
         if (getAllClinics().size()==0){
+          insertClinic(new Clinic("DjZass Boonlay Care", "Boonlay Way 123", "Singapore", 612345, 655512, 655513, "djzass.boonlay@medipoint.com"));
+          insertClinic(new Clinic("DjZass Changi Clinic", "Changi Street 321", "Singapore", 654321, 655521, 655531, "djzass.changi@medipoint.com"));
+          insertClinic(new Clinic("DjZass Kuala Lumpur Care", "Syah Ali Road 123", "Malaysia", 712345, 755512, 755513, "djzass.kl@medipoint.com"));
+          insertClinic(new Clinic("DjZass Johor Baru Clinic", "Jalan Syed Baro 321", "Malaysia", 754321, 755521, 755531, "djzass.jb@medipoint.com"));
+          insertClinic(new Clinic("DjZass Bangkok Care", "Bangkok St. 123", "Thailand", 812345, 855512, 855513, "djzass.bangkok@medipoint.com"));
+          insertClinic(new Clinic("DjZass Krabi Clinic", "City Square 321", "Thailand", 854321, 855521, 855531, "djzass.krabi@medipoint.com"));
         }
     }
 }
