@@ -26,12 +26,13 @@ public class AccountDAO extends DbDAO{
     }
 
     /* CREATE/SAVE
-    Inserting account into accounts table and return the row id if insertion successful,
+    Inserting account into accounts table and return the account id if insertion successful,
     otherwise -1 will be returned
      */
-    public long insertAccount(Account account){
+    public int insertAccount(Account account){
         ContentValues values = new ContentValues();
-        values.put(DbContract.AccountEntry.COLUMN_NAME_ACCOUNT_ID, account.getId());
+        int id = getAccountCount();
+        values.put(DbContract.AccountEntry.COLUMN_NAME_ACCOUNT_ID, id);
         values.put(DbContract.AccountEntry.COLUMN_NAME_NAME, account.getName());
         values.put(DbContract.AccountEntry.COLUMN_NAME_NRIC, account.getNric());
         values.put(DbContract.AccountEntry.COLUMN_NAME_EMAIL, account.getEmail());
@@ -45,7 +46,8 @@ public class AccountDAO extends DbDAO{
         values.put(DbContract.AccountEntry.COLUMN_NAME_USERNAME, account.getUsername());
         values.put(DbContract.AccountEntry.COLUMN_NAME_PASSWORD, account.getPassword());
 
-        return database.insert(DbContract.AccountEntry.TABLE_NAME, null, values);
+        database.insert(DbContract.AccountEntry.TABLE_NAME, null, values);
+        return id;
     }
 
     /** READ
