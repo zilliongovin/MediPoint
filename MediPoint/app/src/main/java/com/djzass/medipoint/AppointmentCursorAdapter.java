@@ -2,14 +2,15 @@ package com.djzass.medipoint;
 
 import android.content.Context;
 import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
-import android.support.annotation.IdRes;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CursorAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.djzass.medipoint.entity.Timeframe;
+import com.djzass.medipoint.logic_database.DbDAO;
 
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;

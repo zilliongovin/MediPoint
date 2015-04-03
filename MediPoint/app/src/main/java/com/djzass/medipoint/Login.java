@@ -1,9 +1,7 @@
 package com.djzass.medipoint;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
-import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.Menu;
@@ -12,6 +10,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import com.djzass.medipoint.logic_database.DbHelper;
+import com.djzass.medipoint.logic_manager.AccountManager;
 
 
 public class Login extends Activity {

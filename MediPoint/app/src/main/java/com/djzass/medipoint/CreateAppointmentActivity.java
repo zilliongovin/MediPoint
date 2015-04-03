@@ -11,12 +11,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.Spinner;
 
+import com.djzass.medipoint.logic_manager.AccountManager;
+
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 
 public class CreateAppointmentActivity extends Activity implements AdapterView.OnItemSelectedListener{
