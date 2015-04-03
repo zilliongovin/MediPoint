@@ -1,4 +1,7 @@
-package com.djzass.medipoint;
+package com.djzass.medipoint.logic_manager;
+
+import com.djzass.medipoint.entity.Clinic;
+import com.djzass.medipoint.logic_database.ClinicDAO;
 
 import java.sql.SQLException;
 import java.util.ArrayList;

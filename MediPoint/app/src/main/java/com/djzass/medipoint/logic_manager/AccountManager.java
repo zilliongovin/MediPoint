@@ -1,10 +1,15 @@
-package com.djzass.medipoint;
+package com.djzass.medipoint.logic_manager;
 
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+
+import com.djzass.medipoint.DbContract;
+import com.djzass.medipoint.SessionManager;
+import com.djzass.medipoint.entity.Account;
+import com.djzass.medipoint.logic_database.DbHelper;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;

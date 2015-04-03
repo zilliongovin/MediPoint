@@ -14,6 +14,9 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.djzass.medipoint.entity.Patient;
+import com.djzass.medipoint.logic_database.PatientDAO;
+
 import java.sql.SQLException;
 import java.util.Calendar;
 

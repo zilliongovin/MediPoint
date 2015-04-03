@@ -1,4 +1,4 @@
-package com.djzass.medipoint;
+package com.djzass.medipoint.logic_database;
 
 import java.sql.SQLException;
 import java.text.ParseException;
@@ -13,6 +13,11 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.util.Log;
+
+import com.djzass.medipoint.DbContract;
+import com.djzass.medipoint.entity.Timeframe;
+import com.djzass.medipoint.entity.Appointment;
+
 /**
  * Created by Deka on 26/3/2015.
  */

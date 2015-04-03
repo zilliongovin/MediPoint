@@ -1,4 +1,4 @@
-package com.djzass.medipoint;
+package com.djzass.medipoint.logic_database;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;

@@ -1,9 +1,13 @@
-package com.djzass.medipoint;
+package com.djzass.medipoint.logic_database;
 
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.util.Log;
+
+import com.djzass.medipoint.DbContract;
+import com.djzass.medipoint.entity.Clinic;
+
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;

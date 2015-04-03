@@ -1,6 +1,4 @@
-package com.djzass.medipoint;
-
-import java.util.ArrayList;
+package com.djzass.medipoint.entity;
 
 /**
  * Created by Deka on 26/3/2015.
