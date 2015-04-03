@@ -65,6 +65,13 @@ public class SpecialtyDAO extends DbDAO{
         return getSpecialties(whereclause);
     }
 
+    public String getSpecialtyNameByID(int id) {
+        List<Specialty> templist =  getSpecialtiesByID(id);
+        if (templist.size()>0)
+            return templist.get(0).getName();
+        else return "";
+    }
+
     /*  UPDATE
         returns the number of rows affected by the update
      */
