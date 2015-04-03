@@ -26,6 +26,10 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        //get Patient ID
+        String id = GlobalContainer.GlobalAccountManager.getLoggedInAccountId();
+
         //start bg timer service
         startService(new Intent(this, TimerService.class));
         //set up the tab host
