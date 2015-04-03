@@ -67,6 +67,7 @@ public class SignUpPageOne extends Activity {
         pageOne.putString("ADDRESS",address);
         PageOneToTwo.putExtra("PAGE_ONE",pageOne);
         PageOneToTwo.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        PageOneToTwo.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
         startActivity(PageOneToTwo);
     }
 

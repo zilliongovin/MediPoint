@@ -64,6 +64,7 @@ public class SignUpPageTwo extends Activity {
 
     public void goToPage1(){
         Intent PageTwoToOne = new Intent(this,SignUpPageOne.class);
+        PageTwoToOne.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
         startActivity(PageTwoToOne);
 
     }
@@ -83,6 +84,7 @@ public class SignUpPageTwo extends Activity {
         PageTwoToThree.putExtra("PAGE_TWO",pageTwo);
         PageTwoToThree.putExtra("PAGE_ONE",getIntent().getBundleExtra("PAGE_ONE"));
         PageTwoToThree.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        PageTwoToThree.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
         startActivity(PageTwoToThree);
     }
 

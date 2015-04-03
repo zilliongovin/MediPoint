@@ -59,6 +59,7 @@ public class SignUpPageThree extends Activity {
 
     public void goToPage2(){
         Intent PageThreeToTwo = new Intent(this,SignUpPageTwo.class);
+        PageThreeToTwo.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
         startActivity(PageThreeToTwo);
     }
 
