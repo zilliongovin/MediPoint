@@ -1,11 +1,13 @@
-package com.djzass.medipoint;
+package com.djzass.medipoint.logic_database;
 
 import android.app.Activity;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
+
+import com.djzass.medipoint.R;
+import com.djzass.medipoint.entity.Specialty;
 
 import java.sql.SQLException;
 import java.util.ArrayList;

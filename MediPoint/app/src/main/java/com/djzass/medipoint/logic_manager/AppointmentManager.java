@@ -1,4 +1,7 @@
-package com.djzass.medipoint;
+package com.djzass.medipoint.logic_manager;
+
+import com.djzass.medipoint.entity.Appointment;
+import com.djzass.medipoint.logic_database.AppointmentDAO;
 
 import java.util.Calendar;
 import java.util.ArrayList;

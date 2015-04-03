@@ -13,6 +13,7 @@ import android.widget.TabWidget;
 import android.widget.TextView;
 import android.content.Intent;
 
+import com.djzass.medipoint.logic_manager.AccountManager;
 
 
 public class MainActivity extends Activity {

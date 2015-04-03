@@ -9,6 +9,8 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.djzass.medipoint.logic_manager.AccountManager;
+
 
 public class SignUpPageOne extends Activity {
     private AccountManager AccountCreator;

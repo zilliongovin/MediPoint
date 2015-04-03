@@ -1,9 +1,11 @@
-package com.djzass.medipoint;
+package com.djzass.medipoint.logic_database;
 
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+
+import com.djzass.medipoint.DbContract;
 
 /**
  * Created by Shreyas on 3/17/2015.
@@ -65,6 +67,11 @@ public class DbHelper extends SQLiteOpenHelper {
                     " FROM " + DbContract.AccountEntry.TABLE_NAME +
                     " WHERE " + DbContract.AccountEntry.COLUMN_NAME_USERNAME + "=?";
 
+    private static final String SQL_FIND_ACCOUNTID =
+            "SELECT " + DbContract.AccountEntry.COLUMN_NAME_ACCOUNT_ID +
+                    " FROM " + DbContract.AccountEntry.TABLE_NAME +
+                    " WHERE " + DbContract.AccountEntry.COLUMN_NAME_USERNAME + "=?";
+
     public int onLogin(String username,String password,SQLiteDatabase db){
         String[] selArgs = {username,password};
         Cursor userCursor = db.rawQuery(SQL_VERIFY_USER, selArgs);
@@ -79,6 +86,11 @@ public class DbHelper extends SQLiteOpenHelper {
     public int checkUsername(String username,SQLiteDatabase db){
         String[] selArgs = {username};
         return db.rawQuery(SQL_FIND_USERNAME,selArgs).getCount();
+    }
+
+    public Cursor findAccountId(String username,SQLiteDatabase db){
+        String[] selArgs = {username};
+        return db.rawQuery(SQL_FIND_ACCOUNTID,selArgs);
     }
 
     /* APPOINTMENT TABLE */

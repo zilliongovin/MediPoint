@@ -2,6 +2,8 @@ package com.djzass.medipoint;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 
 /**
  * Created by Shreyas on 3/24/2015.
@@ -20,7 +22,7 @@ public class SessionManager {
     int PRIVATE_MODE = 0;
 
     // Sharedpref file name
-    private static final String PREF_NAME = "UserSession";
+    public static final String PREF_NAME = "UserSession";
 
     // All Shared Preferences Keys
     private static final String IS_LOGIN = "IsLoggedIn";
@@ -58,5 +60,13 @@ public class SessionManager {
     public void deleteLoginSession(){
         editor.clear();
         editor.commit();
+    }
+
+    public String getAccountId(DbHelper dbHelper,SQLiteDatabase db){
+        String username = pref.getString(KEY_USERNAME,"");
+        Cursor cursor = dbHelper.findAccountId(username,db);
+        if(cursor!=null && cursor.moveToFirst())
+            return cursor.getString(0);
+        return null;
     }
 }

@@ -1,4 +1,4 @@
-package com.djzass.medipoint;
+package com.djzass.medipoint.entity;
 /**
  * Created by Joshua on 25/3/2015.
  *

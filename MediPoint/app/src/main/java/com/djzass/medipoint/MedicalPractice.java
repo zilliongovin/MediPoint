@@ -1,5 +1,8 @@
 package com.djzass.medipoint;
 
+import com.djzass.medipoint.entity.Patient;
+import com.djzass.medipoint.entity.Service;
+
 import java.util.ArrayList;
 
 /**

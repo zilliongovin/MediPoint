@@ -1,4 +1,4 @@
-package com.djzass.medipoint;
+package com.djzass.medipoint.entity;
 
 import java.lang.String;
 import java.util.Calendar;

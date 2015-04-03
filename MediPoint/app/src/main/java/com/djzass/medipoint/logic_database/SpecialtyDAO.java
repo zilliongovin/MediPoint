@@ -1,4 +1,4 @@
-package com.djzass.medipoint;
+package com.djzass.medipoint.logic_database;
 
 
 /**
@@ -9,6 +9,9 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.util.Log;
+
+import com.djzass.medipoint.DbContract;
+import com.djzass.medipoint.entity.Specialty;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -63,6 +66,13 @@ public class SpecialtyDAO extends DbDAO{
     public List<Specialty> getSpecialtiesByID(int id) {
         String whereclause = DbContract.SpecialtyEntry.COLUMN_NAME_SPECIALTY_ID + " = " + id;
         return getSpecialties(whereclause);
+    }
+
+    public String getSpecialtyNameByID(int id) {
+        List<Specialty> templist =  getSpecialtiesByID(id);
+        if (templist.size()>0)
+            return templist.get(0).getName();
+        else return "";
     }
 
     /*  UPDATE

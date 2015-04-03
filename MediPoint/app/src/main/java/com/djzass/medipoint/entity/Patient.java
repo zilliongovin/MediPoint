@@ -1,4 +1,4 @@
-package com.djzass.medipoint;
+package com.djzass.medipoint.entity;
 
 import java.util.ArrayList;
 import java.util.Calendar;

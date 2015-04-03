@@ -1,10 +1,18 @@
-package com.djzass.medipoint;
+package com.djzass.medipoint.logic_manager;
 
-import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+
+import java.sql.SQLException;
+import com.djzass.medipoint.DbContract;
+import com.djzass.medipoint.SessionManager;
+import com.djzass.medipoint.entity.Account;
+import com.djzass.medipoint.logic_database.AccountDAO;
+
+
+import com.djzass.medipoint.logic_database.DbHelper;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -39,9 +47,17 @@ public class AccountManager {
 		
 	}
 	
-	public void createAccount(Bundle AccountDetails){
+	public void createAccount(Bundle AccountDetails,Context context){
         Account newAccount = extractAccountDetails(AccountDetails);
-        updateDatabase(newAccount);
+        //updateDatabase(newAccount);
+        try {
+            AccountDAO acctDAO = new AccountDAO(context);
+            int id = acctDAO.insertAccount(newAccount);
+            //Toast.makeText(context,""+id,Toast.LENGTH_LONG).show();
+        }
+        catch(SQLException sqlExcep){
+            sqlExcep.getStackTrace();
+        }
     }
 
     public void login(String username,String password) {
@@ -114,9 +130,11 @@ public class AccountManager {
         return newAccount;
     }
 
-    public void updateDatabase(Account newAccount){
+    /*public void updateDatabase(Account newAccount){
         // Create a new map of values, where column names are the keys
+
         ContentValues values = new ContentValues();
+        values.put(DbContract.AccountEntry.COLUMN_NAME_ACCOUNT_ID,"-1");
         values.put(DbContract.AccountEntry.COLUMN_NAME_NAME, newAccount.getName());
         values.put(DbContract.AccountEntry.COLUMN_NAME_NRIC,newAccount.getNric());
         values.put(DbContract.AccountEntry.COLUMN_NAME_EMAIL, newAccount.getEmail());
@@ -136,9 +154,17 @@ public class AccountManager {
                 DbContract.AccountEntry.TABLE_NAME,
                 null,
                 values);
-    }
+        //Toast.makeText(this,""+newRowId,Toast.LENGTH_LONG).show();
+        db = dbHelper.getWritableDatabase();
+        ContentValues temp = new ContentValues();
+        temp.put(DbContract.AccountEntry.COLUMN_NAME_ACCOUNT_ID,""+newRowId);
+        //String idString[] = {""+newRowId};
+        db.update(DbContract.AccountEntry.TABLE_NAME,temp, DbContract.AccountEntry.COLUMN_NAME_USERNAME + "='" + newAccount.getUsername() + "'",null);
+    }*/
 
-
+   public String getLoggedInAccountId(){
+       return session.getAccountId(dbHelper, db);
+   }
 
 
 }
