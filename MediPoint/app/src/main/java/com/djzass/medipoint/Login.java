@@ -21,7 +21,7 @@ public class Login extends Activity {
     DbHelper mDbHelper;
     SQLiteDatabase db;
     private AccountManager acctManager;
-
+    
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
