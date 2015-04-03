@@ -20,6 +20,7 @@ public class DbHelper extends SQLiteOpenHelper {
     private static final String INT_TYPE = " INTEGER";
     private static final String INT_KEY_TYPE = " INTEGER";// PRIMARY KEY AUTOINCREMENT";
     private static final String DATETIME_TYPE = " DATETIME";
+    private static final String PRIMARY_KEY = " PRIMARY KEY ";
     private static final String FOREIGN_KEY = " FOREIGN KEY(";
     private static final String REFERENCES = ") REFERENCES ";
     private static final String COMMA_SEP = ",";
@@ -168,7 +169,7 @@ public class DbHelper extends SQLiteOpenHelper {
 
     /*SERVICE TABLE*/
     private static final String SQL_CREATE_SERVICE = "CREATE TABLE " + DbContract.ServiceEntry.TABLE_NAME + " (" +
-            DbContract.ServiceEntry.COLUMN_NAME_SERVICE_ID + INT_KEY_TYPE + COMMA_SEP +
+            DbContract.ServiceEntry.COLUMN_NAME_SERVICE_ID + INT_KEY_TYPE + PRIMARY_KEY + COMMA_SEP +
             DbContract.ServiceEntry.COLUMN_NAME_SERVICE_NAME + VARCHAR_THIRTY_TYPE + COMMA_SEP +
             DbContract.ServiceEntry.COLUMN_NAME_SPECIALTY_ID + INT_TYPE + COMMA_SEP +
             DbContract.ServiceEntry.COLUMN_NAME_SERVICE_DURATION + INT_TYPE + COMMA_SEP +

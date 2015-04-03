@@ -6,6 +6,7 @@ import android.app.DialogFragment;
 import android.app.FragmentManager;
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -13,6 +14,9 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
+import com.djzass.medipoint.entity.Service;
+import com.djzass.medipoint.entity.Specialty;
+import com.djzass.medipoint.logic_database.ServiceDAO;
 import com.djzass.medipoint.logic_manager.AccountManager;
 
 import java.util.ArrayList;
@@ -25,16 +29,23 @@ public class CreateAppointmentActivity extends Activity implements AdapterView.O
     Spinner countrySpinner_create;
     Spinner serviceSpinner_create;
 
+    List<Specialty> specialities = Container.GlobalSpecialtyDAO.getAllSpecialties();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_appointment);
 
         //specialty spinner and array adapter
+
         specialtySpinner_create = (Spinner) findViewById(R.id.CreateApptSpecialty);
-        ArrayAdapter specialtyAdapter_create = ArrayAdapter.createFromResource(this, R.array.specialty, android.R.layout.simple_spinner_dropdown_item);
-        specialtyAdapter_create.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        specialtySpinner_create.setAdapter(specialtyAdapter_create);
+        List<String> specialtyNames = new ArrayList<String>();
+        for(Specialty s: specialities){
+            specialtyNames.add(s.getName());
+        }
+        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_dropdown_item,specialtyNames);
+        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        dataAdapter.notifyDataSetChanged();
+        specialtySpinner_create.setAdapter(dataAdapter);
         specialtySpinner_create.setOnItemSelectedListener(this);
 
         //country spinner and array adapter
@@ -85,57 +96,26 @@ public class CreateAppointmentActivity extends Activity implements AdapterView.O
 
         String speciality= String.valueOf(specialtySpinner_create.getSelectedItem());
 
-        if(speciality.contentEquals("Dental")) {
-            List<String> list = new ArrayList<String>();
-            list.add("Routine Scaling");
-            list.add("Polishing");
-            list.add("Root Canal");
-            list.add("Fillings");
-            list.add("Tooth Extraction");
-            ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this,
-                    android.R.layout.simple_spinner_item, list);
-            dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-            dataAdapter.notifyDataSetChanged();
-            serviceSpinner_create.setAdapter(dataAdapter);
-        }
-        if(speciality.contentEquals("Ears, Nose, and Throat(ENT)")) {
-            List<String> list = new ArrayList<String>();
-            list.add("General");
-            list.add("Paediatric ENT");
-            list.add("Obstructive Sleep Apnea (OSA)");
-            list.add("Otology");
-            ArrayAdapter<String> dataAdapter2 = new ArrayAdapter<String>(this,
-                    android.R.layout.simple_spinner_item, list);
-            dataAdapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-            dataAdapter2.notifyDataSetChanged();
-            serviceSpinner_create.setAdapter(dataAdapter2);
+        int selection = 0;
+        for(Specialty s : specialities)
+        {
+            if(speciality.equals(s.getName()))
+            {
+                selection = s.getId();
+            }
         }
 
-        if(speciality.contentEquals("Women Health")) {
-            List<String> list = new ArrayList<String>();
-            list.add("Gynecologist");
-            list.add("Obstetricians");
-            ArrayAdapter<String> dataAdapter2 = new ArrayAdapter<String>(this,
-                    android.R.layout.simple_spinner_item, list);
-            dataAdapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-            dataAdapter2.notifyDataSetChanged();
-            serviceSpinner_create.setAdapter(dataAdapter2);
+        List<Service> services = Container.GlobalServiceDAO.getServicesBySpecialtyID(selection);
+        List<String> serviceNames = new ArrayList<String>();
+        for (Service s : services) {
+            serviceNames.add(s.getName());
         }
-
-        if(speciality.contentEquals("General Medicine")) {
-            List<String> list = new ArrayList<String>();
-            list.add("Dietetic Services");
-            list.add("Physiotherapy");
-            list.add("Child Care");
-            list.add("Chronic Care");
-            ArrayAdapter<String> dataAdapter2 = new ArrayAdapter<String>(this,
-                    android.R.layout.simple_spinner_item, list);
-            dataAdapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-            dataAdapter2.notifyDataSetChanged();
-            serviceSpinner_create.setAdapter(dataAdapter2);
-        }
-
+        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, serviceNames);
+        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        dataAdapter.notifyDataSetChanged();
+        serviceSpinner_create.setAdapter(dataAdapter);
     }
+
     public void showDatePickerDialog(View v) {
         DialogFragment date = new DatePickerFragment();
         date.show(getFragmentManager(), "datePicker");
