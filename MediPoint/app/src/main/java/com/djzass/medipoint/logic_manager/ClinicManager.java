@@ -13,7 +13,7 @@ public class ClinicManager {
     ArrayList<Clinic> clinics;
     private ClinicDAO clinicDao;
 
-    ClinicManager() throws SQLException {
+    public ClinicManager() throws SQLException {
         clinics = new ArrayList<Clinic>();
 
     }

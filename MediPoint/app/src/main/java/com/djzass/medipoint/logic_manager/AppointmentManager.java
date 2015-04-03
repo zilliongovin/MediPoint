@@ -5,11 +5,15 @@ import com.djzass.medipoint.logic_database.AppointmentDAO;
 
 import java.util.Calendar;
 import java.util.ArrayList;
+import java.sql.SQLException;
 
 public class AppointmentManager {
     private ArrayList<Appointment> appointments;
     private AppointmentDAO appointmentDao;
 
+    public AppointmentManager() throws SQLException {
+
+    }
 
     public ArrayList<Boolean> getAvailableTime(Calendar date, int patient, int doctor){
         //returns array of boolean denoting whether or not each timeframe is free
