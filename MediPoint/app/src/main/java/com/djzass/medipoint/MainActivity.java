@@ -19,7 +19,7 @@ import com.djzass.medipoint.logic_manager.AccountManager;
 public class MainActivity extends Activity {
 
     public static boolean SERVICE_TIMER_STARTED = false;
-
+    public static Container Global = new Container();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -133,8 +133,8 @@ public class MainActivity extends Activity {
 
         //logout menu item selected
         else if(id==R.id.action_logout){
-            AccountManager acctMgr = new AccountManager(this);
-            acctMgr.logout();
+            Global.GlobalAccountManager.logout();
+            //acctMgr.logout();
             finish();
             Intent intent = new Intent(this,Login.class);
             startActivity(intent);
