@@ -31,4 +31,22 @@ public class Timeframe {
     public int getEndTime(){
         return endTime;
     }
+
+    public String getStartTimeString(){
+        if (startTime % 2 == 0)
+            return String.format("%02d:%02d", startTime/2, 00);
+        else
+            return String.format("%02d:%02d", startTime/2, 30);
+    }
+
+    public String getEndTimeString(){
+        if (endTime % 2 == 0)
+            return String.format("%02d:%02d", endTime/2, 00);
+        else
+            return String.format("%02d:%02d", endTime/2, 30);
+    }
+
+    public String getTimeLine(){
+        return getStartTimeString() + " - " + getEndTimeString();
+    }
 }

@@ -76,11 +76,15 @@ public class AppointmentListFragment extends Fragment {
         // Find ListView to populate
         ListView lvItems = (ListView) view.findViewById(R.id.appointmentListView);
         // Setup cursor adapter using cursor from last step
-        Cursor appointmentCursor = DbDAO.database.query();
+        //Patient id
+        //String selectQuery = "SELECT  * FROM " + DbContract.AppointmentEntry.TABLE_NAME + " WHERE "
+        //                + DbContract.AppointmentEntry.COLUMN_NAME_PATIENT_ID + " = " + id;
 
-        AppointmentCursorAdapter appointmentAdapter = new AppointmentCursorAdapter(this, appointmentCursor,0);
+        //Cursor appointmentCursor = DbDAO.database.query(selectQuery);
+
+        //AppointmentCursorAdapter appointmentAdapter = new AppointmentCursorAdapter(this, appointmentCursor,0);
         // Attach cursor adapter to the ListView
-        lvItems.setAdapter(appointmentAdapter);
+        //lvItems.setAdapter(appointmentAdapter);
 
         return view;
     }

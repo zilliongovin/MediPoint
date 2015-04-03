@@ -54,7 +54,7 @@
             android:label="@string/edit_appointment" />
 
         <activity
-            android:name=".Referral"
+            android:name=".ReferralActivity"
             android:label="@string/referral" />
 
         <activity android:name=".MedicalHistory"

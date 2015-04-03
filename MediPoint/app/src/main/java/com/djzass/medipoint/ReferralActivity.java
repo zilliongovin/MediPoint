@@ -10,7 +10,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
-public class Referral extends Activity implements AdapterView.OnItemSelectedListener{
+public class ReferralActivity extends Activity implements AdapterView.OnItemSelectedListener{
 
     //spinner
     Spinner specialtySpinner_create;
@@ -64,7 +64,7 @@ public class Referral extends Activity implements AdapterView.OnItemSelectedList
 
     public void goto_appointment(View view)
     {
-        Intent intent = new Intent(Referral.this, CreateAppointmentActivity.class);
+        Intent intent = new Intent(ReferralActivity.this, CreateAppointmentActivity.class);
         startActivity(intent);
     }
 }
