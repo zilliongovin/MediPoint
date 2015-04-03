@@ -14,6 +14,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
+import com.djzass.medipoint.entity.Doctor;
 import com.djzass.medipoint.entity.Service;
 import com.djzass.medipoint.entity.Specialty;
 import com.djzass.medipoint.logic_database.ServiceDAO;
@@ -28,6 +29,7 @@ public class CreateAppointmentActivity extends Activity implements AdapterView.O
     Spinner specialtySpinner_create;
     Spinner countrySpinner_create;
     Spinner serviceSpinner_create;
+    Spinner doctorSpinner_create;
 
     List<Specialty> specialities = Container.GlobalSpecialtyDAO.getAllSpecialties();
     @Override
@@ -57,6 +59,7 @@ public class CreateAppointmentActivity extends Activity implements AdapterView.O
 
         //service spinner
         serviceSpinner_create = (Spinner) findViewById(R.id.CreateApptServices);
+        doctorSpinner_create = (Spinner) findViewById(R.id.CreateApptDoctors);
 
     }
 
@@ -114,6 +117,16 @@ public class CreateAppointmentActivity extends Activity implements AdapterView.O
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         dataAdapter.notifyDataSetChanged();
         serviceSpinner_create.setAdapter(dataAdapter);
+
+        List<Doctor> doctors = Container.GlobalDoctorDAO.getDoctorBySpecialization(selection);
+        List<String> doctorNames = new ArrayList<String>();
+        for (Doctor d : doctors) {
+            doctorNames.add(d.getName());
+        }
+        ArrayAdapter<String> doctorDataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, doctorNames);
+        doctorDataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        doctorDataAdapter.notifyDataSetChanged();
+        doctorSpinner_create.setAdapter(doctorDataAdapter);
     }
 
     public void showDatePickerDialog(View v) {

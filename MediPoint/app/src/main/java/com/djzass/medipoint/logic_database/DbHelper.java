@@ -121,10 +121,12 @@ public class DbHelper extends SQLiteOpenHelper {
 
     /*DOCTOR TABLE*/
     private static final String SQL_CREATE_DOCTOR = "CREATE TABLE " + DbContract.DoctorEntry.TABLE_NAME + " (" +
-            DbContract.DoctorEntry.COLUMN_NAME_DOCTOR_ID + INT_KEY_TYPE + COMMA_SEP +
+            DbContract.DoctorEntry.COLUMN_NAME_DOCTOR_ID + INT_KEY_TYPE + PRIMARY_KEY + COMMA_SEP +
             DbContract.DoctorEntry.COLUMN_NAME_DOCTOR_NAME + VARCHAR_THIRTY_TYPE + COMMA_SEP +
             DbContract.DoctorEntry.COLUMN_NAME_SPECIALIZATION_ID + VARCHAR_FIFTY_TYPE + COMMA_SEP +
-            DbContract.DoctorEntry.COLUMN_NAME_PRACTICE_DURATION + INT_TYPE  + " );";
+            DbContract.DoctorEntry.COLUMN_NAME_PRACTICE_DURATION + INT_TYPE +
+            FOREIGN_KEY + DbContract.DoctorEntry.COLUMN_NAME_SPECIALIZATION_ID + REFERENCES + DbContract.SpecialtyEntry.TABLE_NAME +
+            "(" + DbContract.SpecialtyEntry.COLUMN_NAME_SPECIALTY_ID + ")" + " )";
 
     private static final String SQL_DELETE_DOCTOR =
             "DROP TABLE IF EXISTS " + DbContract.DoctorEntry.TABLE_NAME + ";";

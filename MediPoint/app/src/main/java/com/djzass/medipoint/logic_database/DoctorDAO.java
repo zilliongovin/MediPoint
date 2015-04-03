@@ -32,7 +32,7 @@ public class DoctorDAO extends DbDAO{
      */
     public long insertDoctor(Doctor doctor){
         ContentValues values = new ContentValues();
-        values.put(DbContract.DoctorEntry.COLUMN_NAME_DOCTOR_ID, doctor.getDoctorId());
+        values.put(DbContract.DoctorEntry.COLUMN_NAME_DOCTOR_ID, getDoctorCount());
         values.put(DbContract.DoctorEntry.COLUMN_NAME_DOCTOR_NAME, doctor.getName());
         values.put(DbContract.DoctorEntry.COLUMN_NAME_SPECIALIZATION_ID, doctor.getSpecializationId());
         values.put(DbContract.DoctorEntry.COLUMN_NAME_PRACTICE_DURATION, doctor.getPracticeDuration());
@@ -106,6 +106,10 @@ public class DoctorDAO extends DbDAO{
         return database.delete(DbContract.DoctorEntry.TABLE_NAME,
                 WHERE_ID_EQUALS, new String[] { doctor.getDoctorId() + "" });
     }
+
+    public int getDoctorCount(){
+        return getAllDoctors().size();
+    }
     /*
         LOAD
         Load the initial values of the doctors
@@ -118,6 +122,12 @@ public class DoctorDAO extends DbDAO{
     }
     private void initializeDAO(){
         if (getAllDoctors().size()==0){
+            insertDoctor(new Doctor("Dr. Stefan",0,2));
+            insertDoctor(new Doctor("Dr. Zillion", 1, 3));
+            insertDoctor(new Doctor("Dr. Deka", 2, 4));
+            insertDoctor(new Doctor("Dr. Ankur", 0, 5));
+            insertDoctor(new Doctor("Dr. Aristo", 3, 6));
+            insertDoctor(new Doctor("Dr. Shreyas", 1, 4));
         }
     }
 }
