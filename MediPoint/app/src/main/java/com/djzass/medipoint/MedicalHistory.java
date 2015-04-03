@@ -319,7 +319,7 @@ public class MedicalHistory extends Activity {
         String medicalHistory = dentalInfo + ENTInfo + genitalInfo + otherInfo;
 
         //store medicalHistory, allergyInfo, ongoingTreatment, ongoingMedication to DB
-        patientDAO.insertPatient(new Patient(DOB, medicalHistory, ongoingTreatment, ongoingMedication, allergyInfo));
+        //patientDAO.insertPatient(new Patient(DOB, medicalHistory, ongoingTreatment, ongoingMedication, allergyInfo));
 
     }
 }

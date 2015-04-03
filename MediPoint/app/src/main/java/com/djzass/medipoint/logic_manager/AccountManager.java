@@ -25,7 +25,7 @@ public class AccountManager {
     DbHelper dbHelper;
     SQLiteDatabase db;
     SessionManager session;
-	public AccountManager(Context context) {
+	public AccountManager(Context context) throws SQLException {
         //accounts = new ArrayList<Account>();
         dbHelper = new DbHelper(context);
         db = dbHelper.getWritableDatabase();
