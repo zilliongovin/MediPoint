@@ -38,9 +38,11 @@ public class Container extends Application {
     public static ServiceDAO GlobalServiceDAO;
     public static SpecialtyDAO GlobalSpecialtyDAO;
 
+    @Override
     public void onCreate(){
         super.onCreate();
         Container.context = getApplicationContext();
+        initialize();
     }
 
     public static Context getAppContext() {
