@@ -47,17 +47,22 @@ public class PasswordRetriever extends Activity {
                 Cursor cursor = AccountChecker.findAccount(nricTextbox.getText().toString());
                 if (cursor == null) {
                     AccountNotExist();
-                } else {
+                }
+
+
+                else {
                     //-----------------TEST------------------//
 
                     //test(cursor);
                     //-----------------TEST------------------//
                     cursor.moveToFirst();
                     String email = cursor.getString(1);
+                    String password = cursor.getString(2);
+                    String body = "Dear Sir,\n The password of your account is '" + password + "'.\n Thank You!";
                     //String email = "shreyas@mundhra.com";
                     Session session1 = createSessionObject();
                     try {
-                        Message message = createMessage(email, "Medipoint ", "appointment created", session1);
+                        Message message = createMessage(email, "Medipoint ", body, session1);
                         new SendMailTask().execute(message);
                     } catch (AddressException e) {
                         e.printStackTrace();

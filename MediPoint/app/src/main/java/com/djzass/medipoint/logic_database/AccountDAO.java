@@ -30,7 +30,8 @@ public class AccountDAO extends DbDAO{
 
     private static final String SQL_FIND_NRIC =
             "SELECT " + DbContract.AccountEntry.COLUMN_NAME_NRIC + "," +
-                    DbContract.AccountEntry.COLUMN_NAME_EMAIL +
+                    DbContract.AccountEntry.COLUMN_NAME_EMAIL + "," +
+                    DbContract.AccountEntry.COLUMN_NAME_PASSWORD +
                     " FROM " + DbContract.AccountEntry.TABLE_NAME +
                     " WHERE " + DbContract.AccountEntry.COLUMN_NAME_NRIC + "=?";
 
