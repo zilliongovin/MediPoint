@@ -135,6 +135,6 @@ public class AppointmentManager {
             endTime.set(Calendar.MINUTE, Timeframe.getMinute(appointment.getTimeframe().getEndTime()));
             if (currentTime.compareTo(endTime) < 0) return "Ongoing";
             else return "Finished";
-        }s
+        }
     }
 }
