@@ -11,6 +11,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Spinner;
 
 import com.djzass.medipoint.logic_manager.AccountManager;
@@ -24,6 +26,7 @@ public class CreateAppointmentActivity extends Activity implements AdapterView.O
     Spinner specialtySpinner_create;
     Spinner countrySpinner_create;
     Spinner serviceSpinner_create;
+    Button confirmButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +50,28 @@ public class CreateAppointmentActivity extends Activity implements AdapterView.O
         //service spinner
         serviceSpinner_create = (Spinner) findViewById(R.id.CreateApptServices);
 
+
+        confirmButton = (Button)findViewById(R.id.ConfirmCreateAppt);
+        confirmButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View arg0) {
+                /*EditText usernameBox = (EditText) findViewById(R.id.enterUsernameTextbox);
+                EditText passwordBox = (EditText) findViewById(R.id.enterPasswordTextbox);
+                String username = usernameBox.getText().toString();
+                String password = passwordBox.getText().toString();
+                boolean isAuthenticated = Container.GlobalAccountManager.authenticate(username,password);
+                if(isAuthenticated==true){
+                    Container.GlobalAccountManager.login(username,password);
+                    loginSuccessful(username);
+                    goToMain();
+
+                }
+                else{
+                    wrongCredentials();
+
+                }*/
+
+            }
+        });
     }
 
     @Override
@@ -70,8 +95,7 @@ public class CreateAppointmentActivity extends Activity implements AdapterView.O
 
         //logout menu item selected
         else if(id==R.id.action_logout){
-            AccountManager acctMgr = new AccountManager(this);
-            acctMgr.logout();
+            Container.GlobalAccountManager.logout();
             Intent intent = new Intent(this,Login.class);
             startActivity(intent);
             return true;
