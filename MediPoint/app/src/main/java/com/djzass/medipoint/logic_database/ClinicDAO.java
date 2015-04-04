@@ -32,6 +32,7 @@ public class ClinicDAO extends DbDAO{
         ContentValues values = new ContentValues();
         values.put(DbContract.ClinicEntry.COLUMN_NAME_CLINIC_ID, getClinicCount());
         values.put(DbContract.ClinicEntry.COLUMN_NAME_CLINIC_NAME, clinic.getName());
+        values.put(DbContract.ClinicEntry.COLUMN_NAME_ADDRESS, clinic.getAddress());
         values.put(DbContract.ClinicEntry.COLUMN_NAME_COUNTRY, clinic.getCountry());
         values.put(DbContract.ClinicEntry.COLUMN_NAME_ZIPCODE, clinic.getZipCode());
         values.put(DbContract.ClinicEntry.COLUMN_NAME_TEL_NUMBER, clinic.getTelNumber());
@@ -85,7 +86,7 @@ public class ClinicDAO extends DbDAO{
     }
 
     public List<Clinic> getClinicsByCountry(String country) {
-        String whereclause = DbContract.ClinicEntry.COLUMN_NAME_CLINIC_ID + " = " + country;
+        String whereclause = DbContract.ClinicEntry.COLUMN_NAME_CLINIC_ID + " = " + "\"" +country + "\"";
         return getClinics(whereclause);
     }
     /*

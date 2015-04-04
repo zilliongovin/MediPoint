@@ -123,8 +123,8 @@ public class DbHelper extends SQLiteOpenHelper {
     private static final String SQL_CREATE_DOCTOR = "CREATE TABLE " + DbContract.DoctorEntry.TABLE_NAME + " (" +
             DbContract.DoctorEntry.COLUMN_NAME_DOCTOR_ID + INT_KEY_TYPE + PRIMARY_KEY + COMMA_SEP +
             DbContract.DoctorEntry.COLUMN_NAME_DOCTOR_NAME + VARCHAR_THIRTY_TYPE + COMMA_SEP +
-            DbContract.DoctorEntry.COLUMN_NAME_SPECIALIZATION_ID + VARCHAR_FIFTY_TYPE + COMMA_SEP +
-            DbContract.DoctorEntry.COLUMN_NAME_PRACTICE_DURATION + INT_TYPE +
+            DbContract.DoctorEntry.COLUMN_NAME_SPECIALIZATION_ID + INT_TYPE + COMMA_SEP +
+            DbContract.DoctorEntry.COLUMN_NAME_PRACTICE_DURATION + INT_TYPE + COMMA_SEP +
             FOREIGN_KEY + DbContract.DoctorEntry.COLUMN_NAME_SPECIALIZATION_ID + REFERENCES + DbContract.SpecialtyEntry.TABLE_NAME +
             "(" + DbContract.SpecialtyEntry.COLUMN_NAME_SPECIALTY_ID + ")" + " )";
 
@@ -150,8 +150,9 @@ public class DbHelper extends SQLiteOpenHelper {
     /*CLINIC TABLE*/
     private static final String SQL_CREATE_CLINIC = "CREATE TABLE " + DbContract.ClinicEntry.TABLE_NAME + " (" +
             DbContract.ClinicEntry.COLUMN_NAME_CLINIC_ID + INT_KEY_TYPE + COMMA_SEP +
-            DbContract.ClinicEntry.COLUMN_NAME_COUNTRY + INT_TYPE + COMMA_SEP +
             DbContract.ClinicEntry.COLUMN_NAME_CLINIC_NAME + VARCHAR_THIRTY_TYPE + COMMA_SEP +
+            DbContract.ClinicEntry.COLUMN_NAME_ADDRESS + VARCHAR_FIFTY_TYPE + COMMA_SEP +
+            DbContract.ClinicEntry.COLUMN_NAME_COUNTRY + INT_TYPE + COMMA_SEP +
             DbContract.ClinicEntry.COLUMN_NAME_ZIPCODE + VARCHAR_TEN_TYPE + COMMA_SEP +
             DbContract.ClinicEntry.COLUMN_NAME_TEL_NUMBER + VARCHAR_TEN_TYPE + COMMA_SEP +
             DbContract.ClinicEntry.COLUMN_NAME_FAX_NUMBER + VARCHAR_TEN_TYPE + COMMA_SEP +
