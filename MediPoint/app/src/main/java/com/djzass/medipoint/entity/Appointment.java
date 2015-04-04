@@ -2,6 +2,7 @@ package com.djzass.medipoint.entity;
 
 import java.util.Calendar;
 import java.lang.String;
+import java.util.Comparator;
 
 public class Appointment {
     private int appointmentId;
@@ -120,4 +121,21 @@ public class Appointment {
         this.preAppointmentActions = preAppointmentActions;
     }
 
+    public static Comparator<Appointment> AppSortByDate
+            = new Comparator<Appointment>() {
+        public int compare(Appointment app1, Appointment app2) {
+            return app1.getDate().compareTo(app2.getDate());
+            //returns negative is app1's date < app2's date
+            //sort by earliest
+        }
+    };
+
+    public static Comparator<Appointment> AppSortBySpecialty
+            = new Comparator<Appointment>() {
+        public int compare(Appointment app1, Appointment app2) {
+            return app1.getSpecialtyId() - app2.getSpecialtyId();
+            //returns negative is app1.specialtyID < app2.specialtyID
+            //sort ascening
+        }
+    };
 }
