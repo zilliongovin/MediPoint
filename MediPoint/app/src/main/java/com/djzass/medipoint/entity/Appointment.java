@@ -1,10 +1,13 @@
 package com.djzass.medipoint.entity;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.util.Calendar;
 import java.lang.String;
 import java.util.Comparator;
 
-public class Appointment {
+public class Appointment implements Parcelable{
     private int appointmentId;
     private int clinicId;
     private int patientId;
@@ -138,4 +141,64 @@ public class Appointment {
             //sort ascening
         }
     };
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(this.appointmentId);
+        dest.writeInt(this.specialtyId);
+        dest.writeInt(this.patientId);
+        dest.writeInt(this.clinicId);
+        dest.writeInt(this.doctorId);
+
+        long cal = this.getDate().getTimeInMillis();
+
+        dest.writeLong(cal);
+        dest.writeInt(this.getTimeframe().getStartTime());
+        dest.writeInt(this.getTimeframe().getEndTime());
+        dest.writeString(this.preAppointmentActions);
+    }
+
+    public static final Parcelable.Creator<Appointment> CREATOR
+            = new Parcelable.Creator<Appointment>() {
+        public Appointment createFromParcel(Parcel in) {
+            return new Appointment(in);
+        }
+
+        public Appointment[] newArray(int size) {
+            return new Appointment[size];
+        }
+    };
+
+    public Appointment(Parcel in) {
+        this.appointmentId = in.readInt();
+        this.specialtyId = in.readInt();
+        this.patientId = in.readInt();
+        this.clinicId = in.readInt();
+        this.doctorId = in.readInt();
+
+        this.date = Calendar.getInstance();
+        this.date.setTimeInMillis(in.readLong());
+
+        this.timeframe = new Timeframe(in.readInt(),in.readInt());
+        this.preAppointmentActions = in.readString();
+    }
+
+    public void readFromParcel(Parcel in){
+        this.appointmentId = in.readInt();
+        this.specialtyId = in.readInt();
+        this.patientId = in.readInt();
+        this.clinicId = in.readInt();
+        this.doctorId = in.readInt();
+
+        this.date = Calendar.getInstance();
+        this.date.setTimeInMillis(in.readLong());
+
+        this.timeframe = new Timeframe(in.readInt(),in.readInt());
+        this.preAppointmentActions = in.readString();
+    }
 }
