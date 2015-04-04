@@ -47,7 +47,7 @@
 
         <Button
             android:id="@+id/sign_up3_right"
-            android:text="@string/next"
+            android:text="@string/create_account"
             style="@style/ButtonStyle"
             android:layout_marginBottom="16dp"
             android:layout_weight="1"

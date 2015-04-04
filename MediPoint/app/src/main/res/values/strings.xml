@@ -86,6 +86,7 @@
     <!-- Button Label -->
     <string name="create_appointment">create appointment</string>
     <string name="edit_appointment">edit appointment</string>
+    <string name="create_account">create account</string>
     <string name="confirm">confirm</string>
     <string name="cancel">cancel</string>
     <string name="edit">edit</string>
