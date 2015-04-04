@@ -52,6 +52,16 @@
             android:id="@+id/EditApptType"
             style="@style/MySpinner"/>
 
+        <!--select doctor -->
+        <TextView
+            android:id="@+id/edit_doctor"
+            android:text="@string/select_doctor"
+            style="@style/TextviewLayout"/>
+
+        <Spinner
+            android:id="@+id/EditApptDoctors"
+            style="@style/MySpinner"/>
+
 
         <!-- Date -->
         <LinearLayout

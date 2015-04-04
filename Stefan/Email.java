@@ -1,9 +1,15 @@
 package com.android.notification;
 
 import android.app.Activity;
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.app.ProgressDialog;
+import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
+import android.os.Bundle;
+import android.os.PowerManager;
 
 import java.io.UnsupportedEncodingException;
 import java.util.Properties;
@@ -20,7 +26,7 @@ import javax.mail.internet.MimeMessage;
 /**
  * Created by Z480 on 3/29/2015.
  */
-public class Email {
+public class Email{
     //in main activity that I test
     /*
     public String email,message,subject;
@@ -36,15 +42,17 @@ public class Email {
      */
 
 
-    private String username;
-    private String password;
+    private static final String username = "djzass15@gmail.com";
+    private static final String password = "medipoint";
+    private String email,messageBody,subject;
 
-    public Email(String username,String password){
-        this.username=username;
-        this.password=password;
+    public void setAll(String email,String subject, String messageBody){
+        this.email = email;
+        this.subject = subject;
+        this.messageBody = messageBody;
     }
 
-    public void sendMail(String email, String subject, String messageBody) {
+    public void sendMail() {
         Session session = createSessionObject();
 
         try {
@@ -56,7 +64,10 @@ public class Email {
             e.printStackTrace();
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
+        } catch (NullPointerException e){
+            e.printStackTrace();
         }
+
     }
 
 
@@ -83,34 +94,5 @@ public class Email {
                 return new PasswordAuthentication(username, password);
             }
         });
-    }
-
-    private class SendMailTask extends AsyncTask<Message, Void, Void> {
-        private ProgressDialog progressDialog;
-
-        // supposed to be progressbar, but can't work due to unknown reason
-        /*
-        @Override
-        protected void onPreExecute() {
-            Context context = App.getContext();
-            super.onPreExecute();
-            progressDialog = ProgressDialog.show(context, "Please wait", "Sending mail", true, false);
-        }*/
-
-        /*@Override
-        protected void onPostExecute(Void aVoid) {
-            super.onPostExecute(aVoid);
-            progressDialog.dismiss();
-        }*/
-
-        @Override
-        protected Void doInBackground(Message... messages) {
-            try {
-                Transport.send(messages[0]);
-            } catch (MessagingException e) {
-                e.printStackTrace();
-            }
-            return null;
-        }
     }
 }

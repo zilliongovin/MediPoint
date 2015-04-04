@@ -1,0 +1,296 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        style="@style/LinearLayoutStyle"
+        android:orientation="vertical"
+        android:layout_gravity="center_vertical">
+
+
+        <!-- Status -->
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp">
+
+            <TextView
+                android:id="@+id/LabelAppointmentStatus"
+                android:text="Appointment Status"
+                style="@style/TextviewLayout"
+                android:layout_width="match_parent"
+                android:textColor="@color/frame"
+                android:textStyle="bold"
+                android:layout_weight="1">
+            </TextView>
+
+            <TextView
+                android:id="@+id/viewStatus"
+                android:text="Ongoing"
+                android:textAllCaps="true"
+                style="@style/TextviewLayout"
+                android:layout_width="match_parent"
+                android:layout_weight="1"
+                android:gravity="right">
+            </TextView>
+
+        </LinearLayout>
+
+        <!-- Patient -->
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp">
+
+            <TextView
+                android:id="@+id/LabelAppointmentPatient"
+                android:text="Patient Name"
+                style="@style/TextviewLayout"
+                android:layout_width="match_parent"
+                android:textColor="@color/frame"
+                android:textStyle="bold"
+                android:layout_weight="1">
+            </TextView>
+
+            <TextView
+                android:id="@+id/viewPatientName"
+                android:text="Stefan"
+                style="@style/TextviewLayout"
+                android:layout_width="match_parent"
+                android:layout_weight="1"
+                android:gravity="right">
+            </TextView>
+
+        </LinearLayout>
+
+
+        <!-- Specialty -->
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp">
+
+            <TextView
+                android:id="@+id/LabelAppointmentSpecialty"
+                android:text="Specialty"
+                style="@style/TextviewLayout"
+                android:layout_width="match_parent"
+                android:textStyle="bold"
+                android:textColor="@color/frame"
+                android:layout_weight="1">
+            </TextView>
+
+            <TextView
+                android:id="@+id/viewSpecialty"
+                android:text="Ears, Nose, Throat (ENT)"
+                style="@style/TextviewLayout"
+                android:layout_width="match_parent"
+                android:layout_weight="1"
+                android:gravity="right">
+            </TextView>
+        </LinearLayout>
+
+        <!-- Service -->
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp">
+
+            <TextView
+                android:id="@+id/LabelAppointmentService"
+                android:text="Service"
+                style="@style/TextviewLayout"
+                android:layout_width="match_parent"
+                android:textStyle="bold"
+                android:layout_weight="1">
+            </TextView>
+
+            <TextView
+                android:id="@+id/viewService"
+                android:text="Regular Check-up"
+                style="@style/TextviewLayout"
+                android:layout_width="match_parent"
+                android:layout_weight="1"
+                android:gravity="right">
+            </TextView>
+        </LinearLayout>
+
+        <!-- Doctor -->
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp">
+
+            <TextView
+                android:id="@+id/LabelAppointmentDoctor"
+                android:text="Doctor"
+                style="@style/TextviewLayout"
+                android:layout_width="match_parent"
+                android:textStyle="bold"
+                android:layout_weight="1">
+            </TextView>
+
+            <TextView
+                android:id="@+id/viewDoctor"
+                android:text="Dr. Auliya"
+                style="@style/TextviewLayout"
+                android:layout_width="match_parent"
+                android:layout_weight="1"
+                android:gravity="right">
+            </TextView>
+
+        </LinearLayout>
+
+        <!-- Date -->
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp">
+            <TextView
+                android:id="@+id/LabelAppointmentDate"
+                android:text="Date"
+                android:textStyle="bold"
+                android:layout_width="match_parent"
+                style="@style/TextviewLayout"
+                android:layout_weight="1">
+            </TextView>
+
+            <TextView
+                android:id="@+id/viewDate"
+                android:text="01 April 2015"
+                style="@style/TextviewLayout"
+                android:layout_width="match_parent"
+                android:layout_weight="1"
+                android:gravity="right">
+            </TextView>
+
+        </LinearLayout>
+
+        <!-- Time -->
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp">
+            <TextView
+                android:id="@+id/LabelAppointmentTime"
+                android:text="Time"
+                android:textStyle="bold"
+                style="@style/TextviewLayout"
+                android:layout_width="match_parent"
+                android:layout_weight="1">
+            </TextView>
+
+            <TextView
+                android:id="@+id/viewTime"
+                android:text="10.00 - 10.30"
+                style="@style/TextviewLayout"
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:gravity="right">
+            </TextView>
+
+        </LinearLayout>
+
+        <!-- Country -->
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp">
+            <TextView
+                android:id="@+id/LabelAppointmentCountry"
+                android:text="Country"
+                android:textStyle="bold"
+                android:layout_width="match_parent"
+                style="@style/TextviewLayout"
+                android:layout_weight="1">
+            </TextView>
+
+            <TextView
+                android:id="@+id/viewCountry"
+                android:text="Singapore"
+                style="@style/TextviewLayout"
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:gravity="right">
+            </TextView>
+
+        </LinearLayout>
+
+        <!-- Location -->
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp">
+            <TextView
+                android:id="@+id/LabelAppointmentLocation"
+                android:text="Clinic"
+                style="@style/TextviewLayout"
+                android:textStyle="bold"
+                android:layout_width="match_parent"
+                android:layout_weight="1">
+            </TextView>
+
+            <TextView
+                android:id="@+id/viewLocation"
+                android:text="DJZASS Health Care Center"
+                style="@style/TextviewLayout"
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:gravity="right">
+            </TextView>
+        </LinearLayout>
+
+        <!-- Pre-Appointment Actions -->
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp">
+            <TextView
+                android:id="@+id/LabelAppointmentPreAppointmentActions"
+                android:text="Preappointment Actions"
+                style="@style/TextviewLayout"
+                android:textStyle="bold"
+                android:layout_width="match_parent"
+                android:layout_weight="1">
+            </TextView>
+
+            <TextView
+                android:id="@+id/viewPreAppointmentActions"
+                android:text="None"
+                android:layout_width="match_parent"
+                style="@style/TextviewLayout"
+                android:layout_weight="1"
+                android:gravity="right">
+            </TextView>
+
+        </LinearLayout>
+
+        <!-- Buttons -->
+        <Button
+            android:id="@+id/ViewApptEdit"
+            android:layout_marginBottom="5dp"
+            android:text="@string/edit"
+            style="@style/ButtonStyle"/>
+
+        <Button android:id="@+id/ViewApptDelete"
+            style="@style/ButtonStyle"
+            android:layout_marginBottom="16dp"
+            android:text="@string/delete"/>
+
+    </LinearLayout>
+</ScrollView>
+

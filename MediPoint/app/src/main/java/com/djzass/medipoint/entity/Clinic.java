@@ -32,7 +32,7 @@ public class Clinic {
         this.country = country;
     }
 
-    public Clinic(String name, String address, int zipCode, int telNumber, int faxNumber, String email, String country){
+    public Clinic(String name, String address, String country, int zipCode, int telNumber, int faxNumber, String email){
         this.name = name;
         this.address = address;
         this.country = country;

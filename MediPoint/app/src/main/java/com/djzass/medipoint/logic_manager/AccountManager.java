@@ -30,7 +30,7 @@ public class AccountManager {
     AccountDAO accountDAO;
     SessionManager session;
 
-	public AccountManager(Context context) throws SQLException {
+	public AccountManager(Context context){
 
         //accounts = new ArrayList<Account>();
         //dbHelper = new DbHelper(context);

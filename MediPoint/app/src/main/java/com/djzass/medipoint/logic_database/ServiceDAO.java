@@ -15,9 +15,9 @@ import java.util.List;
 /**
  * Created by Deka on 28/3/2015.
  */
-public class ServiceDAO  extends DbDAO{
-    public static final String SERVICE_WITH_PREFIX = "service.";
-    public static final String SPECIALTY_WITH_PREFIX = "specialty.";
+public class ServiceDAO extends DbDAO{
+    public static final String SERVICE_WITH_PREFIX = "ser.";
+    public static final String SPECIALTY_WITH_PREFIX = "spec.";
 
     private static final String WHERE_ID_EQUALS = DbContract.ServiceEntry.COLUMN_NAME_SERVICE_ID
             + " =?";
@@ -52,13 +52,23 @@ public class ServiceDAO  extends DbDAO{
     public List<Service> getServices(String whereclause) {
         List<Service> services = new ArrayList<Service>();
 
+        /*String query = "SELECT " + DbContract.ServiceEntry.COLUMN_NAME_SERVICE_ID + ", "
+                 + DbContract.ServiceEntry.COLUMN_NAME_SERVICE_NAME + ", "
+                 + DbContract.ServiceEntry.COLUMN_NAME_SERVICE_DURATION + ", "
+                 + DbContract.ServiceEntry.COLUMN_NAME_PREAPPOINTMENT_ACTIONS + ", "
+                 + DbContract.SpecialtyEntry.COLUMN_NAME_SPECIALTY_NAME +
+                " FROM " + DbContract.ServiceEntry.TABLE_NAME + ", " +
+                DbContract.SpecialtyEntry.TABLE_NAME + " WHERE " + SERVICE_WITH_PREFIX +
+                DbContract.ServiceEntry.COLUMN_NAME_SPECIALTY_ID + " = " + SPECIALTY_WITH_PREFIX +
+                DbContract.SpecialtyEntry.COLUMN_NAME_SPECIALTY_ID + whereclause;*/
+
         String query = "SELECT " + SERVICE_WITH_PREFIX + DbContract.ServiceEntry.COLUMN_NAME_SERVICE_ID + ", " +
                 SERVICE_WITH_PREFIX + DbContract.ServiceEntry.COLUMN_NAME_SERVICE_NAME + ", " +
                 SERVICE_WITH_PREFIX + DbContract.ServiceEntry.COLUMN_NAME_SERVICE_DURATION + ", " +
                 SERVICE_WITH_PREFIX + DbContract.ServiceEntry.COLUMN_NAME_PREAPPOINTMENT_ACTIONS + ", " +
-                SERVICE_WITH_PREFIX + DbContract.SpecialtyEntry.COLUMN_NAME_SPECIALTY_NAME +
-                " FROM " + DbContract.ServiceEntry.TABLE_NAME + "service" + ", " +
-                DbContract.SpecialtyEntry.TABLE_NAME + "specialty WHERE " + SERVICE_WITH_PREFIX +
+                SPECIALTY_WITH_PREFIX + DbContract.SpecialtyEntry.COLUMN_NAME_SPECIALTY_NAME +
+                " FROM " + DbContract.ServiceEntry.TABLE_NAME + " ser, " +
+                DbContract.SpecialtyEntry.TABLE_NAME + " spec WHERE " + SERVICE_WITH_PREFIX +
                 DbContract.ServiceEntry.COLUMN_NAME_SPECIALTY_ID + " = " + SPECIALTY_WITH_PREFIX +
                 DbContract.SpecialtyEntry.COLUMN_NAME_SPECIALTY_ID + whereclause;
 
@@ -84,22 +94,36 @@ public class ServiceDAO  extends DbDAO{
     }
 
     public List<Service> getServicesByID(int id) {
-        String whereclause = " AND " + DbContract.ServiceEntry.COLUMN_NAME_SERVICE_ID + " + " + id;
+        String whereclause = " AND " + DbContract.ServiceEntry.COLUMN_NAME_SERVICE_ID + " = " + id;
         return getServices(whereclause);
-    }
-
-    public String getServiceNameByID(int id) {
-        List<Service> templist =  getServicesByID(id);
-        if (templist.size()>0)
-            return templist.get(0).getName();
-        else return "";
     }
 
     public List<Service> getServicesBySpecialtyID(int specialtyId) {
-        String whereclause = " AND " + DbContract.ServiceEntry.COLUMN_NAME_SPECIALTY_ID + " + " + specialtyId;
+        String whereclause = " AND " + SERVICE_WITH_PREFIX + DbContract.ServiceEntry.COLUMN_NAME_SPECIALTY_ID + " = " + specialtyId;
         return getServices(whereclause);
     }
 
+    /*
+        FETCH BY ID
+     */
+    //READ SINGLE ROW
+    public Service getServiceById(long serviceId) {
+
+        String selectQuery = "SELECT  * FROM " + DbContract.ServiceEntry.TABLE_NAME + " WHERE "
+                + DbContract.ServiceEntry.COLUMN_NAME_SERVICE_ID + " = " + serviceId;
+
+        Cursor c = database.rawQuery(selectQuery, null);
+
+        if (c != null)
+            c.moveToFirst();
+
+        // Create the class object, then set the attribute from content of the exisiting data in the table
+        Service service = new Service();
+        service.setId(c.getInt(c.getColumnIndex(DbContract.ServiceEntry.COLUMN_NAME_SERVICE_ID)));
+        service.setName(c.getString(c.getColumnIndex(DbContract.ServiceEntry.COLUMN_NAME_SERVICE_NAME)));
+
+        return service;
+    }
     /*
         UPDATE
        returns the number of rows affected by the update
@@ -148,7 +172,7 @@ public class ServiceDAO  extends DbDAO{
             insertService(new Service("General", 0, 1));
             insertService(new Service("Periodic ENT", 0, 1));
             insertService(new Service("OSA", 0, 2));
-            insertService(new Service("Octology", 0, 4));
+            insertService(new Service("Otology", 0, 4));
 
             insertService(new Service("Routine Scaling", 1, 1));
             insertService(new Service("Polishing", 1, 2));
@@ -157,7 +181,7 @@ public class ServiceDAO  extends DbDAO{
             insertService(new Service("Root Canal", 1, 6));
 
             insertService(new Service("Gynecologists", 2, 2));
-            insertService(new Service("Obstetsician", 2, 2));
+            insertService(new Service("Obstetrician", 2, 2));
 
             insertService(new Service("Dietetic Services", 3, 2));
             insertService(new Service("Physiotherapy", 3, 2));

@@ -79,8 +79,8 @@ public class DbContract {
     public static abstract class ServiceEntry implements BaseColumns{
         public static final String TABLE_NAME = "service";
         public static final String COLUMN_NAME_SERVICE_ID = "serviceId";
-        public static final String COLUMN_NAME_SPECIALTY_ID = "specialtyId";
         public static final String COLUMN_NAME_SERVICE_NAME = "specialtyName";
+        public static final String COLUMN_NAME_SPECIALTY_ID = "specialtyId";
         public static final String COLUMN_NAME_SERVICE_DURATION = "serviceDuration";
         public static final String COLUMN_NAME_PREAPPOINTMENT_ACTIONS = "preAppointmentActions";
     }
