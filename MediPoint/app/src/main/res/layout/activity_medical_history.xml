@@ -183,60 +183,60 @@
 
             </LinearLayout>
 
-        </LinearLayout>
+            </LinearLayout>
 
-        <LinearLayout
-            android:orientation="vertical"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:layout_marginBottom="20dp">
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_marginBottom="20dp">
 
-            <TextView
-                style="@style/TextviewLayout"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                android:layout_marginBottom="10dp"
-                android:text="Drug Allergy"/>
+                <TextView
+                    style="@style/TextviewLayout"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:layout_marginBottom="10dp"
+                    android:text="Drug Allergy"/>
 
-            <CheckBox
-                style="@style/TextviewLayout"
-                android:text="@string/drug_1"
-                android:id="@+id/localAnesthetics"
-                android:onClick="onCheckboxClicked"/>
+                <CheckBox
+                    style="@style/TextviewLayout"
+                    android:text="@string/drug_1"
+                    android:id="@+id/localAnesthetics"
+                    android:onClick="onCheckboxClicked"/>
 
-            <CheckBox
-                style="@style/TextviewLayout"
-                android:text="@string/drug_2"
-                android:id="@+id/aspirin"
-                android:onClick="onCheckboxClicked"/>
+                <CheckBox
+                    style="@style/TextviewLayout"
+                    android:text="@string/drug_2"
+                    android:id="@+id/aspirin"
+                    android:onClick="onCheckboxClicked"/>
 
-            <CheckBox
-                style="@style/TextviewLayout"
-                android:text="@string/drug_3"
-                android:id="@+id/antibiotics"
-                android:onClick="onCheckboxClicked"/>
+                <CheckBox
+                    style="@style/TextviewLayout"
+                    android:text="@string/drug_3"
+                    android:id="@+id/antibiotics"
+                    android:onClick="onCheckboxClicked"/>
 
-            <CheckBox
-                style="@style/TextviewLayout"
-                android:text="@string/drug_4"
-                android:id="@+id/sulfaDrugs"
-                android:onClick="onCheckboxClicked"/>
+                <CheckBox
+                    style="@style/TextviewLayout"
+                    android:text="@string/drug_4"
+                    android:id="@+id/sulfaDrugs"
+                    android:onClick="onCheckboxClicked"/>
 
-            <CheckBox
-                style="@style/TextviewLayout"
-                android:text="@string/drug_5"
-                android:onClick="onCheckboxClicked"
-                android:id="@+id/Other"/>
+                <CheckBox
+                    style="@style/TextviewLayout"
+                    android:text="@string/drug_5"
+                    android:onClick="onCheckboxClicked"
+                    android:id="@+id/Other"/>
 
-            <EditText
-                android:hint="Please Specify Here."
-                android:layout_marginLeft="30dp"
-                android:id="@+id/Specification"
-                android:visibility="gone"
-                style="@style/EditTextStyle"
-                android:layout_width="match_parent" />
+                <EditText
+                    android:hint="Please Specify Here."
+                    android:layout_marginLeft="30dp"
+                    android:id="@+id/Specification"
+                    android:visibility="gone"
+                    style="@style/EditTextStyle"
+                    android:layout_width="match_parent" />
 
-        </LinearLayout>
+            </LinearLayout>
 
 
         <LinearLayout

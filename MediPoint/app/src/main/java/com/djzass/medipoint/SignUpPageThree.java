@@ -113,7 +113,7 @@ public class SignUpPageThree extends Activity {
             //AccountCreator.savePageThree(username,password);
             Intent PageThreeToLogin = createIntentToLogin(username,password);
             AccountCreatedDialog(username,password,PageThreeToLogin);
-            AccountCreator.createAccount(PageThreeToLogin.getExtras());
+            AccountCreator.createAccount(PageThreeToLogin.getExtras(),this);
 
 
         }

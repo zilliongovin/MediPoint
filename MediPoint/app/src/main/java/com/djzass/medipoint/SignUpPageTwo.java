@@ -74,7 +74,7 @@ public class SignUpPageTwo extends Activity {
     }*/
 
     public void goToPage3(String gender,String maritalStatus,String citizenship,String countryOfResidence,long dob){
-        Intent PageTwoToThree = new Intent(this,SignUpPageTwo.class);
+        Intent PageTwoToThree = new Intent(this,SignUpPageThree.class);
         Bundle pageTwo = new Bundle();
         pageTwo.putString("GENDER",gender);
         pageTwo.putString("MARITAL_STATUS",maritalStatus);

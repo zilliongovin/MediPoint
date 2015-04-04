@@ -1,92 +1,87 @@
 package com.djzass.medipoint;
 
-import android.app.Activity;
-import android.database.Cursor;
+/**
+ * Created by Zillion Govin on 4/4/2015.
+ */
+import android.content.Intent;
 import android.os.Bundle;
-import android.app.Fragment;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AbsListView;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.ListAdapter;
 import android.widget.ListView;
-import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 
-import com.djzass.medipoint.dummy.DummyContent;
-
-import java.sql.SQLException;
-
+/**
+ * Created by Deka on 4/4/2015.
+ */
 public class AppointmentListFragment extends Fragment {
 
+    ArrayList<AppointmentDummy> appointments;
+    public static AppointmentListFragment newInstance() {
+        AppointmentListFragment fragment = new AppointmentListFragment();
+        return fragment;
+    }
+
+
     @Override
-    public void onCreate(Bundle savedInstanceState){
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        appointments = new ArrayList<AppointmentDummy>();
+        Calendar[] dateTimes = {new GregorianCalendar(1995, 8, 10, 10, 0), new GregorianCalendar(1995, 10, 9, 3, 2),
+                new GregorianCalendar(1994, 10, 9, 11, 33), new GregorianCalendar(1993, 6, 7, 10, 2), new GregorianCalendar(1996, 10, 8, 9, 30),
+                new GregorianCalendar(1995, 10, 9, 4, 2), new GregorianCalendar(1995, 10, 9, 2,4), new GregorianCalendar(1995, 10, 9, 4, 2),
+                new GregorianCalendar(1995, 10, 9, 4, 5), new GregorianCalendar(1995, 10, 9 ,3 ,5)    };
+        String[] apptName = { "General Consultation", "Wisdom Tooth Extraction", "Tooth filling", "Tumor Surgery", "Sore Throat",
+                "Hemoteraphy", "Hearing Test", "Sinus Surgery", "Women Health's Consultatiton", "Audio Therapy" };
+        String[] name = {"Alice", "Bob", "Cindy", "Daniel", "Ezra", "Farah", "George",
+                "Hans", "Iris", "Jack", "Kelly"};
+        String[] status = {"In Progress", "Pending", "Ongoing", "Cancelled", "Done"};
+        String[] clinics = {"DjZass HealthCare Center", "Zjdass Medical Centre", "DassJz Clinic","JzDass Clinic Centre"};
+        String[] country = {"Malaysia", "Singapore", "Thailand"};
+
+        String s, cl, co;
+        for (int i=0;i<10;i++){
+            s = status[i % status.length].toUpperCase();
+            cl = clinics[i % clinics.length];
+            co = country[i % country.length];
+            appointments.add(new AppointmentDummy(i, apptName[i], s, dateTimes[i], cl, co));
+        }
+
+        /*for (Appointment a: appointments){
+            Toast.makeText(this, a.toString(), Toast.LENGTH_SHORT).show();
+        }*/
+
+
     }
 
     @Override
-    public void onActivityCreated(Bundle savedInstanceState){
-        super.onActivityCreated(savedInstanceState);
-    }
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_appointment_list, container, false);
+        ListView apptList = (ListView)view.findViewById(R.id.customListView);
+        AppointmentAdapter apptAdapter = new AppointmentAdapter(getActivity(), appointments);
+        apptList.setAdapter(apptAdapter);
 
-    @Override
-    public void onStart(){
-        super.onStart();
-    }
-
-    @Override
-    public void onResume(){
-        super.onResume();
-    }
-
-    @Override
-    public void onPause(){
-        super.onPause();
-    }
-
-    @Override
-    public void onSaveInstanceState(Bundle outState){
-        super.onSaveInstanceState(outState);
-    }
-
-    @Override
-    public void onStop(){
-        super.onStop();
-    }
-
-    @Override
-    public void onDestroyView(){
-        super.onDestroyView();
-    }
-
-    @Override
-    public void onDestroy(){
-        super.onDestroy();
-    }
-
-    @Override
-    public void onDetach(){
-        super.onDetach();
-    }
-
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
-        View view = inflater.inflate(R.layout.fragment_appointment_list, null);
-        // Find ListView to populate
-        ListView lvItems = (ListView) view.findViewById(R.id.appointmentListView);
-        // Setup cursor adapter using cursor from last step
-        //Patient id
-        //String selectQuery = "SELECT  * FROM " + DbContract.AppointmentEntry.TABLE_NAME + " WHERE "
-        //                + DbContract.AppointmentEntry.COLUMN_NAME_PATIENT_ID + " = " + id;
-
-        //Cursor appointmentCursor = DbDAO.database.query(selectQuery);
-
-        //AppointmentCursorAdapter appointmentAdapter = new AppointmentCursorAdapter(this, appointmentCursor,0);
-        // Attach cursor adapter to the ListView
-        //lvItems.setAdapter(appointmentAdapter);
+        apptList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView <?> parent, View view, int position, long id) {
+                AppointmentDummy app = (AppointmentDummy) parent.getAdapter().getItem(position);
+                //Toast.makeText(getApplicationContext(), app.toString(), Toast.LENGTH_SHORT).show();
+                Intent in = new Intent(getActivity().getApplicationContext(), ViewAppointmentActivity.class);
+                in.putExtra("appObj", app);
+                startActivity(in);
+                /*Toast.makeText(getApplicationContext(),
+                        "Click ListItem Number " + position, Toast.LENGTH_SHORT)
+                        .show();*/
+            }
+        });
 
         return view;
     }
-
 }
