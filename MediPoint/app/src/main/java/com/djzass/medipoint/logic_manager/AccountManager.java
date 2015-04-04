@@ -180,7 +180,14 @@ public class AccountManager {
         db.update(DbContract.AccountEntry.TABLE_NAME,temp, DbContract.AccountEntry.COLUMN_NAME_USERNAME + "='" + newAccount.getUsername() + "'",null);
     }*/
 
-    public String getLoggedInAccountId(){
+    public String getLoggedInAccountId(Context context){
+        try {
+            accountDAO = new AccountDAO(context);
+            session = new SessionManager(context);
+        }
+        catch(SQLException sqlEx) {
+            sqlEx.getStackTrace();
+        }
         return session.getAccountId(accountDAO);
     }
 

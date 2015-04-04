@@ -1,23 +1,16 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context="com.djzass.medipoint.AppointmentList">
-
-    <Button
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Create Appointment"
-        android:id="@+id/button"
-        android:layout_gravity="center_horizontal|top" />
+    android:layout_marginTop="30dp"
+    tools:context=".MainActivity">
 
     <ListView
-        android:id="@+id/listCustomView"
-        android:layout_width="match_parent"
+        android:id="@+id/customListView"
         android:layout_height="match_parent"
+        android:layout_width="match_parent"
         android:scrollbarStyle="outsideInset"
         >
+
     </ListView>
 
 </LinearLayout>

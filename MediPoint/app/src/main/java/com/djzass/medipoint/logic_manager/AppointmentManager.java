@@ -2,6 +2,7 @@ package com.djzass.medipoint.logic_manager;
 
 import com.djzass.medipoint.Container;
 import com.djzass.medipoint.entity.Appointment;
+import com.djzass.medipoint.entity.Timeframe;
 import com.djzass.medipoint.logic_database.AppointmentDAO;
 
 import java.util.Calendar;
@@ -118,4 +119,22 @@ public class AppointmentManager {
         return ret;
     }
 
+    public String returnStatus(Appointment appointment, Calendar currentTime){
+        Calendar startTime = appointment.getDate();
+        startTime.set(Calendar.HOUR, Timeframe.getHour(appointment.getTimeframe().getStartTime()));
+        startTime.set(Calendar.MINUTE, Timeframe.getMinute(appointment.getTimeframe().getStartTime()));
+
+
+        if (currentTime.compareTo(startTime) < 0) {
+            //current time is before starttime
+            return "Upcoming";
+        } else {
+            //current time is after starttime
+            Calendar endTime = appointment.getDate();
+            endTime.set(Calendar.HOUR, Timeframe.getHour(appointment.getTimeframe().getEndTime()));
+            endTime.set(Calendar.MINUTE, Timeframe.getMinute(appointment.getTimeframe().getEndTime()));
+            if (currentTime.compareTo(endTime) < 0) return "Ongoing";
+            else return "Finished";
+        }
+    }
 }

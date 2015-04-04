@@ -1,120 +1,99 @@
 package com.djzass.medipoint;
 
 
-import android.app.Activity;
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
+import android.content.Intent;
 import android.os.Bundle;
-import android.text.Html;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.TabHost;
-import android.widget.TabWidget;
-import android.widget.TextView;
-import android.content.Intent;
+import android.widget.Toast;
 
 import com.djzass.medipoint.logic_manager.AccountManager;
+import com.google.samples.apps.iosched.ui.widget.SlidingTabLayout;
 
 
-public class MainActivity extends Activity {
+public class MainActivity extends FragmentActivity {
 
     public static boolean SERVICE_TIMER_STARTED = false;
-    public static Container GlobalContainer = new Container();
+   public static Container GlobalContainer = new Container();
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        AccountManager acctMgr = new AccountManager(this);
         //get Patient ID
-        String id = GlobalContainer.GlobalAccountManager.getLoggedInAccountId();
+        //String id = GlobalContainer.GlobalAccountManager.getLoggedInAccountId();
+        Toast.makeText(this,acctMgr.getLoggedInAccountId(this),Toast.LENGTH_SHORT).show();
 
         //start bg timer service
         startService(new Intent(this, TimerService.class));
-        //set up the tab host
-        final TabHost tabhost = (TabHost) findViewById(R.id.tabHost);
-        tabhost.setup();
 
-        //set treatment tab spec
-        TabHost.TabSpec tabspec = tabhost.newTabSpec("Treatment");
-        tabspec.setContent(R.id.TreatmentTabContent);
-        tabspec.setIndicator(Html.fromHtml("Treatment"));
-        //add tab
-        tabhost.addTab(tabspec);
+        // Get the ViewPager and set it's PagerAdapter so that it can display items
+        ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
+        viewPager.setAdapter(new SampleFragmentPagerAdapter(getSupportFragmentManager(), MainActivity.this));
 
-        //set appointment tab spec
-        tabspec = tabhost.newTabSpec("Appointment");
-        tabspec.setContent(R.id.AppointmentTabContent);
-        tabspec.setIndicator("Appointment");
-        //add tab
-        tabhost.addTab(tabspec);
+        // Give the SlidingTabLayout the ViewPager
+        SlidingTabLayout slidingTabLayout = (SlidingTabLayout) findViewById(R.id.sliding_tabs);
 
-        //set history tab spec
-        tabspec = tabhost.newTabSpec("History");
-        tabspec.setContent(R.id.HistoryTabContent);
-        tabspec.setIndicator("History");
-        //add tab
-        tabhost.addTab(tabspec);
-        tabhost.setCurrentTab(1);
+        // Set custom tab layout
+        slidingTabLayout.setCustomTabView(R.layout.custom_tab, 0);
 
-        //set tab color
-        setTabColor(tabhost);
-        tabhost.setOnTabChangedListener(new TabHost.OnTabChangeListener() {
+        // Center the tabs in the layout
+        slidingTabLayout.setDistributeEvenly(true);
 
+        // Customize tab color
+        slidingTabLayout.setCustomTabColorizer(new SlidingTabLayout.TabColorizer() {
             @Override
-            public void onTabChanged(String arg0) {
-                setTabColor(tabhost);
+            public int getIndicatorColor(int position) {
+                return getResources().getColor(R.color.theme_bg);
             }
         });
+        slidingTabLayout.setViewPager(viewPager);
 
-        //style the indicator color
-        TabWidget tabwidget = tabhost.getTabWidget();
-
-        for(int i=0; i < tabwidget.getChildCount(); i++){
-            TextView tv = (TextView) tabwidget.getChildAt(i).findViewById(android.R.id.title);
-            tv.setTextColor(this.getResources().getColorStateList(R.color.theme_bg));
-        }
-
-        //set up fragment manager
-        FragmentManager fragManager = getFragmentManager();
-        AppointmentListFragment appointmentFrag;
-        MedicalHistoryFragment historyFrag;
-
-        //prevent the fragment from being duplicated
-        if (fragManager.findFragmentById(R.id.AppointmentTabContent) == null) {
-            appointmentFrag = new AppointmentListFragment();
-
-            //begin transaction
-            FragmentTransaction fragTransaction = fragManager.beginTransaction();
-
-            //add fragment to tab
-            fragTransaction.add(R.id.AppointmentTabContent, appointmentFrag, "Appointment List Fragment");
-            fragTransaction.commit();
-
-        }
-        else {
-            appointmentFrag = (AppointmentListFragment) fragManager.findFragmentById(R.id.AppointmentTabContent);
-        }
-
-        if (fragManager.findFragmentById(R.id.HistoryTabContent) == null) {
-            historyFrag = new MedicalHistoryFragment();
-
-            //begin transaction
-            FragmentTransaction fragTransaction = fragManager.beginTransaction();
-
-            //add fragment to tab
-            fragTransaction.add(R.id.HistoryTabContent, historyFrag, "Medical History Fragment");
-            fragTransaction.commit();
-
-        }
-        else {
-            historyFrag = (MedicalHistoryFragment) fragManager.findFragmentById(R.id.HistoryTabContent);
-        }
 
     }
 
+    public class SampleFragmentPagerAdapter extends FragmentPagerAdapter {
+        final int PAGE_COUNT = 2;
+        //final int PAGE_COUNT = 3;
+        //private String tabTitles[] = new String[] { "Appointment", "Tab2", "Tab3" };
+        private String tabTitles[] = new String[]{"Appointment", "Medical History"};
 
+        public SampleFragmentPagerAdapter(android.support.v4.app.FragmentManager fm, MainActivity mainActivity) {
+            super(fm);
+        }
+
+        @Override
+        public int getCount() {
+            return PAGE_COUNT;
+        }
+
+        @Override
+        public Fragment getItem(int position) {
+            switch (position) {
+                case 0: // Fragment # 0 - This will show FirstFragment
+                    return AppointmentListFragment.newInstance();
+                case 1: // Fragment # 0 - This will show FirstFragment different title
+                    return MedicalHistoryFragment.newInstance();
+                /*case 2: // Fragment # 1 - This will show SecondFragment
+                    return SecondFragment.newInstance(2, "Page # 3");*/
+                default:
+                    return null;
+            }
+        }
+
+        @Override
+        public CharSequence getPageTitle(int position) {
+            // Generate title based on item position
+            return tabTitles[position];
+        }
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -136,32 +115,14 @@ public class MainActivity extends Activity {
         }
 
         //logout menu item selected
-        else if(id==R.id.action_logout){
-            Container.GlobalAccountManager.logout();
-            //acctMgr.logout();
-            finish();
-            Intent intent = new Intent(this,Login.class);
+        else if (id == R.id.action_logout) {
+            AccountManager acctMgr = new AccountManager(this);
+            acctMgr.logout();
+            Intent intent = new Intent(this, Login.class);
             startActivity(intent);
             return true;
         }
 
         return super.onOptionsItemSelected(item);
-    }
-
-    //method for tab background color
-    public static void setTabColor(TabHost tabhost) {
-
-        TabWidget tabwidget = tabhost.getTabWidget();
-
-        // unselected
-        for (int i = 0; i < tabwidget.getChildCount(); i++) {
-            tabwidget.getChildAt(i)
-                    .setBackgroundResource(R.drawable.tabunselected);
-        }
-
-        //selected
-        tabwidget.getChildAt(tabhost.getCurrentTab())
-                .setBackgroundResource(R.drawable.tabselected);
-
     }
 }

@@ -60,7 +60,7 @@ public class TimerService extends IntentService {
         @Override
         public void handleMessage(Message msg)
         {
-            Toast.makeText(getApplicationContext(), "test", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(getApplicationContext(), "test", Toast.LENGTH_SHORT).show();
         }
     };
 }

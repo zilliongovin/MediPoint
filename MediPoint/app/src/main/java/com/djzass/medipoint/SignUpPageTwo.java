@@ -74,6 +74,7 @@ public class SignUpPageTwo extends Activity {
         setContentView(R.layout.activity_sign_up2);
     }*/
 
+
     public void goToPage3(String gender,String maritalStatus,String citizenship,String countryOfResidence,long dob,int isEmailChecked, int isSmsChecked){
         Intent PageTwoToThree = new Intent(this,SignUpPageThree.class);
         Bundle pageTwo = new Bundle();

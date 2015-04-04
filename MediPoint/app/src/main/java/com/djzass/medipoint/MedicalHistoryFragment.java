@@ -1,6 +1,6 @@
 package com.djzass.medipoint;
 
-import android.app.Fragment;
+import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +10,12 @@ import android.view.ViewGroup;
  * Created by Zillion Govin on 1/4/2015.
  */
 public class MedicalHistoryFragment extends Fragment {
+
+
+    public static MedicalHistoryFragment newInstance() {
+        MedicalHistoryFragment fragment = new MedicalHistoryFragment();
+        return fragment;
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState){
