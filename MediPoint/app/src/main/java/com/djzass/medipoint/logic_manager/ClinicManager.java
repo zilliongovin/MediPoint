@@ -1,5 +1,7 @@
 package com.djzass.medipoint.logic_manager;
 
+import android.content.Context;
+
 import com.djzass.medipoint.entity.Clinic;
 import com.djzass.medipoint.logic_database.ClinicDAO;
 
@@ -13,7 +15,8 @@ public class ClinicManager {
     ArrayList<Clinic> clinics;
     private ClinicDAO clinicDao;
 
-    public ClinicManager() throws SQLException {
+    public ClinicManager(Context context) throws SQLException {
+        clinicDao = new ClinicDAO(context);
         clinics = new ArrayList<Clinic>();
 
     }

@@ -56,6 +56,9 @@ public class MainActivity extends FragmentActivity {
         });
         slidingTabLayout.setViewPager(viewPager);
 
+        // Calling Application class (see application tag in AndroidManifest.xml)
+        //final Container globalVar = (Container) getApplicationContext();
+
 
     }
 
@@ -125,4 +128,6 @@ public class MainActivity extends FragmentActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+
 }

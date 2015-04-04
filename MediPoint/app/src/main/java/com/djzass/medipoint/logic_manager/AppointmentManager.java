@@ -1,8 +1,12 @@
 package com.djzass.medipoint.logic_manager;
 
+import android.content.Context;
+
 import com.djzass.medipoint.Container;
+import com.djzass.medipoint.SessionManager;
 import com.djzass.medipoint.entity.Appointment;
 import com.djzass.medipoint.entity.Timeframe;
+import com.djzass.medipoint.logic_database.AccountDAO;
 import com.djzass.medipoint.logic_database.AppointmentDAO;
 
 import java.util.Calendar;
@@ -13,15 +17,18 @@ import java.util.List;
 
 public class AppointmentManager {
     private AppointmentDAO appointmentDao;
+    List<Appointment> appointments;
 
-    public AppointmentManager() throws SQLException {
-
+    public AppointmentManager(Context context) throws SQLException {
+        appointmentDao = new AppointmentDAO(context);
+        appointments = appointmentDao.getAllAppointments();
     }
 
     public List<Boolean> getAvailableTime(Calendar date, int patient, int doctor){
         //returns array of boolean denoting whether or not each timeframe is free
         List<Boolean> ret = new ArrayList<Boolean>();
-        List<Appointment> appointments = Container.GlobalAppointmentDAO.getAllAppointments();
+        //List<Appointment> appointments = appointmentDao.getAllAppointments();
+//        List<Appointment> appointments = Container.GlobalAppointmentDAO.getAllAppointments();
         for (int i=0; i<48; ++i){
             ret.add(true);
         }
@@ -57,7 +64,7 @@ public class AppointmentManager {
     public List<Appointment> getPatientFutureAppointmentList(int patient, Calendar currentTime){
         List<Appointment> ret = new ArrayList<Appointment>();
 
-        List<Appointment> appointments = Container.GlobalAppointmentDAO.getAllAppointments();
+        //List<Appointment> appointments = Container.GlobalAppointmentDAO.getAllAppointments();
         for (Appointment temp : appointments) {
             if (temp.getPatientId() == patient) {
                 if (currentTime.compareTo(temp.getDate()) < 0) ret.add(temp);
@@ -70,7 +77,7 @@ public class AppointmentManager {
     public List<Appointment> getPatientPastAppointmentList(int patient, Calendar currentTime){
         List<Appointment> ret = new ArrayList<Appointment>();
 
-        List<Appointment> appointments = Container.GlobalAppointmentDAO.getAllAppointments();
+//        List<Appointment> appointments = Container.GlobalAppointmentDAO.getAllAppointments();
         for (Appointment temp : appointments) {
             if (temp.getPatientId() == patient) {
                 if (currentTime.compareTo(temp.getDate()) >= 0) ret.add(temp);
@@ -96,7 +103,7 @@ public class AppointmentManager {
     public List<Appointment> getDoctorFutureAppointmentList(int doctor, Calendar currentTime){
         List<Appointment> ret = new ArrayList<Appointment>();
 
-        List<Appointment> appointments = Container.GlobalAppointmentDAO.getAllAppointments();
+  //      List<Appointment> appointments = Container.GlobalAppointmentDAO.getAllAppointments();
         for (Appointment temp : appointments) {
             if (temp.getDoctorId() == doctor) {
                 if (currentTime.compareTo(temp.getDate()) < 0) ret.add(temp);
@@ -109,7 +116,7 @@ public class AppointmentManager {
     public List<Appointment> getDoctorPastAppointmentList(int doctor, Calendar currentTime){
         List<Appointment> ret = new ArrayList<Appointment>();
 
-        List<Appointment> appointments = Container.GlobalAppointmentDAO.getAllAppointments();
+       // List<Appointment> appointments = Container.GlobalAppointmentDAO.getAllAppointments();
         for (Appointment temp : appointments) {
             if (temp.getDoctorId() == doctor) {
                 if (currentTime.compareTo(temp.getDate()) >= 0) ret.add(temp);

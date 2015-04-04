@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListView;
 
 import java.util.ArrayList;
@@ -82,6 +83,22 @@ public class AppointmentListFragment extends Fragment {
             }
         });
 
+        Button newPage = (Button)view.findViewById(R.id.createAppointment);
+        newPage.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), CreateAppointmentActivity.class);
+                startActivity(intent);
+            }
+        });
+
         return view;
+    }
+
+    public void goToCreateAppointment(View view)
+    {
+        Intent intent = new Intent(getActivity(), CreateAppointmentActivity.class);
+        startActivity(intent);
     }
 }

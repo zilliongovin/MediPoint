@@ -21,9 +21,12 @@ import com.djzass.medipoint.entity.Doctor;
 import com.djzass.medipoint.entity.Service;
 import com.djzass.medipoint.entity.Specialty;
 import com.djzass.medipoint.logic_database.ClinicDAO;
+import com.djzass.medipoint.logic_database.DoctorDAO;
 import com.djzass.medipoint.logic_database.ServiceDAO;
+import com.djzass.medipoint.logic_database.SpecialtyDAO;
 import com.djzass.medipoint.logic_manager.AccountManager;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,25 +39,34 @@ public class CreateAppointmentActivity extends Activity implements AdapterView.O
     Button confirmButton;
     Spinner doctorSpinner_create;
     Spinner clinicSpinner_create;
+    SpecialtyDAO specialtyDAO;
+    List<Specialty> specialities;
+    //List<Specialty> specialities = ((Container)getApplicationContext()).getGlobalSpecialtyDAO().getAllSpecialties();
 
-    List<Specialty> specialities = Container.GlobalSpecialtyDAO.getAllSpecialties();
+    //List<Specialty> specialities = Container.GlobalSpecialtyDAO.getAllSpecialties();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_appointment);
 
         //specialty spinner and array adapter
-
-        specialtySpinner_create = (Spinner) findViewById(R.id.CreateApptSpecialty);
-        List<String> specialtyNames = new ArrayList<String>();
-        for(Specialty s: specialities){
-            specialtyNames.add(s.getName());
+        try {
+            specialtyDAO = new SpecialtyDAO(this);
+            specialities = specialtyDAO.getAllSpecialties();
+            specialtySpinner_create = (Spinner) findViewById(R.id.CreateApptSpecialty);
+            List<String> specialtyNames = new ArrayList<String>();
+            for(Specialty s: specialities){
+                specialtyNames.add(s.getName());
+            }
+            ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_dropdown_item,specialtyNames);
+            dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            dataAdapter.notifyDataSetChanged();
+            specialtySpinner_create.setAdapter(dataAdapter);
+            specialtySpinner_create.setOnItemSelectedListener(this);
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
-        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_dropdown_item,specialtyNames);
-        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        dataAdapter.notifyDataSetChanged();
-        specialtySpinner_create.setAdapter(dataAdapter);
-        specialtySpinner_create.setOnItemSelectedListener(this);
+
 
         //country spinner and array adapter
         countrySpinner_create = (Spinner) findViewById(R.id.CreateApptCountries);
@@ -115,7 +127,10 @@ public class CreateAppointmentActivity extends Activity implements AdapterView.O
 
         //logout menu item selected
         else if(id==R.id.action_logout){
-            Container.GlobalAccountManager.logout();
+            //((Container)getApplicationContext()).getGlobalAccountManager().logout();
+            AccountManager am = new AccountManager(this);
+            am.logout();
+            //Container.GlobalAccountManager.logout();
             Intent intent = new Intent(this,Login.class);
             startActivity(intent);
             return true;
@@ -129,45 +144,61 @@ public class CreateAppointmentActivity extends Activity implements AdapterView.O
         switch(parent.getId()) {
             case R.id.CreateApptSpecialty:
                 String speciality = String.valueOf(specialtySpinner_create.getSelectedItem());
-                int selection = 0;
-                for (Specialty s : specialities) {
-                    if (speciality.equals(s.getName())) {
-                        selection = s.getId();
+                try {
+                    int selection = 0;
+                    for (Specialty s : specialities) {
+                        if (speciality.equals(s.getName())) {
+                            selection = s.getId();
+                        }
                     }
-                }
+                    //List<Service> services = ((Container)getApplicationContext()).getGlobalServiceDAO().getServicesBySpecialtyID(selection);
+                    //List<Service> services = Container.GlobalServiceDAO.getServicesBySpecialtyID(selection);
+                    ServiceDAO serviceDAO = new ServiceDAO(this);
+                    List<Service> services = serviceDAO.getServicesBySpecialtyID(selection);
+                    List<String> serviceNames = new ArrayList<String>();
+                    for (Service s : services) {
+                        serviceNames.add(s.getName());
+                    }
+                    ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, serviceNames);
+                    dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                    dataAdapter.notifyDataSetChanged();
+                    serviceSpinner_create.setAdapter(dataAdapter);
 
-                List<Service> services = Container.GlobalServiceDAO.getServicesBySpecialtyID(selection);
-                List<String> serviceNames = new ArrayList<String>();
-                for (Service s : services) {
-                    serviceNames.add(s.getName());
+                    DoctorDAO doctorDAO = new DoctorDAO(this);
+                    List<Doctor> doctors = doctorDAO.getDoctorBySpecialization(selection);
+                    //List<Doctor> doctors = ((Container)getApplicationContext()).getGlobalDoctorDAO().getDoctorBySpecialization(selection);
+                    //List<Doctor> doctors = Container.GlobalDoctorDAO.getDoctorBySpecialization(selection);
+                    List<String> doctorNames = new ArrayList<String>();
+                    for (Doctor d : doctors) {
+                        doctorNames.add(d.getName());
+                    }
+                    ArrayAdapter<String> doctorDataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, doctorNames);
+                    doctorDataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                    doctorDataAdapter.notifyDataSetChanged();
+                    doctorSpinner_create.setAdapter(doctorDataAdapter);
+                } catch (SQLException e) {
+                    e.printStackTrace();
                 }
-                ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, serviceNames);
-                dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                dataAdapter.notifyDataSetChanged();
-                serviceSpinner_create.setAdapter(dataAdapter);
-
-                List<Doctor> doctors = Container.GlobalDoctorDAO.getDoctorBySpecialization(selection);
-                List<String> doctorNames = new ArrayList<String>();
-                for (Doctor d : doctors) {
-                    doctorNames.add(d.getName());
-                }
-                ArrayAdapter<String> doctorDataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, doctorNames);
-                doctorDataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                doctorDataAdapter.notifyDataSetChanged();
-                doctorSpinner_create.setAdapter(doctorDataAdapter);
                 break;
 
             case R.id.CreateApptCountries:
                 String country = (String) parent.getAdapter().getItem(position);
-                List<Clinic> clinics = Container.GlobalClinicDAO.getClinicsByCountry(country);
-                List<String> clinicNames = new ArrayList<String>();
-                for (Clinic c : clinics) {
-                    clinicNames.add(c.getName());
+                try {
+                    ClinicDAO clinicDAO = new ClinicDAO(this);
+                    List<Clinic> clinics = clinicDAO.getClinicsByCountry(country);
+                    //List<Clinic> clinics = ((Container)getApplicationContext()).getGlobalDoctorDAO().getDoctorBySpecialization(selection);
+                    //List<Clinic> clinics = Container.GlobalClinicDAO.getClinicsByCountry(country);
+                    List<String> clinicNames = new ArrayList<String>();
+                    for (Clinic c : clinics) {
+                        clinicNames.add(c.getName());
+                    }
+                    ArrayAdapter<String> clinicDataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, clinicNames);
+                    clinicDataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                    clinicDataAdapter.notifyDataSetChanged();
+                    clinicSpinner_create.setAdapter(clinicDataAdapter);
+                } catch (SQLException e) {
+                    e.printStackTrace();
                 }
-                ArrayAdapter<String> clinicDataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, clinicNames);
-                clinicDataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                clinicDataAdapter.notifyDataSetChanged();
-                clinicSpinner_create.setAdapter(clinicDataAdapter);
                 break;
 
             default:
