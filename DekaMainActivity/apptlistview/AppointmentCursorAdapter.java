@@ -20,7 +20,7 @@ import java.util.Calendar;
  * Created by Deka on 2/4/2015.
  */
 public class AppointmentCursorAdapter extends CursorAdapter {
-    private LayoutInflater mInflater;
+   /* private LayoutInflater mInflater;
     DbDAO dbHandler;
     private Context context;
     private static class ViewHolder {
@@ -88,7 +88,7 @@ public class AppointmentCursorAdapter extends CursorAdapter {
         String selectQuery = "SELECT  * FROM " + DbContract.SpecialtyEntry.TABLE_NAME + " WHERE "
                 + DbContract.SpecialtyEntry.COLUMN_NAME_SPECIALTY_ID + " = " + id;
 
-        Cursor itemCursor = dbHandler.database.rawQuery(selectQuery, null);
+        //Cursor itemCursor = dbHandler.database.rawQuery(selectQuery, null);
         /*
         if (s.getName().equalsIgnoreCase("ENT")){
             return //id of ENT;
@@ -109,7 +109,7 @@ public class AppointmentCursorAdapter extends CursorAdapter {
         String selectQuery = "SELECT  * FROM " + DbContract.ServiceEntry.TABLE_NAME + " WHERE "
                 + DbContract.ServiceEntry.COLUMN_NAME_SERVICE_ID + " = " + id;
 
-        Cursor c = dbHandler.database.rawQuery(selectQuery, null);
+        //Cursor c = dbHandler.database.rawQuery(selectQuery, null);
 
         return c.getString(c.getColumnIndex(DbContract.ServiceEntry.COLUMN_NAME_SERVICE_NAME));
     }
@@ -135,5 +135,5 @@ public class AppointmentCursorAdapter extends CursorAdapter {
     public String getAppointmentTime(Timeframe timeFrame){
         return timeFrame.toString();
     }
-
+*/
 }
