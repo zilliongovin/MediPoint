@@ -49,4 +49,13 @@ public class Timeframe {
     public String getTimeLine(){
         return getStartTimeString() + " - " + getEndTimeString();
     }
+
+    public static int getHour(int time) {
+        return time/2;
+    }
+
+    public static int getMinute(int time) {
+        return 30*(time%2);
+    }
+
 }
