@@ -23,6 +23,8 @@ public class DbContract {
         public static final String COLUMN_NAME_COUNTRY_OF_RESIDENCE = "countryOfResidence";
         public static final String COLUMN_NAME_USERNAME = "username";
         public static final String COLUMN_NAME_PASSWORD = "password";
+        public static final String COLUMN_NAME_NOTIFY_SMS = "notifySms";
+        public static final String COLUMN_NAME_NOTIFY_EMAIL = "notifyEmail";
 
     }
 

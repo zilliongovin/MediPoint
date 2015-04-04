@@ -18,6 +18,8 @@ public class Account {
 	private Calendar dob;
 	private String citizenship;
 	private String countryOfResidence;
+    private int notifyEmail;
+    private int notifySMS;
 
     public Account(){
 
@@ -26,7 +28,7 @@ public class Account {
     public Account(String username, String password, String name, String nric,
                    String email, String phoneNumber, String gender, String address,
                    String maritalStatus, Calendar dob, String citizenship,
-                   String countryOfResidence) {
+                   String countryOfResidence, int notifyEmail, int notifySMS) {
         this.username = username;
         this.password = password;
         this.name = name;
@@ -39,12 +41,14 @@ public class Account {
         this.dob = dob;
         this.citizenship = citizenship;
         this.countryOfResidence = countryOfResidence;
+        this.notifyEmail = notifyEmail;
+        this.notifySMS = notifySMS;
     }
 
     public Account(int id, String username, String password, String name, String nric,
                    String email, String phoneNumber, String gender, String address,
                    String maritalStatus, Calendar dob, String citizenship,
-                   String countryOfResidence) {
+                   String countryOfResidence, int notifyEmail, int notifySMS) {
         this.id = id;
         this.username = username;
         this.password = password;
@@ -58,9 +62,11 @@ public class Account {
         this.dob = dob;
         this.citizenship = citizenship;
         this.countryOfResidence = countryOfResidence;
+        this.notifySMS = notifySMS;
+        this.notifyEmail = notifyEmail;
     }
 
-    public Account(String name, String nric, String email, String phoneNumber, String address) {
+    /*public Account(String name, String nric, String email, String phoneNumber, String address) {
 
         this.name = name;
         this.nric = nric;
@@ -68,7 +74,7 @@ public class Account {
         this.phoneNumber = phoneNumber;
         this.address = address;
 
-    }
+    }*/
 
     public String print(){
         String temp = "";
@@ -85,6 +91,8 @@ public class Account {
         temp+= String.valueOf(dob) + " ";
         temp+= citizenship + " ";
         temp+= countryOfResidence + " ";
+        temp+= notifyEmail + " ";
+        temp+= notifySMS + " ";
         return temp;
     }
 
@@ -193,4 +201,19 @@ public class Account {
         this.id = id;
     }
 
+    public int getNotifyEmail() {
+        return notifyEmail;
+    }
+
+    public void setNotifyEmail(int notifyEmail) {
+        this.notifyEmail = notifyEmail;
+    }
+
+    public int getNotifySMS() {
+        return notifySMS;
+    }
+
+    public void setNotifySMS(int notifySMS) {
+        this.notifySMS = notifySMS;
+    }
 }

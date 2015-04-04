@@ -49,6 +49,7 @@ public class AppointmentDAO extends DbDAO{
         values.put(DbContract.AppointmentEntry.COLUMN_NAME_START_TIME, appointment.getTimeframe().getStartTime());
         values.put(DbContract.AppointmentEntry.COLUMN_NAME_END_TIME, appointment.getTimeframe().getEndTime());
 
+
         return database.insert(DbContract.AppointmentEntry.TABLE_NAME, null, values);
     }
 

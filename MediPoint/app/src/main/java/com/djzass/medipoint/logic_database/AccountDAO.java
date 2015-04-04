@@ -70,6 +70,8 @@ public class AccountDAO extends DbDAO{
         values.put(DbContract.AccountEntry.COLUMN_NAME_COUNTRY_OF_RESIDENCE, account.getCountryOfResidence());
         values.put(DbContract.AccountEntry.COLUMN_NAME_USERNAME, account.getUsername());
         values.put(DbContract.AccountEntry.COLUMN_NAME_PASSWORD, account.getPassword());
+        values.put(DbContract.AccountEntry.COLUMN_NAME_NOTIFY_EMAIL, account.getNotifyEmail());
+        values.put(DbContract.AccountEntry.COLUMN_NAME_NOTIFY_SMS, account.getNotifySMS());
 
         database.insert(DbContract.AccountEntry.TABLE_NAME, null, values);
         return id;
@@ -95,7 +97,9 @@ public class AccountDAO extends DbDAO{
                              DbContract.AccountEntry.COLUMN_NAME_CITIZENSHIP,
                              DbContract.AccountEntry.COLUMN_NAME_COUNTRY_OF_RESIDENCE,
                              DbContract.AccountEntry.COLUMN_NAME_USERNAME,
-                             DbContract.AccountEntry.COLUMN_NAME_PASSWORD
+                             DbContract.AccountEntry.COLUMN_NAME_PASSWORD,
+                             DbContract.AccountEntry.COLUMN_NAME_NOTIFY_EMAIL,
+                             DbContract.AccountEntry.COLUMN_NAME_NOTIFY_SMS
                 }, whereclause, null, null, null,
                 null);
 
@@ -124,6 +128,8 @@ public class AccountDAO extends DbDAO{
             account.setCountryOfResidence(cursor.getString(10));
             account.setUsername(cursor.getString(11));
             account.setPassword(cursor.getString(12));
+            account.setNotifyEmail(cursor.getInt(13));
+            account.setNotifySMS(cursor.getInt(14));
             accounts.add(account);
         }
 
@@ -176,6 +182,8 @@ public class AccountDAO extends DbDAO{
         values.put(DbContract.AccountEntry.COLUMN_NAME_COUNTRY_OF_RESIDENCE, account.getCountryOfResidence());
         values.put(DbContract.AccountEntry.COLUMN_NAME_USERNAME, account.getUsername());
         values.put(DbContract.AccountEntry.COLUMN_NAME_PASSWORD, account.getPassword());
+        values.put(DbContract.AccountEntry.COLUMN_NAME_NOTIFY_EMAIL, account.getNotifyEmail());
+        values.put(DbContract.AccountEntry.COLUMN_NAME_NOTIFY_SMS, account.getNotifySMS());
 
         long result = database.update(DbContract.AccountEntry.TABLE_NAME, values,
                 WHERE_ID_EQUALS,

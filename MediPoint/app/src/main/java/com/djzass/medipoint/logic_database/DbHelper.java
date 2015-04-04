@@ -43,7 +43,9 @@ public class DbHelper extends SQLiteOpenHelper {
                     DbContract.AccountEntry.COLUMN_NAME_CITIZENSHIP + VARCHAR_THIRTY_TYPE + COMMA_SEP +
                     DbContract.AccountEntry.COLUMN_NAME_COUNTRY_OF_RESIDENCE + VARCHAR_THIRTY_TYPE + COMMA_SEP +
                     DbContract.AccountEntry.COLUMN_NAME_USERNAME + VARCHAR_THIRTY_TYPE + COMMA_SEP +
-                    DbContract.AccountEntry.COLUMN_NAME_PASSWORD + VARCHAR_THIRTY_TYPE +
+                    DbContract.AccountEntry.COLUMN_NAME_PASSWORD + VARCHAR_THIRTY_TYPE + COMMA_SEP +
+                    DbContract.AccountEntry.COLUMN_NAME_NOTIFY_EMAIL + INT_TYPE + COMMA_SEP +
+                    DbContract.AccountEntry.COLUMN_NAME_NOTIFY_SMS + INT_TYPE +
                     " );";
 
     // If you change the database schema, you must increment the database version.
