@@ -31,12 +31,12 @@ public class DbHelper extends SQLiteOpenHelper {
     /* ACCOUNT TABLE*/
     private static final String SQL_CREATE_ACCOUNT =
             "CREATE TABLE " + DbContract.AccountEntry.TABLE_NAME + " (" +
-                    DbContract.AccountEntry.COLUMN_NAME_ACCOUNT_ID + INT_KEY_TYPE + COMMA_SEP +
+                    DbContract.AccountEntry.COLUMN_NAME_ACCOUNT_ID + INT_KEY_TYPE + PRIMARY_KEY + COMMA_SEP +
                     DbContract.AccountEntry.COLUMN_NAME_NAME + VARCHAR_FIFTY_TYPE + COMMA_SEP +
                     DbContract.AccountEntry.COLUMN_NAME_NRIC + CHAR_TEN_TYPE + COMMA_SEP +
                     DbContract.AccountEntry.COLUMN_NAME_EMAIL + VARCHAR_THIRTY_TYPE + COMMA_SEP +
                     DbContract.AccountEntry.COLUMN_NAME_CONTACTNO + VARCHAR_TEN_TYPE + COMMA_SEP +
-                    DbContract.AccountEntry.COLUMN_NAME_ADDRESS + VARCHAR_TEN_TYPE + COMMA_SEP +
+                    DbContract.AccountEntry.COLUMN_NAME_ADDRESS + VARCHAR_FIFTY_TYPE + COMMA_SEP +
                     DbContract.AccountEntry.COLUMN_NAME_DOB + DATETIME_TYPE + COMMA_SEP +
                     DbContract.AccountEntry.COLUMN_NAME_GENDER + " CHAR(1)" + COMMA_SEP +
                     DbContract.AccountEntry.COLUMN_NAME_MARITAL_STATUS + VARCHAR_TEN_TYPE + COMMA_SEP +
@@ -98,13 +98,14 @@ public class DbHelper extends SQLiteOpenHelper {
 
     /* APPOINTMENT TABLE */
     private static final String SQL_CREATE_APPOINTMENT = "CREATE TABLE " + DbContract.AppointmentEntry.TABLE_NAME + " (" +
-            DbContract.AppointmentEntry.COLUMN_NAME_APPOINTMENT_ID + INT_KEY_TYPE + COMMA_SEP +
+            DbContract.AppointmentEntry.COLUMN_NAME_APPOINTMENT_ID + INT_KEY_TYPE + PRIMARY_KEY + COMMA_SEP +
             DbContract.AppointmentEntry.COLUMN_NAME_CLINIC_ID + INT_TYPE + COMMA_SEP +
             DbContract.AppointmentEntry.COLUMN_NAME_PATIENT_ID + CHAR_EIGHT_TYPE + COMMA_SEP +
             DbContract.AppointmentEntry.COLUMN_NAME_DOCTOR_ID + CHAR_EIGHT_TYPE + COMMA_SEP +
             DbContract.AppointmentEntry.COLUMN_NAME_DATE_TIME + DATETIME_TYPE + COMMA_SEP +
             DbContract.AppointmentEntry.COLUMN_NAME_SERVICE_ID + INT_TYPE + COMMA_SEP +
             DbContract.AppointmentEntry.COLUMN_NAME_SPECIALTY_ID + INT_TYPE + COMMA_SEP +
+            DbContract.AppointmentEntry.COLUMN_NAME_PREAPPOINTMENT_ACTIONS + TEXT_TYPE + COMMA_SEP +
             DbContract.AppointmentEntry.COLUMN_NAME_START_TIME + INT_TYPE + COMMA_SEP +
             DbContract.AppointmentEntry.COLUMN_NAME_END_TIME + INT_TYPE + COMMA_SEP +
             FOREIGN_KEY + DbContract.AppointmentEntry.COLUMN_NAME_CLINIC_ID + REFERENCES + DbContract.ClinicEntry.TABLE_NAME +
@@ -133,13 +134,13 @@ public class DbHelper extends SQLiteOpenHelper {
 
     /*DOCTOR SCHEDULE TABLE*/
     private static final String SQL_CREATE_DOCTOR_SCHEDULE = "CREATE TABLE " + DbContract.DoctorScheduleEntry.TABLE_NAME + " (" +
-            DbContract.DoctorScheduleEntry.COLUMN_NAME_DOCTOR_SCHEDULE_ID + INT_KEY_TYPE + COMMA_SEP +
+            DbContract.DoctorScheduleEntry.COLUMN_NAME_DOCTOR_SCHEDULE_ID + INT_KEY_TYPE + PRIMARY_KEY + COMMA_SEP +
             DbContract.DoctorScheduleEntry.COLUMN_NAME_DOCTOR_ID + INT_TYPE + COMMA_SEP +
             DbContract.DoctorScheduleEntry.COLUMN_NAME_CLINIC_ID + INT_TYPE + COMMA_SEP +
             DbContract.DoctorScheduleEntry.COLUMN_NAME_DAY + VARCHAR_TEN_TYPE + COMMA_SEP +
             DbContract.DoctorScheduleEntry.COLUMN_NAME_START_TIME + DATETIME_TYPE + COMMA_SEP +
             DbContract.DoctorScheduleEntry.COLUMN_NAME_END_TIME + DATETIME_TYPE  + COMMA_SEP +
-            FOREIGN_KEY + DbContract.DoctorScheduleEntry.COLUMN_NAME_DOCTOR_SCHEDULE_ID + REFERENCES + DbContract.DoctorEntry.TABLE_NAME +
+            FOREIGN_KEY + DbContract.DoctorScheduleEntry.COLUMN_NAME_DOCTOR_ID + REFERENCES + DbContract.DoctorEntry.TABLE_NAME +
             "(" + DbContract.DoctorEntry.COLUMN_NAME_DOCTOR_ID + ")" + COMMA_SEP +
             FOREIGN_KEY + DbContract.DoctorScheduleEntry.COLUMN_NAME_CLINIC_ID + REFERENCES + DbContract.ClinicEntry.TABLE_NAME +
             "(" + DbContract.ClinicEntry.COLUMN_NAME_CLINIC_ID + ")" + ")";
@@ -149,7 +150,7 @@ public class DbHelper extends SQLiteOpenHelper {
 
     /*CLINIC TABLE*/
     private static final String SQL_CREATE_CLINIC = "CREATE TABLE " + DbContract.ClinicEntry.TABLE_NAME + " (" +
-            DbContract.ClinicEntry.COLUMN_NAME_CLINIC_ID + INT_KEY_TYPE + COMMA_SEP +
+            DbContract.ClinicEntry.COLUMN_NAME_CLINIC_ID + INT_KEY_TYPE + PRIMARY_KEY + COMMA_SEP +
             DbContract.ClinicEntry.COLUMN_NAME_CLINIC_NAME + VARCHAR_THIRTY_TYPE + COMMA_SEP +
             DbContract.ClinicEntry.COLUMN_NAME_ADDRESS + VARCHAR_FIFTY_TYPE + COMMA_SEP +
             DbContract.ClinicEntry.COLUMN_NAME_COUNTRY + INT_TYPE + COMMA_SEP +
@@ -164,7 +165,7 @@ public class DbHelper extends SQLiteOpenHelper {
 
     /*SPECIALTY TABLE*/
     private static final String SQL_CREATE_SPECIALTY = "CREATE TABLE " + DbContract.SpecialtyEntry.TABLE_NAME + " (" +
-            DbContract.SpecialtyEntry.COLUMN_NAME_SPECIALTY_ID + INT_KEY_TYPE + COMMA_SEP +
+            DbContract.SpecialtyEntry.COLUMN_NAME_SPECIALTY_ID + INT_KEY_TYPE + PRIMARY_KEY + COMMA_SEP +
             DbContract.SpecialtyEntry.COLUMN_NAME_SPECIALTY_NAME + VARCHAR_THIRTY_TYPE + " );";
 
     private static final String SQL_DELETE_SPECIALTY =
@@ -185,7 +186,7 @@ public class DbHelper extends SQLiteOpenHelper {
 
     /*PATIENT ENTRY*/
     private static final String SQL_CREATE_PATIENT = "CREATE TABLE " + DbContract.PatientEntry.TABLE_NAME + " (" +
-            DbContract.PatientEntry.COLUMN_NAME_PATIENT_ID + INT_KEY_TYPE + COMMA_SEP +
+            DbContract.PatientEntry.COLUMN_NAME_PATIENT_ID + INT_KEY_TYPE + PRIMARY_KEY + COMMA_SEP +
             DbContract.PatientEntry.COLUMN_NAME_DOB + DATETIME_TYPE + COMMA_SEP +
             DbContract.PatientEntry.COLUMN_NAME_AGE + INT_TYPE + COMMA_SEP +
             DbContract.PatientEntry.COLUMN_NAME_MEDICAL_HISTORY + TEXT_TYPE + COMMA_SEP +
