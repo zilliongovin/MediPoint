@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.RadioButton;
@@ -73,14 +74,16 @@ public class SignUpPageTwo extends Activity {
         setContentView(R.layout.activity_sign_up2);
     }*/
 
-    public void goToPage3(String gender,String maritalStatus,String citizenship,String countryOfResidence,long dob){
-        Intent PageTwoToThree = new Intent(this,SignUpPageTwo.class);
+    public void goToPage3(String gender,String maritalStatus,String citizenship,String countryOfResidence,long dob,int isEmailChecked, int isSmsChecked){
+        Intent PageTwoToThree = new Intent(this,SignUpPageThree.class);
         Bundle pageTwo = new Bundle();
         pageTwo.putString("GENDER",gender);
         pageTwo.putString("MARITAL_STATUS",maritalStatus);
         pageTwo.putString("CITIZENSHIP",citizenship);
         pageTwo.putString("COUNTRY_OF_RESIDENCE",countryOfResidence);
         pageTwo.putLong("DOB", dob);
+        pageTwo.putInt("NOTIFY_EMAIL",isEmailChecked);
+        pageTwo.putInt("NOTIFY_SMS",isSmsChecked);
         PageTwoToThree.putExtra("PAGE_TWO",pageTwo);
         PageTwoToThree.putExtra("PAGE_ONE",getIntent().getBundleExtra("PAGE_ONE"));
         PageTwoToThree.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -116,6 +119,11 @@ public class SignUpPageTwo extends Activity {
         RadioButton selMaritalStatusButton = (RadioButton)findViewById(selMaritalStatus);
         Spinner citizenshipSpinner = (Spinner)findViewById(R.id.CitizenshipSpinner);
         Spinner countryOfResidenceSpinner = (Spinner)findViewById(R.id.CountryOfResidenceSpinner);
+        CheckBox emailCheckbox = (CheckBox) findViewById(R.id.email);
+        CheckBox smsCheckbox = (CheckBox) findViewById(R.id.sms);
+
+        int isEmailChecked = onCheckBoxClicked(emailCheckbox);
+        int isSmsChecked = onCheckBoxClicked(smsCheckbox);
 
         Calendar dobCal = Calendar.getInstance();
         dobCal.set(yearOB, monthOB + 1, dateOB);
@@ -123,7 +131,7 @@ public class SignUpPageTwo extends Activity {
         Calendar currentDate = Calendar.getInstance();
 
 
-        if(selGender==-1||selMaritalStatus==-1)
+        if(selGender==-1||selMaritalStatus==-1||(isEmailChecked==0 && isSmsChecked==0))
             incompleteForm();
 
         else if(dobCal.after(currentDate))
@@ -139,7 +147,7 @@ public class SignUpPageTwo extends Activity {
             String countryOfResidence = countryOfResidenceSpinner.toString();
             long dobLong = dobCal.getTimeInMillis();
             //AccountCreator.savePageTwo(gender,maritalStatus,citizenship,countryOfResidence,dobCal);
-            goToPage3(gender,maritalStatus,citizenship,countryOfResidence,dobLong);
+            goToPage3(gender,maritalStatus,citizenship,countryOfResidence,dobLong,isEmailChecked,isSmsChecked);
         }
     }
 
@@ -198,10 +206,19 @@ public class SignUpPageTwo extends Activity {
         datepicker.show(manager, "Datepicker");
     }
 
+
     public void setDate(DatePicker datepicker){
         dateOB = datepicker.getDayOfMonth();
         monthOB = datepicker.getMonth();
         yearOB = datepicker.getYear();
+    }
+
+    //checkbox listener
+
+    public int onCheckBoxClicked(View view)
+    {
+        boolean checked = ((CheckBox) view).isChecked();
+        return checked ? 1:0;
     }
 
     /*protected void onSaveInstanceState(Bundle outState,View[] views,int n) {
