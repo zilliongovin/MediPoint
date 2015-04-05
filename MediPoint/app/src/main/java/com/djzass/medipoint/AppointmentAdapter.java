@@ -51,7 +51,7 @@ public class AppointmentAdapter extends ArrayAdapter<AppointmentDummy> {
         }
 
         // Populate the data into the template view using the data object
-        viewHolder.specialtyIcon.setImageResource(R.mipmap.ic_launcher);
+        viewHolder.specialtyIcon.setImageResource(getImageId(specialtyName));
         viewHolder.appointmentService.setText(appointment.getName());
         viewHolder.appointmentStatus.setText(appointment.getStatus());
         viewHolder.appointmentDate.setText(appointment.getDateString());
@@ -59,6 +59,16 @@ public class AppointmentAdapter extends ArrayAdapter<AppointmentDummy> {
 
         // Return the completed view to render on screen
         return convertView;
+    }
+
+    private int getImageId(String specialtyName){
+        if (specialtyName.equalsIgnoreCase("ENT"))
+            return R.mipmap.ear;
+        else if (specialtyName.equalsIgnoreCase("Dental"))
+            return R.mipmap.dental;
+        else if (specialtyName.equalsIgnoreCase("Women's Health Services"))
+            return R.mipmap.female;
+        return R.mipmap.icontp_medipoint;
     }
 
 }
