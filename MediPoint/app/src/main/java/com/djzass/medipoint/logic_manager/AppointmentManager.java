@@ -69,6 +69,8 @@ public class AppointmentManager {
                 Timeframe slot = new Timeframe(i, i+duration);
                 availableTimeSlotSTring.add(slot.getTimeLine());
         }
+        if (availableTimeSlotString.getSize()==0)
+            availableTimeSlotString.add(new String("No slot available on this date."));
         return availableTimeSlotString;
     }
 

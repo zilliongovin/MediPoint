@@ -172,10 +172,10 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="20dp">
                     <ImageView
-                        android:id="@+id/action_icon"
+                        android:id="@+id/preapp_icon"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@mipmap/action"
+                        android:src="@mipmap/preapp"
                         android:layout_margin="2dp"
                         />
                     <TextView
