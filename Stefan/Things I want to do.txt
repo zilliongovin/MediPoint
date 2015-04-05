@@ -1,0 +1,8 @@
+
+1. Kirim notifikasi lewat email and/or sms bahwa lo baru aja bikin appointment
+		Di message tambahin detail appointmentnya kayak tanggal berapa, jam berapa, appointment apa, klinik di mana, dll.
+
+2. Di saat yang bersamaan dengan dibuatnya appointment, lo set alarm manager ato apalah namanya biar sehari sebelum appointment, lo dapet sms dan email yang ngingetin kalo lo besok ada appointment jam segini di klinik ini.
+
+3. Di hari yang sama dengan appointment, ada pushbar notification yang bilang:
+	You have an appointment today or something.
