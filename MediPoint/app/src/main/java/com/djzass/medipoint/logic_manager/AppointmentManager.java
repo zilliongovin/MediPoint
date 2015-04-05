@@ -5,9 +5,12 @@ import android.content.Context;
 import com.djzass.medipoint.Container;
 import com.djzass.medipoint.SessionManager;
 import com.djzass.medipoint.entity.Appointment;
+import com.djzass.medipoint.entity.Doctor;
+import com.djzass.medipoint.entity.DoctorSchedule;
 import com.djzass.medipoint.entity.Timeframe;
 import com.djzass.medipoint.logic_database.AccountDAO;
 import com.djzass.medipoint.logic_database.AppointmentDAO;
+import com.djzass.medipoint.logic_database.DoctorScheduleDAO;
 
 import java.util.Calendar;
 import java.util.ArrayList;
@@ -17,6 +20,7 @@ import java.util.List;
 
 public class AppointmentManager {
     private AppointmentDAO appointmentDao;
+    private DoctorScheduleDAO docschedDao;
     List<Appointment> appointments;
 
     public AppointmentManager(Context context) throws SQLException {
@@ -24,14 +28,29 @@ public class AppointmentManager {
         appointments = appointmentDao.getAllAppointments();
     }
 
-    public List<Boolean> getAvailableTime(Calendar date, int patient, int doctor){
+    public List<Boolean> getAvailableTime(Calendar date, int patient, int doctor, int clinic){
         //returns array of boolean denoting whether or not each timeframe is free
+        /*try {
+            appointmentDao = new AppointmentDAO(this);
+            docschedDao = new DoctorScheduleDAO(this);
+        } catch(SQLException sqlExcep){
+            sqlExcep.getStackTrace();
+        }*/
         List<Boolean> ret = new ArrayList<Boolean>();
         //List<Appointment> appointments = appointmentDao.getAllAppointments();
 //        List<Appointment> appointments = Container.GlobalAppointmentDAO.getAllAppointments();
         for (int i=0; i<48; ++i){
-            ret.add(true);
+            ret.add(false);
         }
+
+        List<DoctorSchedule> sched = new ArrayList<DoctorSchedule>(); //DoctorScheduleDAO.getDoctorSchedulesByDoctorClinicID(doctor, clinic)
+
+        for (DoctorSchedule temp : sched){
+            for (int i=temp.getTimeframe().getStartTime(); i<=temp.getTimeframe().getEndTime(); ++i){
+                ret.set(i,true);
+            }
+        }
+
         for (Appointment temp : appointments) {
             if (temp.getDate().compareTo(date)==0 && (temp.getPatientId() == patient || temp.getDoctorId() == doctor)) {
                 for (int i=temp.getTimeframe().getStartTime(); i<=temp.getTimeframe().getEndTime(); ++i){
@@ -43,13 +62,13 @@ public class AppointmentManager {
         return ret;
     }
 
-    public List<Boolean> getTimeTable(Calendar date, int patient, int doctor, int startTime, int endTime, int duration){
+    public List<Boolean> getTimeTable(Calendar date, int patient, int doctor, int clinic, int startTime, int endTime, int duration){
         //returns array of boolean denoting the availability of timeslots
         //starting from Timeframe [starttime] (default = opening time) until [endTime] (closing time, last active time)
         //duration is in terms of 30 mins. 1 hour = 2 duration, 2.5 hours = 5 duration, etc.
 
         List<Boolean> ret = new ArrayList<Boolean>();
-        List<Boolean> availableTime = getAvailableTime(date,patient,doctor);
+        List<Boolean> availableTime = getAvailableTime(date,patient,doctor,clinic);
 
         for (int i = startTime; i + duration <= endTime; ++i){
             Boolean temp = true;
