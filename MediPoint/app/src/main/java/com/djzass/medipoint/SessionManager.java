@@ -64,11 +64,11 @@ public class SessionManager {
         editor.commit();
     }
 
-    public String getAccountId(AccountDAO accountDAO){
+    public int getAccountId(AccountDAO accountDAO){
         String username = pref.getString(KEY_USERNAME,"");
         Cursor cursor = accountDAO.findAccountId(username);
         if(cursor!=null && cursor.moveToFirst())
-            return cursor.getString(0);
-        return null;
+            return cursor.getInt(0);
+        return -1;
     }
 }
