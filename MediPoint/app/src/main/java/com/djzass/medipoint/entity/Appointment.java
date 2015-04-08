@@ -17,9 +17,6 @@ public class Appointment implements Parcelable{
     private int specialtyId;
     private String preAppointmentActions;
     private Timeframe timeframe;
-
-
-
     public Appointment() {}
 
     public Appointment(int patientId, int specialtyId, int clinicId, int doctorId,
@@ -200,5 +197,9 @@ public class Appointment implements Parcelable{
 
         this.timeframe = new Timeframe(in.readInt(),in.readInt());
         this.preAppointmentActions = in.readString();
+    }
+
+    public long getAppointmentTimeLong(){
+        return this.date.getTimeInMillis();
     }
 }

@@ -1,21 +1,19 @@
 package com.djzass.medipoint;
 
 import android.app.Activity;
-import android.app.DialogFragment;
-
 import android.app.FragmentManager;
 import android.content.Intent;
 import android.os.Bundle;
+
 import android.provider.Settings;
 import android.support.v4.app.FragmentActivity;
+
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.DatePicker;
-import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -35,7 +33,8 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-public class CreateAppointmentActivity extends FragmentActivity implements AdapterView.OnItemSelectedListener{
+public class CreateAppointmentActivity extends Activity implements AdapterView.OnItemSelectedListener, SelectionListener{
+
     //appointment atrribute selections
     int clinicId;
     int patientId;
@@ -294,6 +293,10 @@ public class CreateAppointmentActivity extends FragmentActivity implements Adapt
     public void showTimepicker(View v){
         FragmentManager manager = getFragmentManager();
         TimePickerFragment timepicker = new TimePickerFragment();
+        Bundle bundle = new Bundle();
+        bundle.putStringArrayList(TimePickerFragment.DATA, getItems());     // Require ArrayList
+        bundle.putInt(TimePickerFragment.SELECTED, 0);
+        timepicker.setArguments(bundle);
         timepicker.show(manager, "TimePicker");
     }
 
@@ -319,4 +322,22 @@ public class CreateAppointmentActivity extends FragmentActivity implements Adapt
 
     }
 
+    private ArrayList<String> getItems() {
+        ArrayList<String> availableSlots = new ArrayList<String>();
+
+        availableSlots.add("10:00 - 10:30");
+        availableSlots.add("11:00 - 11:30");
+        availableSlots.add("12:00 - 12:30");
+        availableSlots.add("13:00 - 13:30");
+        availableSlots.add("10:00 - 10:30");
+        availableSlots.add("11:00 - 11:30");
+        availableSlots.add("12:00 - 12:30");
+        availableSlots.add("13:00 - 13:30");
+        return availableSlots;
+    }
+
+    @Override
+    public void selectItem(int position) {
+        Toast.makeText(this, getItems().get(position), Toast.LENGTH_SHORT).show();
+    }
 }
