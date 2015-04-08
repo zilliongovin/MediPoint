@@ -206,9 +206,25 @@ public class CreateAppointmentActivity extends Activity implements AdapterView.O
         }
     }
 
+    /*
     public void showDatePickerDialog(View v) {
         DialogFragment date = new DatePickerFragment();
         date.show(getFragmentManager(), "datePicker");
+
+        FragmentManager manager = getFragmentManager();
+        DatePickerFragment datepicker = new DatePickerFragment();
+        datepicker.show(manager, "Datepicker");
+    }
+    */
+
+    public void onDateButtonSelected(View v){
+        int id = v.getId();
+        Bundle bundle = new Bundle();
+        bundle.putInt("VIEW_ID",id);
+        FragmentManager manager = getFragmentManager();
+        DatePickerFragment datepicker = new DatePickerFragment();
+        datepicker.setArguments(bundle);
+        datepicker.show(manager, "Datepicker");
     }
 
     @Override

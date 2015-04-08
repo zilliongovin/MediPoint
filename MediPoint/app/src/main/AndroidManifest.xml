@@ -14,15 +14,13 @@
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name">
+
         </activity>
 
         <activity
             android:name=".Login"
             android:label="@string/app_name">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+
         </activity>
 
         <activity
@@ -46,11 +44,17 @@
 
         <activity
             android:name=".CreateAppointmentActivity"
-            android:label="Create an Appointment" />
+            android:label="Create an Appointment" >
+        <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter>
+        </activity>
 
         <activity
             android:name=".EditAppointmentActivity"
-            android:label="@string/edit_appointment" />
+            android:label="@string/edit_appointment" >
+        </activity>
 
         <activity
             android:name=".ReferralActivity"
