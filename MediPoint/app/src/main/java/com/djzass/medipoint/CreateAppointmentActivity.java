@@ -1,7 +1,6 @@
 package com.djzass.medipoint;
 
 import android.app.Activity;
-import android.app.DialogFragment;
 import android.app.FragmentManager;
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,11 +11,13 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.djzass.medipoint.entity.Clinic;
 import com.djzass.medipoint.entity.Doctor;
 import com.djzass.medipoint.entity.Service;
 import com.djzass.medipoint.entity.Specialty;
+import com.djzass.medipoint.entity.Timeframe;
 import com.djzass.medipoint.logic_database.ClinicDAO;
 import com.djzass.medipoint.logic_database.DoctorDAO;
 import com.djzass.medipoint.logic_database.ServiceDAO;
@@ -25,9 +26,19 @@ import com.djzass.medipoint.logic_manager.AccountManager;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
-public class CreateAppointmentActivity extends Activity implements AdapterView.OnItemSelectedListener{
+public class CreateAppointmentActivity extends Activity implements AdapterView.OnItemSelectedListener, SelectionListener{
+    //appointment atrribute selections
+    int clinicId;
+    int patientId;
+    int doctorId;
+    Calendar date;
+    int serviceId;
+    int specialtyId;
+    String preAppointmentActions;
+    Timeframe timeframe;
 
     //spinner
     Spinner specialtySpinner_create;
@@ -148,6 +159,7 @@ public class CreateAppointmentActivity extends Activity implements AdapterView.O
                             selection = s.getId();
                         }
                     }
+                    specialtyId = selection;
                     //List<Service> services = ((Container)getApplicationContext()).getGlobalServiceDAO().getServicesBySpecialtyID(selection);
                     //List<Service> services = Container.GlobalServiceDAO.getServicesBySpecialtyID(selection);
                     ServiceDAO serviceDAO = new ServiceDAO(this);
@@ -160,6 +172,14 @@ public class CreateAppointmentActivity extends Activity implements AdapterView.O
                     dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                     dataAdapter.notifyDataSetChanged();
                     serviceSpinner_create.setAdapter(dataAdapter);
+                    String service = String.valueOf(serviceSpinner_create.getSelectedItem());
+                    for(Service s : services)
+                    {
+                        if(service.equals(s.getName()))
+                        {
+                            serviceId = s.getId();
+                        }
+                    }
 
                     DoctorDAO doctorDAO = new DoctorDAO(this);
                     List<Doctor> doctors = doctorDAO.getDoctorBySpecialization(selection);
@@ -173,13 +193,21 @@ public class CreateAppointmentActivity extends Activity implements AdapterView.O
                     doctorDataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                     doctorDataAdapter.notifyDataSetChanged();
                     doctorSpinner_create.setAdapter(doctorDataAdapter);
+                    String doctor = String.valueOf(doctorSpinner_create.getSelectedItem());
+                    for(Doctor d : doctors)
+                    {
+                        if(doctor.equals(d.getName()))
+                        {
+                            doctorId = d.getDoctorId();
+                        }
+                    }
                 } catch (SQLException e) {
                     e.printStackTrace();
                 }
                 break;
 
             case R.id.CreateApptCountries:
-                String country = (String) parent.getAdapter().getItem(position);
+                String country = String.valueOf(countrySpinner_create.getSelectedItem());
                 try {
                     ClinicDAO clinicDAO = new ClinicDAO(this);
                     List<Clinic> clinics = clinicDAO.getClinicsByCountry(country);
@@ -189,10 +217,19 @@ public class CreateAppointmentActivity extends Activity implements AdapterView.O
                     for (Clinic c : clinics) {
                         clinicNames.add(c.getName());
                     }
+
                     ArrayAdapter<String> clinicDataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, clinicNames);
                     clinicDataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                     clinicDataAdapter.notifyDataSetChanged();
                     clinicSpinner_create.setAdapter(clinicDataAdapter);
+                    String clinic = String.valueOf(clinicSpinner_create.getSelectedItem());
+                    for(Clinic c : clinics)
+                    {
+                        if(clinic.equals(c.getName()))
+                        {
+                            clinicId = c.getId();
+                        }
+                    }
                 } catch (SQLException e) {
                     e.printStackTrace();
                 }
@@ -203,10 +240,10 @@ public class CreateAppointmentActivity extends Activity implements AdapterView.O
         }
     }
 
-    public void showDatePickerDialog(View v) {
+   /* public void showDatePickerDialog(View v) {
         DialogFragment date = new DatePickerFragment();
         date.show(getFragmentManager(), "datePicker");
-    }
+    }*/
 
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
@@ -251,6 +288,10 @@ public class CreateAppointmentActivity extends Activity implements AdapterView.O
     public void showTimepicker(View v){
         FragmentManager manager = getFragmentManager();
         TimePickerFragment timepicker = new TimePickerFragment();
+        Bundle bundle = new Bundle();
+        bundle.putStringArrayList(TimePickerFragment.DATA, getItems());     // Require ArrayList
+        bundle.putInt(TimePickerFragment.SELECTED, 0);
+        timepicker.setArguments(bundle);
         timepicker.show(manager, "TimePicker");
     }
 
@@ -258,5 +299,30 @@ public class CreateAppointmentActivity extends Activity implements AdapterView.O
         FragmentManager manager = getFragmentManager();
         DatePickerFragment datepicker = new DatePickerFragment();
         datepicker.show(manager, "Datepicker");
+    }
+
+    public void createAppointment()
+    {
+
+
+    }
+
+    private ArrayList<String> getItems() {
+        ArrayList<String> availableSlots = new ArrayList<String>();
+
+        availableSlots.add("10:00 - 10:30");
+        availableSlots.add("11:00 - 11:30");
+        availableSlots.add("12:00 - 12:30");
+        availableSlots.add("13:00 - 13:30");
+        availableSlots.add("10:00 - 10:30");
+        availableSlots.add("11:00 - 11:30");
+        availableSlots.add("12:00 - 12:30");
+        availableSlots.add("13:00 - 13:30");
+        return availableSlots;
+    }
+
+    @Override
+    public void selectItem(int position) {
+        Toast.makeText(this, getItems().get(position), Toast.LENGTH_SHORT).show();
     }
 }

@@ -9,7 +9,6 @@ public class DoctorSchedule {
     private int doctorId;
     private int clinicId;
     private String day;
-
     private Timeframe timeframe;
 
     public DoctorSchedule(){

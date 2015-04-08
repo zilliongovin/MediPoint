@@ -86,7 +86,7 @@ public class ClinicDAO extends DbDAO{
     }
 
     public List<Clinic> getClinicsByCountry(String country) {
-        String whereclause = DbContract.ClinicEntry.COLUMN_NAME_CLINIC_ID + " = " + "\"" +country + "\"";
+        String whereclause = DbContract.ClinicEntry.COLUMN_NAME_COUNTRY + " = " + "\"" +country + "\"";
         return getClinics(whereclause);
     }
     /*

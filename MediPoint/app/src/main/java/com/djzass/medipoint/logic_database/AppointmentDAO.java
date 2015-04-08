@@ -14,7 +14,6 @@ import android.content.Context;
 import android.database.Cursor;
 import android.util.Log;
 
-import com.djzass.medipoint.Container;
 import com.djzass.medipoint.DbContract;
 import com.djzass.medipoint.entity.Timeframe;
 import com.djzass.medipoint.entity.Appointment;
@@ -43,7 +42,7 @@ public class AppointmentDAO extends DbDAO{
         values.put(DbContract.AppointmentEntry.COLUMN_NAME_PATIENT_ID, appointment.getPatientId());
         values.put(DbContract.AppointmentEntry.COLUMN_NAME_DOCTOR_ID, appointment.getDoctorId());
         values.put(DbContract.AppointmentEntry.COLUMN_NAME_DATE_TIME, String.valueOf(appointment.getDate()));
-        values.put(DbContract.AppointmentEntry.COLUMN_NAME_SERVICE_ID, appointment.getService());
+        values.put(DbContract.AppointmentEntry.COLUMN_NAME_SERVICE_ID, appointment.getServiceId());
         values.put(DbContract.AppointmentEntry.COLUMN_NAME_SPECIALTY_ID,appointment.getSpecialtyId());
         values.put(DbContract.AppointmentEntry.COLUMN_NAME_PREAPPOINTMENT_ACTIONS, appointment.getPreAppointmentActions());
         values.put(DbContract.AppointmentEntry.COLUMN_NAME_START_TIME, appointment.getTimeframe().getStartTime());
@@ -89,7 +88,7 @@ public class AppointmentDAO extends DbDAO{
                 Log.d("DAO", "Date parsing exception");
             }
             appointment.setDate(cal);
-            appointment.setService(cursor.getInt(4));
+            appointment.setServiceId(cursor.getInt(4));
             appointment.setSpecialtyId(cursor.getInt(5));
             appointment.setPreAppointmentActions(cursor.getString(6));
             Timeframe timeframe= new Timeframe(cursor.getInt(7),cursor.getInt(8));
@@ -126,7 +125,7 @@ public class AppointmentDAO extends DbDAO{
         values.put(DbContract.AppointmentEntry.COLUMN_NAME_PATIENT_ID, appointment.getPatientId());
         values.put(DbContract.AppointmentEntry.COLUMN_NAME_DOCTOR_ID, appointment.getDoctorId());
         values.put(DbContract.AppointmentEntry.COLUMN_NAME_DATE_TIME, String.valueOf(appointment.getDate()));
-        values.put(DbContract.AppointmentEntry.COLUMN_NAME_SERVICE_ID, appointment.getService());
+        values.put(DbContract.AppointmentEntry.COLUMN_NAME_SERVICE_ID, appointment.getServiceId());
         values.put(DbContract.AppointmentEntry.COLUMN_NAME_SPECIALTY_ID,appointment.getSpecialtyId());
         values.put(DbContract.AppointmentEntry.COLUMN_NAME_PREAPPOINTMENT_ACTIONS, appointment.getPreAppointmentActions());
         values.put(DbContract.AppointmentEntry.COLUMN_NAME_START_TIME, appointment.getTimeframe().getStartTime());

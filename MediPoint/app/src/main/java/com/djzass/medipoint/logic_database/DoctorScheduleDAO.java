@@ -90,6 +90,12 @@ public class DoctorScheduleDAO extends DbDAO{
         String whereclause = DbContract.DoctorScheduleEntry.COLUMN_NAME_CLINIC_ID + " = " + clinicId;
         return getDoctorSchedules(whereclause);
     }
+
+    public List<DoctorSchedule> getDoctorSchedulesByDoctorClinicID(int doctorId, int clinicId) {
+        String whereclause = DbContract.DoctorScheduleEntry.COLUMN_NAME_DOCTOR_ID + " = " + doctorId
+                 + " AND " + DbContract.DoctorScheduleEntry.COLUMN_NAME_CLINIC_ID + " = " + clinicId;
+        return getDoctorSchedules(whereclause);
+    }
     /*
         UPDATE
        returns the number of rows affected by the update

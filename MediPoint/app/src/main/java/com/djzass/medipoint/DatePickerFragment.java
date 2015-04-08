@@ -17,6 +17,7 @@ import java.text.DateFormatSymbols;
 public class DatePickerFragment extends DialogFragment implements View.OnClickListener {
 
     Button set, cancel;
+    Button activityButton;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
 
@@ -27,6 +28,9 @@ public class DatePickerFragment extends DialogFragment implements View.OnClickLi
 
         //set listener when button is clicked
         set.setOnClickListener(this);
+
+        int viewID = getArguments().getInt("VIEW_ID");
+        activityButton = (Button)getActivity().findViewById(viewID);
 
         //set dialog title
         getDialog().setTitle("Select Date");
@@ -93,20 +97,22 @@ public class DatePickerFragment extends DialogFragment implements View.OnClickLi
             DatePicker datepicker = (DatePicker)getView().findViewById(R.id.chooseDate);
 
             //string representation for month
-            String[] month_str = new DateFormatSymbols().getMonths();
+            //String[] month_str = new DateFormatSymbols().getMonths();
 
             //get the selected date for sign up activity
-            SignUpPageTwo signupActivity = (SignUpPageTwo) getActivity();
-            signupActivity.setDate(datepicker);
+            //SignUpPageTwo signupActivity = (SignUpPageTwo) getActivity();
+            //signupActivity.setDate(datepicker);
 
             //get input from datepicker
             int date = datepicker.getDayOfMonth();
             int month = datepicker.getMonth();
             int year = datepicker.getYear();
 
+            onDataPass.FragmentToActivity(date,month,year,activityButton);
+
             //change the button text according to date selected
             //sign up datepicker
-            Button DOB = (Button) getActivity().findViewById(R.id.DateOfBirthDatePicker);
+            /*Button DOB = (Button) getActivity().findViewById(R.id.DateOfBirthDatePicker);
 
             //create and edit appointment datepicker
             Button datefrag = (Button) getActivity().findViewById(R.id.datepicker);
@@ -117,7 +123,7 @@ public class DatePickerFragment extends DialogFragment implements View.OnClickLi
             }
             else if (datefrag != null){
                 datefrag.setText(date + " " + month_str[month] + " " + year);
-            }
+            }*/
 
             //close dialog
             dismiss();
