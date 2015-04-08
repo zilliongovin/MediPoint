@@ -7,6 +7,7 @@ import android.app.FragmentManager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.provider.Settings;
+import android.support.v4.app.FragmentActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -34,7 +35,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-public class CreateAppointmentActivity extends Activity implements AdapterView.OnItemSelectedListener{
+public class CreateAppointmentActivity extends FragmentActivity implements AdapterView.OnItemSelectedListener{
     //appointment atrribute selections
     int clinicId;
     int patientId;
@@ -296,9 +297,19 @@ public class CreateAppointmentActivity extends Activity implements AdapterView.O
         timepicker.show(manager, "TimePicker");
     }
 
-    public void showDatePicker(View v){
+    /*public void showDatePicker(View v){
         FragmentManager manager = getFragmentManager();
         DatePickerFragment datepicker = new DatePickerFragment();
+        datepicker.show(manager, "Datepicker");
+    }*/
+
+    public void onDateButtonSelected(View v){
+        int id = v.getId();
+        Bundle bundle = new Bundle();
+        bundle.putInt("VIEW_ID",id);
+        FragmentManager manager = getFragmentManager();
+        DatePickerFragment datepicker = new DatePickerFragment();
+        datepicker.setArguments(bundle);
         datepicker.show(manager, "Datepicker");
     }
 

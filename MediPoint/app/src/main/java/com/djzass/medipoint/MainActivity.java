@@ -29,7 +29,7 @@ public class MainActivity extends FragmentActivity {
         AccountManager acctMgr = new AccountManager(this);
         //get Patient ID
         //String id = GlobalContainer.GlobalAccountManager.getLoggedInAccountId();
-        Toast.makeText(this,acctMgr.getLoggedInAccountId(this),Toast.LENGTH_SHORT).show();
+        Toast.makeText(this,""+acctMgr.getLoggedInAccountId(this),Toast.LENGTH_SHORT).show();
 
         //start bg timer service
         startService(new Intent(this, TimerService.class));
