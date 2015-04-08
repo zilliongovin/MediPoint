@@ -80,6 +80,20 @@ public class AppointmentManager {
         return ret;
     }
 
+    public List<String> getAvailableTimeSlotString(Calendar date, int patient, int doctor, int clinic, int startTime, int endTime, int duration){
+        ArrayList<String> availableTimeSlot = new ArrayList<String>();
+        List<Boolean> availableTime = getTimeTable(date, patient, doctor, clinic, startTime, endTime, duration);
+
+        for (int i = startTime; i + duration <= endTime; ++i){
+           if (availableTime.get(i)){
+                Timeframe slot = new Timeframe(i, i+duration);
+                availableTimeSlot.add(slot.getTimeLine());
+           }
+        }
+
+        return availableTimeSlot;
+    }
+
     public List<Appointment> getPatientFutureAppointmentList(int patient, Calendar currentTime){
         List<Appointment> ret = new ArrayList<Appointment>();
 

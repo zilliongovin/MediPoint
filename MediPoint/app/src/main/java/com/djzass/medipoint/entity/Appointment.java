@@ -13,7 +13,7 @@ public class Appointment implements Parcelable{
     private int patientId;
     private int doctorId;
     private Calendar date;
-    private int service;
+    private int serviceId;
     private int specialtyId;
     private String preAppointmentActions;
     private Timeframe timeframe;
@@ -43,7 +43,7 @@ public class Appointment implements Parcelable{
         temp+= patientId + " ";
         temp+= doctorId + " ";
         temp+= String.valueOf(date) + " ";
-        temp+= service + " ";
+        temp+= serviceId + " ";
         temp+= specialtyId + " ";
         temp+= preAppointmentActions + " ";
         temp+= timeframe.getStartTime() + "-" + timeframe.getEndTime();
@@ -90,12 +90,12 @@ public class Appointment implements Parcelable{
         this.doctorId = doctorId;
     }
 
-    public int getService() {
-        return service;
+    public int getServiceId() {
+        return serviceId;
     }
 
-    public void setService(int service) {
-        this.service = service;
+    public void setServiceId(int serviceId) {
+        this.serviceId = serviceId;
     }
 
     public Calendar getDate() {
