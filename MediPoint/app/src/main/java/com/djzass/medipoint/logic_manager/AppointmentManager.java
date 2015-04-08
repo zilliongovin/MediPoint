@@ -2,16 +2,13 @@ package com.djzass.medipoint.logic_manager;
 
 import android.content.Context;
 
-import com.djzass.medipoint.Container;
-import com.djzass.medipoint.SessionManager;
 import com.djzass.medipoint.entity.Appointment;
 import com.djzass.medipoint.entity.Timeframe;
-import com.djzass.medipoint.logic_database.AccountDAO;
 import com.djzass.medipoint.logic_database.AppointmentDAO;
 
-import java.util.Calendar;
-import java.util.ArrayList;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.List;
 
@@ -65,11 +62,12 @@ public class AppointmentManager {
         List<String> availableTimeSlotString = new ArrayList<String>();
         List<Boolean> availableTimeSlot = getTimeTable(date, patient, doctor, startTime, endTime, duration);
         for (int i = startTime; i + duration <= endTime; ++i){
-            if (availableTimeSlot.get(i))
-                Timeframe slot = new Timeframe(i, i+duration);
-                availableTimeSlotSTring.add(slot.getTimeLine());
+            if (availableTimeSlot.get(i)) {
+                Timeframe slot = new Timeframe(i, i + duration);
+                availableTimeSlotString.add(slot.getTimeLine());
+            }
         }
-        if (availableTimeSlotString.getSize()==0)
+        if (availableTimeSlotString.size()==0)
             availableTimeSlotString.add(new String("No slot available on this date."));
         return availableTimeSlotString;
     }

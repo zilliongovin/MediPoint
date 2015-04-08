@@ -3,6 +3,7 @@ package com.djzass.medipoint;
 /**
  * Created by Zillion Govin on 4/4/2015.
  */
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -12,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -66,7 +68,7 @@ public class AppointmentListFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_appointment_list, container, false);
         TextView tv = (TextView)view.findViewById(R.id.noAppointmentText);
-        if (appointments.getSize() > 0){
+        if (appointments.size() > 0){
             tv.setVisibility(view.GONE);
             ListView apptList = (ListView)view.findViewById(R.id.customListView);
             AppointmentAdapter apptAdapter = new AppointmentAdapter(getActivity(), appointments);

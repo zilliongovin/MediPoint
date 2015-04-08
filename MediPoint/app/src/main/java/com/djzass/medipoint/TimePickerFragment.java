@@ -1,20 +1,25 @@
 package com.djzass.medipoint;
 
-import android.app.DialogFragment;
+import android.app.Fragment;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
+import android.widget.ListView;
+
+import java.util.ArrayList;
 
 /**
  * Created by Zillion Govin on 28/3/2015.
  */
-public class TimePickerFragment extends DialogFragment implements View.OnClickListener {
+public class TimePickerFragment extends Fragment {
 
     Button set, cancel;
+    ArrayList<String> availableSlots;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
 
@@ -23,11 +28,25 @@ public class TimePickerFragment extends DialogFragment implements View.OnClickLi
         //button for timepicker fragment
         set = (Button) view.findViewById(R.id.setTime);
 
-        //set listener when button is clicked
-        set.setOnClickListener(this);
+        ListView timeSlotList = (ListView)view.findViewById(R.id.listOfSlots);
+        ArrayAdapter<String> timeAdapter = new ArrayAdapter(getActivity(), android.R.layout.simple_list_item_single_choice,
+                availableSlots);
+        timeSlotList.setAdapter(timeAdapter);
 
-        //set dialog title
-        getDialog().setTitle("Timeslot");
+        timeSlotList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView <?> parent, View view, int position, long id) {
+                AppointmentDummy app = (AppointmentDummy) parent.getAdapter().getItem(position);
+                //Toast.makeText(getApplicationContext(), app.toString(), Toast.LENGTH_SHORT).show();
+                Intent in = new Intent(getActivity().getApplicationContext(), ViewAppointmentActivity.class);
+                in.putExtra("appObj", app);
+                startActivity(in);
+                    /*Toast.makeText(getApplicationContext(),
+                            "Click ListItem Number " + position, Toast.LENGTH_SHORT)
+                            .show();*/
+            }
+        });
+
 
         return view;
     }
@@ -35,6 +54,16 @@ public class TimePickerFragment extends DialogFragment implements View.OnClickLi
     @Override
     public void onCreate(Bundle savedInstanceState){
             super.onCreate(savedInstanceState);
+        ArrayList<String> availableSlots = new ArrayList<String>();
+
+        availableSlots.add("10:00 - 10:30");
+        availableSlots.add("11:00 - 11:30");
+        availableSlots.add("12:00 - 12:30");
+        availableSlots.add("13:00 - 13:30");
+        availableSlots.add("10:00 - 10:30");
+        availableSlots.add("11:00 - 11:30");
+        availableSlots.add("12:00 - 12:30");
+        availableSlots.add("13:00 - 13:30");
     }
 
     @Override
@@ -83,28 +112,5 @@ public class TimePickerFragment extends DialogFragment implements View.OnClickLi
         super.onDetach();
     }
 
-    @Override
-    public void onClick(View v) {
-
-        if (v.getId() ==  R.id.setTime){
-
-            //instantiate the radio group
-            RadioGroup time = (RadioGroup) getView().findViewById(R.id.timeslot);
-
-            //find id of selected radio button
-            int selectedId = time.getCheckedRadioButtonId();
-
-            //get text from selected radio button
-            //if radio button is selected
-             if(selectedId != -1) {
-                CharSequence timeSelected = ((RadioButton)getView().findViewById(selectedId)).getText();
-
-                 //get button from create OR edit appointment layout
-                Button timefrag = (Button) getActivity().findViewById(R.id.timepicker);
-                timefrag.setText(timeSelected);
-            }
-            dismiss();
-        }
-    }
 
 }

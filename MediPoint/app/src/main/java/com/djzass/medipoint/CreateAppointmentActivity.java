@@ -2,18 +2,15 @@ package com.djzass.medipoint;
 
 import android.app.Activity;
 import android.app.DialogFragment;
-
 import android.app.FragmentManager;
 import android.content.Intent;
 import android.os.Bundle;
-import android.provider.Settings;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.Spinner;
 
 import com.djzass.medipoint.entity.Clinic;

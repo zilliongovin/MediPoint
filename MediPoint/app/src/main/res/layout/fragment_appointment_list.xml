@@ -2,7 +2,15 @@
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_marginTop="30dp"
+    android:orientation="vertical"
     tools:context=".MainActivity">
+
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Create Appointment"
+        android:id="@+id/createAppointment" />
 
     <ListView
         android:id="@+id/customListView"
@@ -12,5 +20,15 @@
         >
 
     </ListView>
+    <TextView
+        android:layout_gravity="center_vertical|center_horizontal"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        android:text="No Appointment Available."
+        android:id="@+id/noAppointmentText"
+        android:visibility="gone"
+        >
+
+    </TextView>
 
 </LinearLayout>

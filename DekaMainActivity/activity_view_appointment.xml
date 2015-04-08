@@ -18,10 +18,9 @@
             android:layout_marginBottom="5dp" >
             <!-- Specialty icon -->
                 <ImageView
-                    android:id="@+id/specialty_icon"
+                    android:id="@+id/view_specialty_icon"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:src="@mipmap/female"
                     android:layout_margin="2dp"
                     android:layout_alignBottom="@id/viewSpecialty" />
             <!-- Service (Kind of appointment) -->
@@ -45,8 +44,7 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@id/viewService"
                     android:layout_marginLeft="2dp"
-                    android:layout_toRightOf="@id/specialty_icon"
-                    android:id="@+id/appointment_date">
+                    android:layout_toRightOf="@id/specialty_icon">
                 </TextView>
             <!-- Specialty -->
                 <TextView
