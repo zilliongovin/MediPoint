@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.FragmentManager;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -18,7 +19,7 @@ import android.widget.Toast;
 import java.util.Calendar;
 
 
-public class SignUpPageTwo extends Activity {
+public class SignUpPageTwo extends FragmentActivity {
     //private AccountManager AccountCreator;
     //DbHelper mDbHelper;
     //SQLiteDatabase db;
@@ -201,6 +202,7 @@ public class SignUpPageTwo extends Activity {
         return calendar;
     }
 
+    /*
     public void showDatePicker(View v){
         FragmentManager manager = getFragmentManager();
         DatePickerFragment datepicker = new DatePickerFragment();
@@ -213,6 +215,7 @@ public class SignUpPageTwo extends Activity {
         monthOB = datepicker.getMonth();
         yearOB = datepicker.getYear();
     }
+    */
 
     //checkbox listener
 
@@ -220,6 +223,16 @@ public class SignUpPageTwo extends Activity {
     {
         boolean checked = ((CheckBox) view).isChecked();
         return checked ? 1:0;
+    }
+
+    public void onDateButtonSelected(View v){
+        int id = v.getId();
+        Bundle bundle = new Bundle();
+        bundle.putInt("VIEW_ID",id);
+        FragmentManager manager = getFragmentManager();
+        DatePickerFragment datepicker = new DatePickerFragment();
+        datepicker.setArguments(bundle);
+        datepicker.show(manager, "Datepicker");
     }
 
     /*protected void onSaveInstanceState(Bundle outState,View[] views,int n) {

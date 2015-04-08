@@ -145,9 +145,21 @@ public class EditAppointmentActivity extends Activity implements AdapterView.OnI
         timepicker.show(manager, "TimePicker");
     }
 
+    /*
     public void showDatePicker(View v){
         FragmentManager manager = getFragmentManager();
         DatePickerFragment datepicker = new DatePickerFragment();
+        datepicker.show(manager, "Datepicker");
+    }
+    */
+
+    public void onDateButtonSelected(View v){
+        int id = v.getId();
+        Bundle bundle = new Bundle();
+        bundle.putInt("VIEW_ID",id);
+        FragmentManager manager = getFragmentManager();
+        DatePickerFragment datepicker = new DatePickerFragment();
+        datepicker.setArguments(bundle);
         datepicker.show(manager, "Datepicker");
     }
 }

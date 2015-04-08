@@ -171,8 +171,9 @@
                 style="@style/FragmentStyle"
                 android:text="TAP TO CHOOSE DATE"
                 android:id="@+id/DateOfBirthDatePicker"
-                android:onClick="showDatePicker"
-                android:layout_weight="1"/>
+                android:onClick="onDateButtonSelected"
+                android:layout_weight="1"
+                android:clickable="true" />
         </LinearLayout>
 
         <LinearLayout
