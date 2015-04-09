@@ -32,7 +32,7 @@ public class SpecialtyDAO extends DbDAO{
      */
     public long insertSpecialty(Specialty specialty){
         ContentValues values = new ContentValues();
-        values.put(DbContract.SpecialtyEntry.COLUMN_NAME_SPECIALTY_ID, getSpecialtyCount());
+        //values.put(DbContract.SpecialtyEntry.COLUMN_NAME_SPECIALTY_ID, getSpecialtyCount());
         values.put(DbContract.SpecialtyEntry.COLUMN_NAME_SPECIALTY_NAME, specialty.getName());
 
         return database.insert(DbContract.SpecialtyEntry.TABLE_NAME, null, values);

@@ -30,7 +30,7 @@ public class ClinicDAO extends DbDAO{
      */
     public long insertClinic(Clinic clinic){
         ContentValues values = new ContentValues();
-        values.put(DbContract.ClinicEntry.COLUMN_NAME_CLINIC_ID, getClinicCount());
+        //values.put(DbContract.ClinicEntry.COLUMN_NAME_CLINIC_ID, getClinicCount());
         values.put(DbContract.ClinicEntry.COLUMN_NAME_CLINIC_NAME, clinic.getName());
         values.put(DbContract.ClinicEntry.COLUMN_NAME_ADDRESS, clinic.getAddress());
         values.put(DbContract.ClinicEntry.COLUMN_NAME_COUNTRY, clinic.getCountry());

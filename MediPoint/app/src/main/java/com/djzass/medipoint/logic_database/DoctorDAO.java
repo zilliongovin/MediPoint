@@ -32,7 +32,7 @@ public class DoctorDAO extends DbDAO{
      */
     public long insertDoctor(Doctor doctor){
         ContentValues values = new ContentValues();
-        values.put(DbContract.DoctorEntry.COLUMN_NAME_DOCTOR_ID, getDoctorCount());
+        values.put(DbContract.DoctorEntry.COLUMN_NAME_DOCTOR_ID, doctor.getDoctorId());
         values.put(DbContract.DoctorEntry.COLUMN_NAME_DOCTOR_NAME, doctor.getName());
         values.put(DbContract.DoctorEntry.COLUMN_NAME_SPECIALIZATION_ID, doctor.getSpecializationId());
         values.put(DbContract.DoctorEntry.COLUMN_NAME_PRACTICE_DURATION, doctor.getPracticeDuration());

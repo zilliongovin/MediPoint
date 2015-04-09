@@ -31,7 +31,7 @@ public class DoctorScheduleDAO extends DbDAO{
      */
     public long insertDoctorSchedule(DoctorSchedule doctorSchedule){
         ContentValues values = new ContentValues();
-        values.put(DbContract.DoctorScheduleEntry.COLUMN_NAME_DOCTOR_SCHEDULE_ID, getDoctorScheduleCount());
+        //values.put(DbContract.DoctorScheduleEntry.COLUMN_NAME_DOCTOR_SCHEDULE_ID, getDoctorScheduleCount());
         values.put(DbContract.DoctorScheduleEntry.COLUMN_NAME_DOCTOR_ID, doctorSchedule.getDoctorId());
         values.put(DbContract.DoctorScheduleEntry.COLUMN_NAME_CLINIC_ID, doctorSchedule.getClinicId());
         values.put(DbContract.DoctorScheduleEntry.COLUMN_NAME_DAY, doctorSchedule.getDay());
