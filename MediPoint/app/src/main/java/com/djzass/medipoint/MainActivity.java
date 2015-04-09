@@ -5,21 +5,19 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 import com.djzass.medipoint.logic_manager.AccountManager;
+import com.djzass.medipoint.logic_manager.Container;
 import com.google.samples.apps.iosched.ui.widget.SlidingTabLayout;
 
 
 public class MainActivity extends FragmentActivity {
 
     public static boolean SERVICE_TIMER_STARTED = false;
-   public static Container GlobalContainer = new Container();
 
 
     @Override

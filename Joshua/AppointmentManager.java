@@ -7,11 +7,13 @@ import com.djzass.medipoint.entity.Appointment;
 import com.djzass.medipoint.entity.DoctorSchedule;
 import com.djzass.medipoint.entity.Timeframe;
 import com.djzass.medipoint.logic_database.AppointmentDAO;
+import com.djzass.medipoint.logic_database.DoctorScheduleDAO;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 
 public class AppointmentManager {
@@ -25,20 +27,10 @@ public class AppointmentManager {
      */
     private static AppointmentManager instance = new AppointmentManager();
 
-    public static AppointmentManager getInstance(){
-        return instance;
+    public AppointmentManager() {
     }
 
-    private void updateAppointmentDao(Context context){
-        try {
-            appointmentDao = new AppointmentDAO(context);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public List<Appointment> getAppointmentsFromDatabase(Context context){
-        updateAppointmentDao(context);
+    public List<Appointment> getAppointmentsFromDatabase(){
         return appointmentDao.getAllAppointments();
     }
 
@@ -93,7 +85,7 @@ public class AppointmentManager {
         }
         return ret;
     }
-    /*public List<String> getAvailableTimeSlot(Calendar date, int patient, int doctor, int clinic, int startTime, int endTime, int duration){
+    public List<String> getAvailableTimeSlotString(Calendar date, int patient, int doctor, int clinic, int startTime, int endTime, int duration){
         ArrayList<String> availableTimeSlot = new ArrayList<String>();
         List<Boolean> availableTime = getTimeTable(date, patient, doctor, clinic, startTime, endTime, duration);
 
@@ -105,22 +97,7 @@ public class AppointmentManager {
         }
 
         return availableTimeSlot;
-    }*/
-
-    public List<Timeframe> getAvailableTimeSlot(Calendar date, int patient, int doctor, int clinic, int startTime, int endTime, int duration){
-        ArrayList<Timeframe> availableTimeSlot = new ArrayList<Timeframe>();
-        List<Boolean> availableTime = getTimeTable(date, patient, doctor, clinic, startTime, endTime, duration);
-
-        for (int i = startTime; i + duration <= endTime; ++i){
-           if (availableTime.get(i)){
-                Timeframe slot = new Timeframe(i, i+duration);
-                availableTimeSlot.add(slot);
-           }
-        }
-
-        return availableTimeSlot;
     }
-
     public List<Appointment> getPatientFutureAppointmentList(int patient, Calendar currentTime){
         List<Appointment> ret = new ArrayList<Appointment>();
 
@@ -207,33 +184,30 @@ public class AppointmentManager {
     }
 
     /*joshua*/
-    public long createAppointment(Appointment app, Context context){
+    public long createAppointment(Appointment app, AppointmentDAO appdao){
         //insert to database
         //update arraylist of appointment
         // update arraylist of appointment appointments = getAppointmentFromDatabase()
-        updateAppointmentDao(context);
-        long ret = appointmentDao.insertAppointment(app);
-        appointments = getAppointmentsFromDatabase(context);
+        long ret = appdao.insertAppointment(app);
+        appointments = getAppointmentsFromDatabase();
         return ret;
     }
 
-    public long editAppointment(Appointment app, Context context){
+    public long editAppointment(Appointment app, AppointmentDAO appdao){
         // get id of appointment
         // update appointment according to its id in database
         // update arraylist of appointment appointments = getAppointmentFromDatabase()
-        updateAppointmentDao(context);
-        long ret = appointmentDao.update(app);
-        appointments = getAppointmentsFromDatabase(context);
+        long ret = appdao.update(app);
+        appointments = getAppointmentsFromDatabase();
         return ret;
     }
 
-    public long cancelAppointment(Appointment app, Context context){
+    public long cancelAppointment(Appointment app, AppointmentDAO appdao){
         // get id of appointment
         // delete appointment according to its id in database
         // update arraylist of appointment appointments = getAppointmentFromDatabase()
-        long ret = appointmentDao.deleteAppointment(app);
-        updateAppointmentDao(context);
-        appointments = getAppointmentsFromDatabase(context);
+        long ret = appdao.deleteAppointment(app);
+        appointments = getAppointmentsFromDatabase();
         return ret;
     }
 
