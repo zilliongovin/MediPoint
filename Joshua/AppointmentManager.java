@@ -27,20 +27,10 @@ public class AppointmentManager {
      */
     private static AppointmentManager instance = new AppointmentManager();
 
-    public static AppointmentManager getInstance(){
-        return instance;
+    public AppointmentManager() {
     }
 
-    private void updateAppointmentDao(Context context){
-        try {
-            appointmentDao = new AppointmentDAO(context);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public List<Appointment> getAppointmentsFromDatabase(Context context){
-        updateAppointmentDao(context);
+    public List<Appointment> getAppointmentsFromDatabase(){
         return appointmentDao.getAllAppointments();
     }
 
@@ -194,33 +184,30 @@ public class AppointmentManager {
     }
 
     /*joshua*/
-    public long createAppointment(Appointment app, Context context){
+    public long createAppointment(Appointment app, AppointmentDAO appdao){
         //insert to database
         //update arraylist of appointment
         // update arraylist of appointment appointments = getAppointmentFromDatabase()
-        updateAppointmentDao(context);
-        long ret = appointmentDao.insertAppointment(app);
-        appointments = getAppointmentsFromDatabase(context);
+        long ret = appdao.insertAppointment(app);
+        appointments = getAppointmentsFromDatabase();
         return ret;
     }
 
-    public long editAppointment(Appointment app, Context context){
+    public long editAppointment(Appointment app, AppointmentDAO appdao){
         // get id of appointment
         // update appointment according to its id in database
         // update arraylist of appointment appointments = getAppointmentFromDatabase()
-        updateAppointmentDao(context);
-        long ret = appointmentDao.update(app);
-        appointments = getAppointmentsFromDatabase(context);
+        long ret = appdao.update(app);
+        appointments = getAppointmentsFromDatabase();
         return ret;
     }
 
-    public long cancelAppointment(Appointment app, Context context){
+    public long cancelAppointment(Appointment app, AppointmentDAO appdao){
         // get id of appointment
         // delete appointment according to its id in database
         // update arraylist of appointment appointments = getAppointmentFromDatabase()
-        long ret = appointmentDao.deleteAppointment(app);
-        updateAppointmentDao(context);
-        appointments = getAppointmentsFromDatabase(context);
+        long ret = appdao.deleteAppointment(app);
+        appointments = getAppointmentsFromDatabase();
         return ret;
     }
 
