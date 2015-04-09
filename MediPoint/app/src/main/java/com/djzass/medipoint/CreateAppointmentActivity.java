@@ -1,5 +1,6 @@
 package com.djzass.medipoint;
 
+
 import android.app.Activity;
 import android.app.FragmentManager;
 import android.content.Intent;
@@ -17,6 +18,8 @@ import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.djzass.medipoint.entity.Account;
+import com.djzass.medipoint.entity.Appointment;
 import com.djzass.medipoint.entity.Clinic;
 import com.djzass.medipoint.entity.Doctor;
 import com.djzass.medipoint.entity.Service;
@@ -27,13 +30,14 @@ import com.djzass.medipoint.logic_database.DoctorDAO;
 import com.djzass.medipoint.logic_database.ServiceDAO;
 import com.djzass.medipoint.logic_database.SpecialtyDAO;
 import com.djzass.medipoint.logic_manager.AccountManager;
+import com.djzass.medipoint.logic_manager.AppointmentManager;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-public class CreateAppointmentActivity extends Activity implements AdapterView.OnItemSelectedListener, SelectionListener{
+public class CreateAppointmentActivity extends onDataPass implements AdapterView.OnItemSelectedListener, SelectionListener{
 
     //appointment atrribute selections
     int clinicId;
@@ -250,6 +254,16 @@ public class CreateAppointmentActivity extends Activity implements AdapterView.O
         date.show(getFragmentManager(), "datePicker");
     }*/
 
+    public void onTimeButtonSelected(View v){
+        int id = v.getId();
+        Bundle bundle = new Bundle();
+        bundle.putInt("VIEW_ID",id);
+        FragmentManager manager = getFragmentManager();
+        TimePickerFragment datepicker = new TimePickerFragment();
+        datepicker.setArguments(bundle);
+        datepicker.show(manager, "Datepicker");
+    }
+
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
 
@@ -316,10 +330,15 @@ public class CreateAppointmentActivity extends Activity implements AdapterView.O
         datepicker.show(manager, "Datepicker");
     }
 
-    public void createAppointment()
-    {
-
-
+    public void createAppointment() throws SQLException {
+        //AppointmentManager appointmentManager = new AppointmentManager();
+        Appointment appointment = new Appointment();
+        Account account = new Account();
+        //appointmentManager.createAppointment();
+        AlarmSetter malarm = new AlarmSetter();
+        Notification notification = new Notification();
+        notification.buildNotification(this,"Appointment Created!!");
+        malarm.setAlarm(this,appointment,account);
     }
 
     private ArrayList<String> getItems() {
@@ -338,6 +357,7 @@ public class CreateAppointmentActivity extends Activity implements AdapterView.O
 
     @Override
     public void selectItem(int position) {
-        Toast.makeText(this, getItems().get(position), Toast.LENGTH_SHORT).show();
+        Button btn = (Button) findViewById(R.id.timepicker);
+        btn.setText(getItems().get(position));
     }
 }

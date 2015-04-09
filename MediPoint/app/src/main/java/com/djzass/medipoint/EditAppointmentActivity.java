@@ -82,6 +82,14 @@ public class EditAppointmentActivity extends Activity implements AdapterView.OnI
 
     }
 
+    public void editAppointment(){
+
+        //calendar changed
+
+        //time changed
+
+    }
+
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
 

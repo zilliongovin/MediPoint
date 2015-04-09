@@ -1,10 +1,13 @@
 package com.djzass.medipoint.entity;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.lang.String;
 import java.util.Calendar;
 import java.util.Calendar;
 
-public class Account {
+public class Account implements Parcelable {
     private int id;
 	private String username;
 	private String password;
@@ -215,5 +218,56 @@ public class Account {
 
     public void setNotifySMS(int notifySMS) {
         this.notifySMS = notifySMS;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parc, int flags) {
+        parc.writeInt(this.id);
+        parc.writeString(this.username);
+        parc.writeString(this.password);
+        parc.writeString(this.name);
+        parc.writeString(this.nric);
+        parc.writeString(this.email);
+        parc.writeString(this.phoneNumber);
+        parc.writeString(this.gender);
+        parc.writeString(this.address);
+        parc.writeString(this.maritalStatus);
+        parc.writeString(this.citizenship);
+        parc.writeString(this.countryOfResidence);
+        parc.writeInt(this.notifyEmail);
+        parc.writeInt(this.notifySMS);
+    }
+
+    public static final Parcelable.Creator<Appointment> CREATOR
+            = new Parcelable.Creator<Appointment>() {
+        public Appointment createFromParcel(Parcel in) {
+            return new Appointment(in);
+        }
+
+        public Appointment[] newArray(int size) {
+            return new Appointment[size];
+        }
+    };
+
+    public void readFromParcel(Parcel in2) {
+        this.id = in2.readInt();
+        this.username = in2.readString();
+        this.password = in2.readString();
+        this.name = in2.readString();
+        this.nric = in2.readString();
+        this.email = in2.readString();
+        this.phoneNumber = in2.readString();
+        this.gender = in2.readString();
+        this.address = in2.readString();
+        this.maritalStatus = in2.readString();
+        this.citizenship = in2.readString();
+        this.countryOfResidence = in2.readString();
+        this.notifyEmail= in2.readInt();
+        this.notifySMS = in2.readInt();
     }
 }

@@ -242,7 +242,6 @@ public class SignUpPageTwo extends onDataPass {
         monthOB = month;
         yearOB = year;
     }
-
     /*protected void onSaveInstanceState(Bundle outState,View[] views,int n) {
         super.onSaveInstanceState(outState);
         //Log.i(TAG, "onSaveInstanceState");

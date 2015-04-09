@@ -102,8 +102,9 @@ public class DbHelper extends SQLiteOpenHelper {
     private static final String SQL_CREATE_APPOINTMENT = "CREATE TABLE " + DbContract.AppointmentEntry.TABLE_NAME + " (" +
             DbContract.AppointmentEntry.COLUMN_NAME_APPOINTMENT_ID + INT_KEY_TYPE + PRIMARY_KEY + COMMA_SEP +
             DbContract.AppointmentEntry.COLUMN_NAME_CLINIC_ID + INT_TYPE + COMMA_SEP +
-            DbContract.AppointmentEntry.COLUMN_NAME_PATIENT_ID + CHAR_EIGHT_TYPE + COMMA_SEP +
-            DbContract.AppointmentEntry.COLUMN_NAME_DOCTOR_ID + CHAR_EIGHT_TYPE + COMMA_SEP +
+            DbContract.AppointmentEntry.COLUMN_NAME_PATIENT_ID + INT_TYPE + COMMA_SEP +
+            DbContract.AppointmentEntry.COLUMN_NAME_DOCTOR_ID + INT_TYPE + COMMA_SEP +
+            DbContract.AppointmentEntry.COLUMN_NAME_REFERRER_ID + INT_TYPE + COMMA_SEP +
             DbContract.AppointmentEntry.COLUMN_NAME_DATE_TIME + DATETIME_TYPE + COMMA_SEP +
             DbContract.AppointmentEntry.COLUMN_NAME_SERVICE_ID + INT_TYPE + COMMA_SEP +
             DbContract.AppointmentEntry.COLUMN_NAME_SPECIALTY_ID + INT_TYPE + COMMA_SEP +
