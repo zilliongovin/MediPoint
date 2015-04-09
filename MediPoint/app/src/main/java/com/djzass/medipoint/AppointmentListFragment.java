@@ -15,6 +15,9 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.djzass.medipoint.entity.Appointment;
+
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -24,8 +27,8 @@ import java.util.GregorianCalendar;
  */
 public class AppointmentListFragment extends Fragment {
 
-    ArrayList<AppointmentDummy> appointments;
-    //ArrayList<Appointment> appointments;
+    //ArrayList<AppointmentDummy> appointments;
+    ArrayList<Appointment> appointments;
     public static AppointmentListFragment newInstance() {
         AppointmentListFragment fragment = new AppointmentListFragment();
         return fragment;
@@ -36,7 +39,9 @@ public class AppointmentListFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         
-        appointments = new ArrayList<AppointmentDummy>();
+        //appointments = new ArrayList<AppointmentDummy>();
+        appointments = new ArrayList<Appointment>();
+        /*
         Calendar[] dateTimes = {new GregorianCalendar(1995, 8, 10, 10, 0), new GregorianCalendar(1995, 10, 9, 3, 2),
                 new GregorianCalendar(1994, 10, 9, 11, 33), new GregorianCalendar(1993, 6, 7, 10, 2), new GregorianCalendar(1996, 10, 8, 9, 30),
                 new GregorianCalendar(1995, 10, 9, 4, 2), new GregorianCalendar(1995, 10, 9, 2,4), new GregorianCalendar(1995, 10, 9, 4, 2),
@@ -55,7 +60,7 @@ public class AppointmentListFragment extends Fragment {
             cl = clinics[i % clinics.length];
             co = country[i % country.length];
             appointments.add(new AppointmentDummy(i, apptName[i], s, dateTimes[i], cl, co));
-        }
+        }*/
         //appointments = new ArrayList<Appointment>();
         //Appointment(appId, patientId, clinicId, specialtyId, serviceId, doctorId, date, timeframe, preAppointmentActions)
         //appointments.add(new Appointment(1, 1, 1, 1, 1, 1, 1, new GregorianCalendar(2015, 1, 1), new TimeFrame(18, 19), "Fasting"));
@@ -78,7 +83,12 @@ public class AppointmentListFragment extends Fragment {
         if (appointments.size() > 0){
             tv.setVisibility(view.GONE);
             ListView apptList = (ListView)view.findViewById(R.id.customListView);
-            AppointmentAdapter apptAdapter = new AppointmentAdapter(getActivity(), appointments);
+            AppointmentAdapter apptAdapter = null;
+            try {
+                apptAdapter = new AppointmentAdapter(getActivity(), appointments);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
             apptList.setAdapter(apptAdapter);
 
             apptList.setOnItemClickListener(new AdapterView.OnItemClickListener() {

@@ -3,6 +3,7 @@ package com.djzass.medipoint.entity;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.lang.String;
 import java.util.Comparator;
@@ -163,6 +164,15 @@ public class Appointment implements Parcelable{
 
     public Calendar getDate() {
         return date;
+    }
+
+    public String getDateString(){
+        SimpleDateFormat sdfDate = new SimpleDateFormat("EEEE, dd MMMM yyyy");
+        return sdfDate.format(this.date.getTime());
+    }
+
+    public String getTimeString(){
+        return this.timeframe.getTimeLine();
     }
 
     public void setDate(Calendar date) {
