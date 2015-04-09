@@ -7,13 +7,11 @@ import com.djzass.medipoint.entity.Appointment;
 import com.djzass.medipoint.entity.DoctorSchedule;
 import com.djzass.medipoint.entity.Timeframe;
 import com.djzass.medipoint.logic_database.AppointmentDAO;
-import com.djzass.medipoint.logic_database.DoctorScheduleDAO;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
 
 public class AppointmentManager {
@@ -82,7 +80,7 @@ public class AppointmentManager {
         }
         return ret;
     }
-    public List<String> getAvailableTimeSlotString(Calendar date, int patient, int doctor, int clinic, int startTime, int endTime, int duration){
+    /*public List<String> getAvailableTimeSlot(Calendar date, int patient, int doctor, int clinic, int startTime, int endTime, int duration){
         ArrayList<String> availableTimeSlot = new ArrayList<String>();
         List<Boolean> availableTime = getTimeTable(date, patient, doctor, clinic, startTime, endTime, duration);
 
@@ -94,7 +92,22 @@ public class AppointmentManager {
         }
 
         return availableTimeSlot;
+    }*/
+
+    public List<Timeframe> getAvailableTimeSlot(Calendar date, int patient, int doctor, int clinic, int startTime, int endTime, int duration){
+        ArrayList<Timeframe> availableTimeSlot = new ArrayList<Timeframe>();
+        List<Boolean> availableTime = getTimeTable(date, patient, doctor, clinic, startTime, endTime, duration);
+
+        for (int i = startTime; i + duration <= endTime; ++i){
+           if (availableTime.get(i)){
+                Timeframe slot = new Timeframe(i, i+duration);
+                availableTimeSlot.add(slot);
+           }
+        }
+
+        return availableTimeSlot;
     }
+
     public List<Appointment> getPatientFutureAppointmentList(int patient, Calendar currentTime){
         List<Appointment> ret = new ArrayList<Appointment>();
 

@@ -8,7 +8,7 @@ import java.util.Calendar;
 import java.util.Calendar;
 
 public class Account implements Parcelable {
-    private int id;
+    private long id;
 	private String username;
 	private String password;
 	private String name;
@@ -48,7 +48,7 @@ public class Account implements Parcelable {
         this.notifySMS = notifySMS;
     }
 
-    public Account(int id, String username, String password, String name, String nric,
+    public Account(long id, String username, String password, String name, String nric,
                    String email, String phoneNumber, String gender, String address,
                    String maritalStatus, Calendar dob, String citizenship,
                    String countryOfResidence, int notifyEmail, int notifySMS) {
@@ -196,11 +196,11 @@ public class Account implements Parcelable {
 		this.countryOfResidence = countryOfResidence;
 	}
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -227,7 +227,7 @@ public class Account implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel parc, int flags) {
-        parc.writeInt(this.id);
+        parc.writeLong(this.id);
         parc.writeString(this.username);
         parc.writeString(this.password);
         parc.writeString(this.name);
@@ -255,7 +255,7 @@ public class Account implements Parcelable {
     };
 
     public void readFromParcel(Parcel in2) {
-        this.id = in2.readInt();
+        this.id = in2.readLong();
         this.username = in2.readString();
         this.password = in2.readString();
         this.name = in2.readString();

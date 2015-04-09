@@ -25,6 +25,7 @@ import com.djzass.medipoint.entity.Doctor;
 import com.djzass.medipoint.entity.Service;
 import com.djzass.medipoint.entity.Specialty;
 import com.djzass.medipoint.entity.Timeframe;
+import com.djzass.medipoint.logic_database.AppointmentDAO;
 import com.djzass.medipoint.logic_database.ClinicDAO;
 import com.djzass.medipoint.logic_database.DoctorDAO;
 import com.djzass.medipoint.logic_database.ServiceDAO;
@@ -33,19 +34,22 @@ import com.djzass.medipoint.logic_manager.AccountManager;
 import com.djzass.medipoint.logic_manager.AppointmentManager;
 
 import java.sql.SQLException;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 public class CreateAppointmentActivity extends onDataPass implements AdapterView.OnItemSelectedListener, SelectionListener{
 
     //appointment atrribute selections
     int clinicId;
-    long patientId;
+    int patientId;
     int doctorId;
     Calendar date;
     int serviceId;
     int specialtyId;
+    int duration;
     String preAppointmentActions;
     Timeframe timeframe;
 
@@ -58,6 +62,8 @@ public class CreateAppointmentActivity extends onDataPass implements AdapterView
     Spinner clinicSpinner_create;
     SpecialtyDAO specialtyDAO;
     List<Specialty> specialities;
+    AppointmentDAO appointmentDAO;
+    AppointmentManager appointmentManager;
     //List<Specialty> specialities = ((Container)getApplicationContext()).getGlobalSpecialtyDAO().getAllSpecialties();
 
     //List<Specialty> specialities = Container.GlobalSpecialtyDAO.getAllSpecialties();
@@ -69,7 +75,10 @@ public class CreateAppointmentActivity extends onDataPass implements AdapterView
         //specialty spinner and array adapter
         try {
             AccountManager accountManager = new AccountManager(this);
-            this.patientId = accountManager.getLoggedInAccountId();
+            this.patientId = (int)accountManager.getLoggedInAccountId();
+            appointmentManager = new AppointmentManager(this);
+
+
             specialtyDAO = new SpecialtyDAO(this);
             specialities = specialtyDAO.getAllSpecialties();
             specialtySpinner_create = (Spinner) findViewById(R.id.CreateApptSpecialty);
@@ -188,7 +197,9 @@ public class CreateAppointmentActivity extends onDataPass implements AdapterView
                     {
                         if(service.equals(s.getName()))
                         {
-                            serviceId = s.getId();
+                            this.serviceId = s.getId();
+                            this.preAppointmentActions = s.getPreAppointmentActions();
+                            this.duration = s.getDuration();
                         }
                     }
 
@@ -332,15 +343,22 @@ public class CreateAppointmentActivity extends onDataPass implements AdapterView
         datepicker.show(manager, "Datepicker");
     }
 
-    public void onClickCreateAppointment() throws SQLException {
+    public void onClickCreateAppointment() throws SQLException,ParseException {
         //AppointmentManager appointmentManager = new AppointmentManager();
-        Appointment appointment = new Appointment();
-        Account account = new Account();
-        //appointmentManager.createAppointment();
+        Calendar currentDate = Calendar.getInstance();
+        currentDate.add(Calendar.DATE, 1);
+        if (this.date.before(currentDate)){
+            Toast.makeText(this, "You are not allowed to book before 24 hours.", Toast.LENGTH_SHORT).show();
+        }
+
+        AccountManager accountManager = new AccountManager(this);
+        Appointment appointment = new Appointment(this.patientId, this.clinicId,this.specialtyId,this.serviceId,this.doctorId,this.date,this.timeframe);
+        appointmentDAO = new AppointmentDAO(this);
+        appointmentManager.createAppointment(appointment,appointmentDAO);
         AlarmSetter malarm = new AlarmSetter();
         Notification notification = new Notification();
         notification.buildNotification(this,"Appointment Created!!");
-        malarm.setAlarm(this,appointment,account);
+        malarm.setAlarm(this,appointment,accountManager.getAccountById(this.patientId));
     }
 
     private ArrayList<String> getItems() {
@@ -361,5 +379,13 @@ public class CreateAppointmentActivity extends onDataPass implements AdapterView
     public void selectItem(int position) {
         Button btn = (Button) findViewById(R.id.timepicker);
         btn.setText(getItems().get(position));
+        appointmentManager.getAvailableTimeSlot(this.date, this.patientId,this.doctorId, this.clinicId, 18, 42,duration);
+
+    }
+
+    @Override
+    public void DatePickerFragmentToActivity(int date,int month,int year,Button button){
+        super.DatePickerFragmentToActivity(date,month,year,button);
+        this.date.set(date, month, year);
     }
 }

@@ -44,6 +44,10 @@ public class AccountDAO extends DbDAO{
             "SELECT " + DbContract.AccountEntry.COLUMN_NAME_ACCOUNT_ID +
                     " FROM " + DbContract.AccountEntry.TABLE_NAME +
                     " WHERE " + DbContract.AccountEntry.COLUMN_NAME_USERNAME + "=?";
+
+    public static final String SQL_FIND_ACCOUNT_BY_ID =
+            "SELECT * FROM "+ DbContract.AccountEntry.TABLE_NAME +
+            " WHERE " + DbContract.AccountEntry.COLUMN_NAME_ACCOUNT_ID + "=?";
     //private SpecialtyDAO specialtyDao;
 
     public AccountDAO(Context context) throws SQLException {
@@ -141,10 +145,12 @@ public class AccountDAO extends DbDAO{
         return getAccounts(null);
     }
 
+    /*
     public List<Account> getAccountById(int accountId) {
         String whereclause = DbContract.AccountEntry.COLUMN_NAME_ACCOUNT_ID + " = " + accountId;
         return getAccounts(whereclause);
     }
+    */
 
     public List<Account> getAccountByNRIC(String nric) {
         String whereclause = DbContract.AccountEntry.COLUMN_NAME_NRIC + " = " + nric;
@@ -242,5 +248,10 @@ public class AccountDAO extends DbDAO{
     public Cursor findAccountId(String username){
         String[] selArgs = {username};
         return database.rawQuery(SQL_FIND_ACCOUNTID,selArgs);
+    }
+
+    public Cursor getAccountById(long id){
+        String[] selArgs = {""+id};
+        return database.rawQuery(SQL_FIND_ACCOUNT_BY_ID,selArgs);
     }
 }

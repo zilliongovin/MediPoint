@@ -18,6 +18,7 @@ import com.djzass.medipoint.logic_database.AccountDAO;
 
 import com.djzass.medipoint.logic_database.DbHelper;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
@@ -193,6 +194,36 @@ public class AccountManager {
             sqlEx.getStackTrace();
         }
         return session.getAccountId(accountDAO);
+    }
+
+    public Account getAccountById(long id) throws ParseException {
+        Cursor cursor = accountDAO.getAccountById(id);
+
+        String name = cursor.getString(1);
+        String nric = cursor.getString(2);
+        String email = cursor.getString(3);
+        String contact = cursor.getString(4);
+        String address = cursor.getString(5);
+        String dob = cursor.getString(6);
+        String gender = cursor.getString(7);
+        String maritalStatus = cursor.getString(8);
+        String citizenship = cursor.getString(9);
+        String countryOfResidence = cursor.getString(10);
+        String username = cursor.getString(11);
+        String password = cursor.getString(12);
+        int isEmail = cursor.getInt(13);
+        int isSMS = cursor.getInt(14);
+
+        SimpleDateFormat sdf = new SimpleDateFormat();
+        Calendar dobCal = Calendar.getInstance();
+        dobCal.setTime(sdf.parse(dob));
+
+        /*long id, String username, String password, String name, String nric,
+                String email, String phoneNumber, String gender, String address,
+                String maritalStatus, Calendar dob, String citizenship,
+                String countryOfResidence, int notifyEmail, int notifySMS*/
+        return new Account(id,username,password,name,nric,email,contact,gender,address,maritalStatus,dobCal,citizenship,countryOfResidence,isEmail,isSMS);
+
     }
 
 
