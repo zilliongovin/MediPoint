@@ -9,25 +9,39 @@ import java.util.Comparator;
 
 public class Appointment implements Parcelable{
     private int appointmentId;
-    private int clinicId;
     private int patientId;
+    private int clinicId;
+    private int specialtyId;
+    private int serviceId;
     private int doctorId;
     private Calendar date;
-    private int service;
-    private int specialtyId;
-    private String preAppointmentActions;
     private Timeframe timeframe;
-
-
-
+    private String preAppointmentActions;
+    
     public Appointment() {}
 
-    public Appointment(int patientId, int specialtyId, int clinicId, int doctorId,
-                       Calendar date, Timeframe timeframe, String preAppointmentActions) {
+    public Appointment(int patientId, int clinicId, int specialtyId, int serviceId, int doctorId,
+                       Calendar date, Timeframe timeframe) {
         //this.appointmentId = appointmentId;
-        this.specialtyId = specialtyId;
         this.patientId = patientId;
         this.clinicId = clinicId;
+        this.specialtyId = specialtyId;
+        this.serviceId = serviceId;
+        this.doctorId = doctorId;
+        this.date = date;
+        this.timeframe = timeframe;
+        this.date.set(Calendar.HOUR_OF_DAY, timeframe.getStartTime() / 2);
+        this.date.set(Calendar.MINUTE, 30 * (timeframe.getStartTime() % 2));
+        this.preAppointmentActions = "None";
+    }
+
+    public Appointment(int patientId, int clinicId, int specialtyId, int serviceId, int doctorId,
+                       Calendar date, Timeframe timeframe, String preAppointmentActions) {
+        //this.appointmentId = appointmentId;
+        this.patientId = patientId;
+        this.clinicId = clinicId;
+        this.specialtyId = specialtyId;
+        this.serviceId = serviceId;
         this.doctorId = doctorId;
         this.date = date;
         this.timeframe = timeframe;
@@ -36,17 +50,21 @@ public class Appointment implements Parcelable{
         this.preAppointmentActions = preAppointmentActions;
     }
 
-    public String print(){
+    public Appointment(Parcel in){
+        readFromParcel(in);
+    }
+
+    public String toString(){
         String temp = "";
-        temp+= appointmentId + " ";
-        temp+= clinicId + " ";
-        temp+= patientId + " ";
-        temp+= doctorId + " ";
-        temp+= String.valueOf(date) + " ";
-        temp+= service + " ";
-        temp+= specialtyId + " ";
-        temp+= preAppointmentActions + " ";
-        temp+= timeframe.getStartTime() + "-" + timeframe.getEndTime();
+        temp+= "Appointment Id: " + appointmentId + "\n";
+        temp+= "Patient Id: " + patientId + "\n";
+        temp+= "Clinic Id: " + clinicId + "\n";
+        temp+= "Specialty Id: " + specialtyId + "\n";
+        temp+= "Service Id: " + serviceId + "\n";
+        temp+= "Doctor Id: " + doctorId + "\n";
+        temp+= "Date: " + String.valueOf(date) + "\n";
+        temp+= "Time: " + timeframe.getStartTime() + "-" + timeframe.getEndTime() + "\n";
+        temp+= "Preappointment Actions: " + preAppointmentActions + "\n";
         return temp;
     }
 
@@ -90,12 +108,12 @@ public class Appointment implements Parcelable{
         this.doctorId = doctorId;
     }
 
-    public int getService() {
-        return service;
+    public int getServiceId() {
+        return serviceId;
     }
 
-    public void setService(int service) {
-        this.service = service;
+    public void setServiceId(int serviceId) {
+        this.serviceId = serviceId;
     }
 
     public Calendar getDate() {
@@ -150,13 +168,12 @@ public class Appointment implements Parcelable{
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeInt(this.appointmentId);
-        dest.writeInt(this.specialtyId);
         dest.writeInt(this.patientId);
         dest.writeInt(this.clinicId);
+        dest.writeInt(this.specialtyId);
+        dest.writeInt(this.serviceId);
         dest.writeInt(this.doctorId);
-
         long cal = this.getDate().getTimeInMillis();
-
         dest.writeLong(cal);
         dest.writeInt(this.getTimeframe().getStartTime());
         dest.writeInt(this.getTimeframe().getEndTime());
@@ -174,31 +191,20 @@ public class Appointment implements Parcelable{
         }
     };
 
-    public Appointment(Parcel in) {
+    public void readFromParcel(Parcel in){
         this.appointmentId = in.readInt();
-        this.specialtyId = in.readInt();
         this.patientId = in.readInt();
         this.clinicId = in.readInt();
+        this.specialtyId = in.readInt();
+        this.serviceId = in.readInt();
         this.doctorId = in.readInt();
-
         this.date = Calendar.getInstance();
         this.date.setTimeInMillis(in.readLong());
-
         this.timeframe = new Timeframe(in.readInt(),in.readInt());
         this.preAppointmentActions = in.readString();
     }
 
-    public void readFromParcel(Parcel in){
-        this.appointmentId = in.readInt();
-        this.specialtyId = in.readInt();
-        this.patientId = in.readInt();
-        this.clinicId = in.readInt();
-        this.doctorId = in.readInt();
-
-        this.date = Calendar.getInstance();
-        this.date.setTimeInMillis(in.readLong());
-
-        this.timeframe = new Timeframe(in.readInt(),in.readInt());
-        this.preAppointmentActions = in.readString();
+    public long getAppointmentTimeLong(){
+        return this.date.getTimeInMillis();
     }
 }

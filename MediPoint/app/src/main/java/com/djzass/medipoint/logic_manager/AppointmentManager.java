@@ -2,19 +2,15 @@ package com.djzass.medipoint.logic_manager;
 
 import android.content.Context;
 
-import com.djzass.medipoint.Container;
-import com.djzass.medipoint.SessionManager;
 import com.djzass.medipoint.entity.Appointment;
-import com.djzass.medipoint.entity.Doctor;
 import com.djzass.medipoint.entity.DoctorSchedule;
 import com.djzass.medipoint.entity.Timeframe;
-import com.djzass.medipoint.logic_database.AccountDAO;
 import com.djzass.medipoint.logic_database.AppointmentDAO;
 import com.djzass.medipoint.logic_database.DoctorScheduleDAO;
 
-import java.util.Calendar;
-import java.util.ArrayList;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.List;
 
@@ -24,8 +20,12 @@ public class AppointmentManager {
     List<Appointment> appointments;
 
     public AppointmentManager(Context context) throws SQLException {
-        appointmentDao = new AppointmentDAO(context);
-        appointments = appointmentDao.getAllAppointments();
+        appointmentDao = new AppointmentDAO(context)
+        appointments = getAppointmentsFromDatabase();
+    }
+
+    public List<Appointment> getAppointmentsFromDatabase(){
+        return appointmentDao.getAllAppointments();
     }
 
     public List<Boolean> getAvailableTime(Calendar date, int patient, int doctor, int clinic){
@@ -79,7 +79,19 @@ public class AppointmentManager {
         }
         return ret;
     }
+    public List<String> getAvailableTimeSlotString(Calendar date, int patient, int doctor, int clinic, int startTime, int endTime, int duration){
+        ArrayList<String> availableTimeSlot = new ArrayList<String>();
+        List<Boolean> availableTime = getTimeTable(date, patient, doctor, clinic, startTime, endTime, duration);
 
+        for (int i = startTime; i + duration <= endTime; ++i){
+           if (availableTime.get(i)){
+                Timeframe slot = new Timeframe(i, i+duration);
+                availableTimeSlot.add(slot.getTimeLine());
+           }
+        }
+
+        return availableTimeSlot;
+    }
     public List<Appointment> getPatientFutureAppointmentList(int patient, Calendar currentTime){
         List<Appointment> ret = new ArrayList<Appointment>();
 
@@ -163,4 +175,24 @@ public class AppointmentManager {
             else return "Finished";
         }
     }
+
+    /*joshua*/
+    public void createAppointment(Appointment app){
+        //insert to database
+        //update arraylist of appointment
+        // update arraylist of appointment appointments = getAppointmentFromDatabase()
+    }
+
+    public void editAppointment(Appointment app){
+        // get id of appointment
+        // update appointment according to its id in database
+        // update arraylist of appointment appointments = getAppointmentFromDatabase()
+    }
+
+    public void cancelAppointment(Appointment app){
+        // get id of appointment
+        // delete appointment according to its id in database
+        // update arraylist of appointment appointments = getAppointmentFromDatabase()
+    }
+
 }

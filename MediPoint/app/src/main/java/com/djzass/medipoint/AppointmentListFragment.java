@@ -3,6 +3,7 @@ package com.djzass.medipoint;
 /**
  * Created by Zillion Govin on 4/4/2015.
  */
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -12,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -23,6 +25,7 @@ import java.util.GregorianCalendar;
 public class AppointmentListFragment extends Fragment {
 
     ArrayList<AppointmentDummy> appointments;
+    //ArrayList<Appointment> appointments;
     public static AppointmentListFragment newInstance() {
         AppointmentListFragment fragment = new AppointmentListFragment();
         return fragment;
@@ -32,7 +35,7 @@ public class AppointmentListFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        
         appointments = new ArrayList<AppointmentDummy>();
         Calendar[] dateTimes = {new GregorianCalendar(1995, 8, 10, 10, 0), new GregorianCalendar(1995, 10, 9, 3, 2),
                 new GregorianCalendar(1994, 10, 9, 11, 33), new GregorianCalendar(1993, 6, 7, 10, 2), new GregorianCalendar(1996, 10, 8, 9, 30),
@@ -53,7 +56,13 @@ public class AppointmentListFragment extends Fragment {
             co = country[i % country.length];
             appointments.add(new AppointmentDummy(i, apptName[i], s, dateTimes[i], cl, co));
         }
-
+        //appointments = new ArrayList<Appointment>();
+        //Appointment(appId, patientId, clinicId, specialtyId, serviceId, doctorId, date, timeframe, preAppointmentActions)
+        //appointments.add(new Appointment(1, 1, 1, 1, 1, 1, 1, new GregorianCalendar(2015, 1, 1), new TimeFrame(18, 19), "Fasting"));
+        //appointments.add(new Appointment(1, 1, 1, 1, 1, 1, 1, new GregorianCalendar(2015, 1, 15), new TimeFrame(18, 19), "Fasting"))
+        //appointments.add(new Appointment(1, 1, 1, 1, 1, 1, 1, new GregorianCalendar(2015, 1, 21), new TimeFrame(18, 19), "Fasting"))
+        //appointments.add(new Appointment(1, 1, 1, 1, 1, 1, 1, new GregorianCalendar(2015, 1, 26), new TimeFrame(18, 19), "Fasting"))
+        //appointments.add(new Appointment(1, 1, 1, 1, 1, 1, 1, new GregorianCalendar(2015, 1, 30), new TimeFrame(18, 19), "Fasting"))
         /*for (Appointment a: appointments){
             Toast.makeText(this, a.toString(), Toast.LENGTH_SHORT).show();
         }*/
@@ -65,23 +74,32 @@ public class AppointmentListFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_appointment_list, container, false);
-        ListView apptList = (ListView)view.findViewById(R.id.customListView);
-        AppointmentAdapter apptAdapter = new AppointmentAdapter(getActivity(), appointments);
-        apptList.setAdapter(apptAdapter);
+        TextView tv = (TextView)view.findViewById(R.id.noAppointmentText);
+        if (appointments.size() > 0){
+            tv.setVisibility(view.GONE);
+            ListView apptList = (ListView)view.findViewById(R.id.customListView);
+            AppointmentAdapter apptAdapter = new AppointmentAdapter(getActivity(), appointments);
+            apptList.setAdapter(apptAdapter);
 
-        apptList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView <?> parent, View view, int position, long id) {
-                AppointmentDummy app = (AppointmentDummy) parent.getAdapter().getItem(position);
-                //Toast.makeText(getApplicationContext(), app.toString(), Toast.LENGTH_SHORT).show();
-                Intent in = new Intent(getActivity().getApplicationContext(), ViewAppointmentActivity.class);
-                in.putExtra("appObj", app);
-                startActivity(in);
-                /*Toast.makeText(getApplicationContext(),
-                        "Click ListItem Number " + position, Toast.LENGTH_SHORT)
-                        .show();*/
-            }
-        });
+            apptList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView <?> parent, View view, int position, long id) {
+                    AppointmentDummy app = (AppointmentDummy) parent.getAdapter().getItem(position);
+                    //Appointment app = (Appointment) parent.getAdapter().getItem(position);
+                    //Toast.makeText(getApplicationContext(), app.toString(), Toast.LENGTH_SHORT).show();
+                    Intent in = new Intent(getActivity().getApplicationContext(), ViewAppointmentActivity.class);
+                    in.putExtra("appObj", app);
+                    startActivity(in);
+                    /*Toast.makeText(getApplicationContext(),
+                            "Click ListItem Number " + position, Toast.LENGTH_SHORT)
+                            .show();*/
+                }
+            });
+        }
+        else{
+            tv.setText("No ongoing appointment available");
+            tv.setVisibility(view.VISIBLE);
+        }
 
         Button newPage = (Button)view.findViewById(R.id.createAppointment);
         newPage.setOnClickListener(new View.OnClickListener() {
