@@ -54,6 +54,7 @@ public class CreateAppointmentActivity extends onDataPass implements AdapterView
     Spinner countrySpinner_create;
     Spinner serviceSpinner_create;
     Button confirmButton;
+    Button cancelButton;
     Spinner doctorSpinner_create;
     Spinner clinicSpinner_create;
     SpecialtyDAO specialtyDAO;
@@ -113,14 +114,22 @@ public class CreateAppointmentActivity extends onDataPass implements AdapterView
                 if(isAuthenticated==true){
                     Container.GlobalAccountManager.login(username,password);
                     loginSuccessful(username);
-                    goToMain();
+                    goToMain(); */
+            }
+        });
 
-                }
-                else{
-                    wrongCredentials();
-
-                }*/
-
+        cancelButton = (Button)findViewById(R.id.CancelCreateAppt);
+        cancelButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View arg0) {
+                /*EditText usernameBox = (EditText) findViewById(R.id.enterUsernameTextbox);
+                EditText passwordBox = (EditText) findViewById(R.id.enterPasswordTextbox);
+                String username = usernameBox.getText().toString();
+                String password = passwordBox.getText().toString();
+                boolean isAuthenticated = Container.GlobalAccountManager.authenticate(username,password);
+                if(isAuthenticated==true){
+                    Container.GlobalAccountManager.login(username,password);
+                    loginSuccessful(username);
+                    goToMain(); */
             }
         });
     }
