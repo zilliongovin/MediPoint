@@ -11,12 +11,18 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.djzass.medipoint.entity.Appointment;
+import com.djzass.medipoint.logic_manager.AppointmentManager;
+
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * Created by Deka on 30/3/2015.
  */
-public class AppointmentAdapter extends ArrayAdapter<AppointmentDummy> {
+public class AppointmentAdapter extends ArrayAdapter<Appointment> {
+    AppointmentManager appointmentManager;
     private static class ViewHolder {
         public ImageView specialtyIcon;
         public TextView appointmentService;
@@ -25,15 +31,16 @@ public class AppointmentAdapter extends ArrayAdapter<AppointmentDummy> {
         public TextView appointmentTime;
     }
 
-    public AppointmentAdapter(Context context, ArrayList<AppointmentDummy> appointments) {
+    public AppointmentAdapter(Context context, ArrayList<Appointment> appointments) throws SQLException {
         super(context, R.layout.appointment_adapter, appointments);
+        appointmentManager = new AppointmentManager(context);
     }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         ViewHolder viewHolder;
         // Get the data item for this position
-        AppointmentDummy appointment = getItem(position);
+        Appointment appointment = getItem(position);
         // Check if an existing view is being reused, otherwise inflate the view
 
         if (convertView == null) {
@@ -50,12 +57,15 @@ public class AppointmentAdapter extends ArrayAdapter<AppointmentDummy> {
             viewHolder = (ViewHolder)convertView.getTag();
         }
 
+        HashMap<String,String> appointmentDetails = getAppointmentDetails(appointment.getId());
+
         // Populate the data into the template view using the data object
-        viewHolder.specialtyIcon.setImageResource(getImageId(""));
-        viewHolder.appointmentService.setText(appointment.getName());
-        viewHolder.appointmentStatus.setText(appointment.getStatus());
-        viewHolder.appointmentDate.setText(appointment.getDateString());
-        viewHolder.appointmentTime.setText(appointment.getTimeString());
+
+        viewHolder.specialtyIcon.setImageResource(getImageId(appointmentDetails.get("SPECIALTY_NAME")));
+        viewHolder.appointmentService.setText(appointmentDetails.get("SERVICE_NAME"));
+        viewHolder.appointmentStatus.setText(appointmentDetails.get("STATUS"));
+        viewHolder.appointmentDate.setText(appointmentDetails.get("DATE"));
+        viewHolder.appointmentTime.setText(appointmentDetails.get("TIME"));
 
         // Return the completed view to render on screen
         return convertView;
@@ -70,5 +80,28 @@ public class AppointmentAdapter extends ArrayAdapter<AppointmentDummy> {
             return R.mipmap.female;
         return R.mipmap.icontp_medipoint;
     }
+
+    public HashMap<String,String> getAppointmentDetails(int id){
+        Appointment appointment = appointmentManager.getAppointmentByID(id);
+
+        String specialtyName = appointmentManager.getSpecialtyNameByAppointment(appointment);
+        String serviceName = appointmentManager.getServiceNameByAppointment(appointment);
+        String doctorName = appointmentManager.getDoctorNameByAppointment(appointment);
+        String clinicName = appointmentManager.getClinicNameByAppointment(appointment);
+        String status = appointmentManager.getStatus(appointment);
+
+        HashMap<String,String> appointmentDetails = new HashMap<String, String>();
+        appointmentDetails.put("SPECIALTY_NAME",specialtyName);
+        appointmentDetails.put("SERVICE_NAME",serviceName);
+        appointmentDetails.put("DOCTOR_NAME",doctorName);
+        appointmentDetails.put("CLINIC_NAME",clinicName);
+        appointmentDetails.put("DATE",appointment.getDateString());
+        appointmentDetails.put("TIME",appointment.getTimeString());
+        appointmentDetails.put("STATUS",status);
+
+        return appointmentDetails;
+    }
+
+
 
 }

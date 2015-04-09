@@ -2,6 +2,7 @@ package com.djzass.medipoint.logic_manager;
 
 import android.content.Context;
 
+import com.djzass.medipoint.DbContract;
 import com.djzass.medipoint.entity.Appointment;
 import com.djzass.medipoint.entity.DoctorSchedule;
 import com.djzass.medipoint.entity.Timeframe;
@@ -12,11 +13,13 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 
 public class AppointmentManager {
     private AppointmentDAO appointmentDao;
     private DoctorScheduleDAO docschedDao;
+
     List<Appointment> appointments;
 
     public AppointmentManager(Context context) throws SQLException {
@@ -157,8 +160,9 @@ public class AppointmentManager {
         return ret;
     }
 
-    public String returnStatus(Appointment appointment, Calendar currentTime){
+    public String getStatus(Appointment appointment){
         Calendar startTime = appointment.getDate();
+        Calendar currentTime = Calendar.getInstance();
         startTime.set(Calendar.HOUR, Timeframe.getHour(appointment.getTimeframe().getStartTime()));
         startTime.set(Calendar.MINUTE, Timeframe.getMinute(appointment.getTimeframe().getStartTime()));
 
@@ -202,6 +206,34 @@ public class AppointmentManager {
         long ret = appdao.deleteAppointment(app);
         appointments = getAppointmentsFromDatabase();
         return ret;
+    }
+
+   public Appointment getAppointmentByID(int id){
+        return appointmentDao.getAppointmentsByID(id).get(0);
+    }
+
+    public String getSpecialtyNameByAppointment(Appointment appointment){
+        int specialtyID = appointment.getSpecialtyId();
+        String specialtyName = appointmentDao.getStringFromID(DbContract.SpecialtyEntry.TABLE_NAME,DbContract.SpecialtyEntry.COLUMN_NAME_SPECIALTY_NAME,DbContract.SpecialtyEntry.COLUMN_NAME_SPECIALTY_ID,specialtyID);
+        return specialtyName;
+    }
+
+    public String getServiceNameByAppointment(Appointment appointment){
+        int serviceID = appointment.getServiceId();
+        String serviceName = appointmentDao.getStringFromID(DbContract.ServiceEntry.TABLE_NAME,DbContract.ServiceEntry.COLUMN_NAME_SERVICE_NAME,DbContract.ServiceEntry.COLUMN_NAME_SERVICE_ID,serviceID);
+        return serviceName;
+    }
+
+    public String getDoctorNameByAppointment(Appointment appointment){
+        int doctorID = appointment.getDoctorId();
+        String doctorName = appointmentDao.getStringFromID(DbContract.DoctorEntry.TABLE_NAME,DbContract.DoctorEntry.COLUMN_NAME_DOCTOR_NAME,DbContract.DoctorEntry.COLUMN_NAME_DOCTOR_ID,doctorID);
+        return doctorName;
+    }
+
+    public String getClinicNameByAppointment(Appointment appointment){
+        int clinicID = appointment.getClinicId();
+        String clinicName = appointmentDao.getStringFromID(DbContract.ClinicEntry.TABLE_NAME,DbContract.ClinicEntry.COLUMN_NAME_CLINIC_NAME,DbContract.ClinicEntry.COLUMN_NAME_CLINIC_ID,clinicID);
+        return clinicName;
     }
 
 }
