@@ -29,6 +29,7 @@ public class AccountManager {
     //SQLiteDatabase db;
     AccountDAO accountDAO;
     SessionManager session;
+    Context context;
 
 	public AccountManager(Context context){
 
@@ -38,6 +39,7 @@ public class AccountManager {
         try {
             accountDAO = new AccountDAO(context);
             session = new SessionManager(context);
+            this.context = context;
         }
         catch(SQLException sqlEx)
         {
@@ -62,17 +64,19 @@ public class AccountManager {
 
     }
 
-    public void createAccount(Bundle AccountDetails,Context context){
+    public long createAccount(Bundle AccountDetails,Context context){
         Account newAccount = extractAccountDetails(AccountDetails);
         //updateDatabase(newAccount);
         try {
             AccountDAO acctDAO = new AccountDAO(context);
-            int id = acctDAO.insertAccount(newAccount);
+            return acctDAO.insertAccount(newAccount);
             //Toast.makeText(context,""+id,Toast.LENGTH_LONG).show();
         }
         catch(SQLException sqlExcep){
             sqlExcep.getStackTrace();
         }
+        return -1;
+
     }
 
     public void login(String username,String password) {
@@ -180,10 +184,10 @@ public class AccountManager {
         db.update(DbContract.AccountEntry.TABLE_NAME,temp, DbContract.AccountEntry.COLUMN_NAME_USERNAME + "='" + newAccount.getUsername() + "'",null);
     }*/
 
-    public int getLoggedInAccountId(Context context){
+    public long getLoggedInAccountId(){
         try {
             accountDAO = new AccountDAO(context);
-            session = new SessionManager(context);
+            //session = new SessionManager(context);
         }
         catch(SQLException sqlEx) {
             sqlEx.getStackTrace();

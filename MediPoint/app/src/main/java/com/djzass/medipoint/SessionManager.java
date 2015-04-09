@@ -64,7 +64,7 @@ public class SessionManager {
         editor.commit();
     }
 
-    public int getAccountId(AccountDAO accountDAO){
+    public long getAccountId(AccountDAO accountDAO){
         String username = pref.getString(KEY_USERNAME,"");
         Cursor cursor = accountDAO.findAccountId(username);
         if(cursor!=null && cursor.moveToFirst())

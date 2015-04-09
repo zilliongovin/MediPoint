@@ -37,7 +37,7 @@ public class AppointmentDAO extends DbDAO{
 
     public long insertAppointment(Appointment appointment) {
         ContentValues values = new ContentValues();
-        values.put(DbContract.AppointmentEntry.COLUMN_NAME_APPOINTMENT_ID, getAppointmentCount());
+        //values.put(DbContract.AppointmentEntry.COLUMN_NAME_APPOINTMENT_ID, getAppointmentCount());
         values.put(DbContract.AppointmentEntry.COLUMN_NAME_CLINIC_ID, appointment.getClinicId());
         values.put(DbContract.AppointmentEntry.COLUMN_NAME_PATIENT_ID, appointment.getPatientId());
         values.put(DbContract.AppointmentEntry.COLUMN_NAME_DOCTOR_ID, appointment.getDoctorId());
@@ -48,7 +48,6 @@ public class AppointmentDAO extends DbDAO{
         values.put(DbContract.AppointmentEntry.COLUMN_NAME_PREAPPOINTMENT_ACTIONS, appointment.getPreAppointmentActions());
         values.put(DbContract.AppointmentEntry.COLUMN_NAME_START_TIME, appointment.getTimeframe().getStartTime());
         values.put(DbContract.AppointmentEntry.COLUMN_NAME_END_TIME, appointment.getTimeframe().getEndTime());
-
 
         return database.insert(DbContract.AppointmentEntry.TABLE_NAME, null, values);
     }

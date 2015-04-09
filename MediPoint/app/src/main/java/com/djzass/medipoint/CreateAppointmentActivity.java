@@ -41,7 +41,7 @@ public class CreateAppointmentActivity extends onDataPass implements AdapterView
 
     //appointment atrribute selections
     int clinicId;
-    int patientId;
+    long patientId;
     int doctorId;
     Calendar date;
     int serviceId;
@@ -68,6 +68,8 @@ public class CreateAppointmentActivity extends onDataPass implements AdapterView
 
         //specialty spinner and array adapter
         try {
+            AccountManager accountManager = new AccountManager(this);
+            this.patientId = accountManager.getLoggedInAccountId();
             specialtyDAO = new SpecialtyDAO(this);
             specialities = specialtyDAO.getAllSpecialties();
             specialtySpinner_create = (Spinner) findViewById(R.id.CreateApptSpecialty);
@@ -330,7 +332,7 @@ public class CreateAppointmentActivity extends onDataPass implements AdapterView
         datepicker.show(manager, "Datepicker");
     }
 
-    public void createAppointment() throws SQLException {
+    public void onClickCreateAppointment() throws SQLException {
         //AppointmentManager appointmentManager = new AppointmentManager();
         Appointment appointment = new Appointment();
         Account account = new Account();

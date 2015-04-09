@@ -55,10 +55,10 @@ public class AccountDAO extends DbDAO{
     Inserting account into accounts table and return the account id if insertion successful,
     otherwise -1 will be returned
      */
-    public int insertAccount(Account account){
+    public long insertAccount(Account account){
         ContentValues values = new ContentValues();
-        int id = getAccountCount();
-        values.put(DbContract.AccountEntry.COLUMN_NAME_ACCOUNT_ID, id);
+        //int id = getAccountCount();
+        //values.put(DbContract.AccountEntry.COLUMN_NAME_ACCOUNT_ID, id);
         values.put(DbContract.AccountEntry.COLUMN_NAME_NAME, account.getName());
         values.put(DbContract.AccountEntry.COLUMN_NAME_NRIC, account.getNric());
         values.put(DbContract.AccountEntry.COLUMN_NAME_EMAIL, account.getEmail());
@@ -74,8 +74,8 @@ public class AccountDAO extends DbDAO{
         values.put(DbContract.AccountEntry.COLUMN_NAME_NOTIFY_EMAIL, account.getNotifyEmail());
         values.put(DbContract.AccountEntry.COLUMN_NAME_NOTIFY_SMS, account.getNotifySMS());
 
-        database.insert(DbContract.AccountEntry.TABLE_NAME, null, values);
-        return id;
+        return database.insert(DbContract.AccountEntry.TABLE_NAME, null, values);
+        //return id;
     }
 
     /** READ
