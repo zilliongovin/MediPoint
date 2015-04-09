@@ -8,6 +8,7 @@ import android.support.v4.app.FragmentActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -19,7 +20,7 @@ import android.widget.Toast;
 import java.util.Calendar;
 
 
-public class SignUpPageTwo extends FragmentActivity {
+public class SignUpPageTwo extends onDataPass {
     //private AccountManager AccountCreator;
     //DbHelper mDbHelper;
     //SQLiteDatabase db;
@@ -128,10 +129,9 @@ public class SignUpPageTwo extends FragmentActivity {
         int isSmsChecked = onCheckBoxClicked(smsCheckbox);
 
         Calendar dobCal = Calendar.getInstance();
-        dobCal.set(yearOB, monthOB + 1, dateOB);
+        dobCal.set(yearOB, monthOB, dateOB);
 
         Calendar currentDate = Calendar.getInstance();
-
 
         if(selGender==-1||selMaritalStatus==-1||(isEmailChecked==0 && isSmsChecked==0))
             incompleteForm();
@@ -191,7 +191,7 @@ public class SignUpPageTwo extends FragmentActivity {
 
     }*/
 
-    public Calendar getDate(DatePicker datePicker){
+    /*public Calendar getDate(DatePicker datePicker){
         int day = datePicker.getDayOfMonth();
         int month = datePicker.getMonth()+1;
         int year = datePicker.getYear();
@@ -200,7 +200,7 @@ public class SignUpPageTwo extends FragmentActivity {
         calendar.set(year, month, day);
 
         return calendar;
-    }
+    }*/
 
     /*
     public void showDatePicker(View v){
@@ -233,6 +233,14 @@ public class SignUpPageTwo extends FragmentActivity {
         DatePickerFragment datepicker = new DatePickerFragment();
         datepicker.setArguments(bundle);
         datepicker.show(manager, "Datepicker");
+    }
+
+    public void DatePickerFragmentToActivity(int date, int month, int year, Button button)
+    {
+        super.DatePickerFragmentToActivity(date,month,year,button);
+        dateOB = date;
+        monthOB = month;
+        yearOB = year;
     }
 
     /*protected void onSaveInstanceState(Bundle outState,View[] views,int n) {
