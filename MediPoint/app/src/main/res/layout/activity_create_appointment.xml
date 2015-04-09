@@ -98,7 +98,7 @@
                 style="@style/FragmentStyle"
                 android:text="TAP TO CHOOSE TIME"
                 android:id="@+id/timepicker"
-                android:onClick="showTimepicker2"
+                android:onClick="showTimepicker"
                 android:layout_weight="1"/>
 
         </LinearLayout>

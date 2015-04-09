@@ -20,7 +20,7 @@ public class AppointmentManager {
     List<Appointment> appointments;
 
     public AppointmentManager(Context context) throws SQLException {
-        appointmentDao = new AppointmentDAO(context)
+        appointmentDao = new AppointmentDAO(context);
         appointments = getAppointmentsFromDatabase();
     }
 

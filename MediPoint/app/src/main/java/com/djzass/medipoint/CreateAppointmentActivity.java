@@ -1,5 +1,6 @@
 package com.djzass.medipoint;
 
+
 import android.app.Activity;
 import android.app.FragmentManager;
 import android.content.Intent;
@@ -33,7 +34,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-public class CreateAppointmentActivity extends Activity implements AdapterView.OnItemSelectedListener, SelectionListener{
+public class CreateAppointmentActivity extends onDataPass implements AdapterView.OnItemSelectedListener, SelectionListener{
 
     //appointment atrribute selections
     int clinicId;
@@ -348,6 +349,7 @@ public class CreateAppointmentActivity extends Activity implements AdapterView.O
 
     @Override
     public void selectItem(int position) {
-        Toast.makeText(this, getItems().get(position), Toast.LENGTH_SHORT).show();
+        Button btn = (Button) findViewById(R.id.timepicker);
+        btn.setText(getItems().get(position));
     }
 }

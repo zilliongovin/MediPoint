@@ -11,7 +11,7 @@ import java.text.DateFormatSymbols;
  * Created by Shreyas on 4/6/2015.
  */
 public class onDataPass extends FragmentActivity{
-    public static void FragmentToActivity(int date,int month,int year,Button button){
+    public void FragmentToActivity(int date,int month,int year,Button button){
         if(button!=null){
             //string representation for month
             String[] month_str = new DateFormatSymbols().getMonths();

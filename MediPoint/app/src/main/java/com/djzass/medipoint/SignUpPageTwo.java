@@ -8,6 +8,7 @@ import android.support.v4.app.FragmentActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -19,7 +20,7 @@ import android.widget.Toast;
 import java.util.Calendar;
 
 
-public class SignUpPageTwo extends FragmentActivity {
+public class SignUpPageTwo extends onDataPass {
     //private AccountManager AccountCreator;
     //DbHelper mDbHelper;
     //SQLiteDatabase db;
@@ -128,7 +129,7 @@ public class SignUpPageTwo extends FragmentActivity {
         int isSmsChecked = onCheckBoxClicked(smsCheckbox);
 
         Calendar dobCal = Calendar.getInstance();
-        dobCal.set(yearOB, monthOB + 1, dateOB);
+        dobCal.set(yearOB, monthOB, dateOB);
 
         Calendar currentDate = Calendar.getInstance();
 
@@ -233,6 +234,14 @@ public class SignUpPageTwo extends FragmentActivity {
         DatePickerFragment datepicker = new DatePickerFragment();
         datepicker.setArguments(bundle);
         datepicker.show(manager, "Datepicker");
+    }
+
+    @Override
+    public void FragmentToActivity(int date,int month,int year,Button button){
+        super.FragmentToActivity(date,month,year,button);
+        dateOB = date;
+        monthOB = month;
+        yearOB = year;
     }
 
     /*protected void onSaveInstanceState(Bundle outState,View[] views,int n) {
