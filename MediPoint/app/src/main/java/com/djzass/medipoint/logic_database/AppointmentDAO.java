@@ -41,6 +41,7 @@ public class AppointmentDAO extends DbDAO{
         values.put(DbContract.AppointmentEntry.COLUMN_NAME_CLINIC_ID, appointment.getClinicId());
         values.put(DbContract.AppointmentEntry.COLUMN_NAME_PATIENT_ID, appointment.getPatientId());
         values.put(DbContract.AppointmentEntry.COLUMN_NAME_DOCTOR_ID, appointment.getDoctorId());
+        values.put(DbContract.AppointmentEntry.COLUMN_NAME_REFERRER_ID, appointment.getReferrerId());
         values.put(DbContract.AppointmentEntry.COLUMN_NAME_DATE_TIME, String.valueOf(appointment.getDate()));
         values.put(DbContract.AppointmentEntry.COLUMN_NAME_SERVICE_ID, appointment.getServiceId());
         values.put(DbContract.AppointmentEntry.COLUMN_NAME_SPECIALTY_ID,appointment.getSpecialtyId());
@@ -65,6 +66,7 @@ public class AppointmentDAO extends DbDAO{
                         DbContract.AppointmentEntry.COLUMN_NAME_CLINIC_ID,
                         DbContract.AppointmentEntry.COLUMN_NAME_PATIENT_ID,
                         DbContract.AppointmentEntry.COLUMN_NAME_DOCTOR_ID,
+                        DbContract.AppointmentEntry.COLUMN_NAME_REFERRER_ID,
                         DbContract.AppointmentEntry.COLUMN_NAME_DATE_TIME,
                         DbContract.AppointmentEntry.COLUMN_NAME_SERVICE_ID,
                         DbContract.AppointmentEntry.COLUMN_NAME_SPECIALTY_ID,
@@ -75,11 +77,13 @@ public class AppointmentDAO extends DbDAO{
 
         while (cursor.moveToNext()) {
             Appointment appointment= new Appointment();
-            appointment.setClinicId(cursor.getInt(0));
-            appointment.setPatientId(cursor.getInt(1));
-            appointment.setDoctorId(cursor.getInt(2));
+            appointment.setId(cursor.getInt(0));
+            appointment.setClinicId(cursor.getInt(1));
+            appointment.setPatientId(cursor.getInt(2));
+            appointment.setDoctorId(cursor.getInt(3));
+            appointment.setReferrerId(cursor.getInt(4));
 
-            String temp = cursor.getString(3);
+            String temp = cursor.getString(5);
             DateFormat dateformat = new SimpleDateFormat("yyyy-MM-dd");
             Calendar cal  = Calendar.getInstance();
             try {
@@ -88,10 +92,10 @@ public class AppointmentDAO extends DbDAO{
                 Log.d("DAO", "Date parsing exception");
             }
             appointment.setDate(cal);
-            appointment.setServiceId(cursor.getInt(4));
-            appointment.setSpecialtyId(cursor.getInt(5));
-            appointment.setPreAppointmentActions(cursor.getString(6));
-            Timeframe timeframe= new Timeframe(cursor.getInt(7),cursor.getInt(8));
+            appointment.setServiceId(cursor.getInt(6));
+            appointment.setSpecialtyId(cursor.getInt(7));
+            appointment.setPreAppointmentActions(cursor.getString(8));
+            Timeframe timeframe= new Timeframe(cursor.getInt(9),cursor.getInt(10));
             appointment.setTimeframe(timeframe);
             appointments.add(appointment);
         }
@@ -124,6 +128,7 @@ public class AppointmentDAO extends DbDAO{
         values.put(DbContract.AppointmentEntry.COLUMN_NAME_CLINIC_ID, appointment.getClinicId());
         values.put(DbContract.AppointmentEntry.COLUMN_NAME_PATIENT_ID, appointment.getPatientId());
         values.put(DbContract.AppointmentEntry.COLUMN_NAME_DOCTOR_ID, appointment.getDoctorId());
+        values.put(DbContract.AppointmentEntry.COLUMN_NAME_REFERRER_ID, appointment.getReferrerId());
         values.put(DbContract.AppointmentEntry.COLUMN_NAME_DATE_TIME, String.valueOf(appointment.getDate()));
         values.put(DbContract.AppointmentEntry.COLUMN_NAME_SERVICE_ID, appointment.getServiceId());
         values.put(DbContract.AppointmentEntry.COLUMN_NAME_SPECIALTY_ID,appointment.getSpecialtyId());

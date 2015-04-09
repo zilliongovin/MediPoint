@@ -11,6 +11,7 @@ public class Appointment implements Parcelable{
     private int appointmentId;
     private int patientId;
     private int clinicId;
+    private int referrerId;
     private int specialtyId;
     private int serviceId;
     private int doctorId;
@@ -28,6 +29,7 @@ public class Appointment implements Parcelable{
         this.specialtyId = specialtyId;
         this.serviceId = serviceId;
         this.doctorId = doctorId;
+        this.referrerId = -1;
         this.date = date;
         this.timeframe = timeframe;
         this.date.set(Calendar.HOUR_OF_DAY, timeframe.getStartTime() / 2);
@@ -43,6 +45,39 @@ public class Appointment implements Parcelable{
         this.specialtyId = specialtyId;
         this.serviceId = serviceId;
         this.doctorId = doctorId;
+        this.referrerId = -1;
+        this.date = date;
+        this.timeframe = timeframe;
+        this.date.set(Calendar.HOUR_OF_DAY, timeframe.getStartTime() / 2);
+        this.date.set(Calendar.MINUTE, 30 * (timeframe.getStartTime() % 2));
+        this.preAppointmentActions = preAppointmentActions;
+    }
+
+    public Appointment(int patientId, int clinicId, int specialtyId, int serviceId, int doctorId, int referrerId,
+                       Calendar date, Timeframe timeframe) {
+        //this.appointmentId = appointmentId;
+        this.patientId = patientId;
+        this.clinicId = clinicId;
+        this.specialtyId = specialtyId;
+        this.serviceId = serviceId;
+        this.doctorId = doctorId;
+        this.referrerId = referrerId;
+        this.date = date;
+        this.timeframe = timeframe;
+        this.date.set(Calendar.HOUR_OF_DAY, timeframe.getStartTime() / 2);
+        this.date.set(Calendar.MINUTE, 30 * (timeframe.getStartTime() % 2));
+        this.preAppointmentActions = "None";
+    }
+
+    public Appointment(int patientId, int clinicId, int specialtyId, int serviceId, int doctorId, int referrerId,
+                       Calendar date, Timeframe timeframe, String preAppointmentActions) {
+        //this.appointmentId = appointmentId;
+        this.patientId = patientId;
+        this.clinicId = clinicId;
+        this.specialtyId = specialtyId;
+        this.serviceId = serviceId;
+        this.doctorId = doctorId;
+        this.referrerId = referrerId;
         this.date = date;
         this.timeframe = timeframe;
         this.date.set(Calendar.HOUR_OF_DAY, timeframe.getStartTime() / 2);
@@ -59,6 +94,7 @@ public class Appointment implements Parcelable{
         temp+= "Appointment Id: " + appointmentId + "\n";
         temp+= "Patient Id: " + patientId + "\n";
         temp+= "Clinic Id: " + clinicId + "\n";
+        temp+= "Referrer Id: " + referrerId + "\n";
         temp+= "Specialty Id: " + specialtyId + "\n";
         temp+= "Service Id: " + serviceId + "\n";
         temp+= "Doctor Id: " + doctorId + "\n";
@@ -106,6 +142,15 @@ public class Appointment implements Parcelable{
 
     public void setDoctorId(int doctorId) {
         this.doctorId = doctorId;
+    }
+
+
+    public int getReferrerId() {
+        return referrerId;
+    }
+
+    public void setReferrerId(int referrerId) {
+        this.referrerId = referrerId;
     }
 
     public int getServiceId() {
@@ -173,6 +218,7 @@ public class Appointment implements Parcelable{
         dest.writeInt(this.specialtyId);
         dest.writeInt(this.serviceId);
         dest.writeInt(this.doctorId);
+        dest.writeInt(this.referrerId);
         long cal = this.getDate().getTimeInMillis();
         dest.writeLong(cal);
         dest.writeInt(this.getTimeframe().getStartTime());
@@ -198,6 +244,7 @@ public class Appointment implements Parcelable{
         this.specialtyId = in.readInt();
         this.serviceId = in.readInt();
         this.doctorId = in.readInt();
+        this.referrerId = in.readInt();
         this.date = Calendar.getInstance();
         this.date.setTimeInMillis(in.readLong());
         this.timeframe = new Timeframe(in.readInt(),in.readInt());

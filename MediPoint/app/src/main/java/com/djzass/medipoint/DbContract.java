@@ -34,6 +34,7 @@ public class DbContract {
         public static final String COLUMN_NAME_CLINIC_ID = "clinicId";
         public static final String COLUMN_NAME_PATIENT_ID = "patientId";
         public static final String COLUMN_NAME_DOCTOR_ID = "doctorId";
+        public static final String COLUMN_NAME_REFERRER_ID = "referrerId";
         public static final String COLUMN_NAME_DATE_TIME = "dateTime";
         public static final String COLUMN_NAME_SERVICE_ID = "service";
         public static final String COLUMN_NAME_SPECIALTY_ID = "specialty";
