@@ -20,7 +20,7 @@ public class AppointmentManager {
     List<Appointment> appointments;
 
     public AppointmentManager(Context context) throws SQLException {
-        appointmentDao = new AppointmentDAO(context)
+        appointmentDao = new AppointmentDAO(context);
         appointments = getAppointmentsFromDatabase();
     }
 
@@ -177,22 +177,31 @@ public class AppointmentManager {
     }
 
     /*joshua*/
-    public void createAppointment(Appointment app){
+    public long createAppointment(Appointment app, AppointmentDAO appdao){
         //insert to database
         //update arraylist of appointment
         // update arraylist of appointment appointments = getAppointmentFromDatabase()
+        long ret = appdao.insertAppointment(app);
+        appointments = getAppointmentsFromDatabase();
+        return ret;
     }
 
-    public void editAppointment(Appointment app){
+    public long editAppointment(Appointment app, AppointmentDAO appdao){
         // get id of appointment
         // update appointment according to its id in database
         // update arraylist of appointment appointments = getAppointmentFromDatabase()
+        long ret = appdao.update(app);
+        appointments = getAppointmentsFromDatabase();
+        return ret;
     }
 
-    public void cancelAppointment(Appointment app){
+    public long cancelAppointment(Appointment app, AppointmentDAO appdao){
         // get id of appointment
         // delete appointment according to its id in database
         // update arraylist of appointment appointments = getAppointmentFromDatabase()
+        long ret = appdao.deleteAppointment(app);
+        appointments = getAppointmentsFromDatabase();
+        return ret;
     }
 
 }
