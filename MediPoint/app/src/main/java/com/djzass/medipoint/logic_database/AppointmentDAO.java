@@ -171,4 +171,13 @@ public class AppointmentDAO extends DbDAO{
         if (getAllAppointments().size()==0){
         }
     }
+
+    public String getStringFromID(String tableName,String columnName,String columnID,int id){
+        String query = "SELECT " + columnName +
+                " FROM " + tableName +
+                " WHERE " + columnID + "=?";
+        String[] selArgs = {""+id};
+        Cursor cursor = database.rawQuery(query,selArgs);
+        return cursor.getString(0);
+    }
 }
