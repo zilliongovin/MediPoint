@@ -76,7 +76,7 @@
                 style="@style/FragmentStyle"
                 android:text="TAP TO CHOOSE DATE"
                 android:id="@+id/datepicker"
-                android:onClick="showDatePicker"
+                android:onClick="onDateButtonSelected"
                 android:layout_weight="1"/>
         </LinearLayout>
 
