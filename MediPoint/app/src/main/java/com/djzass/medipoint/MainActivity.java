@@ -18,7 +18,6 @@ import com.google.samples.apps.iosched.ui.widget.SlidingTabLayout;
 public class MainActivity extends FragmentActivity {
 
     public static boolean SERVICE_TIMER_STARTED = false;
-   public static Container GlobalContainer = new Container();
 
 
     @Override
