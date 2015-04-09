@@ -25,6 +25,7 @@ import java.util.GregorianCalendar;
 public class AppointmentListFragment extends Fragment {
 
     ArrayList<AppointmentDummy> appointments;
+    //ArrayList<Appointment> appointments;
     public static AppointmentListFragment newInstance() {
         AppointmentListFragment fragment = new AppointmentListFragment();
         return fragment;
@@ -34,7 +35,7 @@ public class AppointmentListFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        
         appointments = new ArrayList<AppointmentDummy>();
         Calendar[] dateTimes = {new GregorianCalendar(1995, 8, 10, 10, 0), new GregorianCalendar(1995, 10, 9, 3, 2),
                 new GregorianCalendar(1994, 10, 9, 11, 33), new GregorianCalendar(1993, 6, 7, 10, 2), new GregorianCalendar(1996, 10, 8, 9, 30),
@@ -55,7 +56,13 @@ public class AppointmentListFragment extends Fragment {
             co = country[i % country.length];
             appointments.add(new AppointmentDummy(i, apptName[i], s, dateTimes[i], cl, co));
         }
-
+        //appointments = new ArrayList<Appointment>();
+        //Appointment(appId, patientId, clinicId, specialtyId, serviceId, doctorId, date, timeframe, preAppointmentActions)
+        //appointments.add(new Appointment(1, 1, 1, 1, 1, 1, 1, new GregorianCalendar(2015, 1, 1), new TimeFrame(18, 19), "Fasting"));
+        //appointments.add(new Appointment(1, 1, 1, 1, 1, 1, 1, new GregorianCalendar(2015, 1, 15), new TimeFrame(18, 19), "Fasting"))
+        //appointments.add(new Appointment(1, 1, 1, 1, 1, 1, 1, new GregorianCalendar(2015, 1, 21), new TimeFrame(18, 19), "Fasting"))
+        //appointments.add(new Appointment(1, 1, 1, 1, 1, 1, 1, new GregorianCalendar(2015, 1, 26), new TimeFrame(18, 19), "Fasting"))
+        //appointments.add(new Appointment(1, 1, 1, 1, 1, 1, 1, new GregorianCalendar(2015, 1, 30), new TimeFrame(18, 19), "Fasting"))
         /*for (Appointment a: appointments){
             Toast.makeText(this, a.toString(), Toast.LENGTH_SHORT).show();
         }*/
@@ -78,6 +85,7 @@ public class AppointmentListFragment extends Fragment {
                 @Override
                 public void onItemClick(AdapterView <?> parent, View view, int position, long id) {
                     AppointmentDummy app = (AppointmentDummy) parent.getAdapter().getItem(position);
+                    //Appointment app = (Appointment) parent.getAdapter().getItem(position);
                     //Toast.makeText(getApplicationContext(), app.toString(), Toast.LENGTH_SHORT).show();
                     Intent in = new Intent(getActivity().getApplicationContext(), ViewAppointmentActivity.class);
                     in.putExtra("appObj", app);

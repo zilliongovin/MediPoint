@@ -20,8 +20,12 @@ public class AppointmentManager {
     List<Appointment> appointments;
 
     public AppointmentManager(Context context) throws SQLException {
-        appointmentDao = new AppointmentDAO(context);
-        appointments = appointmentDao.getAllAppointments();
+        appointmentDao = new AppointmentDAO(context)
+        appointments = getAppointmentsFromDatabase();
+    }
+
+    public List<Appointment> getAppointmentsFromDatabase(){
+        return appointmentDao.getAllAppointments();
     }
 
     public List<Boolean> getAvailableTime(Calendar date, int patient, int doctor, int clinic){
@@ -171,4 +175,24 @@ public class AppointmentManager {
             else return "Finished";
         }
     }
+
+    /*joshua*/
+    public void createAppointment(Appointment app){
+        //insert to database
+        //update arraylist of appointment
+        // update arraylist of appointment appointments = getAppointmentFromDatabase()
+    }
+
+    public void editAppointment(Appointment app){
+        // get id of appointment
+        // update appointment according to its id in database
+        // update arraylist of appointment appointments = getAppointmentFromDatabase()
+    }
+
+    public void cancelAppointment(Appointment app){
+        // get id of appointment
+        // delete appointment according to its id in database
+        // update arraylist of appointment appointments = getAppointmentFromDatabase()
+    }
+
 }
