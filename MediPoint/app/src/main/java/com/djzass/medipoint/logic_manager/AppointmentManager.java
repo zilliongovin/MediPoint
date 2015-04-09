@@ -7,6 +7,7 @@ import com.djzass.medipoint.entity.Appointment;
 import com.djzass.medipoint.entity.DoctorSchedule;
 import com.djzass.medipoint.entity.Timeframe;
 import com.djzass.medipoint.logic_database.AppointmentDAO;
+import com.djzass.medipoint.logic_database.DoctorScheduleDAO;
 
 import java.sql.SQLException;
 import java.util.ArrayList;

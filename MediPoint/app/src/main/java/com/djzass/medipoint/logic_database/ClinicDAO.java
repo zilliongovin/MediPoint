@@ -89,6 +89,11 @@ public class ClinicDAO extends DbDAO{
         String whereclause = DbContract.ClinicEntry.COLUMN_NAME_COUNTRY + " = " + "\"" +country + "\"";
         return getClinics(whereclause);
     }
+
+    public List<Clinic> getClinicsByName(String name) {
+        String whereclause = DbContract.ClinicEntry.COLUMN_NAME_CLINIC_NAME + " = " + "\"" +name + "\"";
+        return getClinics(whereclause);
+    }
     /*
         UPDATE
         returns the number of rows affected by the update
