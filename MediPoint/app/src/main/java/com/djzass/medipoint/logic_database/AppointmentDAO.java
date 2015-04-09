@@ -155,7 +155,7 @@ public class AppointmentDAO extends DbDAO{
     public void loadAppointments() {
         List<Appointment> temp= getAllAppointments();
         for (Appointment tmp : temp) {
-            tmp.print();
+            tmp.toString();
         }
     }
 
