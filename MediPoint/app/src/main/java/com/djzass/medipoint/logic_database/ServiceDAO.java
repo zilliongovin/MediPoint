@@ -34,7 +34,7 @@ public class ServiceDAO extends DbDAO{
      */
     public long insertService(Service service){
         ContentValues values = new ContentValues();
-        values.put(DbContract.ServiceEntry.COLUMN_NAME_SERVICE_ID, getServiceCount());
+        //values.put(DbContract.ServiceEntry.COLUMN_NAME_SERVICE_ID, getServiceCount());
         values.put(DbContract.ServiceEntry.COLUMN_NAME_SERVICE_NAME, service.getName());
         values.put(DbContract.ServiceEntry.COLUMN_NAME_SPECIALTY_ID, service.getSpecialtyId());
         values.put(DbContract.ServiceEntry.COLUMN_NAME_SERVICE_DURATION, service.getDuration());

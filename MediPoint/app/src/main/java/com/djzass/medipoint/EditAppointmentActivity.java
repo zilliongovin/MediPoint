@@ -9,6 +9,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -21,7 +22,8 @@ public class EditAppointmentActivity extends Activity implements AdapterView.OnI
 
     //Spinner
     Spinner specialtySpinner_edit;
-
+    Button confirmButton;
+    Button cancelButton;
 
 
     @Override
@@ -37,6 +39,34 @@ public class EditAppointmentActivity extends Activity implements AdapterView.OnI
         specialtySpinner_edit.setAdapter(specialtyAdapter_edit);
         specialtySpinner_edit.setOnItemSelectedListener(this);
 
+        confirmButton = (Button)findViewById(R.id.ConfirmEditAppt);
+        confirmButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View arg0) {
+                /*EditText usernameBox = (EditText) findViewById(R.id.enterUsernameTextbox);
+                EditText passwordBox = (EditText) findViewById(R.id.enterPasswordTextbox);
+                String username = usernameBox.getText().toString();
+                String password = passwordBox.getText().toString();
+                boolean isAuthenticated = Container.GlobalAccountManager.authenticate(username,password);
+                if(isAuthenticated==true){
+                    Container.GlobalAccountManager.login(username,password);
+                    loginSuccessful(username);
+                    goToMain(); */
+            }
+        });
+        cancelButton = (Button)findViewById(R.id.CancelEditAppt);
+        cancelButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View arg0) {
+                /*EditText usernameBox = (EditText) findViewById(R.id.enterUsernameTextbox);
+                EditText passwordBox = (EditText) findViewById(R.id.enterPasswordTextbox);
+                String username = usernameBox.getText().toString();
+                String password = passwordBox.getText().toString();
+                boolean isAuthenticated = Container.GlobalAccountManager.authenticate(username,password);
+                if(isAuthenticated==true){
+                    Container.GlobalAccountManager.login(username,password);
+                    loginSuccessful(username);
+                    goToMain(); */
+            }
+        });
     }
 
     @Override

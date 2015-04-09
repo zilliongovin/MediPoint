@@ -18,9 +18,9 @@ public class DbHelper extends SQLiteOpenHelper {
     private static final String VARCHAR_THIRTY_TYPE = " VARCHAR(30)";
     private static final String VARCHAR_FIFTY_TYPE = " VARCHAR(50)";
     private static final String INT_TYPE = " INTEGER";
-    private static final String INT_KEY_TYPE = " INTEGER PRIMARY KEY AUTOINCREMENT ";
+    private static final String INT_KEY_TYPE = " INTEGER PRIMARY KEY AUTOINCREMENT";
     private static final String DATETIME_TYPE = " DATETIME";
-    private static final String PRIMARY_KEY = " PRIMARY KEY ";
+    private static final String PRIMARY_KEY = " PRIMARY KEY";
     private static final String FOREIGN_KEY = " FOREIGN KEY(";
     private static final String REFERENCES = ") REFERENCES ";
     private static final String COMMA_SEP = ",";
@@ -31,7 +31,7 @@ public class DbHelper extends SQLiteOpenHelper {
     /* ACCOUNT TABLE*/
     private static final String SQL_CREATE_ACCOUNT =
             "CREATE TABLE " + DbContract.AccountEntry.TABLE_NAME + " (" +
-                    DbContract.AccountEntry.COLUMN_NAME_ACCOUNT_ID + INT_KEY_TYPE + PRIMARY_KEY + COMMA_SEP +
+                    DbContract.AccountEntry.COLUMN_NAME_ACCOUNT_ID + INT_KEY_TYPE /*+ PRIMARY_KEY*/ + COMMA_SEP +
                     DbContract.AccountEntry.COLUMN_NAME_NAME + VARCHAR_FIFTY_TYPE + COMMA_SEP +
                     DbContract.AccountEntry.COLUMN_NAME_NRIC + CHAR_TEN_TYPE + COMMA_SEP +
                     DbContract.AccountEntry.COLUMN_NAME_EMAIL + VARCHAR_THIRTY_TYPE + COMMA_SEP +
@@ -100,7 +100,7 @@ public class DbHelper extends SQLiteOpenHelper {
 
     /* APPOINTMENT TABLE */
     private static final String SQL_CREATE_APPOINTMENT = "CREATE TABLE " + DbContract.AppointmentEntry.TABLE_NAME + " (" +
-            DbContract.AppointmentEntry.COLUMN_NAME_APPOINTMENT_ID + INT_KEY_TYPE + PRIMARY_KEY + COMMA_SEP +
+            DbContract.AppointmentEntry.COLUMN_NAME_APPOINTMENT_ID + INT_KEY_TYPE /*+ PRIMARY_KEY*/ + COMMA_SEP +
             DbContract.AppointmentEntry.COLUMN_NAME_CLINIC_ID + INT_TYPE + COMMA_SEP +
             DbContract.AppointmentEntry.COLUMN_NAME_PATIENT_ID + INT_TYPE + COMMA_SEP +
             DbContract.AppointmentEntry.COLUMN_NAME_DOCTOR_ID + INT_TYPE + COMMA_SEP +
@@ -125,7 +125,8 @@ public class DbHelper extends SQLiteOpenHelper {
 
     /*DOCTOR TABLE*/
     private static final String SQL_CREATE_DOCTOR = "CREATE TABLE " + DbContract.DoctorEntry.TABLE_NAME + " (" +
-            DbContract.DoctorEntry.COLUMN_NAME_DOCTOR_ID + INT_KEY_TYPE + PRIMARY_KEY + COMMA_SEP +
+            //DbContract.DoctorEntry.COLUMN_NAME_DOCTOR_ID + INT_KEY_TYPE + PRIMARY_KEY + COMMA_SEP +
+            DbContract.DoctorEntry.COLUMN_NAME_DOCTOR_ID + INT_TYPE + PRIMARY_KEY + COMMA_SEP +
             DbContract.DoctorEntry.COLUMN_NAME_DOCTOR_NAME + VARCHAR_THIRTY_TYPE + COMMA_SEP +
             DbContract.DoctorEntry.COLUMN_NAME_SPECIALIZATION_ID + INT_TYPE + COMMA_SEP +
             DbContract.DoctorEntry.COLUMN_NAME_PRACTICE_DURATION + INT_TYPE + COMMA_SEP +
@@ -137,7 +138,7 @@ public class DbHelper extends SQLiteOpenHelper {
 
     /*DOCTOR SCHEDULE TABLE*/
     private static final String SQL_CREATE_DOCTOR_SCHEDULE = "CREATE TABLE " + DbContract.DoctorScheduleEntry.TABLE_NAME + " (" +
-            DbContract.DoctorScheduleEntry.COLUMN_NAME_DOCTOR_SCHEDULE_ID + INT_KEY_TYPE + PRIMARY_KEY + COMMA_SEP +
+            DbContract.DoctorScheduleEntry.COLUMN_NAME_DOCTOR_SCHEDULE_ID + INT_KEY_TYPE /*+ PRIMARY_KEY*/ + COMMA_SEP +
             DbContract.DoctorScheduleEntry.COLUMN_NAME_DOCTOR_ID + INT_TYPE + COMMA_SEP +
             DbContract.DoctorScheduleEntry.COLUMN_NAME_CLINIC_ID + INT_TYPE + COMMA_SEP +
             DbContract.DoctorScheduleEntry.COLUMN_NAME_DAY + VARCHAR_TEN_TYPE + COMMA_SEP +
@@ -153,7 +154,7 @@ public class DbHelper extends SQLiteOpenHelper {
 
     /*CLINIC TABLE*/
     private static final String SQL_CREATE_CLINIC = "CREATE TABLE " + DbContract.ClinicEntry.TABLE_NAME + " (" +
-            DbContract.ClinicEntry.COLUMN_NAME_CLINIC_ID + INT_KEY_TYPE + PRIMARY_KEY + COMMA_SEP +
+            DbContract.ClinicEntry.COLUMN_NAME_CLINIC_ID + INT_KEY_TYPE /*+ PRIMARY_KEY*/ + COMMA_SEP +
             DbContract.ClinicEntry.COLUMN_NAME_CLINIC_NAME + VARCHAR_THIRTY_TYPE + COMMA_SEP +
             DbContract.ClinicEntry.COLUMN_NAME_ADDRESS + VARCHAR_FIFTY_TYPE + COMMA_SEP +
             DbContract.ClinicEntry.COLUMN_NAME_COUNTRY + INT_TYPE + COMMA_SEP +
@@ -168,7 +169,7 @@ public class DbHelper extends SQLiteOpenHelper {
 
     /*SPECIALTY TABLE*/
     private static final String SQL_CREATE_SPECIALTY = "CREATE TABLE " + DbContract.SpecialtyEntry.TABLE_NAME + " (" +
-            DbContract.SpecialtyEntry.COLUMN_NAME_SPECIALTY_ID + INT_KEY_TYPE + PRIMARY_KEY + COMMA_SEP +
+            DbContract.SpecialtyEntry.COLUMN_NAME_SPECIALTY_ID + INT_KEY_TYPE /*+ PRIMARY_KEY*/ + COMMA_SEP +
             DbContract.SpecialtyEntry.COLUMN_NAME_SPECIALTY_NAME + VARCHAR_THIRTY_TYPE + " );";
 
     private static final String SQL_DELETE_SPECIALTY =
@@ -176,7 +177,7 @@ public class DbHelper extends SQLiteOpenHelper {
 
     /*SERVICE TABLE*/
     private static final String SQL_CREATE_SERVICE = "CREATE TABLE " + DbContract.ServiceEntry.TABLE_NAME + " (" +
-            DbContract.ServiceEntry.COLUMN_NAME_SERVICE_ID + INT_KEY_TYPE + PRIMARY_KEY + COMMA_SEP +
+            DbContract.ServiceEntry.COLUMN_NAME_SERVICE_ID + INT_KEY_TYPE /*+ PRIMARY_KEY*/ + COMMA_SEP +
             DbContract.ServiceEntry.COLUMN_NAME_SERVICE_NAME + VARCHAR_THIRTY_TYPE + COMMA_SEP +
             DbContract.ServiceEntry.COLUMN_NAME_SPECIALTY_ID + INT_TYPE + COMMA_SEP +
             DbContract.ServiceEntry.COLUMN_NAME_SERVICE_DURATION + INT_TYPE + COMMA_SEP +
@@ -189,7 +190,8 @@ public class DbHelper extends SQLiteOpenHelper {
 
     /*PATIENT ENTRY*/
     private static final String SQL_CREATE_PATIENT = "CREATE TABLE " + DbContract.PatientEntry.TABLE_NAME + " (" +
-            DbContract.PatientEntry.COLUMN_NAME_PATIENT_ID + INT_KEY_TYPE + PRIMARY_KEY + COMMA_SEP +
+            //DbContract.PatientEntry.COLUMN_NAME_PATIENT_ID + INT_KEY_TYPE + PRIMARY_KEY + COMMA_SEP +
+            DbContract.PatientEntry.COLUMN_NAME_PATIENT_ID + INT_TYPE + PRIMARY_KEY + COMMA_SEP +
             DbContract.PatientEntry.COLUMN_NAME_DOB + DATETIME_TYPE + COMMA_SEP +
             DbContract.PatientEntry.COLUMN_NAME_AGE + INT_TYPE + COMMA_SEP +
             DbContract.PatientEntry.COLUMN_NAME_MEDICAL_HISTORY + TEXT_TYPE + COMMA_SEP +
