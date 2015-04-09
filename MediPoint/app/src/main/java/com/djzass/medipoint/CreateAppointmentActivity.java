@@ -18,6 +18,8 @@ import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.djzass.medipoint.entity.Account;
+import com.djzass.medipoint.entity.Appointment;
 import com.djzass.medipoint.entity.Clinic;
 import com.djzass.medipoint.entity.Doctor;
 import com.djzass.medipoint.entity.Service;
@@ -28,6 +30,7 @@ import com.djzass.medipoint.logic_database.DoctorDAO;
 import com.djzass.medipoint.logic_database.ServiceDAO;
 import com.djzass.medipoint.logic_database.SpecialtyDAO;
 import com.djzass.medipoint.logic_manager.AccountManager;
+import com.djzass.medipoint.logic_manager.AppointmentManager;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -327,10 +330,15 @@ public class CreateAppointmentActivity extends onDataPass implements AdapterView
         datepicker.show(manager, "Datepicker");
     }
 
-    public void createAppointment()
-    {
-
-
+    public void createAppointment() throws SQLException {
+        //AppointmentManager appointmentManager = new AppointmentManager();
+        Appointment appointment = new Appointment();
+        Account account = new Account();
+        //appointmentManager.createAppointment();
+        AlarmSetter malarm = new AlarmSetter();
+        Notification notification = new Notification();
+        notification.buildNotification(this,"Appointment Created!!");
+        malarm.setAlarm(this,appointment,account);
     }
 
     private ArrayList<String> getItems() {

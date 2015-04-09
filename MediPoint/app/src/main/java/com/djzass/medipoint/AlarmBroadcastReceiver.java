@@ -38,7 +38,7 @@ public class AlarmBroadcastReceiver extends BroadcastReceiver {
                 +"This is an automated message.Please do not reply";
         if ( appointment !=null){
             Notification mNotification = new Notification();
-            mNotification.buildNotification(context,message);
+            mNotification.buildNotification(context,"you have an appointment tomorrow");
             if(account.getNotifyEmail()==1 && account.getNotifySMS()==0) {
                 Email mEmail = new Email();
                 mEmail.sendMail(account.getEmail(),message);

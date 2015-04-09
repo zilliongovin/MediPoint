@@ -6,6 +6,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 
+import com.djzass.medipoint.entity.Appointment;
+
 /**
  * Created by Zillion Govin on 4/4/2015.
  */
@@ -55,5 +57,11 @@ public class ViewAppointmentActivity extends Activity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void cancelAppointment(){
+        Appointment appointment = new Appointment();
+        AlarmSetter malarm = new AlarmSetter();
+        malarm.cancelAlarm(this,appointment);
     }
 }

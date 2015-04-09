@@ -35,8 +35,8 @@ public class AlarmSetter {
     public void cancelAlarm(Context context,Appointment appointment){
         Intent cancelIntent = new Intent(context,AlarmBroadcastReceiver.class);
         int reminderId = appointment.getId();
-        PendingIntent sender = PendingIntent.getBroadcast(context, reminderId, cancelIntent, PendingIntent.FLAG_CANCEL_CURRENT);
+        PendingIntent cancel = PendingIntent.getBroadcast(context, reminderId, cancelIntent, PendingIntent.FLAG_CANCEL_CURRENT);
         AlarmManager am = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-        am.cancel(sender);
+        am.cancel(cancel);
     }
 }
