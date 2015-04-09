@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <ScrollView
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
@@ -77,7 +76,7 @@
                 style="@style/FragmentStyle"
                 android:text="TAP TO CHOOSE DATE"
                 android:id="@+id/datepicker"
-                android:onClick="showDatePicker"
+                android:onClick="onDateButtonSelected"
                 android:layout_weight="1"/>
         </LinearLayout>
 
@@ -99,7 +98,7 @@
                 style="@style/FragmentStyle"
                 android:text="TAP TO CHOOSE TIME"
                 android:id="@+id/timepicker"
-                android:onClick="showTimepicker"
+                android:onClick="showTimepicker2"
                 android:layout_weight="1"/>
 
         </LinearLayout>
