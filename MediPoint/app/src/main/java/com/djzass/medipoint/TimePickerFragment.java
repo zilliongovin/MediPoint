@@ -6,8 +6,6 @@ import android.app.Dialog;
 import android.app.DialogFragment;
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.view.View;
-
 import java.util.List;
 
 /**
@@ -18,6 +16,7 @@ public class TimePickerFragment extends DialogFragment{
     public static final String DATA = "items";
 
     public static final String SELECTED = "selected";
+
 /*
     Button activityButton;
         int viewID = getArguments().getInt("VIEW_ID");
@@ -94,6 +93,7 @@ public class TimePickerFragment extends DialogFragment{
                 Button timefrag = (Button) getActivity().findViewById(R.id.timepicker);
                 timefrag.setText(timeSelected);
                 */
+
             if ( listener != null )
             {
                 listener.selectItem(which);
