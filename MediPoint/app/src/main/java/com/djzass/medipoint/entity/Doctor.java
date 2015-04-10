@@ -104,34 +104,38 @@ public class Doctor implements Parcelable{
                 ;
     }
 
+    public Doctor(Parcel in){
+        readFromParcel(in);
+    }
+
     @Override
     public int describeContents() {
         return 0;
     }
 
     @Override
-    public void writeToParcel(Parcel parc3, int flags) {
-        parc3.writeInt(this.DoctorId);
-        parc3.writeInt(this.specializationId);
-        parc3.writeInt(this.practiceDuration);
-        parc3.writeString(this.name);
+    public void writeToParcel(Parcel desc, int flags) {
+        desc.writeInt(this.DoctorId);
+        desc.writeInt(this.specializationId);
+        desc.writeInt(this.practiceDuration);
+        desc.writeString(this.name);
     }
 
-    public static final Parcelable.Creator<Appointment> CREATOR
-            = new Parcelable.Creator<Appointment>() {
-        public Appointment createFromParcel(Parcel in) {
-            return new Appointment(in);
+    public static final Parcelable.Creator<Doctor> CREATOR
+            = new Parcelable.Creator<Doctor>() {
+        public Doctor createFromParcel(Parcel in) {
+            return new Doctor(in);
         }
 
-        public Appointment[] newArray(int size) {
-            return new Appointment[size];
+        public Doctor[] newArray(int size) {
+            return new Doctor[size];
         }
     };
 
-    public void readFromParcel(Parcel in4) {
-        this.DoctorId = in4.readInt();
-        this.specializationId = in4.readInt();
-        this.practiceDuration = in4.readInt();
-        this.name = in4.readString();
+    public void readFromParcel(Parcel in) {
+        this.DoctorId = in.readInt();
+        this.specializationId = in.readInt();
+        this.practiceDuration = in.readInt();
+        this.name = in.readString();
     }
 }

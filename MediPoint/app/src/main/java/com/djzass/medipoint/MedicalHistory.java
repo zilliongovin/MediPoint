@@ -5,11 +5,13 @@ package com.djzass.medipoint;
  */
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Html;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -38,7 +40,7 @@ public class MedicalHistory extends Activity {
     //create new patient
     PatientDAO patientDAO;
 
-    //get from intent
+    //DOB of user from intent
     Calendar DOB;
 
 
@@ -58,6 +60,19 @@ public class MedicalHistory extends Activity {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
+        //set submit button listener
+        Button submit = (Button)findViewById(R.id.submitButton);
+        submit.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View arg0) {
+                onSubmit();
+            }
+        });
+
+        //get DOB from intent
+        Intent intent = getIntent();
+        Long DOBLong = intent.getLongExtra("DOB", 0);
+        DOB.setTimeInMillis(DOBLong);
 
     }
 
@@ -290,7 +305,7 @@ public class MedicalHistory extends Activity {
     }
 
     //method for submit button
-    public void onSubmit(View v){
+    public void onSubmit(){
 
         //get edittext
         EditText spec = (EditText) findViewById(R.id.Specification);
@@ -313,13 +328,16 @@ public class MedicalHistory extends Activity {
 
         if( !((medicationTest.toString().trim()).equals("")) ){
             ongoingMedication = medicationTest.toString();
-        }   
+        }
 
         //combine all personal history
         String medicalHistory = dentalInfo + ENTInfo + genitalInfo + otherInfo;
 
         //store medicalHistory, allergyInfo, ongoingTreatment, ongoingMedication to DB
-        //patientDAO.insertPatient(new Patient(DOB, medicalHistory, ongoingTreatment, ongoingMedication, allergyInfo));
+        patientDAO.insertPatient(new Patient(DOB, medicalHistory, ongoingTreatment, ongoingMedication, allergyInfo));
 
+        //go back to login page after submitting
+        Intent intent = new Intent(this, Login.class);
+        startActivity(intent);
     }
 }

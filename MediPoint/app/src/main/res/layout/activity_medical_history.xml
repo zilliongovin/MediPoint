@@ -283,7 +283,7 @@
             android:layout_marginBottom="16dp"
             android:text="@string/submit"
             style="@style/ButtonStyle"
-            android:onClick="onSubmit"/>
+            android:id="@+id/submitButton"/>
 
     </LinearLayout>
 
