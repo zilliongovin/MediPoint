@@ -93,8 +93,8 @@ public class ServiceDAO extends DbDAO{
         return getServices("");
     }
 
-    public List<Service> getServicesByID(int id) {
-        String whereclause = " AND " + DbContract.ServiceEntry.COLUMN_NAME_SERVICE_ID + " = " + id;
+    public List<Service> getServicesByID(int serviceid) {
+        String whereclause = " AND " + DbContract.ServiceEntry.COLUMN_NAME_SERVICE_ID + " = " + serviceid;
         return getServices(whereclause);
     }
 
@@ -103,27 +103,6 @@ public class ServiceDAO extends DbDAO{
         return getServices(whereclause);
     }
 
-    /*
-        FETCH BY ID
-     */
-    //READ SINGLE ROW
-    public Service getServiceById(long serviceId) {
-
-        String selectQuery = "SELECT  * FROM " + DbContract.ServiceEntry.TABLE_NAME + " WHERE "
-                + DbContract.ServiceEntry.COLUMN_NAME_SERVICE_ID + " = " + serviceId;
-
-        Cursor c = database.rawQuery(selectQuery, null);
-
-        if (c != null)
-            c.moveToFirst();
-
-        // Create the class object, then set the attribute from content of the exisiting data in the table
-        Service service = new Service();
-        service.setId(c.getInt(c.getColumnIndex(DbContract.ServiceEntry.COLUMN_NAME_SERVICE_ID)));
-        service.setName(c.getString(c.getColumnIndex(DbContract.ServiceEntry.COLUMN_NAME_SERVICE_NAME)));
-
-        return service;
-    }
     /*
         UPDATE
        returns the number of rows affected by the update

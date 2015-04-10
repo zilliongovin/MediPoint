@@ -7,7 +7,6 @@ import com.djzass.medipoint.entity.Appointment;
 import com.djzass.medipoint.entity.DoctorSchedule;
 import com.djzass.medipoint.entity.Timeframe;
 import com.djzass.medipoint.logic_database.AppointmentDAO;
-import com.djzass.medipoint.logic_database.DoctorScheduleDAO;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -49,7 +48,7 @@ public class AppointmentManager {
         }
     }
 
-    public List<Appointment> getAppointmentsFromDatabase(Context context){
+    public List<Appointment> getAppointments(Context context){
         updateAppointmentDao(context);
         return appointmentDao.getAllAppointments();
     }
@@ -221,31 +220,28 @@ public class AppointmentManager {
     /*joshua*/
     public long createAppointment(Appointment app, Context context){
         //insert to database
-        //update arraylist of appointment
         // update arraylist of appointment appointments = getAppointmentFromDatabase()
         updateAppointmentDao(context);
         long ret = appointmentDao.insertAppointment(app);
-        appointments = getAppointmentsFromDatabase(context);
+        appointments = getAppointments(context);
         return ret;
     }
 
     public long editAppointment(Appointment app, Context context){
-        // get id of appointment
         // update appointment according to its id in database
         // update arraylist of appointment appointments = getAppointmentFromDatabase()
         updateAppointmentDao(context);
         long ret = appointmentDao.update(app);
-        appointments = getAppointmentsFromDatabase(context);
+        appointments = getAppointments(context);
         return ret;
     }
 
     public long cancelAppointment(Appointment app, Context context){
-        // get id of appointment
         // delete appointment according to its id in database
         // update arraylist of appointment appointments = getAppointmentFromDatabase()
         long ret = appointmentDao.deleteAppointment(app);
         updateAppointmentDao(context);
-        appointments = getAppointmentsFromDatabase(context);
+        appointments = getAppointments(context);
         return ret;
     }
 
