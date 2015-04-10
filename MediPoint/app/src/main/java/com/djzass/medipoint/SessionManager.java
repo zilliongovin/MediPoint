@@ -7,6 +7,8 @@ import android.database.sqlite.SQLiteDatabase;
 
 import com.djzass.medipoint.logic_database.AccountDAO;
 
+import java.sql.SQLException;
+
 /**
  * Created by Shreyas on 3/24/2015.
  */
@@ -64,7 +66,8 @@ public class SessionManager {
         editor.commit();
     }
 
-    public long getAccountId(AccountDAO accountDAO){
+    public long getAccountId()throws SQLException{
+        AccountDAO accountDAO = new AccountDAO(_context);
         String username = pref.getString(KEY_USERNAME,"");
         Cursor cursor = accountDAO.findAccountId(username);
         if(cursor!=null && cursor.moveToFirst())

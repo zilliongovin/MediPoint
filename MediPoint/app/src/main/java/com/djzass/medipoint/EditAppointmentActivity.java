@@ -89,8 +89,8 @@ public class EditAppointmentActivity extends Activity implements AdapterView.OnI
 
         //logout menu item selected
         else if(id==R.id.action_logout){
-            AccountManager acctMgr = new AccountManager(this);
-            acctMgr.logout();
+            SessionManager sessionManager = new SessionManager(this);
+            sessionManager.deleteLoginSession();
             Intent intent = new Intent(this,Login.class);
             startActivity(intent);
             return true;

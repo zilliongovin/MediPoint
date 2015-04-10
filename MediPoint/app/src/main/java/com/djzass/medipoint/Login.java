@@ -21,7 +21,8 @@ public class Login extends Activity {
     Button loginButton;
     DbHelper mDbHelper;
     SQLiteDatabase db;
-    private AccountManager acctManager;
+    private SessionManager sessionManager;
+    private AccountManager accountManager;
     
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,46 +30,8 @@ public class Login extends Activity {
         Container.init();
         setContentView(R.layout.activity_login);
 
-        //----------------------------TEST---------------------------------------------
-        /*
-        mDbHelper = new DbHelper(this);
-        db = mDbHelper.getWritableDatabase();
-
-
-        DbHelper helper = new DbHelper(this);
-        SQLiteDatabase db = helper.getWritableDatabase();
-        String[] columns = {DbContract.AccountEntry.COLUMN_NAME_NAME, DbContract.AccountEntry.COLUMN_NAME_NRIC, DbContract.AccountEntry.COLUMN_NAME_EMAIL, DbContract.AccountEntry.COLUMN_NAME_CONTACTNO, DbContract.AccountEntry.COLUMN_NAME_ADDRESS, DbContract.AccountEntry.COLUMN_NAME_DOB, DbContract.AccountEntry.COLUMN_NAME_GENDER, DbContract.AccountEntry.COLUMN_NAME_MARITAL_STATUS, DbContract.AccountEntry.COLUMN_NAME_CITIZENSHIP, DbContract.AccountEntry.COLUMN_NAME_COUNTRY_OF_RESIDENCE,DbContract.AccountEntry.COLUMN_NAME_USERNAME, DbContract.AccountEntry.COLUMN_NAME_PASSWORD};
-        Cursor cursor = db.query(DbContract.AccountEntry.TABLE_NAME,columns,null,null,null,null,null);
-        while(cursor.moveToNext())
-        {
-            String name = cursor.getString(0);
-            String nric = cursor.getString(1);
-            String email = cursor.getString(2);
-            String contact = cursor.getString(3);
-            String address = cursor.getString(4);
-            String dob = cursor.getString(5);
-            String gender = cursor.getString(6);
-            String marStatus = cursor.getString(7);
-            String citizenship = cursor.getString(8);
-            String country = cursor.getString(9);
-            String username = cursor.getString(10);
-            String password = cursor.getString(11);
-            /*Toast.makeText(this,name,Toast.LENGTH_LONG).show();
-            Toast.makeText(this,nric,Toast.LENGTH_LONG).show();
-            Toast.makeText(this,email,Toast.LENGTH_LONG).show();
-            Toast.makeText(this,contact,Toast.LENGTH_LONG).show();
-            Toast.makeText(this,address,Toast.LENGTH_LONG).show();
-            Toast.makeText(this,dob,Toast.LENGTH_LONG).show();
-            Toast.makeText(this,gender,Toast.LENGTH_LONG).show();
-            Toast.makeText(this,marStatus,Toast.LENGTH_LONG).show();
-            Toast.makeText(this,citizenship,Toast.LENGTH_LONG).show();
-            Toast.makeText(this,country,Toast.LENGTH_LONG).show();
-            Toast.makeText(this,username,Toast.LENGTH_LONG).show();
-            Toast.makeText(this,password,Toast.LENGTH_LONG).show();
-
-        }
-        */
-               //--------------------------------TEST----------------------------------------
+        sessionManager = new SessionManager(this);
+        accountManager = new AccountManager(this);
 
         loginButton = (Button)findViewById(R.id.loginButton);
         loginButton.setOnClickListener(new View.OnClickListener() {
@@ -77,10 +40,10 @@ public class Login extends Activity {
                 EditText passwordBox = (EditText) findViewById(R.id.enterPasswordTextbox);
                 String username = usernameBox.getText().toString();
                 String password = passwordBox.getText().toString();
-                acctManager = new AccountManager(getApplicationContext());
-                boolean isAuthenticated = acctManager.authenticate(username,password);
+
+                boolean isAuthenticated = accountManager.authenticate(username,password);
                 if(isAuthenticated==true){
-                    acctManager.login(username,password);
+                    sessionManager.createLoginSession(username,password);
                     loginSuccessful(username);
                     goToMain();
 

@@ -83,8 +83,8 @@ public class CreateAppointmentActivity extends onDataPass implements AdapterView
 
         //specialty spinner and array adapter
         try {
-            AccountManager accountManager = new AccountManager(this);
-            this.patientId = (int)accountManager.getLoggedInAccountId();
+            SessionManager sessionManager = new SessionManager(this);
+            this.patientId = (int)sessionManager.getAccountId();
 
             specialtyDAO = new SpecialtyDAO(this);
             specialities = specialtyDAO.getAllSpecialties();
@@ -173,8 +173,8 @@ public class CreateAppointmentActivity extends onDataPass implements AdapterView
         //logout menu item selected
         else if(id==R.id.action_logout){
             //((Container)getApplicationContext()).getGlobalAccountManager().logout();
-            AccountManager am = new AccountManager(this);
-            am.logout();
+            SessionManager sessionManager = new SessionManager(this);
+            sessionManager.deleteLoginSession();
             //Container.GlobalAccountManager.logout();
             Intent intent = new Intent(this,Login.class);
             startActivity(intent);
@@ -408,7 +408,7 @@ public class CreateAppointmentActivity extends onDataPass implements AdapterView
     public void selectItem(int position) {
         Button btn = (Button) findViewById(R.id.timepicker);
         btn.setText(getItems().get(position));
-        Container.getAppointmentManager().getAvailableTimeSlot(this.date, this.patientId,this.doctorId, this.clinicId, 18, 42,duration, this);
+        Container.getAppointmentManager().getAvailableTimeSlot(this.date, this.patientId, this.doctorId, this.clinicId, 18, 42, duration, this);
 
     }
 
