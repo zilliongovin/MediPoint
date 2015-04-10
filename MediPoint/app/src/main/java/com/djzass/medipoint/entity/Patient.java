@@ -33,9 +33,10 @@ public class Patient implements Parcelable{
         this.allergy = allergy;
     }
 
-    public Patient(Calendar dob, String listOfTreatments, String listOfMedications, String allergy) {
+    public Patient(Calendar dob, String medicalHistory, String listOfTreatments, String listOfMedications, String allergy) {
         this.dob = dob;
         this.age = getAge();
+        this.medicalHistory = medicalHistory;
         this.listOfTreatments = listOfTreatments;
         this.listOfMedications = listOfMedications;
         this.allergy = allergy;
