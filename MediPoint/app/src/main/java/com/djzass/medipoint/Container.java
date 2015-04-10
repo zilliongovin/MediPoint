@@ -1,21 +1,6 @@
 package com.djzass.medipoint;
 
 import android.app.Application;
-import android.content.Context;
-import android.database.SQLException;
-import android.util.Log;
-
-import com.djzass.medipoint.logic_database.AccountDAO;
-import com.djzass.medipoint.logic_database.AppointmentDAO;
-import com.djzass.medipoint.logic_database.ClinicDAO;
-import com.djzass.medipoint.logic_database.DoctorDAO;
-import com.djzass.medipoint.logic_database.DoctorScheduleDAO;
-import com.djzass.medipoint.logic_database.PatientDAO;
-import com.djzass.medipoint.logic_database.ServiceDAO;
-import com.djzass.medipoint.logic_database.SpecialtyDAO;
-import com.djzass.medipoint.logic_manager.AccountManager;
-import com.djzass.medipoint.logic_manager.AppointmentManager;
-import com.djzass.medipoint.logic_manager.ClinicManager;
 
 /**
  * Created by Joshua on 3/4/2015.
