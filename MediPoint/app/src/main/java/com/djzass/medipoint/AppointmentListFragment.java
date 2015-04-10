@@ -22,7 +22,7 @@ import com.djzass.medipoint.entity.Appointment;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.GregorianCalendar;
+
 
 /**
  * Created by Deka on 4/4/2015.
@@ -77,22 +77,22 @@ public class AppointmentListFragment extends Fragment implements ActionBar.OnNav
         }*/
 
         // Hide the action bar title
-        actionBar.setDisplayShowTitleEnabled(false);
+        //actionBar.setDisplayShowTitleEnabled(false);
 
         // Enabling Spinner dropdown navigation
-        actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
+       // actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
 
         // Spinner title navigation data
-        navSpinner = new ArrayList<SpinnerNavItem>();
-        navSpinner.add(new SpinnerNavItem("New Appointment", R.drawable.ic_action_new));
-        navSpinner.add(new SpinnerNavItem("new referral", R.drawable.ic_action_new));
-        navSpinner.add(new SpinnerNavItem("New following", R.drawable.ic_action_new));
+        //navSpinner = new ArrayList<SpinnerNavItem>();
+       // navSpinner.add(new SpinnerNavItem("New Appointment", R.drawable.ic_action_new));
+        //navSpinner.add(new SpinnerNavItem("new referral", R.drawable.ic_action_new));
+        //navSpinner.add(new SpinnerNavItem("New following", R.drawable.ic_action_new));
 
         // title drop down adapter
-        adapter = new NavigationAdapter(getActivity().getApplicationContext(), navSpinner);
+        //adapter = new NavigationAdapter(getActivity().getApplicationContext(), navSpinner);
 
         // assigning the spinner navigation
-        actionBar.setListNavigationCallbacks(adapter, this);
+        //actionBar.setListNavigationCallbacks(adapter, this);
 
 
     }

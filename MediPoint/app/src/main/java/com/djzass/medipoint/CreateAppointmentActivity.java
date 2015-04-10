@@ -39,7 +39,6 @@ import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.GregorianCalendar;
 import java.util.List;
 
 public class CreateAppointmentActivity extends onDataPass implements AdapterView.OnItemSelectedListener, SelectionListener{
@@ -85,6 +84,7 @@ public class CreateAppointmentActivity extends onDataPass implements AdapterView
         try {
             SessionManager sessionManager = new SessionManager(this);
             this.patientId = (int)sessionManager.getAccountId();
+            Toast.makeText(this,(String)patientId,Toast.LENGTH_SHORT).show();
 
             specialtyDAO = new SpecialtyDAO(this);
             specialities = specialtyDAO.getAllSpecialties();
@@ -190,7 +190,7 @@ public class CreateAppointmentActivity extends onDataPass implements AdapterView
             case R.id.CreateApptSpecialty:
                 String speciality = String.valueOf(specialtySpinner_create.getSelectedItem());
                 try {
-                    int selection = 0;
+                    int selection = 1;
                     for (Specialty s : specialities) {
                         if (speciality.equals(s.getName())) {
                             selection = s.getId();

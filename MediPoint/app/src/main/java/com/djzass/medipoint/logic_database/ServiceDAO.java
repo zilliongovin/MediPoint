@@ -148,24 +148,24 @@ public class ServiceDAO extends DbDAO{
 
     private void initializeDAO(){
         if (getServiceCount()==0){ //0-4: ent, dental, women, gm
-            insertService(new Service("General", 0, 1));
-            insertService(new Service("Periodic ENT", 0, 1));
-            insertService(new Service("OSA", 0, 2));
-            insertService(new Service("Otology", 0, 4));
+            insertService(new Service("General",1, 1));
+            insertService(new Service("Periodic ENT", 1, 1));
+            insertService(new Service("OSA", 1, 2));
+            insertService(new Service("Otology", 1, 4));
 
-            insertService(new Service("Routine Scaling", 1, 1));
-            insertService(new Service("Polishing", 1, 2));
-            insertService(new Service("Fillings", 1, 2));
-            insertService(new Service("Tooth Extraction", 1, 4));
-            insertService(new Service("Root Canal", 1, 6));
+            insertService(new Service("Routine Scaling", 2, 1));
+            insertService(new Service("Polishing", 2, 2));
+            insertService(new Service("Fillings", 2, 2));
+            insertService(new Service("Tooth Extraction", 2, 4));
+            insertService(new Service("Root Canal", 2, 6));
 
-            insertService(new Service("Gynecologists", 2, 2));
-            insertService(new Service("Obstetrician", 2, 2));
+            insertService(new Service("Gynecologists", 3, 2));
+            insertService(new Service("Obstetrician", 3, 2));
 
-            insertService(new Service("Dietetic Services", 3, 2));
-            insertService(new Service("Physiotherapy", 3, 2));
-            insertService(new Service("Child Care", 3, 2));
-            insertService(new Service("Chronic care", 3, 6));
+            insertService(new Service("Dietetic Services", 4, 2));
+            insertService(new Service("Physiotherapy", 4, 2));
+            insertService(new Service("Child Care", 4, 2));
+            insertService(new Service("Chronic care", 4, 6));
         }
     }
 }
