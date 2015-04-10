@@ -45,14 +45,15 @@ public class SpecialtyManager {
         return specialtyDao.getAllSpecialties();
     }
 
-    public List<Specialty> getSpecialtiesByID(int id, Context context){
+    public List<Specialty> getSpecialtiesByID(int specialtyId, Context context){
         updateSpecialtyDao(context);
-        return specialtyDao.getSpecialtiesByID(id);
+        return specialtyDao.getSpecialtiesByID(specialtyId);
     }
 
     public String getSpecialtyNameByID(int specialtyId, Context context) {
         updateSpecialtyDao(context);
-        return specialtyDao.getSpecialtyNameByID(specialtyId);
+        List<Specialty> temp = specialtyDao.getSpecialtiesByID(specialtyId);
+        return temp.get(0).getName();
     }
 
     /**

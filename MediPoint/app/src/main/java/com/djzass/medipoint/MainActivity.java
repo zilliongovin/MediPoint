@@ -11,6 +11,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.djzass.medipoint.logic_manager.*;
+import com.djzass.medipoint.logic_manager.Container;
 import com.google.samples.apps.iosched.ui.widget.SlidingTabLayout;
 
 
@@ -18,12 +19,10 @@ public class MainActivity extends FragmentActivity {
 
     public static boolean SERVICE_TIMER_STARTED = false;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //Container.init();
-
         setContentView(R.layout.activity_main);
         AccountManager acctMgr = new AccountManager(this);
         //get Patient ID

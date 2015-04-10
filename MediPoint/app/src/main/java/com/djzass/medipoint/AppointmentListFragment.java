@@ -94,7 +94,6 @@ public class AppointmentListFragment extends Fragment implements ActionBar.OnNav
         // assigning the spinner navigation
         //actionBar.setListNavigationCallbacks(adapter, this);
 
-
     }
 
     @Override

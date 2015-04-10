@@ -34,7 +34,7 @@ public class ServiceManager {
      * Re-initializes the ServiceDAO with the given context
      */
     private void updateServiceDao(Context context){
-        try {
+            try {
             serviceDao = new ServiceDAO(context);
         } catch (SQLException e) {
             e.printStackTrace();
@@ -54,6 +54,14 @@ public class ServiceManager {
         updateServiceDao(context);
         return serviceDao.getServicesBySpecialtyID(specialtyId);
     }
+
+    public String getServiceNameByID(int serviceid,Context context) {
+        updateServiceDao(context);
+        List<Service> temp = serviceDao.getServicesByID(serviceid);
+        return temp.get(0).getName();
+    }
+
+
     /**
      * insert @param service to database with context @param context   
      * @return row no, -1 if fail

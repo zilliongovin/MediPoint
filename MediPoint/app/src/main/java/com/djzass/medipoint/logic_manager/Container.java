@@ -20,6 +20,7 @@ public class Container {
      */
     private static AppointmentManager appointmentManager;
     //private static AccountManager accountManager;
+    private static ClinicManager clinicManager;
     private static DoctorManager doctorManager;
     private static DoctorScheduleManager doctorScheduleManager;
     private static ServiceManager serviceManager;
@@ -31,6 +32,7 @@ public class Container {
             isInitialized = true;
             appointmentManager = AppointmentManager.getInstance();
             //accountManager = AccountManager.getInstance();
+            clinicManager = ClinicManager.getInstance();
             doctorManager = DoctorManager.getInstance();
             doctorScheduleManager = DoctorScheduleManager.getInstance();
             serviceManager = ServiceManager.getInstance();
@@ -40,6 +42,10 @@ public class Container {
 
     public static AppointmentManager getAppointmentManager() {
         return appointmentManager;
+    }
+
+    public static ClinicManager getClinicManager() {
+        return clinicManager;
     }
 
     public static DoctorManager getDoctorManager() {
