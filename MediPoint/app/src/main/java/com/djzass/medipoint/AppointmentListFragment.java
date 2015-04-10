@@ -77,10 +77,10 @@ public class AppointmentListFragment extends Fragment implements ActionBar.OnNav
         }*/
 
         // Hide the action bar title
-        actionBar.setDisplayShowTitleEnabled(false);
+        //actionBar.setDisplayShowTitleEnabled(false);
 
         // Enabling Spinner dropdown navigation
-        actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
+        //actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
 
         // Spinner title navigation data
         navSpinner = new ArrayList<SpinnerNavItem>();
@@ -92,7 +92,7 @@ public class AppointmentListFragment extends Fragment implements ActionBar.OnNav
         adapter = new NavigationAdapter(getActivity().getApplicationContext(), navSpinner);
 
         // assigning the spinner navigation
-        actionBar.setListNavigationCallbacks(adapter, this);
+        //actionBar.setListNavigationCallbacks(adapter, this);
 
 
     }
