@@ -78,6 +78,9 @@ public class Account implements Parcelable {
         this.address = address;
 
     }*/
+    public Account(Parcel in){
+        readFromParcel(in);
+    }
 
     public String print(){
         String temp = "";
@@ -226,48 +229,48 @@ public class Account implements Parcelable {
     }
 
     @Override
-    public void writeToParcel(Parcel parc, int flags) {
-        parc.writeLong(this.id);
-        parc.writeString(this.username);
-        parc.writeString(this.password);
-        parc.writeString(this.name);
-        parc.writeString(this.nric);
-        parc.writeString(this.email);
-        parc.writeString(this.phoneNumber);
-        parc.writeString(this.gender);
-        parc.writeString(this.address);
-        parc.writeString(this.maritalStatus);
-        parc.writeString(this.citizenship);
-        parc.writeString(this.countryOfResidence);
-        parc.writeInt(this.notifyEmail);
-        parc.writeInt(this.notifySMS);
+    public void writeToParcel(Parcel desc, int flags) {
+        desc.writeLong(this.id);
+        desc.writeString(this.username);
+        desc.writeString(this.password);
+        desc.writeString(this.name);
+        desc.writeString(this.nric);
+        desc.writeString(this.email);
+        desc.writeString(this.phoneNumber);
+        desc.writeString(this.gender);
+        desc.writeString(this.address);
+        desc.writeString(this.maritalStatus);
+        desc.writeString(this.citizenship);
+        desc.writeString(this.countryOfResidence);
+        desc.writeInt(this.notifyEmail);
+        desc.writeInt(this.notifySMS);
     }
 
-    public static final Parcelable.Creator<Appointment> CREATOR
-            = new Parcelable.Creator<Appointment>() {
-        public Appointment createFromParcel(Parcel in) {
-            return new Appointment(in);
+    public static final Parcelable.Creator<Account> CREATOR
+            = new Parcelable.Creator<Account>() {
+        public Account createFromParcel(Parcel in) {
+            return new Account(in);
         }
 
-        public Appointment[] newArray(int size) {
-            return new Appointment[size];
+        public Account[] newArray(int size) {
+            return new Account[size];
         }
     };
 
-    public void readFromParcel(Parcel in2) {
-        this.id = in2.readLong();
-        this.username = in2.readString();
-        this.password = in2.readString();
-        this.name = in2.readString();
-        this.nric = in2.readString();
-        this.email = in2.readString();
-        this.phoneNumber = in2.readString();
-        this.gender = in2.readString();
-        this.address = in2.readString();
-        this.maritalStatus = in2.readString();
-        this.citizenship = in2.readString();
-        this.countryOfResidence = in2.readString();
-        this.notifyEmail= in2.readInt();
-        this.notifySMS = in2.readInt();
+    public void readFromParcel(Parcel in) {
+        this.id = in.readLong();
+        this.username = in.readString();
+        this.password = in.readString();
+        this.name = in.readString();
+        this.nric = in.readString();
+        this.email = in.readString();
+        this.phoneNumber = in.readString();
+        this.gender = in.readString();
+        this.address = in.readString();
+        this.maritalStatus = in.readString();
+        this.citizenship = in.readString();
+        this.countryOfResidence = in.readString();
+        this.notifyEmail= in.readInt();
+        this.notifySMS = in.readInt();
     }
 }

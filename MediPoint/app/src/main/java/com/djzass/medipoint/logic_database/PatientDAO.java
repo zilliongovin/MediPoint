@@ -111,6 +111,7 @@ public class PatientDAO extends DbDAO{
         return getPatients(whereclause);
     }
 
+
     /*
         UPDATE
        returns the number of rows affected by the update

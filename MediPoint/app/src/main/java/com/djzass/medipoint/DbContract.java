@@ -30,7 +30,7 @@ public class DbContract {
 
     public static abstract class AppointmentEntry implements BaseColumns {
         public static final String TABLE_NAME = "appointment";
-        public static final String COLUMN_NAME_APPOINTMENT_ID = "appoinmentId";
+        public static final String COLUMN_NAME_APPOINTMENT_ID = "appointmentId";
         public static final String COLUMN_NAME_CLINIC_ID = "clinicId";
         public static final String COLUMN_NAME_PATIENT_ID = "patientId";
         public static final String COLUMN_NAME_DOCTOR_ID = "doctorId";

@@ -24,7 +24,7 @@ public class DbHelper extends SQLiteOpenHelper {
     private static final String FOREIGN_KEY = " FOREIGN KEY(";
     private static final String REFERENCES = ") REFERENCES ";
     private static final String COMMA_SEP = ",";
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 2;
     private static final String DATABASE_NAME = "MediPoint.db";
 
     //CREATE TABLE : private static final String SQL_CREATE_TABLE_NAME = "CREATE TABLE " + " (" + " );";
@@ -52,51 +52,6 @@ public class DbHelper extends SQLiteOpenHelper {
     private static final String SQL_DELETE_ACCOUNT =
             "DROP TABLE IF EXISTS " + DbContract.AccountEntry.TABLE_NAME + ";";
 
-    /*
-    private static final String SQL_VERIFY_USER =
-            "SELECT " + DbContract.AccountEntry.COLUMN_NAME_USERNAME + COMMA_SEP +
-                    DbContract.AccountEntry.COLUMN_NAME_PASSWORD +
-                    " FROM " + DbContract.AccountEntry.TABLE_NAME +
-                    " WHERE " + DbContract.AccountEntry.COLUMN_NAME_USERNAME + "=? AND " +
-                    DbContract.AccountEntry.COLUMN_NAME_PASSWORD + "=?";
-
-    private static final String SQL_FIND_NRIC =
-            "SELECT " + DbContract.AccountEntry.COLUMN_NAME_NRIC + COMMA_SEP +
-                    DbContract.AccountEntry.COLUMN_NAME_EMAIL +
-                    " FROM " + DbContract.AccountEntry.TABLE_NAME +
-                    " WHERE " + DbContract.AccountEntry.COLUMN_NAME_NRIC + "=?";
-
-    private static final String SQL_FIND_USERNAME =
-            "SELECT " + DbContract.AccountEntry.COLUMN_NAME_USERNAME +
-                    " FROM " + DbContract.AccountEntry.TABLE_NAME +
-                    " WHERE " + DbContract.AccountEntry.COLUMN_NAME_USERNAME + "=?";
-
-    private static final String SQL_FIND_ACCOUNTID =
-            "SELECT " + DbContract.AccountEntry.COLUMN_NAME_ACCOUNT_ID +
-                    " FROM " + DbContract.AccountEntry.TABLE_NAME +
-                    " WHERE " + DbContract.AccountEntry.COLUMN_NAME_USERNAME + "=?";
-
-    public int onLogin(String username,String password,SQLiteDatabase db){
-        String[] selArgs = {username,password};
-        Cursor userCursor = db.rawQuery(SQL_VERIFY_USER, selArgs);
-        return userCursor.getCount();
-    }
-
-    public Cursor checkAccount(String nric,SQLiteDatabase db){
-        String[] selArgs = {nric};
-        return db.rawQuery(SQL_FIND_NRIC,selArgs);
-    }
-
-    public int checkUsername(String username,SQLiteDatabase db){
-        String[] selArgs = {username};
-        return db.rawQuery(SQL_FIND_USERNAME,selArgs).getCount();
-    }
-
-    public Cursor findAccountId(String username,SQLiteDatabase db){
-        String[] selArgs = {username};
-        return db.rawQuery(SQL_FIND_ACCOUNTID,selArgs);
-    }
-    */
 
     /* APPOINTMENT TABLE */
     private static final String SQL_CREATE_APPOINTMENT = "CREATE TABLE " + DbContract.AppointmentEntry.TABLE_NAME + " (" +
