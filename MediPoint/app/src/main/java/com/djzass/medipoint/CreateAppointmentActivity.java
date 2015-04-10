@@ -214,6 +214,7 @@ public class CreateAppointmentActivity extends onDataPass implements AdapterView
                     {
                         if(service.equals(s.getName()))
                         {
+                            this.specialtyId = s.getSpecialtyId();
                             this.serviceId = s.getId();
                             this.preAppointmentActions = s.getPreAppointmentActions();
                             this.duration = s.getDuration();
@@ -362,7 +363,7 @@ public class CreateAppointmentActivity extends onDataPass implements AdapterView
 
     public void onClickCreateAppointment() {
         //AppointmentManager appointmentManager = new AppointmentManager();
-        Toast.makeText(this, "Button clicked.", Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this, "Button clicked.", Toast.LENGTH_SHORT).show();
         Calendar currentDate = Calendar.getInstance();
         currentDate.add(Calendar.DATE, 1);
 
@@ -374,7 +375,6 @@ public class CreateAppointmentActivity extends onDataPass implements AdapterView
         this.timeframe = new Timeframe(18,21);
         Appointment appointment = new Appointment(this.patientId, this.clinicId,this.specialtyId,this.serviceId,this.doctorId,this.date,this.timeframe);
         long res = Container.getAppointmentManager().createAppointment(appointment, this);
-
         if (res==-1) {
             Notification notification = new Notification();
             notification.buildNotification(this, "Appointment creation fail :C");

@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.djzass.medipoint.logic_manager.*;
 import com.djzass.medipoint.logic_manager.AccountManager;
 
 /**
@@ -109,7 +110,6 @@ public class EditAppointmentActivity extends Activity implements AdapterView.OnI
 
 
 
-
     }
 
     public void editAppointment(){
@@ -122,7 +122,6 @@ public class EditAppointmentActivity extends Activity implements AdapterView.OnI
 
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
-
     }
 
     //Button Methods
