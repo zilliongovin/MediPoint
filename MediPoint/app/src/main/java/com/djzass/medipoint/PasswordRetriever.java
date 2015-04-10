@@ -51,26 +51,12 @@ public class PasswordRetriever extends Activity {
 
 
                 else {
-                    //-----------------TEST------------------//
-
-                    //test(cursor);
-                    //-----------------TEST------------------//
                     cursor.moveToFirst();
                     String email = cursor.getString(1);
                     String password = cursor.getString(2);
                     String body = "Dear Sir,\n The password of your account is '" + password + "'.\n Thank You!";
-                    //String email = "shreyas@mundhra.com";
-                    Session session1 = createSessionObject();
-                    try {
-                        Message message = createMessage(email, "Medipoint ", body, session1);
-                        new SendMailTask().execute(message);
-                    } catch (AddressException e) {
-                        e.printStackTrace();
-                    } catch (MessagingException e) {
-                        e.printStackTrace();
-                    } catch (UnsupportedEncodingException e) {
-                        e.printStackTrace();
-                    }
+                    Email emailSender = new Email();
+                    emailSender.sendMail(email,body);
                 }
             }
         });
@@ -103,61 +89,4 @@ public class PasswordRetriever extends Activity {
         Toast.makeText(this, "You do not have any existing account", Toast.LENGTH_LONG).show();
     }
 
-
-    private Message createMessage(String email, String subject, String messageBody, Session session) throws MessagingException, UnsupportedEncodingException {
-        Message message = new MimeMessage(session);
-        message.setFrom(new InternetAddress("MediPoint.com", "MediPoint"));
-        message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(email));
-        message.setSubject(subject);
-        message.setText(messageBody);
-        return message;
-    }
-
-    private Session createSessionObject() {
-        Properties properties = new Properties();
-        properties.put("mail.smtp.auth", "true");
-        properties.put("mail.smtp.starttls.enable", "true");
-        properties.put("mail.smtp.host", "smtp.gmail.com");
-        properties.put("mail.smtp.port", "587");
-
-        return Session.getInstance(properties, new javax.mail.Authenticator() {
-            protected PasswordAuthentication getPasswordAuthentication() {
-                return new PasswordAuthentication(username, password);
-            }
-        });
-    }
-
-    private class SendMailTask extends AsyncTask<Message, Void, Void> {
-        private ProgressDialog progressDialog;
-
-        @Override
-        protected Void doInBackground(Message... messages) {
-            try {
-                Transport.send(messages[0]);
-            } catch (MessagingException e) {
-                e.printStackTrace();
-            }
-            return null;
-        }
-
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-            progressDialog = ProgressDialog.show(PasswordRetriever.this, "Please wait", "Sending mail", true, false);
-        }
-
-        @Override
-        protected void onPostExecute(Void aVoid) {
-            super.onPostExecute(aVoid);
-            progressDialog.dismiss();
-        }
-
-    }
-    //-----------------TEST----------------//
-    /*public void test(Cursor cursor){
-        cursor.moveToFirst();
-        Toast.makeText(this,""+cursor.getType(1),Toast.LENGTH_LONG).show();
-        Toast.makeText(this,""+cursor.getColumnIndex(DbContract.AccountEntry.COLUMN_NAME_NRIC),Toast.LENGTH_LONG).show();
-    }*/
-    //----------------TEST----------------//
 }

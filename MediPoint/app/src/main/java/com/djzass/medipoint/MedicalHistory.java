@@ -15,6 +15,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.djzass.medipoint.entity.Patient;
 import com.djzass.medipoint.logic_database.PatientDAO;
@@ -31,17 +32,20 @@ public class MedicalHistory extends Activity {
     String otherInfo = "";
     String allergyInfo = "";
 
+    //medical history
+    String medicalHistory = "";
+
     //Ongoing Treatment
-    String ongoingTreatment;
+    String ongoingTreatment = "";
 
     //Ongoing Medication
-    String ongoingMedication;
+    String ongoingMedication = "";
 
     //create new patient
     PatientDAO patientDAO;
 
     //DOB of user from intent
-    Calendar DOB;
+    Calendar DOB = Calendar.getInstance();
 
 
     @Override
@@ -99,6 +103,31 @@ public class MedicalHistory extends Activity {
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    public void onBackPressed(){
+        String title = "Skip this form for now?";
+        String  message = "You can edit your medical history anytime.";
+        Runnable insertPatientDOB = new Runnable() {
+            @Override
+            public void run() {
+                patientDAO.insertPatient(new Patient(DOB,"","","",""));
+            }
+        };
+        Runnable goToLoginPage = new Runnable() {
+            @Override
+            public void run() {
+                goToLoginPage();
+            }
+        };
+
+        AlertDialogInterface alert = new AlertDialogInterface(title,message,this);
+        alert.BackToLogin(insertPatientDOB,goToLoginPage);
+    }
+
+    public void goToLoginPage(){
+        Intent MedicalHistoryToLogin = new Intent(this,Login.class);
+        startActivity(MedicalHistoryToLogin);
+    }
     //checkbox listener
     public void onCheckboxClicked(View view){
 
@@ -331,11 +360,12 @@ public class MedicalHistory extends Activity {
         }
 
         //combine all personal history
-        String medicalHistory = dentalInfo + ENTInfo + genitalInfo + otherInfo;
+        medicalHistory = dentalInfo + ENTInfo + genitalInfo + otherInfo;
 
         //store medicalHistory, allergyInfo, ongoingTreatment, ongoingMedication to DB
         patientDAO.insertPatient(new Patient(DOB, medicalHistory, ongoingTreatment, ongoingMedication, allergyInfo));
 
+        Toast.makeText(this,"Medical History updated",Toast.LENGTH_SHORT).show();
         //go back to login page after submitting
         Intent intent = new Intent(this, Login.class);
         startActivity(intent);

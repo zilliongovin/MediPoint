@@ -24,6 +24,7 @@ public class ViewAppointmentActivity extends Activity {
         Bundle b = getIntent().getExtras();
         AppointmentDummy app = b.getParcelable("appObj");
 
+        /*
         TextView text = (TextView) findViewById(R.id.viewSpecialty);
         text.setText(app.getName());
         TextView text2 = (TextView) findViewById(R.id.viewService);
@@ -36,6 +37,7 @@ public class ViewAppointmentActivity extends Activity {
         text5.setText(app.getTimeString());
         TextView text6 = (TextView) findViewById(R.id.viewLocation);
         text6.setText(app.getClinic());
+        */
     }
 
 

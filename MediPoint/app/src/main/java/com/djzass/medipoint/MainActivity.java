@@ -22,7 +22,7 @@ public class MainActivity extends FragmentActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Container.init();
+        //Container.init();
 
         setContentView(R.layout.activity_main);
         AccountManager acctMgr = new AccountManager(this);
