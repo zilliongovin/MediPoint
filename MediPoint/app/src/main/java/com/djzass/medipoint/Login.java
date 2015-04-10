@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import com.djzass.medipoint.logic_database.DbHelper;
 import com.djzass.medipoint.logic_manager.AccountManager;
+import com.djzass.medipoint.logic_manager.Container;
 
 
 public class Login extends Activity {
@@ -25,6 +26,7 @@ public class Login extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Container.init();
         setContentView(R.layout.activity_login);
 
         //----------------------------TEST---------------------------------------------

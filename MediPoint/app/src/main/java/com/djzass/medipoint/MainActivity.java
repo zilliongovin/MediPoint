@@ -10,8 +10,7 @@ import android.support.v4.view.ViewPager;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.djzass.medipoint.logic_manager.AccountManager;
-import com.djzass.medipoint.logic_manager.Container;
+import com.djzass.medipoint.logic_manager.*;
 import com.google.samples.apps.iosched.ui.widget.SlidingTabLayout;
 
 
@@ -23,6 +22,8 @@ public class MainActivity extends FragmentActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Container.init();
+
         setContentView(R.layout.activity_main);
         AccountManager acctMgr = new AccountManager(this);
         //get Patient ID
@@ -54,7 +55,6 @@ public class MainActivity extends FragmentActivity {
         slidingTabLayout.setViewPager(viewPager);
 
         // Calling Application class (see application tag in AndroidManifest.xml)
-        //final Container globalVar = (Container) getApplicationContext();
 
 
     }
