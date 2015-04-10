@@ -33,6 +33,7 @@ public class Appointment implements Parcelable{
         this.referrerId = -1;
         this.date = date;
         this.timeframe = timeframe;
+        timeframe.getStartTime();
         this.date.set(Calendar.HOUR_OF_DAY, timeframe.getStartTime() / 2);
         this.date.set(Calendar.MINUTE, 30 * (timeframe.getStartTime() % 2));
         this.preAppointmentActions = "None";

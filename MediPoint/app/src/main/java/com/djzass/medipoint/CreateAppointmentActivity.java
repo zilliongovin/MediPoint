@@ -77,8 +77,7 @@ public class CreateAppointmentActivity extends onDataPass implements AdapterView
         try {
             AccountManager accountManager = new AccountManager(this);
             this.patientId = (int)accountManager.getLoggedInAccountId();
-            appointmentManager = new AppointmentManager(this);
-
+            appointmentManager = new AppointmentManager();
 
             specialtyDAO = new SpecialtyDAO(this);
             specialities = specialtyDAO.getAllSpecialties();
@@ -123,7 +122,9 @@ public class CreateAppointmentActivity extends onDataPass implements AdapterView
                 if(isAuthenticated==true){
                     Container.GlobalAccountManager.login(username,password);
                     loginSuccessful(username);
-                    goToMain(); */
+                    goToMain();
+                    */
+                onClickCreateAppointment();
             }
         });
 
@@ -352,22 +353,33 @@ public class CreateAppointmentActivity extends onDataPass implements AdapterView
         datepicker.show(manager, "Datepicker");
     }
 
-    public void onClickCreateAppointment() throws SQLException,ParseException {
+    public void onClickCreateAppointment() {
         //AppointmentManager appointmentManager = new AppointmentManager();
+        Toast.makeText(this, "Button clicked.", Toast.LENGTH_SHORT).show();
         Calendar currentDate = Calendar.getInstance();
         currentDate.add(Calendar.DATE, 1);
-        if (this.date.before(currentDate)){
-            Toast.makeText(this, "You are not allowed to book before 24 hours.", Toast.LENGTH_SHORT).show();
+        if (this.date.compareTo(currentDate)<0){
+            Toast.makeText(this, "You are not allowed to book within 24 hours."+this.date.getTime().toString(), Toast.LENGTH_SHORT).show();
         }
 
         AccountManager accountManager = new AccountManager(this);
+        this.timeframe = new Timeframe(18,21);
         Appointment appointment = new Appointment(this.patientId, this.clinicId,this.specialtyId,this.serviceId,this.doctorId,this.date,this.timeframe);
-        appointmentDAO = new AppointmentDAO(this);
-        appointmentManager.createAppointment(appointment,appointmentDAO);
-        AlarmSetter malarm = new AlarmSetter();
-        Notification notification = new Notification();
-        notification.buildNotification(this,"Appointment Created!!");
-        malarm.setAlarm(this,appointment,accountManager.getAccountById(this.patientId));
+        long res = appointmentManager.createAppointment(appointment, this);
+
+        if (res==-1) {
+            Notification notification = new Notification();
+            notification.buildNotification(this, "Appointment creation fail :C");
+        } else {
+            AlarmSetter malarm = new AlarmSetter();
+            Notification notification = new Notification();
+            notification.buildNotification(this, "Appointment Created!!");
+            try {
+                malarm.setAlarm(this, appointment, accountManager.getAccountById(this.patientId));
+            } catch (ParseException e){
+
+            }
+        }
     }
 
     private ArrayList<String> getItems() {
@@ -388,13 +400,14 @@ public class CreateAppointmentActivity extends onDataPass implements AdapterView
     public void selectItem(int position) {
         Button btn = (Button) findViewById(R.id.timepicker);
         btn.setText(getItems().get(position));
-        appointmentManager.getAvailableTimeSlot(this.date, this.patientId,this.doctorId, this.clinicId, 18, 42,duration);
+        appointmentManager.getAvailableTimeSlot(this.date, this.patientId,this.doctorId, this.clinicId, 18, 42,duration, this);
 
     }
 
     @Override
     public void DatePickerFragmentToActivity(int date,int month,int year,Button button){
         super.DatePickerFragmentToActivity(date,month,year,button);
-        this.date.set(date, month, year);
+        this.date = Calendar.getInstance();
+        this.date.set(year,month,date);
     }
 }
