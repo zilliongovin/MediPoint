@@ -32,6 +32,7 @@ import com.djzass.medipoint.logic_database.ServiceDAO;
 import com.djzass.medipoint.logic_database.SpecialtyDAO;
 import com.djzass.medipoint.logic_manager.AccountManager;
 import com.djzass.medipoint.logic_manager.AppointmentManager;
+import com.djzass.medipoint.logic_manager.Container;
 
 import java.sql.SQLException;
 import java.text.ParseException;
@@ -64,7 +65,6 @@ public class CreateAppointmentActivity extends onDataPass implements AdapterView
     SpecialtyDAO specialtyDAO;
     List<Specialty> specialities;
     AppointmentDAO appointmentDAO;
-    AppointmentManager appointmentManager;
     //List<Specialty> specialities = ((Container)getApplicationContext()).getGlobalSpecialtyDAO().getAllSpecialties();
 
     //List<Specialty> specialities = Container.GlobalSpecialtyDAO.getAllSpecialties();
@@ -77,7 +77,6 @@ public class CreateAppointmentActivity extends onDataPass implements AdapterView
         try {
             AccountManager accountManager = new AccountManager(this);
             this.patientId = (int)accountManager.getLoggedInAccountId();
-            appointmentManager = new AppointmentManager();
 
             specialtyDAO = new SpecialtyDAO(this);
             specialities = specialtyDAO.getAllSpecialties();
@@ -365,7 +364,7 @@ public class CreateAppointmentActivity extends onDataPass implements AdapterView
         AccountManager accountManager = new AccountManager(this);
         this.timeframe = new Timeframe(18,21);
         Appointment appointment = new Appointment(this.patientId, this.clinicId,this.specialtyId,this.serviceId,this.doctorId,this.date,this.timeframe);
-        long res = appointmentManager.createAppointment(appointment, this);
+        long res = Container.getAppointmentManager().createAppointment(appointment, this);
 
         if (res==-1) {
             Notification notification = new Notification();
@@ -400,7 +399,7 @@ public class CreateAppointmentActivity extends onDataPass implements AdapterView
     public void selectItem(int position) {
         Button btn = (Button) findViewById(R.id.timepicker);
         btn.setText(getItems().get(position));
-        appointmentManager.getAvailableTimeSlot(this.date, this.patientId,this.doctorId, this.clinicId, 18, 42,duration, this);
+        Container.getAppointmentManager().getAvailableTimeSlot(this.date, this.patientId,this.doctorId, this.clinicId, 18, 42,duration, this);
 
     }
 

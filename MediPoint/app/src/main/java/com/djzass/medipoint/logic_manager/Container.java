@@ -18,8 +18,10 @@ public class Container {
     private static AppointmentManager appointmentManager;
 
     public static void init(){
-        isInitialized = true;
-        appointmentManager = AppointmentManager.getInstance();
+        if (!isInitialized) {
+            isInitialized = true;
+            appointmentManager = AppointmentManager.getInstance();
+        }
     }
 
     public static AppointmentManager getAppointmentManager() {
