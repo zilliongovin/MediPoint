@@ -2,6 +2,7 @@ package com.djzass.medipoint;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.database.Cursor;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -49,14 +50,8 @@ public class PasswordRetriever extends Activity {
                     AccountNotExist();
                 }
 
-
                 else {
-                    cursor.moveToFirst();
-                    String email = cursor.getString(1);
-                    String password = cursor.getString(2);
-                    String body = "Dear Sir,\n The password of your account is '" + password + "'.\n Thank You!";
-                    Email emailSender = new Email();
-                    emailSender.sendMail(email,body);
+                    emailPassword(cursor);
                 }
             }
         });
@@ -87,6 +82,19 @@ public class PasswordRetriever extends Activity {
 
     public void AccountNotExist() {
         Toast.makeText(this, "You do not have any existing account", Toast.LENGTH_LONG).show();
+    }
+
+    public void emailPassword(Cursor cursor){
+        cursor.moveToFirst();
+        String email = cursor.getString(1);
+        String password = cursor.getString(2);
+        String body = "Dear Sir,\n The password of your account is '" + password + "'.\n Thank You!";
+        Email emailSender = new Email();
+        emailSender.sendMail(email,body);
+        Toast.makeText(this,"Email sent",Toast.LENGTH_SHORT).show();
+
+        Intent intent = new Intent(this,Login.class);
+        startActivity(intent);
     }
 
 }
