@@ -54,8 +54,8 @@ public class Patient implements Parcelable{
 
     public int getAge( ) {
         Calendar now = Calendar.getInstance();
-        int age =  now.YEAR - dob.YEAR;
-        if ( (dob.MONTH > now.MONTH) || ((dob.MONTH == now.MONTH) && (dob.DATE > now.DATE)) ){
+        int age =  now.get(Calendar.YEAR) - dob.get(Calendar.YEAR);
+        if ( (dob.get(Calendar.MONTH) > now.get(Calendar.MONTH)) || ((dob.get(Calendar.MONTH) == now.get(Calendar.MONTH)) && (dob.get(Calendar.DATE) > now.get(Calendar.DATE))) ){
             age--;
         }
 
