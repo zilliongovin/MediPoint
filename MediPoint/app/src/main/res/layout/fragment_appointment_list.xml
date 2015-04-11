@@ -5,13 +5,13 @@
     android:layout_marginTop="30dp"
     tools:context=".MainActivity">
 
-    <Button
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Create Appointment"
-        android:id="@+id/createAppointment"
-        />
+
+    <Spinner
+        android:layout_gravity="center_horizontal"
+        android:id="@+id/buttonSpinner"
+        android:spinnerMode="dialog"
+        style="@style/buttonSpinnerStyle"/>
+
 
     <ListView
         android:id="@+id/customListView"

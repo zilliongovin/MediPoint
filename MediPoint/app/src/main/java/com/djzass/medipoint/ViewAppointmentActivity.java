@@ -1,17 +1,13 @@
 package com.djzass.medipoint;
 
 import android.app.Activity;
-import android.app.Fragment;
-import android.app.FragmentManager;
 import android.content.Intent;
 import android.os.Bundle;
-import android.speech.RecognizerIntent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.djzass.medipoint.entity.Appointment;
 import com.djzass.medipoint.logic_manager.Container;
@@ -60,12 +56,16 @@ public class ViewAppointmentActivity extends Activity {
 
     public void ViewApptEdit(View view)
     {
-        //Button edit
+        Intent in = new Intent(getApplicationContext(), EditAppointmentActivity.class);
+        in.putExtra("appFromView", getIntent().getExtras().getParcelable("appObj"));
+        startActivity(in);
     }
 
     public void ViewApptDelete(View view)
     {
         //Button delete
+        Intent in = new Intent(this, MainActivity.class);
+        startActivity(in);
     }
 
     @Override

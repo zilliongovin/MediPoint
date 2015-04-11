@@ -36,6 +36,7 @@ public class DoctorDAO extends DbDAO{
         values.put(DbContract.DoctorEntry.COLUMN_NAME_DOCTOR_NAME, doctor.getName());
         values.put(DbContract.DoctorEntry.COLUMN_NAME_SPECIALIZATION_ID, doctor.getSpecializationId());
         values.put(DbContract.DoctorEntry.COLUMN_NAME_PRACTICE_DURATION, doctor.getPracticeDuration());
+        values.put(DbContract.DoctorEntry.COLUMN_NAME_CLINIC_ID, doctor.getClinicId());
 
         return database.insert(DbContract.DoctorEntry.TABLE_NAME, null, values);
     }
@@ -51,7 +52,8 @@ public class DoctorDAO extends DbDAO{
                 new String[] { DbContract.DoctorEntry.COLUMN_NAME_DOCTOR_ID,
                         DbContract.DoctorEntry.COLUMN_NAME_DOCTOR_NAME,
                         DbContract.DoctorEntry.COLUMN_NAME_SPECIALIZATION_ID,
-                        DbContract.DoctorEntry.COLUMN_NAME_PRACTICE_DURATION
+                        DbContract.DoctorEntry.COLUMN_NAME_PRACTICE_DURATION,
+                        DbContract.DoctorEntry.COLUMN_NAME_CLINIC_ID
                 }, whereclause, null, null, null,
                 null);
 
@@ -61,6 +63,7 @@ public class DoctorDAO extends DbDAO{
             doctor.setName(cursor.getString(1));
             doctor.setSpecializationId(cursor.getInt(2));
             doctor.setPracticeDuration(cursor.getInt(3));
+            doctor.setClinicId(cursor.getInt(4));
             doctors.add(doctor);
         }
 
@@ -81,6 +84,11 @@ public class DoctorDAO extends DbDAO{
         return getDoctors(whereclause);
     }
 
+    public List<Doctor> getDoctorsByClinicAndSpecialization(int clinicId, int specializationId){
+        String whereclause = DbContract.DoctorEntry.COLUMN_NAME_CLINIC_ID + " = " + clinicId + " AND " + DbContract.DoctorEntry.COLUMN_NAME_SPECIALIZATION_ID + " = " + specializationId;
+        return getDoctors(whereclause);
+    }
+
     /*  UPDATE
         returns the number of rows affected by the update
      */
@@ -89,6 +97,7 @@ public class DoctorDAO extends DbDAO{
         values.put(DbContract.DoctorEntry.COLUMN_NAME_DOCTOR_NAME, doctor.getName());
         values.put(DbContract.DoctorEntry.COLUMN_NAME_SPECIALIZATION_ID, doctor.getSpecializationId());
         values.put(DbContract.DoctorEntry.COLUMN_NAME_PRACTICE_DURATION, doctor.getPracticeDuration());
+        values.put(DbContract.DoctorEntry.COLUMN_NAME_CLINIC_ID, doctor.getClinicId());
 
         long result = database.update(DbContract.DoctorEntry.TABLE_NAME, values,
                 WHERE_ID_EQUALS,
@@ -122,12 +131,47 @@ public class DoctorDAO extends DbDAO{
     }
     private void initializeDAO(){
         if (getAllDoctors().size()==0){
-            insertDoctor(new Doctor("Dr. Stefan",1,2));
-            insertDoctor(new Doctor("Dr. Zillion", 2, 3));
-            insertDoctor(new Doctor("Dr. Deka", 3, 4));
-            insertDoctor(new Doctor("Dr. Ankur", 1, 5));
-            insertDoctor(new Doctor("Dr. Aristo", 4, 6));
-            insertDoctor(new Doctor("Dr. Shreyas", 2, 4));
+            insertDoctor(new Doctor("Dr. Stefan",1,2,1));
+            insertDoctor(new Doctor("Dr. Zillion", 2, 3,1));
+            insertDoctor(new Doctor("Dr. Deka", 3, 4,1));
+            insertDoctor(new Doctor("Dr. Ankur", 1, 5,1));
+            insertDoctor(new Doctor("Dr. Aristo", 4, 6,1));
+            insertDoctor(new Doctor("Dr. Shreyas", 2, 4,1));
+
+            insertDoctor(new Doctor("Dr. Raul",1,2,2));
+            insertDoctor(new Doctor("Dr. John", 2, 3,2));
+            insertDoctor(new Doctor("Dr. Alice", 3, 4,2));
+            insertDoctor(new Doctor("Dr. Noopur", 1, 5,2));
+            insertDoctor(new Doctor("Dr. Stuart", 4, 6,2));
+            insertDoctor(new Doctor("Dr. Sanjana", 2, 4,2));
+
+            insertDoctor(new Doctor("Dr. Siddharth",1,2,3));
+            insertDoctor(new Doctor("Dr. Divesh", 2, 3,3));
+            insertDoctor(new Doctor("Dr. Loh Wao", 3, 4,3));
+            insertDoctor(new Doctor("Dr. Annie", 1, 5,3));
+            insertDoctor(new Doctor("Dr. Andy", 4, 6,3));
+            insertDoctor(new Doctor("Dr. Isabelle", 2, 4,3));
+
+            insertDoctor(new Doctor("Dr. Joshua",1,2,4));
+            insertDoctor(new Doctor("Dr. Kevin", 2, 3,4));
+            insertDoctor(new Doctor("Dr. Mark", 3, 4,4));
+            insertDoctor(new Doctor("Dr. Peter", 1, 5,4));
+            insertDoctor(new Doctor("Dr. Arya", 4, 6,4));
+            insertDoctor(new Doctor("Dr. Bingsheng", 2, 4,4));
+
+            insertDoctor(new Doctor("Dr. Samantha",1,2,5));
+            insertDoctor(new Doctor("Dr. Akash", 2, 3,5));
+            insertDoctor(new Doctor("Dr. Sandeep", 3, 4,5));
+            insertDoctor(new Doctor("Dr. Robert", 1, 5,5));
+            insertDoctor(new Doctor("Dr. Limanto", 4, 6,5));
+            insertDoctor(new Doctor("Dr. Chandra", 2, 4,5));
+
+            insertDoctor(new Doctor("Dr. Ava",1,2,6));
+            insertDoctor(new Doctor("Dr. Jessica", 2, 3,6));
+            insertDoctor(new Doctor("Dr. Harvey", 3, 4,6));
+            insertDoctor(new Doctor("Dr. Donna", 1, 5,6));
+            insertDoctor(new Doctor("Dr. Rachael", 4, 6,6));
+            insertDoctor(new Doctor("Dr. Dana", 2, 4,6));
         }
     }
 }

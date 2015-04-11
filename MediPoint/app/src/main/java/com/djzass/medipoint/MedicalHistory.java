@@ -120,7 +120,7 @@ public class MedicalHistory extends Activity {
         Runnable insertPatientDOB = new Runnable() {
             @Override
             public void run() {
-                patientDAO.insertPatient(new Patient(DOB,"","","",""));
+                patientDAO.insertPatient(new Patient(patientId,DOB,"","","",""));
 
             }
         };

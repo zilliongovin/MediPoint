@@ -2,9 +2,7 @@ package com.djzass.medipoint.logic_manager;
 
 import android.content.Context;
 import android.util.Log;
-import android.widget.Toast;
 
-import com.djzass.medipoint.AppointmentListFragment;
 import com.djzass.medipoint.DbContract;
 import com.djzass.medipoint.entity.Appointment;
 import com.djzass.medipoint.entity.DoctorSchedule;
@@ -127,6 +125,19 @@ public class AppointmentManager {
         }
 
         return availableTimeSlot;
+    }
+    public List<Appointment> getPatientAppointmentList(int patient, Context context){
+        updateAppointmentDao(context);
+        List<Appointment> ret = new ArrayList<Appointment>();
+
+        appointments = appointmentDao.getAllAppointments();
+        for (Appointment temp : appointments) {
+            if (temp.getPatientId() == patient) {
+                ret.add(temp);
+            }
+        }
+
+        return ret;
     }
 
     public List<Appointment> getPatientFutureAppointmentList(int patient, Calendar currentTime, Context context){
@@ -264,6 +275,7 @@ public class AppointmentManager {
         updateAppointmentDao(context);
         return appointmentDao.getAppointmentsByID(id).get(0);
     }
+
 
     public String getSpecialtyNameByAppointment(Appointment appointment, Context context){
         updateAppointmentDao(context);
