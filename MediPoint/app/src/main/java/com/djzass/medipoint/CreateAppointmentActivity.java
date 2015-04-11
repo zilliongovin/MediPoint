@@ -141,6 +141,8 @@ public class CreateAppointmentActivity extends onDataPass implements AdapterView
         cancelButton = (Button)findViewById(R.id.CancelCreateAppt);
         cancelButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View arg0) {
+                Intent in = new Intent(getApplicationContext(), MainActivity.class);
+                startActivity(in);
                 /*EditText usernameBox = (EditText) findViewById(R.id.enterUsernameTextbox);
                 EditText passwordBox = (EditText) findViewById(R.id.enterPasswordTextbox);
                 String username = usernameBox.getText().toString();
