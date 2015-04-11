@@ -81,35 +81,38 @@ public class DoctorSchedule implements Parcelable {
         this.timeframe = timeframe;
     }
 
+    public DoctorSchedule(Parcel in){
+        readFromParcel(in);
+    }
     @Override
     public int describeContents() {
         return 0;
     }
 
     @Override
-    public void writeToParcel(Parcel parc4, int flags) {
-        parc4.writeInt(this.doctorId);
-        parc4.writeInt(this.scheduleId);
-        parc4.writeInt(this.clinicId);
-        parc4.writeString(this.day);
+    public void writeToParcel(Parcel desc, int flags) {
+        desc.writeInt(this.doctorId);
+        desc.writeInt(this.scheduleId);
+        desc.writeInt(this.clinicId);
+        desc.writeString(this.day);
         /*private Timeframe timeframe;*/
     }
 
-    public static final Parcelable.Creator<Appointment> CREATOR
-            = new Parcelable.Creator<Appointment>() {
-        public Appointment createFromParcel(Parcel in) {
-            return new Appointment(in);
+    public static final Parcelable.Creator<DoctorSchedule> CREATOR
+            = new Parcelable.Creator<DoctorSchedule>() {
+        public DoctorSchedule createFromParcel(Parcel in) {
+            return new DoctorSchedule(in);
         }
 
-        public Appointment[] newArray(int size) {
-            return new Appointment[size];
+        public DoctorSchedule[] newArray(int size) {
+            return new DoctorSchedule[size];
         }
     };
 
-    public void readFromParcel(Parcel in5) {
-        this.doctorId = in5.readInt();
-        this.scheduleId = in5.readInt();
-        this.clinicId = in5.readInt();
-        this.day = in5.readString();
+    public void readFromParcel(Parcel in) {
+        this.doctorId = in.readInt();
+        this.scheduleId = in.readInt();
+        this.clinicId = in.readInt();
+        this.day = in.readString();
     }
 }

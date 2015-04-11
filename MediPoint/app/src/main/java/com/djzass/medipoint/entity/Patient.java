@@ -109,4 +109,6 @@ public class Patient{
     public void setMedicalHistory(String medicalHistory) {
         this.medicalHistory = medicalHistory;
     }
+
+    
 }

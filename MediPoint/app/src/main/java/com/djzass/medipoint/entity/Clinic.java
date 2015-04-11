@@ -121,43 +121,45 @@ public class Clinic implements Parcelable {
                     tabSpace + "Tel: " + this.telNumber + " Fax: " + this.faxNumber + "\n"+
                     tabSpace + "Email: " + this.email + "\n";
     }
-
+    public Clinic(Parcel in){
+        readFromParcel(in);
+    }
     @Override
     public int describeContents() {
         return 0;
     }
 
     @Override
-    public void writeToParcel(Parcel parc2, int flags) {
-        parc2.writeInt(this.id);
-        parc2.writeString(this.name);
-        parc2.writeInt(this.zipCode);
-        parc2.writeString(this.email);
-        parc2.writeInt(this.telNumber);
-        parc2.writeInt(this.faxNumber);
-        parc2.writeString(this.address);
-        parc2.writeString(this.country);
+    public void writeToParcel(Parcel desc, int flags) {
+        desc.writeInt(this.id);
+        desc.writeString(this.name);
+        desc.writeInt(this.zipCode);
+        desc.writeString(this.email);
+        desc.writeInt(this.telNumber);
+        desc.writeInt(this.faxNumber);
+        desc.writeString(this.address);
+        desc.writeString(this.country);
     }
 
-    public static final Parcelable.Creator<Appointment> CREATOR
-            = new Parcelable.Creator<Appointment>() {
-        public Appointment createFromParcel(Parcel in) {
-            return new Appointment(in);
+    public static final Parcelable.Creator<Clinic> CREATOR
+            = new Parcelable.Creator<Clinic>() {
+        public Clinic createFromParcel(Parcel in) {
+            return new Clinic(in);
         }
 
-        public Appointment[] newArray(int size) {
-            return new Appointment[size];
+        public Clinic[] newArray(int size) {
+            return new Clinic[size];
         }
     };
 
-    public void readFromParcel(Parcel in3) {
-        this.id = in3.readInt();
-        this.name = in3.readString();
-        this.email = in3.readString();
-        this.zipCode = in3.readInt();
-        this.telNumber = in3.readInt();
-        this.faxNumber = in3.readInt();
-        this.address = in3.readString();
-        this.country = in3.readString();
+    public void readFromParcel(Parcel in) {
+        this.id = in.readInt();
+        this.name = in.readString();
+        this.email = in.readString();
+        this.zipCode = in.readInt();
+        this.telNumber = in.readInt();
+        this.faxNumber = in.readInt();
+        this.address = in.readString();
+        this.country = in.readString();
     }
 }

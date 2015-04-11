@@ -1,4 +1,8 @@
 package com.djzass.medipoint.entity;
+
+import android.os.Parcel;
+import android.os.Parcelable;
+
 /**
  * Created by Joshua on 25/3/2015.
  *
@@ -7,7 +11,7 @@ package com.djzass.medipoint.entity;
  * Used to simplify things since the app calculates time in 30-min increments
  */
 
-public class Timeframe {
+public class Timeframe implements Parcelable{
     private int startTime;
     private int endTime;
 
@@ -56,6 +60,37 @@ public class Timeframe {
 
     public static int getMinute(int time) {
         return 30*(time%2);
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel time, int flags) {
+        time.writeInt(this.startTime);
+        time.writeInt(this.endTime);
+    }
+
+    public Timeframe(Parcel in){
+        readFromParcel(in);
+    }
+
+    public static final Parcelable.Creator<Timeframe> CREATOR
+            = new Parcelable.Creator<Timeframe>() {
+        public Timeframe createFromParcel(Parcel in) {
+            return new Timeframe(in);
+        }
+
+        public Timeframe[] newArray(int size) {
+            return new Timeframe[size];
+        }
+    };
+
+    public void readFromParcel(Parcel intime) {
+        this.startTime = intime.readInt();
+        this.endTime = intime.readInt();
     }
 
 }
