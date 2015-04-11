@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.djzass.medipoint.entity.Appointment;
 import com.djzass.medipoint.logic_manager.AppointmentManager;
+import com.djzass.medipoint.logic_manager.Container;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -23,6 +24,7 @@ import java.util.HashMap;
  */
 public class AppointmentAdapter extends ArrayAdapter<Appointment> {
     AppointmentManager appointmentManager;
+
     private static class ViewHolder {
         public ImageView specialtyIcon;
         public TextView appointmentService;
@@ -82,7 +84,7 @@ public class AppointmentAdapter extends ArrayAdapter<Appointment> {
     }
 
     public HashMap<String,String> getAppointmentDetails(int id){
-        Appointment appointment = appointmentManager.getAppointmentByID(id, getContext() );
+        /*Appointment appointment = appointmentManager.getAppointmentByID(id, getContext() );
         String specialtyName = appointmentManager.getSpecialtyNameByAppointment(appointment, getContext());
         String serviceName = appointmentManager.getServiceNameByAppointment(appointment, getContext());
         String doctorName = appointmentManager.getDoctorNameByAppointment(appointment, getContext());
@@ -96,7 +98,16 @@ public class AppointmentAdapter extends ArrayAdapter<Appointment> {
         appointmentDetails.put("CLINIC_NAME",clinicName);
         appointmentDetails.put("DATE",appointment.getDateString());
         appointmentDetails.put("TIME",appointment.getTimeString());
-        appointmentDetails.put("STATUS",status);
+        appointmentDetails.put("STATUS",status);*/
+        Appointment appointment = Container.getAppointmentManager().getAppointmentByID(id, getContext());
+        HashMap<String, String> appointmentDetails = new HashMap<String, String>();
+        appointmentDetails.put("SPECIALTY_NAME",Container.getAppointmentManager().getSpecialtyNameByAppointment(appointment,getContext()));
+        appointmentDetails.put("SERVICE_NAME",Container.getAppointmentManager().getServiceNameByAppointment(appointment, getContext()));
+        appointmentDetails.put("DOCTOR_NAME",Container.getAppointmentManager().getDoctorNameByAppointment(appointment, getContext()));
+        appointmentDetails.put("CLINIC_NAME",Container.getAppointmentManager().getClinicNameByAppointment(appointment, getContext()));
+        appointmentDetails.put("DATE",appointment.getDateString());
+        appointmentDetails.put("TIME",appointment.getTimeString());
+        appointmentDetails.put("STATUS",Container.getAppointmentManager().getStatus(appointment));
 
         return appointmentDetails;
     }
