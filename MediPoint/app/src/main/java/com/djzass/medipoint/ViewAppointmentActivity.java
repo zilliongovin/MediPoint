@@ -13,6 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.djzass.medipoint.entity.Appointment;
+import com.djzass.medipoint.logic_manager.Container;
 
 /**
  * Created by Zillion Govin on 4/4/2015.
@@ -28,20 +29,20 @@ public class ViewAppointmentActivity extends Activity {
         Bundle b = getIntent().getExtras();
         Appointment app = b.getParcelable("appObj");
 
-        /*
-        TextView text = (TextView) findViewById(R.id.viewSpecialty);
-        text.setText(app.getName());
-        TextView text2 = (TextView) findViewById(R.id.viewService);
-        text2.setText(app.getStatus());
-        TextView text3 = (TextView) findViewById(R.id.viewCountry);
-        text3.setText(app.getCountry());
-        TextView text4 = (TextView) findViewById(R.id.viewDate);
-        text4.setText(app.getDateString());
-        TextView text5 = (TextView) findViewById(R.id.viewTime);
-        text5.setText(app.getTimeString());
-        TextView text6 = (TextView) findViewById(R.id.viewLocation);
-        text6.setText(app.getClinic());
-        */
+        TextView specialtyName = (TextView) findViewById(R.id.viewSpecialty);
+        specialtyName.setText(Container.getSpecialtyManager().getSpecialtyNameByID(app.getId(), this));
+        TextView serviceName = (TextView) findViewById(R.id.viewService);
+        serviceName.setText(app.getStatus());
+        TextView appointmentStatus = (TextView) findViewById(R.id.viewCountry);
+        appointmentStatus.setText(app.getCountry());
+        TextView appointmentDate = (TextView) findViewById(R.id.viewDate);
+        appointmentDate.setText(app.getDateString());
+        TextView appointmentTime = (TextView) findViewById(R.id.viewTime);
+        appointmentTime.setText(app.getTimeString());
+        TextView appointmentLocation = (TextView) findViewById(R.id.viewLocation);
+        appointmentStatus.setText(app.getClinic());
+        TextView doctorName = (TextView) findViewById(R.id.viewLocation);
+        doctorName.setText(app.getClinic());
     }
 
 

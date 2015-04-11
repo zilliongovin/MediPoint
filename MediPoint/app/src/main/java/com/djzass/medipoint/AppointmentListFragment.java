@@ -103,6 +103,7 @@ public class AppointmentListFragment extends Fragment implements ActionBar.OnNav
         //for (Appointment a: appointments) {
         //    Toast.makeText(getActivity(), a.toString(), Toast.LENGTH_SHORT).show();
         //}
+
         //appointments = (ArrayList<Appointment>) appointmentManager.getAppointments(this.getActivity());
 //        appointments = (ArrayList<Appointment>) Container.getAppointmentManager().getAppointments(getActivity());
 
