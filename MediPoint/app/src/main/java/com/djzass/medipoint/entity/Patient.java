@@ -2,6 +2,7 @@ package com.djzass.medipoint.entity;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -27,6 +28,7 @@ public class Patient implements Parcelable{
     public Patient(int id, Calendar dob, String medicalHistory, String listOfTreatments, String listOfMedications, String allergy) {
         this.patientId = id;
         this.dob = dob;
+        this.medicalHistory = medicalHistory;
         this.age = getAge();
         this.listOfTreatments = listOfTreatments;
         this.listOfMedications = listOfMedications;
@@ -53,9 +55,10 @@ public class Patient implements Parcelable{
     public int getAge( ) {
         Calendar now = Calendar.getInstance();
         int age =  now.YEAR - dob.YEAR;
-        if ( (dob.MONTH > now.MONTH) || (dob.MONTH == now.MONTH) && (dob.DATE > now.DATE) ){
+        if ( (dob.MONTH > now.MONTH) || ((dob.MONTH == now.MONTH) && (dob.DATE > now.DATE)) ){
             age--;
         }
+
         return age;
     }
 
