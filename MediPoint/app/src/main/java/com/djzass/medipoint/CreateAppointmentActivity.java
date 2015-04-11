@@ -45,6 +45,7 @@ public class CreateAppointmentActivity extends onDataPass implements AdapterView
     int clinicId = 1;
     int patientId;
     int doctorId;
+    int referrerId;
     Calendar date;
     int serviceId;
     int specialtyId = 1;
@@ -77,6 +78,8 @@ public class CreateAppointmentActivity extends onDataPass implements AdapterView
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_appointment);
+
+        referrerId = getIntent().getIntExtra("REFERRER_ID",-1);
 
         AlarmSetter as = new AlarmSetter();
         Notification mnotification = new Notification();
@@ -431,7 +434,7 @@ public class CreateAppointmentActivity extends onDataPass implements AdapterView
             Toast.makeText(this, "You must book at least 24 hours in advance. "+this.date.getTime().toString(), Toast.LENGTH_SHORT).show();
         } else {  
             AccountManager accountManager = new AccountManager(this);
-            Appointment appointment = new Appointment(this.patientId, this.clinicId, this.specialtyId, this.serviceId, this.doctorId, this.date, this.timeframe);
+            Appointment appointment = new Appointment(this.patientId, this.clinicId, this.specialtyId, this.serviceId, this.doctorId, referrerId,this.date, this.timeframe);
             long res = Container.getAppointmentManager().createAppointment(appointment, this);
             if (res == -1) {
                 Notification notification = new Notification();
