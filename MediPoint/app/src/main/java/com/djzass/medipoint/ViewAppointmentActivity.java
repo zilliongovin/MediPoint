@@ -56,7 +56,7 @@ public class ViewAppointmentActivity extends Activity {
 
     public void ViewApptEdit(View view)
     {
-        Intent in = new Intent(this, EditAppointmentActivity.class);
+        Intent in = new Intent(getApplicationContext(), EditAppointmentActivity.class);
         in.putExtra("appFromView", getIntent().getExtras().getParcelable("appObj"));
         startActivity(in);
     }

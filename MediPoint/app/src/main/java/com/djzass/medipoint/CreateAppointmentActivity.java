@@ -54,9 +54,9 @@ public class CreateAppointmentActivity extends onDataPass implements AdapterView
     Timeframe timeframe;
 
 
-    String NRIC;
+    /*String NRIC;
     List<Account> accountList;
-    AccountDAO macc;
+    AccountDAO macc;*/
 
 
     //spinner
@@ -294,8 +294,9 @@ public class CreateAppointmentActivity extends onDataPass implements AdapterView
                 break;
 
             case R.id.CreateApptLocations:
-                Toast.makeText(this,"InClinic",Toast.LENGTH_SHORT).show();
+                //Toast.makeText(this,"InClinic",Toast.LENGTH_SHORT).show();
                 String clinic = String.valueOf(clinicSpinnerCreate.getSelectedItem());
+                //Toast.makeText(this,clinic,Toast.LENGTH_SHORT).show();
                 try {
                     ClinicDAO clinicDAO = new ClinicDAO(this);
                     int clinicSelection = 1;
@@ -305,7 +306,8 @@ public class CreateAppointmentActivity extends onDataPass implements AdapterView
                             clinicSelection = c.getId();
                         }
                     }
-
+                    clinicId = clinicSelection;
+                    Toast.makeText(this,""+clinicId,Toast.LENGTH_SHORT).show();
                     DoctorDAO doctorDAO = new DoctorDAO(this);
                     List<Doctor> doctors = doctorDAO.getDoctorsByClinicAndSpecialization(clinicSelection,specialtyId);
                     List<String> doctorNames = new ArrayList<String>();
