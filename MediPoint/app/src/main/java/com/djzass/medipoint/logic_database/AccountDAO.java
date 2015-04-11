@@ -68,7 +68,9 @@ public class AccountDAO extends DbDAO{
         values.put(DbContract.AccountEntry.COLUMN_NAME_EMAIL, account.getEmail());
         values.put(DbContract.AccountEntry.COLUMN_NAME_CONTACTNO, account.getPhoneNumber());
         values.put(DbContract.AccountEntry.COLUMN_NAME_ADDRESS, account.getAddress());
-        values.put(DbContract.AccountEntry.COLUMN_NAME_DOB, String.valueOf(account.getDob()));
+        //SimpleDateFormat sdf = new SimpleDateFormat("yyyy-mm-dd");
+        //values.put(DbContract.AccountEntry.COLUMN_NAME_DOB, sdf.format(account.getDob()));
+        values.put(DbContract.AccountEntry.COLUMN_NAME_DOB, account.getDob().getTimeInMillis());
         values.put(DbContract.AccountEntry.COLUMN_NAME_GENDER, account.getGender());
         values.put(DbContract.AccountEntry.COLUMN_NAME_MARITAL_STATUS, account.getMaritalStatus());
         values.put(DbContract.AccountEntry.COLUMN_NAME_CITIZENSHIP, account.getCitizenship());
@@ -117,15 +119,17 @@ public class AccountDAO extends DbDAO{
             account.setPhoneNumber(cursor.getString(4));
             account.setAddress(cursor.getString(5));
 
-            String temp = cursor.getString(6);
-            DateFormat dateformat = new SimpleDateFormat("yyyy-mm-dd");
+            //String temp = cursor.getString(6);
+            /*DateFormat dateformat = new SimpleDateFormat("yyyy-mm-dd");
             Calendar cal  = Calendar.getInstance();
             try {
                 cal.setTime(dateformat.parse(temp));
             } catch (ParseException e) {
-                Log.d("DAO", "Date parsing exception");
-            }
-
+                Log.d("AccountDAO", "Date parsing exception");
+            }*/
+            Calendar cal = Calendar.getInstance();
+            Long c = cursor.getLong(6);
+            cal.setTimeInMillis(c);
             account.setDob(cal);
             account.setGender(cursor.getString(7));
             account.setMaritalStatus(cursor.getString(8));
@@ -182,7 +186,9 @@ public class AccountDAO extends DbDAO{
         values.put(DbContract.AccountEntry.COLUMN_NAME_EMAIL, account.getEmail());
         values.put(DbContract.AccountEntry.COLUMN_NAME_CONTACTNO, account.getPhoneNumber());
         values.put(DbContract.AccountEntry.COLUMN_NAME_ADDRESS, account.getAddress());
-        values.put(DbContract.AccountEntry.COLUMN_NAME_DOB, String.valueOf(account.getDob()));
+        //SimpleDateFormat sdf = new SimpleDateFormat("yyyy-mm-dd");
+        //values.put(DbContract.AccountEntry.COLUMN_NAME_DOB, sdf.format(account.getDob()));
+        values.put(DbContract.AccountEntry.COLUMN_NAME_DOB, account.getDob().getTimeInMillis());
         values.put(DbContract.AccountEntry.COLUMN_NAME_GENDER, account.getGender());
         values.put(DbContract.AccountEntry.COLUMN_NAME_MARITAL_STATUS, account.getMaritalStatus());
         values.put(DbContract.AccountEntry.COLUMN_NAME_CITIZENSHIP, account.getCitizenship());

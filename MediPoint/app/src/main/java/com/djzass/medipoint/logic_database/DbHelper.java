@@ -19,7 +19,8 @@ public class DbHelper extends SQLiteOpenHelper {
     private static final String VARCHAR_FIFTY_TYPE = " VARCHAR(50)";
     private static final String INT_TYPE = " INTEGER";
     private static final String INT_KEY_TYPE = " INTEGER PRIMARY KEY AUTOINCREMENT";
-    private static final String DATETIME_TYPE = " DATETIME";
+    //private static final String DATETIME_TYPE = " DATETIME";
+    private static final String DATETIME_TYPE = " LONG";
     private static final String PRIMARY_KEY = " PRIMARY KEY";
     private static final String FOREIGN_KEY = " FOREIGN KEY(";
     private static final String REFERENCES = ") REFERENCES ";

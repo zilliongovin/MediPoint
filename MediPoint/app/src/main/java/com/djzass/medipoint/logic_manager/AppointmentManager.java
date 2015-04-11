@@ -1,6 +1,7 @@
 package com.djzass.medipoint.logic_manager;
 
 import android.content.Context;
+import android.widget.Toast;
 
 import com.djzass.medipoint.AppointmentListFragment;
 import com.djzass.medipoint.DbContract;
@@ -240,13 +241,14 @@ public class AppointmentManager {
     public long cancelAppointment(Appointment app, Context context){
         // delete appointment according to its id in database
         // update arraylist of appointment appointments = getAppointmentFromDatabase()
-        long ret = appointmentDao.deleteAppointment(app);
         updateAppointmentDao(context);
+        long ret = appointmentDao.deleteAppointment(app);
         appointments = getAppointments(context);
         return ret;
     }
 
    public Appointment getAppointmentByID(int id, Context context){
+        updateAppointmentDao(context);
         return appointmentDao.getAppointmentsByID(id).get(0);
     }
 

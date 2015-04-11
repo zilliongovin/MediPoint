@@ -16,8 +16,11 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.djzass.medipoint.entity.Appointment;
+import com.djzass.medipoint.logic_database.AppointmentDAO;
+import com.djzass.medipoint.logic_manager.AppointmentManager;
 import com.djzass.medipoint.logic_manager.Container;
 
 import java.sql.SQLException;
@@ -98,8 +101,15 @@ public class AppointmentListFragment extends Fragment implements ActionBar.OnNav
 
         // assigning the spinner navigation
         //actionBar.setListNavigationCallbacks(adapter, this);
+        AppointmentManager appointmentManager = AppointmentManager.getInstance();
+        Toast.makeText(getActivity(), "Succeeded in getting the appointment manager", Toast.LENGTH_LONG).show();
+        appointments = (ArrayList<Appointment>) appointmentManager.getAppointments(getActivity());
+        for (Appointment a: appointments) {
+            Toast.makeText(getActivity(), a.toString(), Toast.LENGTH_SHORT).show();
+        }
+        //appointments = (ArrayList<Appointment>) appointmentManager.getAppointments(this.getActivity());
+//        appointments = (ArrayList<Appointment>) Container.getAppointmentManager().getAppointments(getActivity());
 
-        appointments = (ArrayList<Appointment>) Container.getAppointmentManager().getAppointments(getActivity());
 
 
     }
@@ -141,12 +151,13 @@ public class AppointmentListFragment extends Fragment implements ActionBar.OnNav
             } catch (SQLException e) {
                 e.printStackTrace();
             }
+
             apptList.setAdapter(apptAdapter);
 
             apptList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView <?> parent, View view, int position, long id) {
-                    AppointmentDummy app = (AppointmentDummy) parent.getAdapter().getItem(position);
+                    Appointment app = (Appointment) parent.getAdapter().getItem(position);
                     //Appointment app = (Appointment) parent.getAdapter().getItem(position);
                     //Toast.makeText(getApplicationContext(), app.toString(), Toast.LENGTH_SHORT).show();
                     Intent in = new Intent(getActivity().getApplicationContext(), ViewAppointmentActivity.class);

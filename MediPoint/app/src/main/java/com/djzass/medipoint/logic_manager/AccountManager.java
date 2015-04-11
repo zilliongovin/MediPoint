@@ -127,8 +127,9 @@ public class AccountManager {
         String email = cursor.getString(3);
         String contact = cursor.getString(4);
         String address = cursor.getString(5);
+        //String dob = cursor.getLong(6);
+        //Toast.makeText(context,dob,Toast.LENGTH_LONG).show();
         String dob = cursor.getString(6);
-        Toast.makeText(context,dob,Toast.LENGTH_LONG).show();
         String gender = cursor.getString(7);
         String maritalStatus = cursor.getString(8);
         String citizenship = cursor.getString(9);
@@ -137,10 +138,10 @@ public class AccountManager {
         String password = cursor.getString(12);
         int isEmail = cursor.getInt(13);
         int isSMS = cursor.getInt(14);
-
-        SimpleDateFormat sdf = new SimpleDateFormat();
-        Calendar dobCal = new GregorianCalendar();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-mm-dd");
+        Calendar dobCal = Calendar.getInstance();
         dobCal.setTime(sdf.parse(dob));
+
 
         Toast.makeText(context,"Toooo4",Toast.LENGTH_LONG).show();
         return new Account(id,username,password,name,nric,email,contact,gender,address,maritalStatus,dobCal,citizenship,countryOfResidence,isEmail,isSMS);

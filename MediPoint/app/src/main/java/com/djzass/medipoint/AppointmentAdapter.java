@@ -82,12 +82,11 @@ public class AppointmentAdapter extends ArrayAdapter<Appointment> {
     }
 
     public HashMap<String,String> getAppointmentDetails(int id){
-        Appointment appointment = appointmentManager.getAppointmentByID(id, this.getContext() );
-
-        String specialtyName = appointmentManager.getSpecialtyNameByAppointment(appointment, this.getContext());
-        String serviceName = appointmentManager.getServiceNameByAppointment(appointment, this.getContext());
-        String doctorName = appointmentManager.getDoctorNameByAppointment(appointment, this.getContext());
-        String clinicName = appointmentManager.getClinicNameByAppointment(appointment, this.getContext());
+        Appointment appointment = appointmentManager.getAppointmentByID(id, getContext() );
+        String specialtyName = appointmentManager.getSpecialtyNameByAppointment(appointment, getContext());
+        String serviceName = appointmentManager.getServiceNameByAppointment(appointment, getContext());
+        String doctorName = appointmentManager.getDoctorNameByAppointment(appointment, getContext());
+        String clinicName = appointmentManager.getClinicNameByAppointment(appointment, getContext());
         String status = appointmentManager.getStatus(appointment);
 
         HashMap<String,String> appointmentDetails = new HashMap<String, String>();

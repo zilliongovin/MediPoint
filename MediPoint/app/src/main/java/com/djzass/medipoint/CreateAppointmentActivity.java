@@ -382,12 +382,15 @@ public class CreateAppointmentActivity extends onDataPass implements AdapterView
             AlarmSetter malarm = new AlarmSetter();
             Notification notification = new Notification();
             notification.buildNotification(this, "Appointment created.");
-
-            try {
+            Intent goToMain = new Intent(this, MainActivity.class);
+            startActivity(goToMain);
+/*            try {
                 malarm.setAlarm(this, appointment, accountManager.getAccountById(this.patientId));
+
+
             } catch (ParseException e){
                 Toast.makeText(this,"In Here",Toast.LENGTH_SHORT).show();
-            }
+            }*/
 
         }
     }
