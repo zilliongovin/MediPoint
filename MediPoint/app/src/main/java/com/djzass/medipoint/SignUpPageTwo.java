@@ -133,7 +133,7 @@ public class SignUpPageTwo extends onDataPass {
 
         Calendar currentDate = Calendar.getInstance();
 
-        if(selGender==-1||selMaritalStatus==-1||(isEmailChecked==0 && isSmsChecked==0))
+        if(selGender==-1||selMaritalStatus==-1||(isEmailChecked==0 && isSmsChecked==0)||(dateOB==0 && monthOB==0 && yearOB==0))
             incompleteForm();
 
         else if(dobCal.after(currentDate))

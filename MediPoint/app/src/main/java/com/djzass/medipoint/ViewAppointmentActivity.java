@@ -47,7 +47,7 @@ public class ViewAppointmentActivity extends Activity {
     public int getImageId(String specialtyName){
         if (specialtyName.equalsIgnoreCase("ENT"))
             return R.mipmap.ear;
-        else if (specialtyName.equalsIgnoreCase("Dental"))
+        else if (specialtyName.equalsIgnoreCase("Dental Services"))
             return R.mipmap.dental;
         else if (specialtyName.equalsIgnoreCase("Women's Health"))
             return R.mipmap.female;
@@ -56,7 +56,7 @@ public class ViewAppointmentActivity extends Activity {
 
     public void ViewApptEdit(View view)
     {
-        Intent in = new Intent(this, EditAppointmentActivity.class);
+        Intent in = new Intent(getApplicationContext(), EditAppointmentActivity.class);
         in.putExtra("appFromView", getIntent().getExtras().getParcelable("appObj"));
         startActivity(in);
     }

@@ -4,6 +4,7 @@ import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 
 import com.djzass.medipoint.entity.Account;
 import com.djzass.medipoint.entity.Appointment;
@@ -27,7 +28,8 @@ public class AlarmSetter {
         Calendar cal = Calendar.getInstance();
         cal.setTimeZone(TimeZone.getTimeZone("GMT+8"));
         AlarmManager am = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-        am.set(AlarmManager.RTC_WAKEUP, appointment.getDate().getTimeInMillis() - 24*3600*1000 , reminder);
+
+        am.set(AlarmManager.RTC_WAKEUP,System.currentTimeMillis(), reminder);
 
         /*if (appointment.getDate().getTimeInMillis() - 24 * 3600 * 1000 >= cal.getTimeInMillis()) {
             am.set(AlarmManager.RTC_WAKEUP, appointment.getDate().getTimeInMillis() - 24 * 3600 * 1000, reminder);

@@ -126,4 +126,14 @@
 
     <string name="hello_world">Hello world!</string>
 
+    <string name="create_new">Create New</string>
+
+    <string-array name="create_new">
+        <item>Create New</item>
+        <item>Appointment</item>
+        <item>Referral</item>
+        <item>Follow Up</item>
+    </string-array>
+
+
 </resources>

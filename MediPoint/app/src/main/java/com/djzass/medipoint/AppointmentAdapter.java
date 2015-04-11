@@ -74,7 +74,7 @@ public class AppointmentAdapter extends ArrayAdapter<Appointment> {
     public int getImageId(String specialtyName){
         if (specialtyName.equalsIgnoreCase("ENT"))
             return R.mipmap.ear;
-        else if (specialtyName.equalsIgnoreCase("Dental"))
+        else if (specialtyName.equalsIgnoreCase("Dental Services"))
             return R.mipmap.dental;
         else if (specialtyName.equalsIgnoreCase("Women's Health"))
             return R.mipmap.female;

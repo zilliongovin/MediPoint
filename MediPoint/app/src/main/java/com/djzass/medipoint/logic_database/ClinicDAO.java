@@ -94,6 +94,7 @@ public class ClinicDAO extends DbDAO{
         String whereclause = DbContract.ClinicEntry.COLUMN_NAME_CLINIC_NAME + " = " + "\"" +name + "\"";
         return getClinics(whereclause);
     }
+
     /*
         UPDATE
         returns the number of rows affected by the update
@@ -119,6 +120,7 @@ public class ClinicDAO extends DbDAO{
                 WHERE_ID_EQUALS, new String[] { clinic.getId() + "" });
     }
 
+
     /*
         LOAD
     */
@@ -128,6 +130,8 @@ public class ClinicDAO extends DbDAO{
             tmp.print();
         }
     }
+
+
 
     public int getClinicCount(){
         return getAllClinics().size();
