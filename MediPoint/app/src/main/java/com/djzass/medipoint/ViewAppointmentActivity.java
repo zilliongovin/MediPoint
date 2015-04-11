@@ -9,6 +9,7 @@ import android.speech.RecognizerIntent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -43,8 +44,19 @@ public class ViewAppointmentActivity extends Activity {
         appointmentLocation.setText(Container.getAppointmentManager().getClinicNameByAppointment(app,this));
         TextView doctorName = (TextView) findViewById(R.id.viewDoctor);
         doctorName.setText(Container.getAppointmentManager().getDoctorNameByAppointment(app,this));
+        ImageView specialtyIcon = (ImageView)findViewById(R.id.specialty_icon);
+        specialtyIcon.setImageResource(getImageId(Container.getAppointmentManager().getSpecialtyNameByAppointment(app,this)));
     }
 
+    public int getImageId(String specialtyName){
+        if (specialtyName.equalsIgnoreCase("ENT"))
+            return R.mipmap.ear;
+        else if (specialtyName.equalsIgnoreCase("Dental"))
+            return R.mipmap.dental;
+        else if (specialtyName.equalsIgnoreCase("Women's Health"))
+            return R.mipmap.female;
+        return R.mipmap.icontp_medipoint;
+    }
 
     public void ViewApptEdit(View view)
     {

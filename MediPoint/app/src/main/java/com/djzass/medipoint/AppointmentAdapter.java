@@ -78,7 +78,7 @@ public class AppointmentAdapter extends ArrayAdapter<Appointment> {
             return R.mipmap.ear;
         else if (specialtyName.equalsIgnoreCase("Dental"))
             return R.mipmap.dental;
-        else if (specialtyName.equalsIgnoreCase("Women's Health Services"))
+        else if (specialtyName.equalsIgnoreCase("Women's Health"))
             return R.mipmap.female;
         return R.mipmap.icontp_medipoint;
     }

@@ -196,7 +196,7 @@ public class CreateAppointmentActivity extends onDataPass implements AdapterView
                             selection = s.getId();
                         }
                     }
-                    //specialtyId = selection;
+                    this.specialtyId = selection;
                     //List<Service> services = ((Container)getApplicationContext()).getGlobalServiceDAO().getServicesBySpecialtyID(selection);
                     //List<Service> services = Container.GlobalServiceDAO.getServicesBySpecialtyID(selection);
                     ServiceDAO serviceDAO = new ServiceDAO(this);
@@ -214,7 +214,6 @@ public class CreateAppointmentActivity extends onDataPass implements AdapterView
                     {
                         if(service.equals(s.getName()))
                         {
-                            this.specialtyId = s.getSpecialtyId();
                             this.serviceId = s.getId();
                             this.preAppointmentActions = s.getPreAppointmentActions();
                             this.duration = s.getDuration();
