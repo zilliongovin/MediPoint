@@ -34,7 +34,7 @@ import java.util.Calendar;
 public class AppointmentListFragment extends Fragment implements ActionBar.OnNavigationListener{
     private ActionBar actionBar;
     private ArrayList<SpinnerNavItem> navSpinner;
-    private NavigationAdapter adapter;
+    //private NavigationAdapter adapter;
     //ArrayList<AppointmentDummy> appointments;
     ArrayList<Appointment> appointments;
     public static AppointmentListFragment newInstance() {
@@ -104,9 +104,7 @@ public class AppointmentListFragment extends Fragment implements ActionBar.OnNav
         AppointmentManager appointmentManager = AppointmentManager.getInstance();
         Toast.makeText(getActivity(), "Succeeded in getting the appointment manager", Toast.LENGTH_LONG).show();
         appointments = (ArrayList<Appointment>) appointmentManager.getAppointments(getActivity());
-        for (Appointment a: appointments) {
-            Toast.makeText(getActivity(), a.toString(), Toast.LENGTH_SHORT).show();
-        }
+
         //appointments = (ArrayList<Appointment>) appointmentManager.getAppointments(this.getActivity());
 //        appointments = (ArrayList<Appointment>) Container.getAppointmentManager().getAppointments(getActivity());
 
