@@ -29,7 +29,6 @@ public class MainActivity extends FragmentActivity {
         //String id = GlobalContainer.GlobalAccountManager.getLoggedInAccountId();
         //Toast.makeText(this,""+acctMgr.getLoggedInAccountId(this),Toast.LENGTH_SHORT).show();
         //start bg timer service
-        startService(new Intent(this, TimerService.class));
 
         // Get the ViewPager and set it's PagerAdapter so that it can display items
         ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);

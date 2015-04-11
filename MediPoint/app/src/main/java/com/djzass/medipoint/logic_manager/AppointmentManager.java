@@ -2,6 +2,7 @@ package com.djzass.medipoint.logic_manager;
 
 import android.content.Context;
 
+import com.djzass.medipoint.AppointmentListFragment;
 import com.djzass.medipoint.DbContract;
 import com.djzass.medipoint.entity.Appointment;
 import com.djzass.medipoint.entity.DoctorSchedule;

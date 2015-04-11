@@ -83,7 +83,7 @@ public class AppointmentDAO extends DbDAO{
             appointment.setReferrerId(cursor.getInt(4));
 
             String temp = cursor.getString(5);
-            DateFormat dateformat = new SimpleDateFormat("yyyy-MM-dd");
+            DateFormat dateformat = new SimpleDateFormat("yyyy-mm-dd");
             Calendar cal  = Calendar.getInstance();
             try {
                 cal.setTime(dateformat.parse(temp));

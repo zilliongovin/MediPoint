@@ -18,6 +18,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.djzass.medipoint.entity.Appointment;
+import com.djzass.medipoint.logic_manager.Container;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -98,7 +99,7 @@ public class AppointmentListFragment extends Fragment implements ActionBar.OnNav
         // assigning the spinner navigation
         //actionBar.setListNavigationCallbacks(adapter, this);
 
-
+        appointments = (ArrayList<Appointment>) Container.getAppointmentManager().getAppointments(getActivity());
 
 
     }
