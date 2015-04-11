@@ -48,7 +48,7 @@ public class NavigationAdapter extends BaseAdapter {
         if (convertView == null) {
             LayoutInflater mInflater = (LayoutInflater)
                     context.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
-            convertView = mInflater.inflate(R.layout.list_item_title_navigation, null);
+            convertView = mInflater.inflate(R.layout.custom_title_navigation, null);
         }
 
         imgIcon = (ImageView) convertView.findViewById(R.id.imgIcon);
@@ -66,7 +66,7 @@ public class NavigationAdapter extends BaseAdapter {
         if (convertView == null) {
             LayoutInflater mInflater = (LayoutInflater)
                     context.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
-            convertView = mInflater.inflate(R.layout.list_item_title_navigation, null);
+            convertView = mInflater.inflate(R.layout.custom_title_navigation, null);
         }
 
         imgIcon = (ImageView) convertView.findViewById(R.id.imgIcon);

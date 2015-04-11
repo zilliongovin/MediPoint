@@ -8,6 +8,7 @@ import android.app.ActionBar;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,7 +27,7 @@ import java.util.GregorianCalendar;
 /**
  * Created by Deka on 4/4/2015.
  */
-public class AppointmentListFragment extends Fragment implements ActionBar.On{
+public class AppointmentListFragment extends Fragment implements ActionBar.OnNavigationListener{
     private ActionBar actionBar;
     private ArrayList<SpinnerNavItem> navSpinner;
     private NavigationAdapter adapter;
@@ -84,16 +85,39 @@ public class AppointmentListFragment extends Fragment implements ActionBar.On{
         // Spinner title navigation data
         navSpinner = new ArrayList<SpinnerNavItem>();
         navSpinner.add(new SpinnerNavItem("New Appointment", R.drawable.ic_action_new));
-        navSpinner.add(new SpinnerNavItem("new referral", R.drawable.ic_action_mew));
+        navSpinner.add(new SpinnerNavItem("new referral", R.drawable.ic_action_new));
         navSpinner.add(new SpinnerNavItem("New following", R.drawable.ic_action_new));
 
         // title drop down adapter
-        adapter = new NavigationAdapter, navSpinner);
+        adapter = new NavigationAdapter(getActivity().getApplicationContext(), navSpinner);
 
         // assigning the spinner navigation
         actionBar.setListNavigationCallbacks(adapter, this);
 
 
+    }
+
+    @Override
+    public boolean onNavigationItemSelected(int position, long id) {
+        // When the given dropdown item is selected, show its contents in the
+        // container view.
+        switch (position){
+            case 0:
+                Intent appIntent = new Intent(getActivity().getApplicationContext(),CreateAppointmentActivity.class);
+                startActivity(appIntent);
+            case 1:
+                Intent refIntent = new Intent(getActivity().getApplicationContext(),ReferralActivity.class);
+                startActivity(refIntent);
+            case 2:
+                //still not done
+                Intent followIntent = new Intent(getActivity().getApplicationContext(),MainActivity.class);
+                startActivity(followIntent);
+                break;
+            default:
+                break;
+        }
+
+        return true;
     }
 
     @Override
