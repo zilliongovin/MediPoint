@@ -110,6 +110,6 @@ public class DoctorSchedule implements Parcelable {
         this.doctorId = in5.readInt();
         this.scheduleId = in5.readInt();
         this.clinicId = in5.readInt();
-        this.day = in6.day();
+        this.day = in5.readString();
     }
 }
