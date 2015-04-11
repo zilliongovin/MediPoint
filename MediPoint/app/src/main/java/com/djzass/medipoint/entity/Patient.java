@@ -1,5 +1,8 @@
 package com.djzass.medipoint.entity;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Calendar;
@@ -8,7 +11,7 @@ import java.util.Calendar;
  * Created by Deka on 25/3/2015.
  */
 
-public class Patient{
+public class Patient implements Parcelable{
     private int patientId;
     private Calendar dob;
     private int age;
@@ -110,5 +113,44 @@ public class Patient{
         this.medicalHistory = medicalHistory;
     }
 
-    
+    public Patient(Parcel in){
+        readFromParcel(in);
+    }
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel desc, int flags) {
+        desc.writeInt(this.patientId);
+        desc.writeSerializable(this.dob);
+        desc.writeInt(this.age);
+        desc.writeString(this.allergy);
+        desc.writeString(this.medicalHistory);
+        desc.writeString(this.listOfTreatments);
+        desc.writeString(this.listOfMedications);
+        /*private Timeframe timeframe;*/
+    }
+
+    public static final Parcelable.Creator<Patient> CREATOR
+            = new Parcelable.Creator<Patient>() {
+        public Patient createFromParcel(Parcel in) {
+            return new Patient(in);
+        }
+
+        public Patient[] newArray(int size) {
+            return new Patient[size];
+        }
+    };
+
+    public void readFromParcel(Parcel in) {
+        this.patientId = in.readInt();
+        this.dob = (Calendar)in.readSerializable();
+        this.age = in.readInt();
+        this.allergy = in.readString();
+        this.medicalHistory = in.readString();
+        this.listOfTreatments = in.readString();
+        this.listOfMedications = in.readString();
+    }
 }
