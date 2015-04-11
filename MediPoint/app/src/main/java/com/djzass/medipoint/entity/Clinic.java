@@ -1,5 +1,8 @@
 package com.djzass.medipoint.entity;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.lang.String;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -7,7 +10,7 @@ import java.util.Calendar;
 /**
  * Created by Deka on 25/3/2015.
  */
-public class Clinic {
+public class Clinic implements Parcelable {
     private int id;
     private String name;
     private String address;
@@ -117,5 +120,44 @@ public class Clinic {
                     tabSpace + "Address: " + this.address + ", " + this.country + ". " + this.zipCode + ".\n"+
                     tabSpace + "Tel: " + this.telNumber + " Fax: " + this.faxNumber + "\n"+
                     tabSpace + "Email: " + this.email + "\n";
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parc2, int flags) {
+        parc2.writeInt(this.id);
+        parc2.writeString(this.name);
+        parc2.writeInt(this.zipCode);
+        parc2.writeString(this.email);
+        parc2.writeInt(this.telNumber);
+        parc2.writeInt(this.faxNumber);
+        parc2.writeString(this.address);
+        parc2.writeString(this.country);
+    }
+
+    public static final Parcelable.Creator<Appointment> CREATOR
+            = new Parcelable.Creator<Appointment>() {
+        public Appointment createFromParcel(Parcel in) {
+            return new Appointment(in);
+        }
+
+        public Appointment[] newArray(int size) {
+            return new Appointment[size];
+        }
+    };
+
+    public void readFromParcel(Parcel in3) {
+        this.id = in3.readInt();
+        this.name = in3.readString();
+        this.email = in3.readString();
+        this.zipCode = in3.readInt();
+        this.telNumber = in3.readInt();
+        this.faxNumber = in3.readInt();
+        this.address = in3.readString();
+        this.country = in3.readString();
     }
 }

@@ -1,10 +1,13 @@
 package com.djzass.medipoint.entity;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 /**
  * Created by Deka on 26/3/2015.
  */
 
-public class DoctorSchedule {
+public class DoctorSchedule implements Parcelable {
     private int scheduleId;
     private int doctorId;
     private int clinicId;
@@ -78,4 +81,35 @@ public class DoctorSchedule {
         this.timeframe = timeframe;
     }
 
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parc4, int flags) {
+        parc4.writeInt(this.doctorId);
+        parc4.writeInt(this.scheduleId);
+        parc4.writeInt(this.clinicId);
+        parc4.writeString(this.day);
+        /*private Timeframe timeframe;*/
+    }
+
+    public static final Parcelable.Creator<Appointment> CREATOR
+            = new Parcelable.Creator<Appointment>() {
+        public Appointment createFromParcel(Parcel in) {
+            return new Appointment(in);
+        }
+
+        public Appointment[] newArray(int size) {
+            return new Appointment[size];
+        }
+    };
+
+    public void readFromParcel(Parcel in5) {
+        this.doctorId = in5.readInt();
+        this.scheduleId = in5.readInt();
+        this.clinicId = in5.readInt();
+        this.day = in6.day();
+    }
 }
