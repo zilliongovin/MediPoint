@@ -20,7 +20,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@mipmap/icontp_medipoint"
-                android:layout_alignBottom="@+id/viewSpecialty"
+                android:layout_alignBottom="@id/viewSpecialty"
                 android:layout_marginLeft="2dp"
                 android:layout_marginRight="2dp"
                 android:layout_marginBottom="2dp"
@@ -53,7 +53,7 @@
 
             <!-- Specialty -->
             <TextView
-                android:id="@+id/viewSpecialty2"
+                android:id="@+id/viewSpecialty"
                 android:text="Women's Health Services"
                 android:textStyle="italic"
                 android:layout_width="wrap_content"
