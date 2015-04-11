@@ -1,7 +1,6 @@
 package com.djzass.medipoint.logic_database;
 
 import android.content.Context;
-import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
@@ -25,7 +24,7 @@ public class DbHelper extends SQLiteOpenHelper {
     private static final String FOREIGN_KEY = " FOREIGN KEY(";
     private static final String REFERENCES = ") REFERENCES ";
     private static final String COMMA_SEP = ",";
-    private static final int DATABASE_VERSION = 11;
+    private static final int DATABASE_VERSION = 12;
 
     private static final String DATABASE_NAME = "MediPoint.db";
 

@@ -1,6 +1,5 @@
 package com.djzass.medipoint;
 
-
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,9 +17,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
- * Created by Deka on 30/3/2015.
+ * Created by Deka on 12/4/2015.
  */
-public class AppointmentAdapter extends ArrayAdapter<Appointment> {
+public class FollowUpAdapter extends ArrayAdapter<Appointment> {
     AppointmentManager appointmentManager;
 
     private static class ViewHolder {
@@ -31,7 +30,7 @@ public class AppointmentAdapter extends ArrayAdapter<Appointment> {
         public TextView appointmentTime;
     }
 
-    public AppointmentAdapter(Context context, ArrayList<Appointment> appointments) throws SQLException {
+    public FollowUpAdapter(Context context, ArrayList<Appointment> appointments) throws SQLException {
         super(context, R.layout.appointment_adapter, appointments);
         appointmentManager = AppointmentManager.getInstance();
     }
@@ -110,3 +109,5 @@ public class AppointmentAdapter extends ArrayAdapter<Appointment> {
         return appointmentDetails;
     }
 }
+
+
