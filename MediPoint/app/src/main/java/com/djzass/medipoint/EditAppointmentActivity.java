@@ -1,6 +1,7 @@
 package com.djzass.medipoint;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.FragmentManager;
 import android.content.Intent;
 import android.os.Bundle;
@@ -198,18 +199,18 @@ public class EditAppointmentActivity extends Activity implements AdapterView.OnI
                 //List<Doctor> doctors = ((Container)getApplicationContext()).getGlobalDoctorDAO().getDoctorBySpecialization(selection);
                 //List<Doctor> doctors = Container.GlobalDoctorDAO.getDoctorBySpecialization(selection);
 
-                List<Doctor> doctors1 = Container.getDoctorManager().getDoctorsByClinicAndSpecialization(specialtyId, clinicId, this);
-                List<String> doctorNames1 = new ArrayList<String>();
-                for (Doctor d : doctors1) {
-                    doctorNames1.add(d.getName());
+                List<Doctor> doctors = Container.getDoctorManager().getDoctorsByClinicAndSpecialization(specialtyId, clinicId, this);
+                List<String> doctorNames = new ArrayList<String>();
+                for (Doctor d : doctors) {
+                    doctorNames.add(d.getName());
                 }
-                ArrayAdapter<String> doctorDataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, doctorNames1);
+                ArrayAdapter<String> doctorDataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, doctorNames);
                 doctorDataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                 doctorDataAdapter.notifyDataSetChanged();
                 doctorSpinnerCreate.setAdapter(doctorDataAdapter);
-
+                //doctorSpinnerCreate.setSelection(doctorDataAdapter.getPosition(Container.getDoctorManager().getDoctorNameByClinicAndSpecialization(app.getSpecialtyId(),app.getClinicId(),this)));
                 String doctor = String.valueOf(doctorSpinnerCreate.getSelectedItem());
-                for (Doctor d : doctors1) {
+                for (Doctor d : doctors) {
                     if (doctor.equals(d.getName())) {
                         doctorId = d.getDoctorId();
                     }
@@ -220,7 +221,7 @@ public class EditAppointmentActivity extends Activity implements AdapterView.OnI
             case R.id.EditApptCountries:
                 String country = String.valueOf(countrySpinnerCreate.getSelectedItem());
 
-                List<Clinic> clinics = Container.getClinicManager().getClinicsByCountry(country,this);
+                List<Clinic> clinics = Container.getClinicManager().getClinicsByCountry(country, this);
                 List<String> clinicNames = new ArrayList<String>();
                 for (Clinic c : clinics) {
                     clinicNames.add(c.getName());
@@ -239,17 +240,18 @@ public class EditAppointmentActivity extends Activity implements AdapterView.OnI
                     }
                 }
 
-                List<Doctor> doctors2 = Container.getDoctorManager().getDoctorsByClinicAndSpecialization(specialtyId,clinicId,this);
-                List<String> doctorNames2 = new ArrayList<String>();
-                for (Doctor d : doctors2) {
-                    doctorNames2.add(d.getName());
+                doctors = Container.getDoctorManager().getDoctorsByClinicAndSpecialization(specialtyId, clinicId, this);
+                doctorNames = new ArrayList<String>();
+                for (Doctor d : doctors) {
+                    doctorNames.add(d.getName());
                 }
-                ArrayAdapter<String> doctorDataAdapter2 = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, doctorNames2);
-                doctorDataAdapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                doctorDataAdapter2.notifyDataSetChanged();
-                doctorSpinnerCreate.setAdapter(doctorDataAdapter2);
+                doctorDataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, doctorNames);
+                doctorDataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                doctorDataAdapter.notifyDataSetChanged();
+                doctorSpinnerCreate.setAdapter(doctorDataAdapter);
+                //doctorSpinnerCreate.setSelection(doctorDataAdapter.getPosition(Container.getDoctorManager().getDoctorNameByClinicAndSpecialization(app.getSpecialtyId(),app.getClinicId(),this)));
                 String doctor2 = String.valueOf(doctorSpinnerCreate.getSelectedItem());
-                for (Doctor d : doctors2) {
+                for (Doctor d : doctors) {
                     if (doctor2.equals(d.getName())) {
                         doctorId = d.getDoctorId();
                     }
@@ -270,18 +272,19 @@ public class EditAppointmentActivity extends Activity implements AdapterView.OnI
                         }
                     }
 
-                    DoctorDAO doctorDAO = new DoctorDAO(this);
-                    List<Doctor> doctors3 = doctorDAO.getDoctorsByClinicAndSpecialization(clinicSelection,specialtyId);
-                    List<String> doctorNames3 = new ArrayList<String>();
-                    for (Doctor d : doctors3) {
-                        doctorNames3.add(d.getName());
+
+                    doctors = Container.getDoctorManager().getDoctorsByClinicAndSpecialization(specialtyId,clinicId,this);
+                    doctorNames = new ArrayList<String>();
+                    for (Doctor d : doctors) {
+                        doctorNames.add(d.getName());
                     }
-                    ArrayAdapter<String> doctorDataAdapter3 = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, doctorNames3);
-                    doctorDataAdapter3.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                    doctorDataAdapter3.notifyDataSetChanged();
-                    doctorSpinnerCreate.setAdapter(doctorDataAdapter3);
+                    doctorDataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, doctorNames);
+                    doctorDataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                    doctorDataAdapter.notifyDataSetChanged();
+                    doctorSpinnerCreate.setAdapter(doctorDataAdapter);
+                    doctorSpinnerCreate.setSelection(doctorDataAdapter.getPosition(Container.getDoctorManager().getDoctorNameByClinicAndSpecialization(app.getSpecialtyId(),app.getClinicId(),this)));
                     String doctor3 = String.valueOf(doctorSpinnerCreate.getSelectedItem());
-                    for (Doctor d : doctors3) {
+                    for (Doctor d : doctors) {
                         if (doctor3.equals(d.getName())) {
                             doctorId = d.getDoctorId();
                         }
@@ -316,13 +319,17 @@ public class EditAppointmentActivity extends Activity implements AdapterView.OnI
 
     //Button Methods
     public void onCancelEdit(View view){
-        setContentView(R.layout.activity_main);
-        Toast.makeText(this, "Appointment not edited", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Appointment edit cancelled", Toast.LENGTH_SHORT).show();
+        Intent in = new Intent(getApplicationContext(), MainActivity.class);
+        startActivity(in);
     }
 
     public void onConfirmEdit(View view){
         //add to database
+        String title = "Confirm Edit Appointment";
+        String message = "Are you sure that the details you have entered is correct?";
 
+        AlertDialogInterface ad = new AlertDialogInterface(title,message,this);
         //if successful
         setContentView(R.layout.activity_main);
         Toast.makeText(this, "Appointment successfully edited", Toast.LENGTH_SHORT).show();
