@@ -8,7 +8,6 @@ import android.app.ActionBar;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,13 +18,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.djzass.medipoint.entity.Appointment;
-import com.djzass.medipoint.logic_database.AppointmentDAO;
 import com.djzass.medipoint.logic_manager.AppointmentManager;
-import com.djzass.medipoint.logic_manager.Container;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Calendar;
 
 
 /**
@@ -34,7 +30,7 @@ import java.util.Calendar;
 public class AppointmentListFragment extends Fragment implements ActionBar.OnNavigationListener{
     private ActionBar actionBar;
     private ArrayList<SpinnerNavItem> navSpinner;
-    private NavigationAdapter adapter;
+    //private NavigationAdapter adapter;
     //ArrayList<AppointmentDummy> appointments;
     ArrayList<Appointment> appointments;
     public static AppointmentListFragment newInstance() {
@@ -104,9 +100,9 @@ public class AppointmentListFragment extends Fragment implements ActionBar.OnNav
         AppointmentManager appointmentManager = AppointmentManager.getInstance();
         Toast.makeText(getActivity(), "Succeeded in getting the appointment manager", Toast.LENGTH_LONG).show();
         appointments = (ArrayList<Appointment>) appointmentManager.getAppointments(getActivity());
-        for (Appointment a: appointments) {
-            Toast.makeText(getActivity(), a.toString(), Toast.LENGTH_SHORT).show();
-        }
+        //for (Appointment a: appointments) {
+        //    Toast.makeText(getActivity(), a.toString(), Toast.LENGTH_SHORT).show();
+        //}
         //appointments = (ArrayList<Appointment>) appointmentManager.getAppointments(this.getActivity());
 //        appointments = (ArrayList<Appointment>) Container.getAppointmentManager().getAppointments(getActivity());
 

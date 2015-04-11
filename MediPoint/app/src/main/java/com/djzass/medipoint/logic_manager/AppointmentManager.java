@@ -247,14 +247,8 @@ public class AppointmentManager {
         return ret;
     }
 
-<<<<<<< HEAD
-    public Appointment getAppointmentByID(int id){
-||||||| merged common ancestors
-   public Appointment getAppointmentByID(int id){
-=======
    public Appointment getAppointmentByID(int id, Context context){
         updateAppointmentDao(context);
->>>>>>> 7403cad1820fd404b58de8f63052b39115caafd8
         return appointmentDao.getAppointmentsByID(id).get(0);
     }
 

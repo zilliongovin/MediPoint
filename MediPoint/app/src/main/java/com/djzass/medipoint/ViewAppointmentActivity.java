@@ -26,7 +26,7 @@ public class ViewAppointmentActivity extends Activity {
         setContentView(R.layout.activity_view_appointment);
 
         Bundle b = getIntent().getExtras();
-        AppointmentDummy app = b.getParcelable("appObj");
+        Appointment app = b.getParcelable("appObj");
 
         /*
         TextView text = (TextView) findViewById(R.id.viewSpecialty);
