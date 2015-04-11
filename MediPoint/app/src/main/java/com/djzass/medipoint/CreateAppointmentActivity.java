@@ -84,7 +84,7 @@ public class CreateAppointmentActivity extends onDataPass implements AdapterView
         try {
             SessionManager sessionManager = new SessionManager(this);
             this.patientId = (int)sessionManager.getAccountId();
-            Toast.makeText(this,(String)patientId,Toast.LENGTH_SHORT).show();
+
 
             specialtyDAO = new SpecialtyDAO(this);
             specialities = specialtyDAO.getAllSpecialties();
@@ -384,6 +384,8 @@ public class CreateAppointmentActivity extends onDataPass implements AdapterView
             notification.buildNotification(this, "Appointment Created!!");
             try {
                 malarm.setAlarm(this, appointment, accountManager.getAccountById(this.patientId));
+                Intent goToMain = new Intent(this,MainActivity.class);
+                startActivity(goToMain);
             } catch (ParseException e){
 
             }
