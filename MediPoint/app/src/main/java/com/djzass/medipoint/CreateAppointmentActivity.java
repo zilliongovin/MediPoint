@@ -55,8 +55,8 @@ public class CreateAppointmentActivity extends onDataPass implements AdapterView
     int duration;
     String preAppointmentActions;
     Timeframe timeframe;
-
     long accountId;
+
 
     //spinner
     Spinner specialtySpinnerCreate;
@@ -95,6 +95,8 @@ public class CreateAppointmentActivity extends onDataPass implements AdapterView
             ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_dropdown_item,specialtyNames);
             dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
             dataAdapter.notifyDataSetChanged();
+
+            accountId = sessionManager.getAccountId();
             specialtySpinnerCreate.setAdapter(dataAdapter);
             specialtySpinnerCreate.setOnItemSelectedListener(this);
         } catch (SQLException e) {
@@ -413,6 +415,7 @@ public class CreateAppointmentActivity extends onDataPass implements AdapterView
             long res = Container.getAppointmentManager().createAppointment(appointment, this);
             if (res == -1) {
                 Toast.makeText(this,"Appointment creation failed", Toast.LENGTH_SHORT).show();
+
             } else {
                 AlarmSetter malarm = new AlarmSetter();
                 AccountManager mAcc = new AccountManager(this);

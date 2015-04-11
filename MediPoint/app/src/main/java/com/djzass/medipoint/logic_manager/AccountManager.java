@@ -140,7 +140,7 @@ public class AccountManager {
         int isSMS = cursor.getInt(14);
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-mm-dd");
         Calendar dobCal = Calendar.getInstance();
-        dobCal.setTime(sdf.parse(dob));
+        /*dobCal.setTime(sdf.parse(dob));*/
 
 
         Toast.makeText(context,"Toooo4",Toast.LENGTH_LONG).show();
