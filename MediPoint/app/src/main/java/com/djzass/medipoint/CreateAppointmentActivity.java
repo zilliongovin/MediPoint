@@ -9,6 +9,7 @@ import android.os.Bundle;
 
 import android.os.Parcel;
 
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -54,14 +55,11 @@ public class CreateAppointmentActivity extends onDataPass implements AdapterView
     String preAppointmentActions;
     Timeframe timeframe;
 
-<<<<<<< HEAD
     long accountId;
-=======
 
     /*String NRIC;
     List<Account> accountList;
     AccountDAO macc;*/
->>>>>>> origin/master
 
 
     //spinner
@@ -222,6 +220,7 @@ public class CreateAppointmentActivity extends onDataPass implements AdapterView
                             this.serviceId = s.getId();
                             this.preAppointmentActions = s.getPreAppointmentActions();
                             this.duration = s.getDuration();
+                            Log.d("Service", this.serviceId + " " + this.duration);
                         }
                     }
                     //List<Doctor> doctors = ((Container)getApplicationContext()).getGlobalDoctorDAO().getDoctorBySpecialization(selection);
@@ -434,12 +433,7 @@ public class CreateAppointmentActivity extends onDataPass implements AdapterView
             Appointment appointment = new Appointment(this.patientId, this.clinicId, this.specialtyId, this.serviceId, this.doctorId, this.date, this.timeframe);
             long res = Container.getAppointmentManager().createAppointment(appointment, this);
             if (res == -1) {
-                Notification notification = new Notification();
-<<<<<<< HEAD
-                notification.buildNotification(this, "Appointment creation fail :C",appointment);
-=======
-                notification.buildNotification(this, "Appointment creation failed");
->>>>>>> origin/master
+                Toast.makeText(this,"Appointment creation failed", Toast.LENGTH_SHORT).show();
             } else {
                 AlarmSetter malarm = new AlarmSetter();
                 AccountManager mAcc = new AccountManager(this);
