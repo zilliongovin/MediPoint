@@ -1,9 +1,12 @@
 package com.djzass.medipoint.entity;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 /**
  * Created by Deka on 26/3/2015.
  */
-public class Service {
+public class Service implements Parcelable {
     private int serviceId;
     private int specialtyId;
     private String name;
@@ -75,5 +78,42 @@ public class Service {
     }
     public void setPreAppointmentActions(String preAppointmentActions) {
         this.preAppointmentActions = preAppointmentActions;
+    }
+
+    public Service(Parcel in){
+        readFromParcel(in);
+    }
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel desc, int flags) {
+        desc.writeInt(this.serviceId);
+        desc.writeInt(this.specialtyId);
+        desc.writeString(this.name);
+        desc.writeInt(this.duration);
+        desc.writeString(this.preAppointmentActions);
+        /*private Timeframe timeframe;*/
+    }
+
+    public static final Parcelable.Creator<Service> CREATOR
+            = new Parcelable.Creator<Service>() {
+        public Service createFromParcel(Parcel in) {
+            return new Service(in);
+        }
+
+        public Service[] newArray(int size) {
+            return new Service[size];
+        }
+    };
+
+    public void readFromParcel(Parcel in) {
+        this.serviceId = in.readInt();
+        this.specialtyId = in.readInt();
+        this.name = in.readString();
+        this.duration = in.readInt();
+        this.preAppointmentActions = in.readString();
     }
 }

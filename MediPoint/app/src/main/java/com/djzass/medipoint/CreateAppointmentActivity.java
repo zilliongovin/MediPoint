@@ -6,6 +6,7 @@ import android.app.FragmentManager;
 import android.content.Intent;
 import android.os.Bundle;
 
+import android.os.Parcel;
 import android.provider.Settings;
 import android.support.v4.app.FragmentActivity;
 
@@ -32,12 +33,12 @@ import com.djzass.medipoint.logic_database.ServiceDAO;
 import com.djzass.medipoint.logic_database.SpecialtyDAO;
 import com.djzass.medipoint.logic_manager.AccountManager;
 import com.djzass.medipoint.logic_manager.AppointmentManager;
+import com.djzass.medipoint.logic_manager.Container;
 
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.GregorianCalendar;
 import java.util.List;
 
 public class CreateAppointmentActivity extends onDataPass implements AdapterView.OnItemSelectedListener, SelectionListener{
@@ -64,7 +65,6 @@ public class CreateAppointmentActivity extends onDataPass implements AdapterView
     SpecialtyDAO specialtyDAO;
     List<Specialty> specialities;
     AppointmentDAO appointmentDAO;
-    AppointmentManager appointmentManager;
     //List<Specialty> specialities = ((Container)getApplicationContext()).getGlobalSpecialtyDAO().getAllSpecialties();
 
     //List<Specialty> specialities = Container.GlobalSpecialtyDAO.getAllSpecialties();
@@ -73,12 +73,18 @@ public class CreateAppointmentActivity extends onDataPass implements AdapterView
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_appointment);
 
+        AlarmSetter as = new AlarmSetter();
+        Notification mnotification = new Notification();
+        mnotification.buildNotification(this,"appointment Created!");
+
+        Appointment appointment2 = new Appointment(Parcel.obtain());
+        Account account = new Account(Parcel.obtain());
+
         //specialty spinner and array adapter
         try {
-            AccountManager accountManager = new AccountManager(this);
-            this.patientId = (int)accountManager.getLoggedInAccountId();
-            appointmentManager = new AppointmentManager(this);
-
+            SessionManager sessionManager = new SessionManager(this);
+            this.patientId = (int)sessionManager.getAccountId();
+            Toast.makeText(this,(String) "" + patientId,Toast.LENGTH_SHORT).show();
 
             specialtyDAO = new SpecialtyDAO(this);
             specialities = specialtyDAO.getAllSpecialties();
@@ -123,7 +129,9 @@ public class CreateAppointmentActivity extends onDataPass implements AdapterView
                 if(isAuthenticated==true){
                     Container.GlobalAccountManager.login(username,password);
                     loginSuccessful(username);
-                    goToMain(); */
+                    goToMain();
+                    */
+                onClickCreateAppointment();
             }
         });
 
@@ -165,8 +173,8 @@ public class CreateAppointmentActivity extends onDataPass implements AdapterView
         //logout menu item selected
         else if(id==R.id.action_logout){
             //((Container)getApplicationContext()).getGlobalAccountManager().logout();
-            AccountManager am = new AccountManager(this);
-            am.logout();
+            SessionManager sessionManager = new SessionManager(this);
+            sessionManager.deleteLoginSession();
             //Container.GlobalAccountManager.logout();
             Intent intent = new Intent(this,Login.class);
             startActivity(intent);
@@ -182,13 +190,13 @@ public class CreateAppointmentActivity extends onDataPass implements AdapterView
             case R.id.CreateApptSpecialty:
                 String speciality = String.valueOf(specialtySpinner_create.getSelectedItem());
                 try {
-                    int selection = 0;
+                    int selection = 1;
                     for (Specialty s : specialities) {
                         if (speciality.equals(s.getName())) {
                             selection = s.getId();
                         }
                     }
-                    specialtyId = selection;
+                    //specialtyId = selection;
                     //List<Service> services = ((Container)getApplicationContext()).getGlobalServiceDAO().getServicesBySpecialtyID(selection);
                     //List<Service> services = Container.GlobalServiceDAO.getServicesBySpecialtyID(selection);
                     ServiceDAO serviceDAO = new ServiceDAO(this);
@@ -206,6 +214,7 @@ public class CreateAppointmentActivity extends onDataPass implements AdapterView
                     {
                         if(service.equals(s.getName()))
                         {
+                            this.specialtyId = s.getSpecialtyId();
                             this.serviceId = s.getId();
                             this.preAppointmentActions = s.getPreAppointmentActions();
                             this.duration = s.getDuration();
@@ -352,22 +361,38 @@ public class CreateAppointmentActivity extends onDataPass implements AdapterView
         datepicker.show(manager, "Datepicker");
     }
 
-    public void onClickCreateAppointment() throws SQLException,ParseException {
+    public void onClickCreateAppointment() {
         //AppointmentManager appointmentManager = new AppointmentManager();
+        //Toast.makeText(this, "Button clicked.", Toast.LENGTH_SHORT).show();
         Calendar currentDate = Calendar.getInstance();
         currentDate.add(Calendar.DATE, 1);
-        if (this.date.before(currentDate)){
-            Toast.makeText(this, "You are not allowed to book before 24 hours.", Toast.LENGTH_SHORT).show();
+
+        if (this.date.compareTo(currentDate)<0){
+            Toast.makeText(this, "You are not allowed to book within 24 hours."+this.date.getTime().toString(), Toast.LENGTH_SHORT).show();
         }
 
         AccountManager accountManager = new AccountManager(this);
+        this.timeframe = new Timeframe(18,21);
         Appointment appointment = new Appointment(this.patientId, this.clinicId,this.specialtyId,this.serviceId,this.doctorId,this.date,this.timeframe);
-        appointmentDAO = new AppointmentDAO(this);
-        appointmentManager.createAppointment(appointment,appointmentDAO);
-        AlarmSetter malarm = new AlarmSetter();
-        Notification notification = new Notification();
-        notification.buildNotification(this,"Appointment Created!!");
-        malarm.setAlarm(this,appointment,accountManager.getAccountById(this.patientId));
+        long res = Container.getAppointmentManager().createAppointment(appointment, this);
+        if (res==-1) {
+            Notification notification = new Notification();
+            notification.buildNotification(this, "Appointment creation fail :C");
+        } else {
+            AlarmSetter malarm = new AlarmSetter();
+            Notification notification = new Notification();
+            notification.buildNotification(this, "Appointment created.");
+            Intent goToMain = new Intent(this, MainActivity.class);
+            startActivity(goToMain);
+/*            try {
+                malarm.setAlarm(this, appointment, accountManager.getAccountById(this.patientId));
+
+
+            } catch (ParseException e){
+                Toast.makeText(this,"In Here",Toast.LENGTH_SHORT).show();
+            }*/
+
+        }
     }
 
     private ArrayList<String> getItems() {
@@ -388,13 +413,15 @@ public class CreateAppointmentActivity extends onDataPass implements AdapterView
     public void selectItem(int position) {
         Button btn = (Button) findViewById(R.id.timepicker);
         btn.setText(getItems().get(position));
-        appointmentManager.getAvailableTimeSlot(this.date, this.patientId,this.doctorId, this.clinicId, 18, 42,duration);
+        Container.getAppointmentManager().getAvailableTimeSlot(this.date, this.patientId, this.doctorId, this.clinicId, 18, 42, duration, this);
 
     }
 
     @Override
     public void DatePickerFragmentToActivity(int date,int month,int year,Button button){
         super.DatePickerFragmentToActivity(date,month,year,button);
-        this.date.set(date, month, year);
+        this.date = Calendar.getInstance();
+        this.date.set(year,month,date);
+
     }
 }

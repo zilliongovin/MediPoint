@@ -13,6 +13,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.djzass.medipoint.DbContract;
 import com.djzass.medipoint.entity.Timeframe;
@@ -32,7 +33,7 @@ public class AppointmentDAO extends DbDAO{
 
     public AppointmentDAO(Context context) throws SQLException {
         super(context);
-        initializeDAO();
+        //initializeDAO();
     }
 
     public long insertAppointment(Appointment appointment) {
@@ -42,7 +43,8 @@ public class AppointmentDAO extends DbDAO{
         values.put(DbContract.AppointmentEntry.COLUMN_NAME_PATIENT_ID, appointment.getPatientId());
         values.put(DbContract.AppointmentEntry.COLUMN_NAME_DOCTOR_ID, appointment.getDoctorId());
         values.put(DbContract.AppointmentEntry.COLUMN_NAME_REFERRER_ID, appointment.getReferrerId());
-        values.put(DbContract.AppointmentEntry.COLUMN_NAME_DATE_TIME, String.valueOf(appointment.getDate()));
+       // values.put(DbContract.AppointmentEntry.COLUMN_NAME_DATE_TIME, appointment.getDateString());
+        values.put(DbContract.AppointmentEntry.COLUMN_NAME_DATE_TIME, appointment.getDate().getTimeInMillis());
         values.put(DbContract.AppointmentEntry.COLUMN_NAME_SERVICE_ID, appointment.getServiceId());
         values.put(DbContract.AppointmentEntry.COLUMN_NAME_SPECIALTY_ID,appointment.getSpecialtyId());
         values.put(DbContract.AppointmentEntry.COLUMN_NAME_PREAPPOINTMENT_ACTIONS, appointment.getPreAppointmentActions());
@@ -82,14 +84,17 @@ public class AppointmentDAO extends DbDAO{
             appointment.setDoctorId(cursor.getInt(3));
             appointment.setReferrerId(cursor.getInt(4));
 
-            String temp = cursor.getString(5);
-            DateFormat dateformat = new SimpleDateFormat("yyyy-MM-dd");
+            /*String temp = cursor.getString(5);
+            DateFormat dateformat = new SimpleDateFormat("yyyy-mm-dd");
             Calendar cal  = Calendar.getInstance();
             try {
                 cal.setTime(dateformat.parse(temp));
             } catch (ParseException e) {
-                Log.d("DAO", "Date parsing exception");
-            }
+                Log.d("AppointmentDAO", "Date parsing exception");
+            }*/
+            Calendar cal = Calendar.getInstance();
+            Long c = cursor.getLong(5);
+            cal.setTimeInMillis(c);
             appointment.setDate(cal);
             appointment.setServiceId(cursor.getInt(6));
             appointment.setSpecialtyId(cursor.getInt(7));
@@ -128,7 +133,7 @@ public class AppointmentDAO extends DbDAO{
         values.put(DbContract.AppointmentEntry.COLUMN_NAME_PATIENT_ID, appointment.getPatientId());
         values.put(DbContract.AppointmentEntry.COLUMN_NAME_DOCTOR_ID, appointment.getDoctorId());
         values.put(DbContract.AppointmentEntry.COLUMN_NAME_REFERRER_ID, appointment.getReferrerId());
-        values.put(DbContract.AppointmentEntry.COLUMN_NAME_DATE_TIME, String.valueOf(appointment.getDate()));
+        values.put(DbContract.AppointmentEntry.COLUMN_NAME_DATE_TIME, appointment.getDate().getTimeInMillis());
         values.put(DbContract.AppointmentEntry.COLUMN_NAME_SERVICE_ID, appointment.getServiceId());
         values.put(DbContract.AppointmentEntry.COLUMN_NAME_SPECIALTY_ID,appointment.getSpecialtyId());
         values.put(DbContract.AppointmentEntry.COLUMN_NAME_PREAPPOINTMENT_ACTIONS, appointment.getPreAppointmentActions());
@@ -172,11 +177,22 @@ public class AppointmentDAO extends DbDAO{
     }
 
     public String getStringFromID(String tableName,String columnName,String columnID,int id){
-        String query = "SELECT " + columnName +
+       /* String query = "SELECT " + columnName +
                 " FROM " + tableName +
                 " WHERE " + columnID + "=?";
         String[] selArgs = {""+id};
-        Cursor cursor = database.rawQuery(query,selArgs);
-        return cursor.getString(0);
+        Cursor cursor = database.rawQuery(query,selArgs);*/
+        String query = "SELECT " + tableName + "." + columnName +
+                " FROM " + tableName +
+                " WHERE " + columnID + " = " + id;
+        Cursor cursor = database.rawQuery(query, null);
+        if(cursor!=null && cursor.moveToFirst())
+            return cursor.getString(0);
+        Log.d("numOfRows", cursor.getCount()+"");
+        if(cursor==null)
+            Log.d("NullCursorApptdao", "Null Cursor");
+        if(!cursor.moveToFirst())
+            Log.d("MoveTFApptDAo", "Move To first fail");
+        return "Cursor not found";
     }
 }

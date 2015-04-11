@@ -16,18 +16,18 @@ public class Notification {
         NotificationManagerCompat NM= NotificationManagerCompat.from(context);
 
 
-        Intent intent = new Intent(context, ViewAppointmentActivity.class);
-        PendingIntent pI = PendingIntent.getActivity(context,0,intent,0);
+        Intent intent = new Intent(context, CreateAppointmentActivity.class);
+        PendingIntent pI = PendingIntent.getActivity(context,0,intent,PendingIntent.FLAG_UPDATE_CURRENT);
 
-        android.app.Notification notify = new android.app.Notification.Builder(context)
+        android.app.Notification.Builder notify = new android.app.Notification.Builder(context)
                 //can be set differently like icon, sound etc
                 .setContentTitle("Medipoint Reminder")
                 .setContentText(body)
                 .setSmallIcon(R.drawable.icon_medipoint)
-                .setSound(Settings.System.DEFAULT_NOTIFICATION_URI)
+
                 .setContentIntent(pI)
-                .build();
+                .setAutoCancel(true);
         //initiate this
-        NM.notify(0, notify);
+        NM.notify(0,notify.build());
     }
 }

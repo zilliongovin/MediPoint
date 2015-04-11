@@ -33,7 +33,7 @@ public class AppointmentAdapter extends ArrayAdapter<Appointment> {
 
     public AppointmentAdapter(Context context, ArrayList<Appointment> appointments) throws SQLException {
         super(context, R.layout.appointment_adapter, appointments);
-        appointmentManager = new AppointmentManager(context);
+        appointmentManager = AppointmentManager.getInstance();
     }
 
     @Override
@@ -82,12 +82,11 @@ public class AppointmentAdapter extends ArrayAdapter<Appointment> {
     }
 
     public HashMap<String,String> getAppointmentDetails(int id){
-        Appointment appointment = appointmentManager.getAppointmentByID(id);
-
-        String specialtyName = appointmentManager.getSpecialtyNameByAppointment(appointment);
-        String serviceName = appointmentManager.getServiceNameByAppointment(appointment);
-        String doctorName = appointmentManager.getDoctorNameByAppointment(appointment);
-        String clinicName = appointmentManager.getClinicNameByAppointment(appointment);
+        Appointment appointment = appointmentManager.getAppointmentByID(id, getContext() );
+        String specialtyName = appointmentManager.getSpecialtyNameByAppointment(appointment, getContext());
+        String serviceName = appointmentManager.getServiceNameByAppointment(appointment, getContext());
+        String doctorName = appointmentManager.getDoctorNameByAppointment(appointment, getContext());
+        String clinicName = appointmentManager.getClinicNameByAppointment(appointment, getContext());
         String status = appointmentManager.getStatus(appointment);
 
         HashMap<String,String> appointmentDetails = new HashMap<String, String>();

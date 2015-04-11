@@ -1,12 +1,16 @@
 package com.djzass.medipoint;
 
 import android.app.Activity;
+import android.app.Fragment;
+import android.app.FragmentManager;
 import android.content.Intent;
 import android.os.Bundle;
+import android.speech.RecognizerIntent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.djzass.medipoint.entity.Appointment;
 
@@ -24,6 +28,7 @@ public class ViewAppointmentActivity extends Activity {
         Bundle b = getIntent().getExtras();
         AppointmentDummy app = b.getParcelable("appObj");
 
+        /*
         TextView text = (TextView) findViewById(R.id.viewSpecialty);
         text.setText(app.getName());
         TextView text2 = (TextView) findViewById(R.id.viewService);
@@ -36,6 +41,7 @@ public class ViewAppointmentActivity extends Activity {
         text5.setText(app.getTimeString());
         TextView text6 = (TextView) findViewById(R.id.viewLocation);
         text6.setText(app.getClinic());
+        */
     }
 
 
@@ -56,24 +62,22 @@ public class ViewAppointmentActivity extends Activity {
         return true;
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
 
     public void cancelAppointment(){
         Appointment appointment = new Appointment();
         AlarmSetter malarm = new AlarmSetter();
         malarm.cancelAlarm(this,appointment);
+    }
+
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        switch (id) {
+            case R.id.action_call:
+                Intent editIntent= new Intent(getApplicationContext(),EditAppointmentActivity.class);
+                startActivity(editIntent);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 }

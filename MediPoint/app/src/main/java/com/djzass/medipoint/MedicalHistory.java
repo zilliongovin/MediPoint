@@ -5,17 +5,21 @@ package com.djzass.medipoint;
  */
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Html;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.djzass.medipoint.entity.Patient;
 import com.djzass.medipoint.logic_database.PatientDAO;
+import com.djzass.medipoint.logic_manager.Container;
 
 import java.sql.SQLException;
 import java.util.Calendar;
@@ -29,17 +33,22 @@ public class MedicalHistory extends Activity {
     String otherInfo = "";
     String allergyInfo = "";
 
+    //medical history
+    String medicalHistory = "";
+
     //Ongoing Treatment
-    String ongoingTreatment;
+    String ongoingTreatment = "";
 
     //Ongoing Medication
-    String ongoingMedication;
+    String ongoingMedication = "";
 
     //create new patient
     PatientDAO patientDAO;
 
-    //get from intent
-    Calendar DOB;
+    //DOB of user from intent
+    Calendar DOB = Calendar.getInstance();
+
+    int patientId;
 
 
     @Override
@@ -59,6 +68,25 @@ public class MedicalHistory extends Activity {
             e.printStackTrace();
         }
 
+        //set submit button listener
+        Button submit = (Button)findViewById(R.id.submitButton);
+        submit.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View arg0) {
+                try {
+                    onSubmit();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+        //get DOB from intent
+        Intent intent = getIntent();
+        Long DOBLong = intent.getLongExtra("DOB", 0);
+        DOB.setTimeInMillis(DOBLong);
+        //get patient from intent
+        this.patientId = intent.getIntExtra("ID", 0);
+        Toast.makeText(this, "PATIENTID: " + this.patientId, Toast.LENGTH_LONG).show();
     }
 
 
@@ -84,6 +112,32 @@ public class MedicalHistory extends Activity {
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    public void onBackPressed(){
+        String title = "Skip this form for now?";
+        String  message = "You can edit your medical history anytime.";
+        Runnable insertPatientDOB = new Runnable() {
+            @Override
+            public void run() {
+                patientDAO.insertPatient(new Patient(DOB,"","","",""));
+
+            }
+        };
+        Runnable goToLoginPage = new Runnable() {
+            @Override
+            public void run() {
+                goToLoginPage();
+            }
+        };
+
+        AlertDialogInterface alert = new AlertDialogInterface(title,message,this);
+        alert.BackToLogin(insertPatientDOB,goToLoginPage);
+    }
+
+    public void goToLoginPage(){
+        Intent MedicalHistoryToLogin = new Intent(this,Login.class);
+        startActivity(MedicalHistoryToLogin);
+    }
     //checkbox listener
     public void onCheckboxClicked(View view){
 
@@ -290,7 +344,7 @@ public class MedicalHistory extends Activity {
     }
 
     //method for submit button
-    public void onSubmit(View v){
+    public void onSubmit() throws SQLException {
 
         //get edittext
         EditText spec = (EditText) findViewById(R.id.Specification);
@@ -313,13 +367,24 @@ public class MedicalHistory extends Activity {
 
         if( !((medicationTest.toString().trim()).equals("")) ){
             ongoingMedication = medicationTest.toString();
-        }   
+        }
 
         //combine all personal history
-        String medicalHistory = dentalInfo + ENTInfo + genitalInfo + otherInfo;
+        medicalHistory = dentalInfo + ENTInfo + genitalInfo + otherInfo;
 
         //store medicalHistory, allergyInfo, ongoingTreatment, ongoingMedication to DB
-        //patientDAO.insertPatient(new Patient(DOB, medicalHistory, ongoingTreatment, ongoingMedication, allergyInfo));
+        long ret = patientDAO.insertPatient(new Patient(patientId, DOB, medicalHistory, ongoingTreatment, ongoingMedication, allergyInfo));
+        if (ret == -1) {
+            Toast.makeText(this, "insert patient to database unsuccessful", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "PID: " + patientId + " dob: " + DOB, Toast.LENGTH_LONG).show();
+    }
+        else {
+            Toast.makeText(this, "insert patient to database successful", Toast.LENGTH_SHORT).show();
+        }
 
+        Toast.makeText(this,"Medical History updated",Toast.LENGTH_SHORT).show();
+        //go back to login page after submitting
+        Intent intent = new Intent(this, Login.class);
+        startActivity(intent);
     }
 }

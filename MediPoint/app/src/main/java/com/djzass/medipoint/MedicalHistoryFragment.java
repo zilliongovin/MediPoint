@@ -6,11 +6,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.sql.SQLException;
+
 /**
  * Created by Zillion Govin on 1/4/2015.
  */
 public class MedicalHistoryFragment extends Fragment {
 
+    int patientId;
 
     public static MedicalHistoryFragment newInstance() {
         MedicalHistoryFragment fragment = new MedicalHistoryFragment();
@@ -20,6 +23,14 @@ public class MedicalHistoryFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
+
+        //get patient id
+        try {
+            SessionManager sessionManager = new SessionManager(this.getActivity());
+            this.patientId = (int)sessionManager.getAccountId();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override

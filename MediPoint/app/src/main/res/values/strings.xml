@@ -83,6 +83,7 @@
         <item>address</item>
     </string-array>
 
+
     <!-- Button Label -->
     <string name="create_appointment">create appointment</string>
     <string name="edit_appointment">edit appointment</string>
@@ -121,5 +122,8 @@
     <string name="drug_3">Penicillin or other Antibiotics</string>
     <string name="drug_4">Sulfa Drugs</string>
     <string name="drug_5">Any Other</string>
+    <string name="title_activity_database_tester">DatabaseTester</string>
+
+    <string name="hello_world">Hello world!</string>
 
 </resources>

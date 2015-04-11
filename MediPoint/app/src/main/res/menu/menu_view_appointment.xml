@@ -4,4 +4,8 @@
     tools:context="com.djzass.medipoint.ViewAppointment">
     <item android:id="@+id/action_settings" android:title="@string/action_settings"
         android:orderInCategory="100" app:showAsAction="never" />
+    <item android:id="@+id/action_call"
+        android:icon="@drawable/ic_action_edit"
+        android:showAsAction="ifRoom"
+        android:title="Call"/>
 </menu>

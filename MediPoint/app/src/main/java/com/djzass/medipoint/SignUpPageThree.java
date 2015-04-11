@@ -74,20 +74,9 @@ public class SignUpPageThree extends Activity {
         return pass1.equals(pass2);
     }
 
-    public void goToLoginPage(String username,String password,Intent PageThreeToLogin)
+    public void goToMedicalHistoryForm(String username,String password,Intent PageThreeToHistory)
     {
-        /*Intent intent = new Intent(this,Login.class);
-        startActivity(intent);*/
-        /*Intent PageThreeToLogin = new Intent(this,Login.class);
-        Bundle pageThree = new Bundle();
-        pageThree.putString("USERNAME",username);
-        pageThree.putString("PASSWORD",password);
-        PageThreeToLogin.putExtra("PAGE_THREE",pageThree);
-        PageThreeToLogin.putExtra("PAGE_TWO",getIntent().getBundleExtra("PAGE_TWO"));
-        PageThreeToLogin.putExtra("PAGE_ONE",getIntent().getBundleExtra("PAGE_ONE"));*/
-        //PageThreeToLogin.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        startActivity(PageThreeToLogin);
-        //return PageThreeToLogin;
+        startActivity(PageThreeToHistory);
     }
 
     public void goToPrevious(View view)
@@ -110,11 +99,13 @@ public class SignUpPageThree extends Activity {
         {
             String username = checkViews[0].getText().toString();
             String password = checkViews[1].getText().toString();
-            //AccountCreator.savePageThree(username,password);
-            Intent PageThreeToLogin = createIntentToLogin(username,password);
-            AccountCreatedDialog(username,password,PageThreeToLogin);
-            AccountCreator.createAccount(PageThreeToLogin.getExtras(),this);
 
+            //medical history form intent
+            Intent PageThreeToHistory = createIntentToHistory(username,password);
+
+            long accountId = AccountCreator.createAccount(PageThreeToHistory.getExtras(),this);
+
+            AccountCreatedDialog(username,password,PageThreeToHistory, (int) accountId);
 
         }
 
@@ -151,14 +142,17 @@ public class SignUpPageThree extends Activity {
         Toast.makeText(this,"Please fill all fields",Toast.LENGTH_LONG).show();
     }
 
-    public void AccountCreatedDialog(final String username, final String password,final Intent intent)
+    public void AccountCreatedDialog(final String username, final String password,final Intent intent,int accountID)
     {
         String message = "Congratulations! Your account has been successfully created.";
         String title = "Success";
+        intent.putExtra("ID",accountID);
         Runnable r = new Runnable() {
             @Override
             public void run() {
-                goToLoginPage(username,password,intent);
+                goToMedicalHistoryForm(username, password, intent);
+
+                //goToLoginPage(username,password,intent);
             }
         };
 
@@ -172,16 +166,16 @@ public class SignUpPageThree extends Activity {
 
     }
 
-    public Intent createIntentToLogin(String username,String password)
+    public Intent createIntentToHistory(String username,String password)
     {
-        Intent PageThreeToLogin = new Intent(this,Login.class);
+        Intent PageThreeToHistory = new Intent(this, MedicalHistory.class);
         Bundle pageThree = new Bundle();
         pageThree.putString("USERNAME",username);
         pageThree.putString("PASSWORD",password);
-        PageThreeToLogin.putExtra("PAGE_THREE",pageThree);
-        PageThreeToLogin.putExtra("PAGE_TWO",getIntent().getBundleExtra("PAGE_TWO"));
-        PageThreeToLogin.putExtra("PAGE_ONE",getIntent().getBundleExtra("PAGE_ONE"));
-        return PageThreeToLogin;
+        PageThreeToHistory.putExtra("PAGE_THREE",pageThree);
+        PageThreeToHistory.putExtra("PAGE_TWO",getIntent().getBundleExtra("PAGE_TWO"));
+        PageThreeToHistory.putExtra("PAGE_ONE",getIntent().getBundleExtra("PAGE_ONE"));
+        return PageThreeToHistory;
     }
 
     /*public Calendar getDate(DatePicker datePicker){

@@ -40,9 +40,12 @@ public class PatientDAO extends DbDAO{
     IMPORTANT: For doctor & patient, ID is received in the passed object, not auto-increment
      */
     public long insertPatient(Patient patient){
+       // SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+       // String patientDob = sdf.format(patient.getDob().getTime());
+
         ContentValues values = new ContentValues();
         values.put(DbContract.PatientEntry.COLUMN_NAME_PATIENT_ID, patient.getPatientId());
-        values.put(DbContract.PatientEntry.COLUMN_NAME_DOB, String.valueOf(patient.getDob()));
+        values.put(DbContract.PatientEntry.COLUMN_NAME_DOB, patient.getDob().getTimeInMillis());
         values.put(DbContract.PatientEntry.COLUMN_NAME_AGE, patient.getAge());
         values.put(DbContract.PatientEntry.COLUMN_NAME_MEDICAL_HISTORY, patient.getMedicalHistory());
         values.put(DbContract.PatientEntry.COLUMN_NAME_ALLERGIES, patient.getAllergy());
@@ -82,14 +85,17 @@ public class PatientDAO extends DbDAO{
             Patient patient= new Patient();
             patient.setPatientId(cursor.getInt(0));
 
-            String temp = cursor.getString(1);
+            /*String temp = cursor.getString(1);
             DateFormat dateformat = new SimpleDateFormat("yyyy-MM-dd");
             Calendar cal  = Calendar.getInstance();
             try {
                 cal.setTime(dateformat.parse(temp));
             } catch (ParseException e) {
-                Log.d("DAO", "Date parsing exception");
-            }
+                Log.d("PatientDAO", "Date parsing exception");
+            }*/
+            Calendar cal = Calendar.getInstance();
+            Long c = cursor.getLong(1);
+            cal.setTimeInMillis(c);
             patient.setDob(cal);
             patient.setAge(patient.getAge());
             patient.setMedicalHistory(cursor.getString(3));
@@ -111,6 +117,7 @@ public class PatientDAO extends DbDAO{
         return getPatients(whereclause);
     }
 
+
     /*
         UPDATE
        returns the number of rows affected by the update
@@ -118,7 +125,7 @@ public class PatientDAO extends DbDAO{
     public long update(Patient patient) {
         ContentValues values = new ContentValues();
         values.put(DbContract.PatientEntry.COLUMN_NAME_AGE, patient.getAge());
-        values.put(DbContract.PatientEntry.COLUMN_NAME_DOB, String.valueOf(patient.getDob()));
+        values.put(DbContract.PatientEntry.COLUMN_NAME_DOB, patient.getDob().getTimeInMillis());
         values.put(DbContract.PatientEntry.COLUMN_NAME_MEDICAL_HISTORY, patient.getMedicalHistory());
         values.put(DbContract.PatientEntry.COLUMN_NAME_ALLERGIES, patient.getAllergy());
         values.put(DbContract.PatientEntry.COLUMN_NAME_TREATMENTS, patient.getListOfTreatments());

@@ -109,6 +109,7 @@ public class DatePickerFragment extends DialogFragment implements View.OnClickLi
             int year = datepicker.getYear();
 
             onDataPass activity = (onDataPass)getActivity();
+
             activity.DatePickerFragmentToActivity(date,month,year,activityButton);
             //change the button text according to date selected
             //sign up datepicker

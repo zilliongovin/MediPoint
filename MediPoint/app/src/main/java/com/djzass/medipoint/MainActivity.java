@@ -1,37 +1,39 @@
 package com.djzass.medipoint;
 
 
+import android.app.ActionBar;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Toast;
+import android.view.View;
 
-import com.djzass.medipoint.logic_manager.AccountManager;
+import com.djzass.medipoint.logic_manager.*;
+import com.djzass.medipoint.logic_manager.Container;
 import com.google.samples.apps.iosched.ui.widget.SlidingTabLayout;
 
+import java.util.ArrayList;
 
-public class MainActivity extends FragmentActivity {
 
+public class MainActivity extends FragmentActivity{
     public static boolean SERVICE_TIMER_STARTED = false;
-   public static Container GlobalContainer = new Container();
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //Container.init();
         setContentView(R.layout.activity_main);
-        AccountManager acctMgr = new AccountManager(this);
+
+    AccountManager acctMgr = new AccountManager(this);
         //get Patient ID
         //String id = GlobalContainer.GlobalAccountManager.getLoggedInAccountId();
         //Toast.makeText(this,""+acctMgr.getLoggedInAccountId(this),Toast.LENGTH_SHORT).show();
         //start bg timer service
-        startService(new Intent(this, TimerService.class));
 
         // Get the ViewPager and set it's PagerAdapter so that it can display items
         ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
@@ -56,11 +58,9 @@ public class MainActivity extends FragmentActivity {
         slidingTabLayout.setViewPager(viewPager);
 
         // Calling Application class (see application tag in AndroidManifest.xml)
-        //final Container globalVar = (Container) getApplicationContext();
 
 
     }
-
     @Override
     public void onBackPressed(){
         Intent intent = new Intent(Intent.ACTION_MAIN);
@@ -125,8 +125,8 @@ public class MainActivity extends FragmentActivity {
 
         //logout menu item selected
         else if (id == R.id.action_logout) {
-            AccountManager acctMgr = new AccountManager(this);
-            acctMgr.logout();
+            SessionManager sessionManager = new SessionManager(this);
+            sessionManager.deleteLoginSession();
             Intent intent = new Intent(this, Login.class);
             startActivity(intent);
             return true;

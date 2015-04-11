@@ -1,9 +1,12 @@
 package com.djzass.medipoint.entity;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 /**
  * Created by Deka on 26/3/2015.
  */
-public class Doctor {
+public class Doctor implements Parcelable{
     private int DoctorId;
     private String name;
     private int specializationId;
@@ -99,5 +102,40 @@ public class Doctor {
                 "Practice Duration: " + this.practiceDuration+ "\n" +
                 "Specialization: " + this.specializationId + "\n"
                 ;
+    }
+
+    public Doctor(Parcel in){
+        readFromParcel(in);
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel desc, int flags) {
+        desc.writeInt(this.DoctorId);
+        desc.writeInt(this.specializationId);
+        desc.writeInt(this.practiceDuration);
+        desc.writeString(this.name);
+    }
+
+    public static final Parcelable.Creator<Doctor> CREATOR
+            = new Parcelable.Creator<Doctor>() {
+        public Doctor createFromParcel(Parcel in) {
+            return new Doctor(in);
+        }
+
+        public Doctor[] newArray(int size) {
+            return new Doctor[size];
+        }
+    };
+
+    public void readFromParcel(Parcel in) {
+        this.DoctorId = in.readInt();
+        this.specializationId = in.readInt();
+        this.practiceDuration = in.readInt();
+        this.name = in.readString();
     }
 }
