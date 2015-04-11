@@ -14,6 +14,7 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.djzass.medipoint.logic_manager.*;
+import com.djzass.medipoint.logic_manager.Container;
 import com.google.samples.apps.iosched.ui.widget.SlidingTabLayout;
 
 import java.util.ArrayList;
@@ -22,12 +23,10 @@ import java.util.ArrayList;
 public class MainActivity extends FragmentActivity{
     public static boolean SERVICE_TIMER_STARTED = false;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //Container.init();
-
         setContentView(R.layout.activity_main);
 
     AccountManager acctMgr = new AccountManager(this);
@@ -35,7 +34,6 @@ public class MainActivity extends FragmentActivity{
         //String id = GlobalContainer.GlobalAccountManager.getLoggedInAccountId();
         //Toast.makeText(this,""+acctMgr.getLoggedInAccountId(this),Toast.LENGTH_SHORT).show();
         //start bg timer service
-        startService(new Intent(this, TimerService.class));
 
         // Get the ViewPager and set it's PagerAdapter so that it can display items
         ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);

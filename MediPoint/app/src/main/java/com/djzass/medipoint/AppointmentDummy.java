@@ -95,7 +95,7 @@ public class AppointmentDummy implements Parcelable {
         this.status = status;
     }
     public String getDateString(){
-        SimpleDateFormat sdfDate = new SimpleDateFormat("EEEE, dd MMMM yyyy");
+        SimpleDateFormat sdfDate = new SimpleDateFormat("yyyy-mm-dd");
         return sdfDate.format(this.dateTime.getTime());
     }
 

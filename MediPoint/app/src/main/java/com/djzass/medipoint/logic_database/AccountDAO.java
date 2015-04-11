@@ -118,7 +118,7 @@ public class AccountDAO extends DbDAO{
             account.setAddress(cursor.getString(5));
 
             String temp = cursor.getString(6);
-            DateFormat dateformat = new SimpleDateFormat("yyyy-MM-dd");
+            DateFormat dateformat = new SimpleDateFormat("yyyy-mm-dd");
             Calendar cal  = Calendar.getInstance();
             try {
                 cal.setTime(dateformat.parse(temp));

@@ -22,7 +22,8 @@ public class AlarmSetter {
         reminderIntent.putExtra("account", account);
         int reminderId = appointment.getId();
         PendingIntent reminder = PendingIntent.getBroadcast(context,reminderId,reminderIntent,PendingIntent.FLAG_CANCEL_CURRENT);
-        Calendar cal = new GregorianCalendar();
+        //Calendar cal = new GregorianCalendar();
+        Calendar cal = Calendar.getInstance();
         cal.setTimeZone(TimeZone.getTimeZone("GMT+8"));
         AlarmManager am = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         am.set(AlarmManager.RTC_WAKEUP, appointment.getDate().getTimeInMillis() , reminder);

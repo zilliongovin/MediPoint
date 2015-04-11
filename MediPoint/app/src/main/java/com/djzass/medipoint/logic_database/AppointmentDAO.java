@@ -42,7 +42,7 @@ public class AppointmentDAO extends DbDAO{
         values.put(DbContract.AppointmentEntry.COLUMN_NAME_PATIENT_ID, appointment.getPatientId());
         values.put(DbContract.AppointmentEntry.COLUMN_NAME_DOCTOR_ID, appointment.getDoctorId());
         values.put(DbContract.AppointmentEntry.COLUMN_NAME_REFERRER_ID, appointment.getReferrerId());
-        values.put(DbContract.AppointmentEntry.COLUMN_NAME_DATE_TIME, String.valueOf(appointment.getDate()));
+        values.put(DbContract.AppointmentEntry.COLUMN_NAME_DATE_TIME, appointment.getDateString());
         values.put(DbContract.AppointmentEntry.COLUMN_NAME_SERVICE_ID, appointment.getServiceId());
         values.put(DbContract.AppointmentEntry.COLUMN_NAME_SPECIALTY_ID,appointment.getSpecialtyId());
         values.put(DbContract.AppointmentEntry.COLUMN_NAME_PREAPPOINTMENT_ACTIONS, appointment.getPreAppointmentActions());
@@ -83,7 +83,7 @@ public class AppointmentDAO extends DbDAO{
             appointment.setReferrerId(cursor.getInt(4));
 
             String temp = cursor.getString(5);
-            DateFormat dateformat = new SimpleDateFormat("yyyy-MM-dd");
+            DateFormat dateformat = new SimpleDateFormat("yyyy-mm-dd");
             Calendar cal  = Calendar.getInstance();
             try {
                 cal.setTime(dateformat.parse(temp));

@@ -40,9 +40,12 @@ public class PatientDAO extends DbDAO{
     IMPORTANT: For doctor & patient, ID is received in the passed object, not auto-increment
      */
     public long insertPatient(Patient patient){
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        String patientDob = sdf.format(patient.getDob().getTime());
+
         ContentValues values = new ContentValues();
         values.put(DbContract.PatientEntry.COLUMN_NAME_PATIENT_ID, patient.getPatientId());
-        values.put(DbContract.PatientEntry.COLUMN_NAME_DOB, String.valueOf(patient.getDob()));
+        values.put(DbContract.PatientEntry.COLUMN_NAME_DOB, patientDob);
         values.put(DbContract.PatientEntry.COLUMN_NAME_AGE, patient.getAge());
         values.put(DbContract.PatientEntry.COLUMN_NAME_MEDICAL_HISTORY, patient.getMedicalHistory());
         values.put(DbContract.PatientEntry.COLUMN_NAME_ALLERGIES, patient.getAllergy());

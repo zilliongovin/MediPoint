@@ -21,11 +21,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.djzass.medipoint.entity.Appointment;
+import com.djzass.medipoint.logic_manager.Container;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.GregorianCalendar;
+
 
 /**
  * Created by Deka on 4/4/2015.
@@ -76,9 +77,7 @@ public class AppointmentListFragment extends Fragment implements AdapterView.OnI
         /*for (Appointment a: appointments){
             Toast.makeText(this, a.toString(), Toast.LENGTH_SHORT).show();
         }*/
-
     }
-
 
 
     @Override

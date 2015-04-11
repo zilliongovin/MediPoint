@@ -19,6 +19,7 @@ import android.widget.Toast;
 
 import com.djzass.medipoint.entity.Patient;
 import com.djzass.medipoint.logic_database.PatientDAO;
+import com.djzass.medipoint.logic_manager.Container;
 
 import java.sql.SQLException;
 import java.util.Calendar;
@@ -47,6 +48,8 @@ public class MedicalHistory extends Activity {
     //DOB of user from intent
     Calendar DOB = Calendar.getInstance();
 
+    int patientId;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,7 +72,11 @@ public class MedicalHistory extends Activity {
         Button submit = (Button)findViewById(R.id.submitButton);
         submit.setOnClickListener(new View.OnClickListener() {
             public void onClick(View arg0) {
-                onSubmit();
+                try {
+                    onSubmit();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
             }
         });
 
@@ -77,7 +84,9 @@ public class MedicalHistory extends Activity {
         Intent intent = getIntent();
         Long DOBLong = intent.getLongExtra("DOB", 0);
         DOB.setTimeInMillis(DOBLong);
-
+        //get patient from intent
+        this.patientId = intent.getIntExtra("ID", 0);
+        Toast.makeText(this, "PATIENTID: " + this.patientId, Toast.LENGTH_LONG).show();
     }
 
 
@@ -111,6 +120,7 @@ public class MedicalHistory extends Activity {
             @Override
             public void run() {
                 patientDAO.insertPatient(new Patient(DOB,"","","",""));
+
             }
         };
         Runnable goToLoginPage = new Runnable() {
@@ -334,7 +344,7 @@ public class MedicalHistory extends Activity {
     }
 
     //method for submit button
-    public void onSubmit(){
+    public void onSubmit() throws SQLException {
 
         //get edittext
         EditText spec = (EditText) findViewById(R.id.Specification);
@@ -363,7 +373,14 @@ public class MedicalHistory extends Activity {
         medicalHistory = dentalInfo + ENTInfo + genitalInfo + otherInfo;
 
         //store medicalHistory, allergyInfo, ongoingTreatment, ongoingMedication to DB
-        patientDAO.insertPatient(new Patient(DOB, medicalHistory, ongoingTreatment, ongoingMedication, allergyInfo));
+        long ret = patientDAO.insertPatient(new Patient(patientId, DOB, medicalHistory, ongoingTreatment, ongoingMedication, allergyInfo));
+        if (ret == -1) {
+            Toast.makeText(this, "insert patient to database unsuccessful", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "PID: " + patientId + " dob: " + DOB, Toast.LENGTH_LONG).show();
+    }
+        else {
+            Toast.makeText(this, "insert patient to database successful", Toast.LENGTH_SHORT).show();
+        }
 
         Toast.makeText(this,"Medical History updated",Toast.LENGTH_SHORT).show();
         //go back to login page after submitting

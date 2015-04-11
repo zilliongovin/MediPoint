@@ -24,7 +24,7 @@ public class DbHelper extends SQLiteOpenHelper {
     private static final String FOREIGN_KEY = " FOREIGN KEY(";
     private static final String REFERENCES = ") REFERENCES ";
     private static final String COMMA_SEP = ",";
-    private static final int DATABASE_VERSION = 2;
+    private static final int DATABASE_VERSION = 8;
     private static final String DATABASE_NAME = "MediPoint.db";
 
     //CREATE TABLE : private static final String SQL_CREATE_TABLE_NAME = "CREATE TABLE " + " (" + " );";
@@ -80,8 +80,8 @@ public class DbHelper extends SQLiteOpenHelper {
 
     /*DOCTOR TABLE*/
     private static final String SQL_CREATE_DOCTOR = "CREATE TABLE " + DbContract.DoctorEntry.TABLE_NAME + " (" +
-            //DbContract.DoctorEntry.COLUMN_NAME_DOCTOR_ID + INT_KEY_TYPE + PRIMARY_KEY + COMMA_SEP +
-            DbContract.DoctorEntry.COLUMN_NAME_DOCTOR_ID + INT_TYPE + PRIMARY_KEY + COMMA_SEP +
+            DbContract.DoctorEntry.COLUMN_NAME_DOCTOR_ID + INT_KEY_TYPE /*+ PRIMARY_KEY*/ + COMMA_SEP +
+            //DbContract.DoctorEntry.COLUMN_NAME_DOCTOR_ID + INT_TYPE + PRIMARY_KEY + COMMA_SEP +
             DbContract.DoctorEntry.COLUMN_NAME_DOCTOR_NAME + VARCHAR_THIRTY_TYPE + COMMA_SEP +
             DbContract.DoctorEntry.COLUMN_NAME_SPECIALIZATION_ID + INT_TYPE + COMMA_SEP +
             DbContract.DoctorEntry.COLUMN_NAME_PRACTICE_DURATION + INT_TYPE + COMMA_SEP +
@@ -206,6 +206,7 @@ public class DbHelper extends SQLiteOpenHelper {
             db.execSQL("PRAGMA foreign_keys=ON;");
         }
     }
+
     public void closeDb(SQLiteDatabase db) {
         if (db != null && db.isOpen())
             db.close();

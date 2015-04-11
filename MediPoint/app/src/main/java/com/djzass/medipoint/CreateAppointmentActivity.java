@@ -39,7 +39,6 @@ import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.GregorianCalendar;
 import java.util.List;
 
 public class CreateAppointmentActivity extends onDataPass implements AdapterView.OnItemSelectedListener, SelectionListener{
@@ -185,13 +184,13 @@ public class CreateAppointmentActivity extends onDataPass implements AdapterView
             case R.id.CreateApptSpecialty:
                 String speciality = String.valueOf(specialtySpinner_create.getSelectedItem());
                 try {
-                    int selection = 0;
+                    int selection = 1;
                     for (Specialty s : specialities) {
                         if (speciality.equals(s.getName())) {
                             selection = s.getId();
                         }
                     }
-                    specialtyId = selection;
+                    //specialtyId = selection;
                     //List<Service> services = ((Container)getApplicationContext()).getGlobalServiceDAO().getServicesBySpecialtyID(selection);
                     //List<Service> services = Container.GlobalServiceDAO.getServicesBySpecialtyID(selection);
                     ServiceDAO serviceDAO = new ServiceDAO(this);
@@ -209,6 +208,7 @@ public class CreateAppointmentActivity extends onDataPass implements AdapterView
                     {
                         if(service.equals(s.getName()))
                         {
+                            this.specialtyId = s.getSpecialtyId();
                             this.serviceId = s.getId();
                             this.preAppointmentActions = s.getPreAppointmentActions();
                             this.duration = s.getDuration();
@@ -357,7 +357,7 @@ public class CreateAppointmentActivity extends onDataPass implements AdapterView
 
     public void onClickCreateAppointment() {
         //AppointmentManager appointmentManager = new AppointmentManager();
-        Toast.makeText(this, "Button clicked.", Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this, "Button clicked.", Toast.LENGTH_SHORT).show();
         Calendar currentDate = Calendar.getInstance();
         currentDate.add(Calendar.DATE, 1);
 
@@ -369,19 +369,22 @@ public class CreateAppointmentActivity extends onDataPass implements AdapterView
         this.timeframe = new Timeframe(18,21);
         Appointment appointment = new Appointment(this.patientId, this.clinicId,this.specialtyId,this.serviceId,this.doctorId,this.date,this.timeframe);
         long res = Container.getAppointmentManager().createAppointment(appointment, this);
-
         if (res==-1) {
             Notification notification = new Notification();
             notification.buildNotification(this, "Appointment creation fail :C");
         } else {
             AlarmSetter malarm = new AlarmSetter();
             Notification notification = new Notification();
-            notification.buildNotification(this, "Appointment Created!!");
+            notification.buildNotification(this, "Appointment created.");
+
             try {
                 malarm.setAlarm(this, appointment, accountManager.getAccountById(this.patientId));
+                Intent goToMain = new Intent(this,MainActivity.class);
+                startActivity(goToMain);
             } catch (ParseException e){
-
+                Toast.makeText(this,"In Here",Toast.LENGTH_SHORT).show();
             }
+
         }
     }
 
@@ -412,5 +415,6 @@ public class CreateAppointmentActivity extends onDataPass implements AdapterView
         super.DatePickerFragmentToActivity(date,month,year,button);
         this.date = Calendar.getInstance();
         this.date.set(year,month,date);
+
     }
 }
