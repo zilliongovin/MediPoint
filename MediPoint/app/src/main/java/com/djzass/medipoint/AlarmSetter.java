@@ -10,6 +10,7 @@ import com.djzass.medipoint.entity.Appointment;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.List;
 import java.util.TimeZone;
 
 /**
@@ -26,7 +27,7 @@ public class AlarmSetter {
         Calendar cal = Calendar.getInstance();
         cal.setTimeZone(TimeZone.getTimeZone("GMT+8"));
         AlarmManager am = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-        am.set(AlarmManager.RTC_WAKEUP, appointment.getDate().getTimeInMillis() , reminder);
+        am.set(AlarmManager.RTC_WAKEUP, appointment.getDate().getTimeInMillis() - 24*3600*1000 , reminder);
 
         /*if (appointment.getDate().getTimeInMillis() - 24 * 3600 * 1000 >= cal.getTimeInMillis()) {
             am.set(AlarmManager.RTC_WAKEUP, appointment.getDate().getTimeInMillis() - 24 * 3600 * 1000, reminder);

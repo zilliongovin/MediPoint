@@ -3,6 +3,8 @@ package com.djzass.medipoint;
 
 import android.app.FragmentManager;
 import android.content.Intent;
+import android.content.pm.PackageInstaller;
+import android.database.Cursor;
 import android.os.Bundle;
 
 import android.os.Parcel;
@@ -23,6 +25,7 @@ import com.djzass.medipoint.entity.Doctor;
 import com.djzass.medipoint.entity.Service;
 import com.djzass.medipoint.entity.Specialty;
 import com.djzass.medipoint.entity.Timeframe;
+import com.djzass.medipoint.logic_database.AccountDAO;
 import com.djzass.medipoint.logic_database.AppointmentDAO;
 import com.djzass.medipoint.logic_database.ClinicDAO;
 import com.djzass.medipoint.logic_database.DoctorDAO;
@@ -48,6 +51,11 @@ public class CreateAppointmentActivity extends onDataPass implements AdapterView
     int duration;
     String preAppointmentActions;
     Timeframe timeframe;
+
+    String NRIC;
+    List<Account> accountList;
+
+    AccountDAO macc;
 
     //spinner
     Spinner specialtySpinner_create;
@@ -363,8 +371,7 @@ public class CreateAppointmentActivity extends onDataPass implements AdapterView
 
         if (this.date.compareTo(currentDate)<0){
             Toast.makeText(this, "You are not allowed to book within 24 hours."+this.date.getTime().toString(), Toast.LENGTH_SHORT).show();
-        } else {
-
+        } else {  
             AccountManager accountManager = new AccountManager(this);
             Appointment appointment = new Appointment(this.patientId, this.clinicId, this.specialtyId, this.serviceId, this.doctorId, this.date, this.timeframe);
             long res = Container.getAppointmentManager().createAppointment(appointment, this);
