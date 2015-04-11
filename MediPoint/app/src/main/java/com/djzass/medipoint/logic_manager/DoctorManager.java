@@ -72,6 +72,11 @@ public class DoctorManager {
         return doctorDao.getDoctorsByClinicAndSpecialization(specializationId,clinicId);
     }
 
+    public String getDoctorNameByClinicAndSpecialization(int specializationId,int clinicId, Context context) {
+        updateDoctorDao(context);
+        return doctorDao.getDoctorsByClinicAndSpecialization(clinicId,specializationId).get(0).getName();
+    }
+
     /**
      * insert @param doctor to database with context @param context   
      * @return row no, -1 if fail

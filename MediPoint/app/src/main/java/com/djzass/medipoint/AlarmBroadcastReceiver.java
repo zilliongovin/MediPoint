@@ -32,14 +32,14 @@ public class AlarmBroadcastReceiver extends BroadcastReceiver {
         Bundle extras = intent.getExtras();
         Appointment appointment = extras.getParcelable("appointment");
         Account account = extras.getParcelable("account");
-        String message = "Dear " + account.getName() + ",\n"
+        String message = "Dear " + account.getName()+ ",\n"
                 +appointment.getSpecialtyId() + " Appointment is on:\n"
                 + appointment.getDate() + " with " + appointment.getDoctorId() +".\n"
                 +"This is an automated message.Please do not reply";
         if ( appointment !=null){
             Notification mNotification = new Notification();
-            mNotification.buildNotification(context,"you have an appointment tomorrow");
-            if(account.getNotifyEmail()==1 & account.getNotifySMS()==0) {
+            mNotification.buildNotification(context,message,appointment);
+            /*if(account.getNotifyEmail()==1 & account.getNotifySMS()==0) {
                 Email mEmail = new Email();
                 mEmail.sendMail(account.getEmail(),message);
             }
@@ -52,7 +52,7 @@ public class AlarmBroadcastReceiver extends BroadcastReceiver {
                 mEmail.sendMail(account.getEmail(),message);
                 SMS mSMS = new SMS();
                 mSMS.sendSMS(context, message);
-            }
+            }*/
 
         }
         //Release the lock

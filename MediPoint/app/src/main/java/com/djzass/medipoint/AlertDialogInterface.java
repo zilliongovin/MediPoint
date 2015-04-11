@@ -84,6 +84,16 @@ public class AlertDialogInterface {
         dlgAlert.setNegativeButton("NO",null);
         dlgAlert.create().show();
     }
+
+    public void editAppointmentDialog(){
+        dlgAlert.setPositiveButton("OK", new DialogInterface.OnClickListener(){
+            public void onClick(DialogInterface dialog, int which){
+
+            }
+        });
+        dlgAlert.setNegativeButton("CANCEL", null);
+        dlgAlert.create().show();
+    }
 }
 
 

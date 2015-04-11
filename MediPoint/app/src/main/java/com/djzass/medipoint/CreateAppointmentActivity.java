@@ -35,6 +35,7 @@ import com.djzass.medipoint.logic_manager.AccountManager;
 import com.djzass.medipoint.logic_manager.Container;
 
 import java.sql.SQLException;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -54,11 +55,7 @@ public class CreateAppointmentActivity extends onDataPass implements AdapterView
     String preAppointmentActions;
     Timeframe timeframe;
 
-
-    /*String NRIC;
-    List<Account> accountList;
-    AccountDAO macc;*/
-
+    long accountId;
 
     //spinner
     Spinner specialtySpinnerCreate;
@@ -81,18 +78,11 @@ public class CreateAppointmentActivity extends onDataPass implements AdapterView
 
         referrerId = getIntent().getIntExtra("REFERRER_ID",-1);
 
-        AlarmSetter as = new AlarmSetter();
-        Notification mnotification = new Notification();
-        mnotification.buildNotification(this,"appointment Created!");
-
-        Appointment appointment2 = new Appointment(Parcel.obtain());
-        Account account = new Account(Parcel.obtain());
-
         //specialty spinner and array adapter
         try {
             SessionManager sessionManager = new SessionManager(this);
             this.patientId = (int)sessionManager.getAccountId();
-            Toast.makeText(this,(String) "" + patientId,Toast.LENGTH_SHORT).show();
+            //Toast.makeText(this,(String) "" + patientId,Toast.LENGTH_SHORT).show();
 
             specialtyDAO = new SpecialtyDAO(this);
             specialities = specialtyDAO.getAllSpecialties();
@@ -104,12 +94,12 @@ public class CreateAppointmentActivity extends onDataPass implements AdapterView
             ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_dropdown_item,specialtyNames);
             dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
             dataAdapter.notifyDataSetChanged();
-            specialtySpinnerCreate.setAdapter(dataAdapter);
-            specialtySpinnerCreate.setOnItemSelectedListener(this);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
 
+
+
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
 
         //country spinner and array adapter
         countrySpinnerCreate = (Spinner) findViewById(R.id.CreateApptCountries);
@@ -146,6 +136,8 @@ public class CreateAppointmentActivity extends onDataPass implements AdapterView
         cancelButton = (Button)findViewById(R.id.CancelCreateAppt);
         cancelButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View arg0) {
+                Intent in = new Intent(getApplicationContext(), MainActivity.class);
+                startActivity(in);
                 /*EditText usernameBox = (EditText) findViewById(R.id.enterUsernameTextbox);
                 EditText passwordBox = (EditText) findViewById(R.id.enterPasswordTextbox);
                 String username = usernameBox.getText().toString();
@@ -310,7 +302,7 @@ public class CreateAppointmentActivity extends onDataPass implements AdapterView
                         }
                     }
                     clinicId = clinicSelection;
-                    Toast.makeText(this,""+clinicId,Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(this,""+clinicId,Toast.LENGTH_SHORT).show();
                     DoctorDAO doctorDAO = new DoctorDAO(this);
                     List<Doctor> doctors = doctorDAO.getDoctorsByClinicAndSpecialization(clinicSelection,specialtyId);
                     List<String> doctorNames = new ArrayList<String>();
@@ -431,18 +423,27 @@ public class CreateAppointmentActivity extends onDataPass implements AdapterView
         currentDate.add(Calendar.DATE, 1);
 
         if (this.date.compareTo(currentDate)<0){
-            Toast.makeText(this, "You must book at least 24 hours in advance. "+this.date.getTime().toString(), Toast.LENGTH_SHORT).show();
-        } else {  
+            Toast.makeText(this, "You must book at least 24 hours in advance. ", Toast.LENGTH_SHORT).show();
+        } else {
             AccountManager accountManager = new AccountManager(this);
             Appointment appointment = new Appointment(this.patientId, this.clinicId, this.specialtyId, this.serviceId, this.doctorId, referrerId,this.date, this.timeframe);
             long res = Container.getAppointmentManager().createAppointment(appointment, this);
             if (res == -1) {
                 Notification notification = new Notification();
-                notification.buildNotification(this, "Appointment creation fail :C");
+                notification.buildNotification(this, "Appointment creation fail :C",appointment);
+
             } else {
                 AlarmSetter malarm = new AlarmSetter();
-                Notification notification = new Notification();
-                notification.buildNotification(this, "Appointment created.");
+                AccountManager mAcc = new AccountManager(this);
+                Account account = new Account();
+                try {
+                    account = mAcc.getAccountById(accountId);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+                malarm.setAlarm(getApplicationContext(),appointment,account);
+                /*Notification notification = new Notification();
+                notification.buildNotification(this, "Appointment created.",appointment);*/
                 Intent goToMain = new Intent(this, MainActivity.class);
                 startActivity(goToMain);
 /*            try {
@@ -459,7 +460,7 @@ public class CreateAppointmentActivity extends onDataPass implements AdapterView
 
     private ArrayList<String> getTimePickerItems() {
         ArrayList<String> availableSlots = new ArrayList<String>();
-        Toast.makeText(this, this.date.getTime().toString(), Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this, this.date.getTime().toString(), Toast.LENGTH_SHORT).show();
         this.duration = Container.getServiceManager().getServiceDurationbyID(this.serviceId, this);
         List<Timeframe> temp = Container.getAppointmentManager().getAvailableTimeSlot(this.date, this.patientId, this.doctorId, this.clinicId, 18, 42, duration, this);
 
