@@ -20,6 +20,16 @@ public class Timeframe implements Parcelable{
         this.endTime = endTime;
     }
 
+    public Timeframe(String inp){
+        int s1,s2,e1,e2;
+        s1 = Integer.parseInt(inp.split(" - ")[0].split(":")[0]);
+        s2 = Integer.parseInt(inp.split(" - ")[0].split(":")[1]);
+        e1 = Integer.parseInt(inp.split(" - ")[1].split(":")[0]);
+        e2 = Integer.parseInt(inp.split(" - ")[1].split(":")[1]);
+        this.startTime  = s1*2 + (s2/30);
+        this.endTime    = e1*2 + (e2/30);
+    }
+
     public void setStartTime (int startTime){
         this.startTime = startTime;
     }
@@ -36,22 +46,15 @@ public class Timeframe implements Parcelable{
         return endTime;
     }
 
-    public String getStartTimeString(){
-        if (startTime % 2 == 0)
-            return String.format("%02d:%02d", startTime/2, 00);
+    public static String getString(int tim){
+        if (tim % 2 == 0)
+            return String.format("%02d:%02d", tim/2, 00);
         else
-            return String.format("%02d:%02d", startTime/2, 30);
-    }
-
-    public String getEndTimeString(){
-        if (endTime % 2 == 0)
-            return String.format("%02d:%02d", endTime/2, 00);
-        else
-            return String.format("%02d:%02d", endTime/2, 30);
+            return String.format("%02d:%02d", tim/2, 30);
     }
 
     public String getTimeLine(){
-        return getStartTimeString() + " - " + getEndTimeString();
+        return getString(startTime) + " - " + getString(endTime);
     }
 
     public static int getHour(int time) {

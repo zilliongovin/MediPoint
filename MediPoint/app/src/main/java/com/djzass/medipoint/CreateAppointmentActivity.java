@@ -1,14 +1,11 @@
 package com.djzass.medipoint;
 
 
-import android.app.Activity;
 import android.app.FragmentManager;
 import android.content.Intent;
 import android.os.Bundle;
 
 import android.os.Parcel;
-import android.provider.Settings;
-import android.support.v4.app.FragmentActivity;
 
 import android.view.Menu;
 import android.view.MenuItem;
@@ -32,11 +29,9 @@ import com.djzass.medipoint.logic_database.DoctorDAO;
 import com.djzass.medipoint.logic_database.ServiceDAO;
 import com.djzass.medipoint.logic_database.SpecialtyDAO;
 import com.djzass.medipoint.logic_manager.AccountManager;
-import com.djzass.medipoint.logic_manager.AppointmentManager;
 import com.djzass.medipoint.logic_manager.Container;
 
 import java.sql.SQLException;
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -338,7 +333,7 @@ public class CreateAppointmentActivity extends onDataPass implements AdapterView
         FragmentManager manager = getFragmentManager();
         TimePickerFragment timepicker = new TimePickerFragment();
         Bundle bundle = new Bundle();
-        bundle.putStringArrayList(TimePickerFragment.DATA, getItems());     // Require ArrayList
+        bundle.putStringArrayList(TimePickerFragment.DATA, getTimePickerItems());     // Require ArrayList
         bundle.putInt(TimePickerFragment.SELECTED, 0);
         timepicker.setArguments(bundle);
         timepicker.show(manager, "TimePicker");
@@ -394,25 +389,21 @@ public class CreateAppointmentActivity extends onDataPass implements AdapterView
         }
     }
 
-    private ArrayList<String> getItems() {
+    private ArrayList<String> getTimePickerItems() {
         ArrayList<String> availableSlots = new ArrayList<String>();
+        List<Timeframe> temp = Container.getAppointmentManager().getAvailableTimeSlot(this.date, this.patientId, this.doctorId, this.clinicId, 18, 42, duration, this);
 
-        availableSlots.add("10:00 - 10:30");
-        availableSlots.add("11:00 - 11:30");
-        availableSlots.add("12:00 - 12:30");
-        availableSlots.add("13:00 - 13:30");
-        availableSlots.add("10:00 - 10:30");
-        availableSlots.add("11:00 - 11:30");
-        availableSlots.add("12:00 - 12:30");
-        availableSlots.add("13:00 - 13:30");
+        availableSlots.add("N/A");
+        for (Timeframe t:temp){
+            availableSlots.add(t.getTimeLine());
+        }
         return availableSlots;
     }
 
     @Override
     public void selectItem(int position) {
         Button btn = (Button) findViewById(R.id.timepicker);
-        btn.setText(getItems().get(position));
-        Container.getAppointmentManager().getAvailableTimeSlot(this.date, this.patientId, this.doctorId, this.clinicId, 18, 42, duration, this);
+        btn.setText(getTimePickerItems().get(position));
 
     }
 
