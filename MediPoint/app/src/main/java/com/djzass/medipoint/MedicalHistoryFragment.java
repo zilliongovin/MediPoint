@@ -162,7 +162,7 @@ public class MedicalHistoryFragment extends Fragment {
         TextView medicalHistory = (TextView) view.findViewById(R.id.medicalHistory);
         //set medical history
         if(this.medicalHistory == null || this.medicalHistory.trim().equals("")){
-            medicalHistory.setText("No medical history.");
+            medicalHistory.setText("No medical history.\n");
         }
         else {
             medicalHistory.setText(this.medicalHistory);
@@ -172,7 +172,7 @@ public class MedicalHistoryFragment extends Fragment {
         TextView allergy = (TextView) view.findViewById(R.id.allergy);
         //set allergy
         if(this.allergy == null || this.allergy.trim().equals("")){
-            allergy.setText("No allergy.");
+            allergy.setText("No allergy.\n");
         }
         else {
             allergy.setText(this.allergy);
