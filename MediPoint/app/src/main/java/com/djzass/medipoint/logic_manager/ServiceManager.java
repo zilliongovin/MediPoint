@@ -61,6 +61,11 @@ public class ServiceManager {
         return temp.get(0).getName();
     }
 
+    public int getServiceDurationbyID(int serviceid, Context context){
+        updateServiceDao(context);
+        List<Service> temp = serviceDao.getServicesByID(serviceid);
+        return temp.get(0).getDuration();
+    }
 
     /**
      * insert @param service to database with context @param context   

@@ -1,6 +1,7 @@
 package com.djzass.medipoint.logic_manager;
 
 import android.content.Context;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.djzass.medipoint.AppointmentListFragment;
@@ -61,7 +62,8 @@ public class AppointmentManager {
         List<Boolean> ret = new ArrayList<Boolean>();
         appointments = appointmentDao.getAllAppointments();
         for (int i=0; i<48; ++i){
-            ret.add(false);
+            ret.add(true);
+            //ret.add(false); //use this once docsched is done
         }
 
         List<DoctorSchedule> sched = new ArrayList<DoctorSchedule>(); //DoctorScheduleDAO.getDoctorSchedulesByDoctorClinicID(doctor, clinic)
@@ -73,7 +75,14 @@ public class AppointmentManager {
         }
 
         for (Appointment temp : appointments) {
-            if (temp.getDate().compareTo(date)==0 && (temp.getPatientId() == patient || temp.getDoctorId() == doctor)) {
+            Log.d("Date", temp.getDate().toString() + " " + date.toString());
+            Log.d("DateYr", "" + temp.getDate().get(Calendar.YEAR) + " " + date.get(Calendar.YEAR));
+            Log.d("DateMth", "" + temp.getDate().get(Calendar.MONTH) + " " + date.get(Calendar.MONTH));
+            Log.d("DateDat", "" + temp.getDate().get(Calendar.DATE) + " " + date.get(Calendar.DATE));
+            if ( temp.getDate().get(Calendar.YEAR) == date.get(Calendar.YEAR) &&
+                 temp.getDate().get(Calendar.MONTH) == date.get(Calendar.MONTH) &&
+                 temp.getDate().get(Calendar.DATE) == date.get(Calendar.DATE) &&
+                (temp.getPatientId() == patient || temp.getDoctorId() == doctor)) {
                 for (int i=temp.getTimeframe().getStartTime(); i<=temp.getTimeframe().getEndTime(); ++i){
                     ret.set(i,false);
                 }
@@ -101,27 +110,17 @@ public class AppointmentManager {
         }
         return ret;
     }
-    /*public List<String> getAvailableTimeSlot(Calendar date, int patient, int doctor, int clinic, int startTime, int endTime, int duration){
-        ArrayList<String> availableTimeSlot = new ArrayList<String>();
-        List<Boolean> availableTime = getTimeTable(date, patient, doctor, clinic, startTime, endTime, duration);
-
-        for (int i = startTime; i + duration <= endTime; ++i){
-           if (availableTime.get(i)){
-                Timeframe slot = new Timeframe(i, i+duration);
-                availableTimeSlot.add(slot.getTimeLine());
-           }
-        }
-
-        return availableTimeSlot;
-    }*/
 
     public List<Timeframe> getAvailableTimeSlot(Calendar date, int patient, int doctor, int clinic, int startTime, int endTime, int duration, Context context){
         updateAppointmentDao(context);
+
+        Log.d("Date", date.toString());
+
         ArrayList<Timeframe> availableTimeSlot = new ArrayList<Timeframe>();
         List<Boolean> availableTime = getTimeTable(date, patient, doctor, clinic, startTime, endTime, duration, context);
 
         for (int i = startTime; i + duration <= endTime; ++i){
-           if (availableTime.get(i)){
+           if (availableTime.get(i - startTime)){
                 Timeframe slot = new Timeframe(i, i+duration);
                 availableTimeSlot.add(slot);
            }
