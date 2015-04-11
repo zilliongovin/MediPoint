@@ -15,10 +15,10 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.djzass.medipoint.entity.Appointment;
-import com.djzass.medipoint.logic_manager.AppointmentManager;
+import com.djzass.medipoint.entity.Patient;
+import com.djzass.medipoint.logic_manager.Container;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -33,6 +33,9 @@ public class AppointmentListFragment extends Fragment implements ActionBar.OnNav
     //private NavigationAdapter adapter;
     //ArrayList<AppointmentDummy> appointments;
     ArrayList<Appointment> appointments;
+    private int patientId;
+    private Patient patient;
+
     public static AppointmentListFragment newInstance() {
         AppointmentListFragment fragment = new AppointmentListFragment();
         return fragment;
@@ -97,9 +100,19 @@ public class AppointmentListFragment extends Fragment implements ActionBar.OnNav
 
         // assigning the spinner navigation
         //actionBar.setListNavigationCallbacks(adapter, this);
-        AppointmentManager appointmentManager = AppointmentManager.getInstance();
-        Toast.makeText(getActivity(), "Succeeded in getting the appointment manager", Toast.LENGTH_LONG).show();
-        appointments = (ArrayList<Appointment>) appointmentManager.getAppointments(getActivity());
+        //AppointmentManager appointmentManager = AppointmentManager.getInstance();
+        //Toast.makeText(getActivity(), "Succeeded in getting the appointment manager", Toast.LENGTH_LONG).show();
+        //appointments = (ArrayList<Appointment>) appointmentManager.getPatientFutureAppointmentList();
+        SessionManager sessionManager = new SessionManager(this.getActivity());
+        try {
+            this.patientId = (int) sessionManager.getAccountId();
+            appointments = (ArrayList<Appointment>) Container.getAppointmentManager().getPatientAppointmentList(this.patientId, getActivity());
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+
+
         //for (Appointment a: appointments) {
         //    Toast.makeText(getActivity(), a.toString(), Toast.LENGTH_SHORT).show();
         //}
