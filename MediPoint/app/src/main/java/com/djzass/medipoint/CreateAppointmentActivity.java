@@ -1,14 +1,11 @@
 package com.djzass.medipoint;
 
 
-import android.app.Activity;
 import android.app.FragmentManager;
 import android.content.Intent;
 import android.os.Bundle;
 
 import android.os.Parcel;
-import android.provider.Settings;
-import android.support.v4.app.FragmentActivity;
 
 import android.view.Menu;
 import android.view.MenuItem;
@@ -32,11 +29,9 @@ import com.djzass.medipoint.logic_database.DoctorDAO;
 import com.djzass.medipoint.logic_database.ServiceDAO;
 import com.djzass.medipoint.logic_database.SpecialtyDAO;
 import com.djzass.medipoint.logic_manager.AccountManager;
-import com.djzass.medipoint.logic_manager.AppointmentManager;
 import com.djzass.medipoint.logic_manager.Container;
 
 import java.sql.SQLException;
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -44,24 +39,27 @@ import java.util.List;
 public class CreateAppointmentActivity extends onDataPass implements AdapterView.OnItemSelectedListener, SelectionListener{
 
     //appointment atrribute selections
-    int clinicId;
+    int clinicId = 1;
     int patientId;
     int doctorId;
     Calendar date;
     int serviceId;
-    int specialtyId;
+    int specialtyId = 1;
+    int countryId = 1;
     int duration;
     String preAppointmentActions;
     Timeframe timeframe;
 
+
+
     //spinner
-    Spinner specialtySpinner_create;
-    Spinner countrySpinner_create;
-    Spinner serviceSpinner_create;
+    Spinner specialtySpinnerCreate;
+    Spinner countrySpinnerCreate;
+    Spinner serviceSpinnerCreate;
     Button confirmButton;
     Button cancelButton;
-    Spinner doctorSpinner_create;
-    Spinner clinicSpinner_create;
+    Spinner doctorSpinnerCreate;
+    Spinner clinicSpinnerCreate;
     SpecialtyDAO specialtyDAO;
     List<Specialty> specialities;
     AppointmentDAO appointmentDAO;
@@ -88,7 +86,7 @@ public class CreateAppointmentActivity extends onDataPass implements AdapterView
 
             specialtyDAO = new SpecialtyDAO(this);
             specialities = specialtyDAO.getAllSpecialties();
-            specialtySpinner_create = (Spinner) findViewById(R.id.CreateApptSpecialty);
+            specialtySpinnerCreate = (Spinner) findViewById(R.id.CreateApptSpecialty);
             List<String> specialtyNames = new ArrayList<String>();
             for(Specialty s: specialities){
                 specialtyNames.add(s.getName());
@@ -96,27 +94,27 @@ public class CreateAppointmentActivity extends onDataPass implements AdapterView
             ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_dropdown_item,specialtyNames);
             dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
             dataAdapter.notifyDataSetChanged();
-            specialtySpinner_create.setAdapter(dataAdapter);
-            specialtySpinner_create.setOnItemSelectedListener(this);
+            specialtySpinnerCreate.setAdapter(dataAdapter);
+            specialtySpinnerCreate.setOnItemSelectedListener(this);
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
 
         //country spinner and array adapter
-        countrySpinner_create = (Spinner) findViewById(R.id.CreateApptCountries);
+        countrySpinnerCreate = (Spinner) findViewById(R.id.CreateApptCountries);
+        countrySpinnerCreate.setOnItemSelectedListener(this);
         ArrayAdapter countryAdapter_create = ArrayAdapter.createFromResource(this, R.array.countries, android.R.layout.simple_spinner_dropdown_item);
         countryAdapter_create.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        countrySpinner_create.setAdapter(countryAdapter_create);
-        countrySpinner_create.setOnItemSelectedListener(this);
+        countrySpinnerCreate.setAdapter(countryAdapter_create);
+
 
         //service spinner
-        serviceSpinner_create = (Spinner) findViewById(R.id.CreateApptServices);
+        serviceSpinnerCreate = (Spinner) findViewById(R.id.CreateApptServices);
         //doctor spinner
-        doctorSpinner_create = (Spinner) findViewById(R.id.CreateApptDoctors);
+        doctorSpinnerCreate = (Spinner) findViewById(R.id.CreateApptDoctors);
         //clinic location spinner
-        clinicSpinner_create = (Spinner) findViewById(R.id.CreateApptLocations);
-
+        clinicSpinnerCreate = (Spinner) findViewById(R.id.CreateApptLocations);
 
         confirmButton = (Button)findViewById(R.id.ConfirmCreateAppt);
         confirmButton.setOnClickListener(new View.OnClickListener() {
@@ -186,9 +184,10 @@ public class CreateAppointmentActivity extends onDataPass implements AdapterView
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
         switch(parent.getId()) {
             case R.id.CreateApptSpecialty:
-                String speciality = String.valueOf(specialtySpinner_create.getSelectedItem());
+                String speciality = String.valueOf(specialtySpinnerCreate.getSelectedItem());
                 try {
                     int selection = 1;
                     for (Specialty s : specialities) {
@@ -197,6 +196,7 @@ public class CreateAppointmentActivity extends onDataPass implements AdapterView
                         }
                     }
                     this.specialtyId = selection;
+
                     //List<Service> services = ((Container)getApplicationContext()).getGlobalServiceDAO().getServicesBySpecialtyID(selection);
                     //List<Service> services = Container.GlobalServiceDAO.getServicesBySpecialtyID(selection);
                     ServiceDAO serviceDAO = new ServiceDAO(this);
@@ -208,22 +208,19 @@ public class CreateAppointmentActivity extends onDataPass implements AdapterView
                     ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, serviceNames);
                     dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                     dataAdapter.notifyDataSetChanged();
-                    serviceSpinner_create.setAdapter(dataAdapter);
-                    String service = String.valueOf(serviceSpinner_create.getSelectedItem());
-                    for(Service s : services)
-                    {
-                        if(service.equals(s.getName()))
-                        {
+                    serviceSpinnerCreate.setAdapter(dataAdapter);
+                    String service = String.valueOf(serviceSpinnerCreate.getSelectedItem());
+                    for (Service s : services) {
+                        if (service.equals(s.getName())) {
                             this.serviceId = s.getId();
                             this.preAppointmentActions = s.getPreAppointmentActions();
                             this.duration = s.getDuration();
                         }
                     }
-
-                    DoctorDAO doctorDAO = new DoctorDAO(this);
-                    List<Doctor> doctors = doctorDAO.getDoctorBySpecialization(selection);
                     //List<Doctor> doctors = ((Container)getApplicationContext()).getGlobalDoctorDAO().getDoctorBySpecialization(selection);
                     //List<Doctor> doctors = Container.GlobalDoctorDAO.getDoctorBySpecialization(selection);
+                    DoctorDAO doctorDAO = new DoctorDAO(this);
+                    List<Doctor> doctors = doctorDAO.getDoctorsByClinicAndSpecialization(clinicId,specialtyId);
                     List<String> doctorNames = new ArrayList<String>();
                     for (Doctor d : doctors) {
                         doctorNames.add(d.getName());
@@ -231,12 +228,10 @@ public class CreateAppointmentActivity extends onDataPass implements AdapterView
                     ArrayAdapter<String> doctorDataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, doctorNames);
                     doctorDataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                     doctorDataAdapter.notifyDataSetChanged();
-                    doctorSpinner_create.setAdapter(doctorDataAdapter);
-                    String doctor = String.valueOf(doctorSpinner_create.getSelectedItem());
-                    for(Doctor d : doctors)
-                    {
-                        if(doctor.equals(d.getName()))
-                        {
+                    doctorSpinnerCreate.setAdapter(doctorDataAdapter);
+                    String doctor = String.valueOf(doctorSpinnerCreate.getSelectedItem());
+                    for (Doctor d : doctors) {
+                        if (doctor.equals(d.getName())) {
                             doctorId = d.getDoctorId();
                         }
                     }
@@ -246,7 +241,7 @@ public class CreateAppointmentActivity extends onDataPass implements AdapterView
                 break;
 
             case R.id.CreateApptCountries:
-                String country = String.valueOf(countrySpinner_create.getSelectedItem());
+                String country = String.valueOf(countrySpinnerCreate.getSelectedItem());
                 try {
                     ClinicDAO clinicDAO = new ClinicDAO(this);
                     List<Clinic> clinics = clinicDAO.getClinicsByCountry(country);
@@ -260,24 +255,79 @@ public class CreateAppointmentActivity extends onDataPass implements AdapterView
                     ArrayAdapter<String> clinicDataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, clinicNames);
                     clinicDataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                     clinicDataAdapter.notifyDataSetChanged();
-                    clinicSpinner_create.setAdapter(clinicDataAdapter);
-                    String clinic = String.valueOf(clinicSpinner_create.getSelectedItem());
-                    for(Clinic c : clinics)
-                    {
-                        if(clinic.equals(c.getName()))
-                        {
+                    clinicSpinnerCreate.setAdapter(clinicDataAdapter);
+
+                    String clinic = String.valueOf(clinicSpinnerCreate.getSelectedItem());
+                    for (Clinic c : clinics) {
+                        if (clinic.equals(c.getName())) {
                             clinicId = c.getId();
                         }
                     }
+
+                    DoctorDAO doctorDAO = new DoctorDAO(this);
+                    List<Doctor> doctors = doctorDAO.getDoctorsByClinicAndSpecialization(clinicId,specialtyId);
+                    List<String> doctorNames = new ArrayList<String>();
+                    for (Doctor d : doctors) {
+                        doctorNames.add(d.getName());
+                    }
+                    ArrayAdapter<String> doctorDataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, doctorNames);
+                    doctorDataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                    doctorDataAdapter.notifyDataSetChanged();
+                    doctorSpinnerCreate.setAdapter(doctorDataAdapter);
+                    String doctor = String.valueOf(doctorSpinnerCreate.getSelectedItem());
+                    for (Doctor d : doctors) {
+                        if (doctor.equals(d.getName())) {
+                            doctorId = d.getDoctorId();
+                        }
+                    }
+
                 } catch (SQLException e) {
                     e.printStackTrace();
                 }
                 break;
 
-            default:
+            case R.id.CreateApptLocations:
+                String clinic = String.valueOf(clinicSpinnerCreate.getSelectedItem());
+                try {
+                    int selection = 1;
+                    for (Specialty s : specialities) {
+                        if (speciality.equals(s.getName())) {
+                            selection = s.getId();
+                        }
+                    }
+                    this.specialtyId = selection;
+
+                    //List<Service> services = ((Container)getApplicationContext()).getGlobalServiceDAO().getServicesBySpecialtyID(selection);
+                    //List<Service> services = Container.GlobalServiceDAO.getServicesBySpecialtyID(selection);
+                    ServiceDAO serviceDAO = new ServiceDAO(this);
+                    List<Service> services = serviceDAO.getServicesBySpecialtyID(selection);
+                    List<String> serviceNames = new ArrayList<String>();
+                    for (Service s : services) {
+                        serviceNames.add(s.getName());
+                    }
+                    ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, serviceNames);
+                    dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                    dataAdapter.notifyDataSetChanged();
+                    serviceSpinnerCreate.setAdapter(dataAdapter);
+                    String service = String.valueOf(serviceSpinnerCreate.getSelectedItem());
+                    for (Service s : services) {
+                        if (service.equals(s.getName())) {
+                            this.serviceId = s.getId();
+                            this.preAppointmentActions = s.getPreAppointmentActions();
+                            this.duration = s.getDuration();
+                        }
+                    }
+
+
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
                 break;
         }
+
     }
+
+
 
    /* public void showDatePickerDialog(View v) {
         DialogFragment date = new DatePickerFragment();

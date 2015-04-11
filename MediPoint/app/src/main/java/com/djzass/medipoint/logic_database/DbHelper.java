@@ -25,7 +25,7 @@ public class DbHelper extends SQLiteOpenHelper {
     private static final String FOREIGN_KEY = " FOREIGN KEY(";
     private static final String REFERENCES = ") REFERENCES ";
     private static final String COMMA_SEP = ",";
-    private static final int DATABASE_VERSION = 9;
+    private static final int DATABASE_VERSION = 10;
     private static final String DATABASE_NAME = "MediPoint.db";
 
     //CREATE TABLE : private static final String SQL_CREATE_TABLE_NAME = "CREATE TABLE " + " (" + " );";
@@ -86,8 +86,11 @@ public class DbHelper extends SQLiteOpenHelper {
             DbContract.DoctorEntry.COLUMN_NAME_DOCTOR_NAME + VARCHAR_THIRTY_TYPE + COMMA_SEP +
             DbContract.DoctorEntry.COLUMN_NAME_SPECIALIZATION_ID + INT_TYPE + COMMA_SEP +
             DbContract.DoctorEntry.COLUMN_NAME_PRACTICE_DURATION + INT_TYPE + COMMA_SEP +
+            DbContract.DoctorEntry.COLUMN_NAME_CLINIC_ID + INT_TYPE + COMMA_SEP +
             FOREIGN_KEY + DbContract.DoctorEntry.COLUMN_NAME_SPECIALIZATION_ID + REFERENCES + DbContract.SpecialtyEntry.TABLE_NAME +
-            "(" + DbContract.SpecialtyEntry.COLUMN_NAME_SPECIALTY_ID + ")" + " )";
+            "(" + DbContract.SpecialtyEntry.COLUMN_NAME_SPECIALTY_ID + ")" +
+            FOREIGN_KEY + DbContract.DoctorEntry.COLUMN_NAME_CLINIC_ID + REFERENCES + DbContract.ClinicEntry.TABLE_NAME +
+            "(" + DbContract.ClinicEntry.COLUMN_NAME_CLINIC_ID + ")" +" )";
 
     private static final String SQL_DELETE_DOCTOR =
             "DROP TABLE IF EXISTS " + DbContract.DoctorEntry.TABLE_NAME + ";";

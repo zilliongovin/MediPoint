@@ -67,6 +67,7 @@ public class DbContract {
         public static final String COLUMN_NAME_DOCTOR_NAME = "name";
         public static final String COLUMN_NAME_SPECIALIZATION_ID = "specializationId";
         public static final String COLUMN_NAME_PRACTICE_DURATION = "practiceDuration";
+        public static final String COLUMN_NAME_CLINIC_ID = "clinicId";
     }
 
     public static abstract class DoctorScheduleEntry implements BaseColumns{

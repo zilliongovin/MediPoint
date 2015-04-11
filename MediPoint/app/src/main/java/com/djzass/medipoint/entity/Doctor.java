@@ -11,21 +11,24 @@ public class Doctor implements Parcelable{
     private String name;
     private int specializationId;
     private int practiceDuration;
+    private int  clinicId;
     //per clinic
 
     public Doctor(){
     }
 
-    public Doctor(String name, Specialty specialization,
+    public Doctor(String name, Specialty specialization,Clinic clinic,
                   int practiceDuration) {
         this.name = name;
         this.specializationId = specialization.getId();
+        this.clinicId = clinic.getId();
     }
 
-    public Doctor(String name, int specializationId, int practiceDuration) {
+    public Doctor(String name, int specializationId, int practiceDuration, int clinicId) {
         this.name = name;
         this.specializationId = specializationId;
         this.practiceDuration = practiceDuration;
+        this.clinicId = clinicId;
     }
 
 
@@ -59,6 +62,16 @@ public class Doctor implements Parcelable{
 
     public void setPracticeDuration(int practiceDuration) {
         this.practiceDuration = practiceDuration;
+    }
+
+    public int getClinicId()
+    {
+        return this.clinicId;
+    }
+
+    public void setClinicId(int clinicId)
+    {
+        this.clinicId = clinicId;
     }
 /*
     public ArrayList<DoctorSchedule> getDoctorSchedule() {
