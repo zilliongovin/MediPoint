@@ -371,7 +371,7 @@ public class CreateAppointmentActivity extends onDataPass implements AdapterView
 
         if (this.date.compareTo(currentDate)<0){
             Toast.makeText(this, "You are not allowed to book within 24 hours."+this.date.getTime().toString(), Toast.LENGTH_SHORT).show();
-        } else {  
+        } else {
             AccountManager accountManager = new AccountManager(this);
             Appointment appointment = new Appointment(this.patientId, this.clinicId, this.specialtyId, this.serviceId, this.doctorId, this.date, this.timeframe);
             long res = Container.getAppointmentManager().createAppointment(appointment, this);

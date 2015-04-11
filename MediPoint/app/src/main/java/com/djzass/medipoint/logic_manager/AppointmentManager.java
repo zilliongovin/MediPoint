@@ -157,6 +157,20 @@ public class AppointmentManager {
         return ret;
     }
 
+    public List<Appointment> getPatientRecentAppointments(int patient, Calendar currentTime, Context context){
+        updateAppointmentDao(context);
+        List<Appointment> ret = new ArrayList<Appointment>();
+
+        appointments = appointmentDao.getAllAppointments();
+        for (Appointment temp : appointments) {
+            if (temp.getPatientId() == patient) {
+                if (Container.daysBetween(temp.getDate(),currentTime)<=30) ret.add(temp);
+            }
+        }
+
+        return ret;
+    }
+
     public List<Appointment> sortByDate(List<Appointment> inp){
         List<Appointment> ret = inp;
         Collections.sort(ret,Appointment.AppSortByDate);
