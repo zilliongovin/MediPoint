@@ -6,6 +6,7 @@ import android.app.FragmentManager;
 import android.content.Intent;
 import android.os.Bundle;
 
+import android.os.Parcel;
 import android.provider.Settings;
 import android.support.v4.app.FragmentActivity;
 
@@ -72,6 +73,13 @@ public class CreateAppointmentActivity extends onDataPass implements AdapterView
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_appointment);
+
+        AlarmSetter as = new AlarmSetter();
+        Notification mnotification = new Notification();
+        mnotification.buildNotification(this,"appointment Created!");
+
+        Appointment appointment2 = new Appointment(Parcel.obtain());
+        Account account = new Account(Parcel.obtain());
 
         //specialty spinner and array adapter
         try {
@@ -357,6 +365,7 @@ public class CreateAppointmentActivity extends onDataPass implements AdapterView
         Toast.makeText(this, "Button clicked.", Toast.LENGTH_SHORT).show();
         Calendar currentDate = Calendar.getInstance();
         currentDate.add(Calendar.DATE, 1);
+
         if (this.date.compareTo(currentDate)<0){
             Toast.makeText(this, "You are not allowed to book within 24 hours."+this.date.getTime().toString(), Toast.LENGTH_SHORT).show();
         }

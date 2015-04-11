@@ -25,10 +25,11 @@ public class AlarmSetter {
         Calendar cal = new GregorianCalendar();
         cal.setTimeZone(TimeZone.getTimeZone("GMT+8"));
         AlarmManager am = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+        am.set(AlarmManager.RTC_WAKEUP, appointment.getDate().getTimeInMillis() , reminder);
 
-        if (appointment.getDate().getTimeInMillis() - 24 * 3600 * 1000 >= cal.getTimeInMillis()) {
+        /*if (appointment.getDate().getTimeInMillis() - 24 * 3600 * 1000 >= cal.getTimeInMillis()) {
             am.set(AlarmManager.RTC_WAKEUP, appointment.getDate().getTimeInMillis() - 24 * 3600 * 1000, reminder);
-        }
+        }*/
 
     }
 
@@ -39,4 +40,5 @@ public class AlarmSetter {
         AlarmManager am = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         am.cancel(cancel);
     }
+
 }

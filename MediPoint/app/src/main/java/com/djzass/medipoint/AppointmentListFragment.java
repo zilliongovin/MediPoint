@@ -4,6 +4,7 @@ package com.djzass.medipoint;
  * Created by Zillion Govin on 4/4/2015.
  */
 
+import android.app.ActionBar;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -25,8 +26,10 @@ import java.util.GregorianCalendar;
 /**
  * Created by Deka on 4/4/2015.
  */
-public class AppointmentListFragment extends Fragment {
-
+public class AppointmentListFragment extends Fragment implements ActionBar.On{
+    private ActionBar actionBar;
+    private ArrayList<SpinnerNavItem> navSpinner;
+    private NavigationAdapter adapter;
     //ArrayList<AppointmentDummy> appointments;
     ArrayList<Appointment> appointments;
     public static AppointmentListFragment newInstance() {
@@ -71,6 +74,24 @@ public class AppointmentListFragment extends Fragment {
         /*for (Appointment a: appointments){
             Toast.makeText(this, a.toString(), Toast.LENGTH_SHORT).show();
         }*/
+
+        // Hide the action bar title
+        actionBar.setDisplayShowTitleEnabled(false);
+
+        // Enabling Spinner dropdown navigation
+        actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
+
+        // Spinner title navigation data
+        navSpinner = new ArrayList<SpinnerNavItem>();
+        navSpinner.add(new SpinnerNavItem("New Appointment", R.drawable.ic_action_new));
+        navSpinner.add(new SpinnerNavItem("new referral", R.drawable.ic_action_mew));
+        navSpinner.add(new SpinnerNavItem("New following", R.drawable.ic_action_new));
+
+        // title drop down adapter
+        adapter = new NavigationAdapter, navSpinner);
+
+        // assigning the spinner navigation
+        actionBar.setListNavigationCallbacks(adapter, this);
 
 
     }

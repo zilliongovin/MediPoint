@@ -39,15 +39,15 @@ public class AlarmBroadcastReceiver extends BroadcastReceiver {
         if ( appointment !=null){
             Notification mNotification = new Notification();
             mNotification.buildNotification(context,"you have an appointment tomorrow");
-            if(account.getNotifyEmail()==1 && account.getNotifySMS()==0) {
+            if(account.getNotifyEmail()==1 & account.getNotifySMS()==0) {
                 Email mEmail = new Email();
                 mEmail.sendMail(account.getEmail(),message);
             }
-            else if(account.getNotifyEmail()==0 && account.getNotifySMS()==1) {
+            else if(account.getNotifyEmail()==0 & account.getNotifySMS()==1) {
                 SMS mSMS = new SMS();
                 mSMS.sendSMS(context, message);
             }
-            else if(account.getNotifyEmail()==1 &&account.getNotifySMS()==1) {
+            else if(account.getNotifyEmail()==1 & account.getNotifySMS()==1) {
                 Email mEmail = new Email();
                 mEmail.sendMail(account.getEmail(),message);
                 SMS mSMS = new SMS();
