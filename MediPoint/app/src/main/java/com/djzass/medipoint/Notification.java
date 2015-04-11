@@ -16,7 +16,7 @@ public class Notification {
         NotificationManagerCompat NM= NotificationManagerCompat.from(context);
 
 
-        Intent intent = new Intent(context, CreateAppointmentActivity.class);
+        Intent intent = new Intent(context, ViewAppointmentActivity.class);
         PendingIntent pI = PendingIntent.getActivity(context,0,intent,PendingIntent.FLAG_UPDATE_CURRENT);
 
         android.app.Notification.Builder notify = new android.app.Notification.Builder(context)

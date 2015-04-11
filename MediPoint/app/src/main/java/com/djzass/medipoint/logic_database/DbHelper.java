@@ -25,7 +25,8 @@ public class DbHelper extends SQLiteOpenHelper {
     private static final String FOREIGN_KEY = " FOREIGN KEY(";
     private static final String REFERENCES = ") REFERENCES ";
     private static final String COMMA_SEP = ",";
-    private static final int DATABASE_VERSION = 10;
+    private static final int DATABASE_VERSION = 11;
+
     private static final String DATABASE_NAME = "MediPoint.db";
 
     //CREATE TABLE : private static final String SQL_CREATE_TABLE_NAME = "CREATE TABLE " + " (" + " );";

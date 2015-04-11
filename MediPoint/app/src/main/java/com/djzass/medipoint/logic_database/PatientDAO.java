@@ -64,7 +64,7 @@ public class PatientDAO extends DbDAO{
         List<Patient> patients = new ArrayList<Patient>();
 
         //MUST JOIN
-        Cursor cursor = database.query(DbContract.AccountEntry.TABLE_NAME,
+        Cursor cursor = database.query(DbContract.PatientEntry.TABLE_NAME,
                 new String[] {
                     DbContract.PatientEntry.COLUMN_NAME_PATIENT_ID,
                     DbContract.PatientEntry.COLUMN_NAME_DOB,

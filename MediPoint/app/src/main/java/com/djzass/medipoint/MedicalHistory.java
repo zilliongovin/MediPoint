@@ -82,11 +82,12 @@ public class MedicalHistory extends Activity {
 
         //get DOB from intent
         Intent intent = getIntent();
-        Long DOBLong = intent.getLongExtra("DOB", 0);
+        Bundle bundle = intent.getBundleExtra("PAGE_TWO");
+        Long DOBLong = bundle.getLong("DOB");
         DOB.setTimeInMillis(DOBLong);
+
         //get patient from intent
         this.patientId = intent.getIntExtra("ID", 0);
-        Toast.makeText(this, "PATIENTID: " + this.patientId, Toast.LENGTH_LONG).show();
     }
 
 

@@ -5,10 +5,9 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <LinearLayout
-        android:layout_marginTop="100dp"
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        style="@style/LinearLayoutStyle"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="vertical">
 
         <!--Section 1 - Main Appointment Details -->
         <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -54,7 +53,7 @@
 
             <!-- Specialty -->
             <TextView
-                android:id="@id/viewSpecialty"
+                android:id="@+id/viewSpecialty"
                 android:text="Women's Health Services"
                 android:textStyle="italic"
                 android:layout_width="wrap_content"

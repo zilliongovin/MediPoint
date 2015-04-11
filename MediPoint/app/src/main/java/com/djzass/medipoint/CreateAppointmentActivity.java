@@ -3,6 +3,8 @@ package com.djzass.medipoint;
 
 import android.app.FragmentManager;
 import android.content.Intent;
+import android.content.pm.PackageInstaller;
+import android.database.Cursor;
 import android.os.Bundle;
 
 import android.os.Parcel;
@@ -23,6 +25,7 @@ import com.djzass.medipoint.entity.Doctor;
 import com.djzass.medipoint.entity.Service;
 import com.djzass.medipoint.entity.Specialty;
 import com.djzass.medipoint.entity.Timeframe;
+import com.djzass.medipoint.logic_database.AccountDAO;
 import com.djzass.medipoint.logic_database.AppointmentDAO;
 import com.djzass.medipoint.logic_database.ClinicDAO;
 import com.djzass.medipoint.logic_database.DoctorDAO;
@@ -50,6 +53,10 @@ public class CreateAppointmentActivity extends onDataPass implements AdapterView
     String preAppointmentActions;
     Timeframe timeframe;
 
+
+    String NRIC;
+    List<Account> accountList;
+    AccountDAO macc;
 
 
     //spinner
@@ -388,7 +395,7 @@ public class CreateAppointmentActivity extends onDataPass implements AdapterView
         FragmentManager manager = getFragmentManager();
         TimePickerFragment timepicker = new TimePickerFragment();
         Bundle bundle = new Bundle();
-        bundle.putStringArrayList(TimePickerFragment.DATA, getItems());     // Require ArrayList
+        bundle.putStringArrayList(TimePickerFragment.DATA, getTimePickerItems());     // Require ArrayList
         bundle.putInt(TimePickerFragment.SELECTED, 0);
         timepicker.setArguments(bundle);
         timepicker.show(manager, "TimePicker");
@@ -418,21 +425,19 @@ public class CreateAppointmentActivity extends onDataPass implements AdapterView
 
         if (this.date.compareTo(currentDate)<0){
             Toast.makeText(this, "You are not allowed to book within 24 hours."+this.date.getTime().toString(), Toast.LENGTH_SHORT).show();
-        }
-
-        AccountManager accountManager = new AccountManager(this);
-        this.timeframe = new Timeframe(18,21);
-        Appointment appointment = new Appointment(this.patientId, this.clinicId,this.specialtyId,this.serviceId,this.doctorId,this.date,this.timeframe);
-        long res = Container.getAppointmentManager().createAppointment(appointment, this);
-        if (res==-1) {
-            Notification notification = new Notification();
-            notification.buildNotification(this, "Appointment creation fail :C");
-        } else {
-            AlarmSetter malarm = new AlarmSetter();
-            Notification notification = new Notification();
-            notification.buildNotification(this, "Appointment created.");
-            Intent goToMain = new Intent(this, MainActivity.class);
-            startActivity(goToMain);
+        } else {  
+            AccountManager accountManager = new AccountManager(this);
+            Appointment appointment = new Appointment(this.patientId, this.clinicId, this.specialtyId, this.serviceId, this.doctorId, this.date, this.timeframe);
+            long res = Container.getAppointmentManager().createAppointment(appointment, this);
+            if (res == -1) {
+                Notification notification = new Notification();
+                notification.buildNotification(this, "Appointment creation fail :C");
+            } else {
+                AlarmSetter malarm = new AlarmSetter();
+                Notification notification = new Notification();
+                notification.buildNotification(this, "Appointment created.");
+                Intent goToMain = new Intent(this, MainActivity.class);
+                startActivity(goToMain);
 /*            try {
                 malarm.setAlarm(this, appointment, accountManager.getAccountById(this.patientId));
 
@@ -441,29 +446,30 @@ public class CreateAppointmentActivity extends onDataPass implements AdapterView
                 Toast.makeText(this,"In Here",Toast.LENGTH_SHORT).show();
             }*/
 
+            }
         }
     }
 
-    private ArrayList<String> getItems() {
+    private ArrayList<String> getTimePickerItems() {
         ArrayList<String> availableSlots = new ArrayList<String>();
+        Toast.makeText(this, this.date.getTime().toString(), Toast.LENGTH_SHORT).show();
+        this.duration = Container.getServiceManager().getServiceDurationbyID(this.serviceId, this);
+        List<Timeframe> temp = Container.getAppointmentManager().getAvailableTimeSlot(this.date, this.patientId, this.doctorId, this.clinicId, 18, 42, duration, this);
 
-        availableSlots.add("10:00 - 10:30");
-        availableSlots.add("11:00 - 11:30");
-        availableSlots.add("12:00 - 12:30");
-        availableSlots.add("13:00 - 13:30");
-        availableSlots.add("10:00 - 10:30");
-        availableSlots.add("11:00 - 11:30");
-        availableSlots.add("12:00 - 12:30");
-        availableSlots.add("13:00 - 13:30");
+        availableSlots.add("N/A");
+        for (Timeframe t:temp){
+            availableSlots.add(t.getTimeLine());
+        }
         return availableSlots;
     }
 
     @Override
     public void selectItem(int position) {
         Button btn = (Button) findViewById(R.id.timepicker);
-        btn.setText(getItems().get(position));
-        Container.getAppointmentManager().getAvailableTimeSlot(this.date, this.patientId, this.doctorId, this.clinicId, 18, 42, duration, this);
-
+        if(getTimePickerItems().get(position)!="N/A"){
+            btn.setText(getTimePickerItems().get(position));
+            this.timeframe = new Timeframe(getTimePickerItems().get(position));
+        }
     }
 
     @Override
