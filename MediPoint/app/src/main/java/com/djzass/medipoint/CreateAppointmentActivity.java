@@ -47,6 +47,7 @@ public class CreateAppointmentActivity extends onDataPass implements AdapterView
     int clinicId = 1;
     int patientId;
     int doctorId;
+    int referrerId;
     Calendar date;
     int serviceId;
     int specialtyId = 1;
@@ -56,11 +57,6 @@ public class CreateAppointmentActivity extends onDataPass implements AdapterView
     Timeframe timeframe;
 
     long accountId;
-
-    /*String NRIC;
-    List<Account> accountList;
-    AccountDAO macc;*/
-
 
     //spinner
     Spinner specialtySpinnerCreate;
@@ -80,6 +76,8 @@ public class CreateAppointmentActivity extends onDataPass implements AdapterView
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_appointment);
+
+        referrerId = getIntent().getIntExtra("REFERRER_ID",-1);
 
         //specialty spinner and array adapter
         try {
@@ -430,9 +428,9 @@ public class CreateAppointmentActivity extends onDataPass implements AdapterView
             Toast.makeText(this, "You must book at least 24 hours in advance. ", Toast.LENGTH_SHORT).show();
         } else {
             AccountManager accountManager = new AccountManager(this);
-            Appointment appointment = new Appointment(this.patientId, this.clinicId, this.specialtyId, this.serviceId, this.doctorId, this.date, this.timeframe);
+            Appointment appointment = new Appointment(this.patientId, this.clinicId, this.specialtyId, this.serviceId, this.doctorId, referrerId,this.date, this.timeframe);
             long res = Container.getAppointmentManager().createAppointment(appointment, this);
-            if (res == -1) {
+            if (res == -1) { 
                 Toast.makeText(this,"Appointment creation failed", Toast.LENGTH_SHORT).show();
             } else {
                 AlarmSetter malarm = new AlarmSetter();
