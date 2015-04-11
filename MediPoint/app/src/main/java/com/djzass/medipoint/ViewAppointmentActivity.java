@@ -30,19 +30,19 @@ public class ViewAppointmentActivity extends Activity {
         Appointment app = b.getParcelable("appObj");
 
         TextView specialtyName = (TextView) findViewById(R.id.viewSpecialty);
-        specialtyName.setText(Container.getSpecialtyManager().getSpecialtyNameByID(app.getId(), this));
+        specialtyName.setText(Container.getAppointmentManager().getSpecialtyNameByAppointment(app,this));
         TextView serviceName = (TextView) findViewById(R.id.viewService);
-        serviceName.setText(app.getStatus());
-        TextView appointmentStatus = (TextView) findViewById(R.id.viewCountry);
-        appointmentStatus.setText(app.getCountry());
+        serviceName.setText(Container.getAppointmentManager().getServiceNameByAppointment(app,this));
+        TextView appointmentStatus = (TextView) findViewById(R.id.viewStatus);
+        appointmentStatus.setText(Container.getAppointmentManager().getStatus(app));
         TextView appointmentDate = (TextView) findViewById(R.id.viewDate);
         appointmentDate.setText(app.getDateString());
         TextView appointmentTime = (TextView) findViewById(R.id.viewTime);
         appointmentTime.setText(app.getTimeString());
         TextView appointmentLocation = (TextView) findViewById(R.id.viewLocation);
-        appointmentStatus.setText(app.getClinic());
-        TextView doctorName = (TextView) findViewById(R.id.viewLocation);
-        doctorName.setText(app.getClinic());
+        appointmentLocation.setText(Container.getAppointmentManager().getClinicNameByAppointment(app,this));
+        TextView doctorName = (TextView) findViewById(R.id.viewDoctor);
+        doctorName.setText(Container.getAppointmentManager().getDoctorNameByAppointment(app,this));
     }
 
 

@@ -18,20 +18,11 @@ public class ClinicManager {
      */
     private ClinicDAO clinicDao;
 
-    public ClinicManager(Context context) throws SQLException {
-        clinicDao = new ClinicDAO(context);
-        clinics = new ArrayList<Clinic>();
-
     /**
      * An instance of {@link ClinicManager}. Use this to promote singleton design pattern.
      */
     private static ClinicManager instance = new ClinicManager();
-    public String getClinicNameById(int id){
-    	Clinic c = getClinicById(id);
-    	if (c == null)
-    		return null;
-    	else
-    		return c.getName();
+
     /**
      * returns ClinicManager instance
      */
@@ -85,7 +76,7 @@ public class ClinicManager {
         return clinicDao.getClinicsByName(name);
     }
 
-    /** 
+    /**
      * insert @param clinic to database with context @param context   
      * @return row no, -1 if fail
      */
