@@ -221,7 +221,7 @@ public class AppointmentManager {
         return ret;
     }
 
-   public Appointment getAppointmentByID(int id){
+    public Appointment getAppointmentByID(int id){
         return appointmentDao.getAppointmentsByID(id).get(0);
     }
 

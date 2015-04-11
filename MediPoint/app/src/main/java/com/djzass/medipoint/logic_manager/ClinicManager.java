@@ -18,6 +18,22 @@ public class ClinicManager {
     public ClinicManager(Context context) throws SQLException {
         clinicDao = new ClinicDAO(context);
         clinics = new ArrayList<Clinic>();
+        clinics = clinicDao.getAllClinics();
+    }
 
+    public Clinic getClinicById(int id){
+    	for (Clinic c: clinics){
+    		if (c.getId() == id)
+    			return c;
+    	}
+    	return null;
+    }
+
+    public String getClinicNameById(int id){
+    	Clinic c = getClinicById(id);
+    	if (c == null)
+    		return null;
+    	else
+    		return c.getName();
     }
 }
