@@ -263,7 +263,7 @@ public class CreateAppointmentActivity extends onDataPass implements AdapterView
                     clinicDataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                     clinicDataAdapter.notifyDataSetChanged();
                     clinicSpinnerCreate.setAdapter(clinicDataAdapter);
-
+                    clinicSpinnerCreate.setOnItemSelectedListener(this);
                     String clinic = String.valueOf(clinicSpinnerCreate.getSelectedItem());
                     for (Clinic c : clinics) {
                         if (clinic.equals(c.getName())) {
@@ -294,36 +294,38 @@ public class CreateAppointmentActivity extends onDataPass implements AdapterView
                 break;
 
             case R.id.CreateApptLocations:
+                Toast.makeText(this,"InClinic",Toast.LENGTH_SHORT).show();
                 String clinic = String.valueOf(clinicSpinnerCreate.getSelectedItem());
                 try {
-                    int selection = 1;
-                    for (Specialty s : specialities) {
-                        if (speciality.equals(s.getName())) {
-                            selection = s.getId();
+                    ClinicDAO clinicDAO = new ClinicDAO(this);
+                    int clinicSelection = 1;
+                    List<Clinic> clinics = clinicDAO.getAllClinics();
+                    for (Clinic c : clinics) {
+                        if (clinic.equals(c.getName())) {
+                            clinicSelection = c.getId();
                         }
                     }
-                    this.specialtyId = selection;
+
+                    DoctorDAO doctorDAO = new DoctorDAO(this);
+                    List<Doctor> doctors = doctorDAO.getDoctorsByClinicAndSpecialization(clinicSelection,specialtyId);
+                    List<String> doctorNames = new ArrayList<String>();
+                    for (Doctor d : doctors) {
+                        doctorNames.add(d.getName());
+                    }
+                    ArrayAdapter<String> doctorDataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, doctorNames);
+                    doctorDataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                    doctorDataAdapter.notifyDataSetChanged();
+                    doctorSpinnerCreate.setAdapter(doctorDataAdapter);
+                    String doctor = String.valueOf(doctorSpinnerCreate.getSelectedItem());
+                    for (Doctor d : doctors) {
+                        if (doctor.equals(d.getName())) {
+                            doctorId = d.getDoctorId();
+                        }
+                    }
 
                     //List<Service> services = ((Container)getApplicationContext()).getGlobalServiceDAO().getServicesBySpecialtyID(selection);
                     //List<Service> services = Container.GlobalServiceDAO.getServicesBySpecialtyID(selection);
-                    ServiceDAO serviceDAO = new ServiceDAO(this);
-                    List<Service> services = serviceDAO.getServicesBySpecialtyID(selection);
-                    List<String> serviceNames = new ArrayList<String>();
-                    for (Service s : services) {
-                        serviceNames.add(s.getName());
-                    }
-                    ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, serviceNames);
-                    dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                    dataAdapter.notifyDataSetChanged();
-                    serviceSpinnerCreate.setAdapter(dataAdapter);
-                    String service = String.valueOf(serviceSpinnerCreate.getSelectedItem());
-                    for (Service s : services) {
-                        if (service.equals(s.getName())) {
-                            this.serviceId = s.getId();
-                            this.preAppointmentActions = s.getPreAppointmentActions();
-                            this.duration = s.getDuration();
-                        }
-                    }
+
 
 
                 } catch (SQLException e) {
