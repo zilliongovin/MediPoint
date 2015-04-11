@@ -3,6 +3,7 @@ package com.djzass.medipoint.logic_manager;
 import android.content.Context;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.widget.Toast;
 
 import java.sql.SQLException;
 
@@ -14,8 +15,10 @@ import com.djzass.medipoint.logic_database.AccountDAO;
 import com.djzass.medipoint.logic_database.DbHelper;
 
 import java.text.ParseException;
+import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 
 public class AccountManager {
@@ -117,6 +120,7 @@ public class AccountManager {
 
     public Account getAccountById(long id) throws ParseException {
         Cursor cursor = accountDAO.getAccountById(id);
+        cursor.moveToFirst();
 
         String name = cursor.getString(1);
         String nric = cursor.getString(2);
@@ -124,6 +128,7 @@ public class AccountManager {
         String contact = cursor.getString(4);
         String address = cursor.getString(5);
         String dob = cursor.getString(6);
+        Toast.makeText(context,dob,Toast.LENGTH_LONG).show();
         String gender = cursor.getString(7);
         String maritalStatus = cursor.getString(8);
         String citizenship = cursor.getString(9);
@@ -134,9 +139,10 @@ public class AccountManager {
         int isSMS = cursor.getInt(14);
 
         SimpleDateFormat sdf = new SimpleDateFormat();
-        Calendar dobCal = Calendar.getInstance();
+        Calendar dobCal = new GregorianCalendar();
         dobCal.setTime(sdf.parse(dob));
 
+        Toast.makeText(context,"Toooo4",Toast.LENGTH_LONG).show();
         return new Account(id,username,password,name,nric,email,contact,gender,address,maritalStatus,dobCal,citizenship,countryOfResidence,isEmail,isSMS);
 
     }

@@ -85,7 +85,6 @@ public class CreateAppointmentActivity extends onDataPass implements AdapterView
             SessionManager sessionManager = new SessionManager(this);
             this.patientId = (int)sessionManager.getAccountId();
 
-
             specialtyDAO = new SpecialtyDAO(this);
             specialities = specialtyDAO.getAllSpecialties();
             specialtySpinner_create = (Spinner) findViewById(R.id.CreateApptSpecialty);
@@ -196,7 +195,7 @@ public class CreateAppointmentActivity extends onDataPass implements AdapterView
                             selection = s.getId();
                         }
                     }
-                    specialtyId = selection;
+                    //specialtyId = selection;
                     //List<Service> services = ((Container)getApplicationContext()).getGlobalServiceDAO().getServicesBySpecialtyID(selection);
                     //List<Service> services = Container.GlobalServiceDAO.getServicesBySpecialtyID(selection);
                     ServiceDAO serviceDAO = new ServiceDAO(this);
@@ -381,14 +380,16 @@ public class CreateAppointmentActivity extends onDataPass implements AdapterView
         } else {
             AlarmSetter malarm = new AlarmSetter();
             Notification notification = new Notification();
-            notification.buildNotification(this, "Appointment Created!!");
+            notification.buildNotification(this, "Appointment created.");
+
             try {
                 malarm.setAlarm(this, appointment, accountManager.getAccountById(this.patientId));
                 Intent goToMain = new Intent(this,MainActivity.class);
                 startActivity(goToMain);
             } catch (ParseException e){
-
+                Toast.makeText(this,"In Here",Toast.LENGTH_SHORT).show();
             }
+
         }
     }
 
@@ -419,5 +420,6 @@ public class CreateAppointmentActivity extends onDataPass implements AdapterView
         super.DatePickerFragmentToActivity(date,month,year,button);
         this.date = Calendar.getInstance();
         this.date.set(year,month,date);
+
     }
 }

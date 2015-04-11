@@ -33,7 +33,7 @@ public class AppointmentAdapter extends ArrayAdapter<Appointment> {
 
     public AppointmentAdapter(Context context, ArrayList<Appointment> appointments) throws SQLException {
         super(context, R.layout.appointment_adapter, appointments);
-        appointmentManager = new AppointmentManager();
+        appointmentManager = AppointmentManager.getInstance();
     }
 
     @Override

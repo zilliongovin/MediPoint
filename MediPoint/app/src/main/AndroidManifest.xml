@@ -66,9 +66,6 @@
             android:label="@string/app_name" >
         </activity>
 
-        <service
-            android:name=".TimerService"
-            android:exported="false"/>
 
         <receiver android:name=".AlarmBroadcastReceiver" />
 

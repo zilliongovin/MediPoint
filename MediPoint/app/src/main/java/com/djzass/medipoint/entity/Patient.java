@@ -24,7 +24,7 @@ public class Patient implements Parcelable{
         super();
     };
 
-    public Patient(int id, Calendar dob, String listOfTreatments, String listOfMedications, String allergy) {
+    public Patient(int id, Calendar dob, String medicalHistory, String listOfTreatments, String listOfMedications, String allergy) {
         this.patientId = id;
         this.dob = dob;
         this.age = getAge();

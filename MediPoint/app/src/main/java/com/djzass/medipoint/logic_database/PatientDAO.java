@@ -42,6 +42,7 @@ public class PatientDAO extends DbDAO{
     public long insertPatient(Patient patient){
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         String patientDob = sdf.format(patient.getDob().getTime());
+
         ContentValues values = new ContentValues();
         values.put(DbContract.PatientEntry.COLUMN_NAME_PATIENT_ID, patient.getPatientId());
         values.put(DbContract.PatientEntry.COLUMN_NAME_DOB, patientDob);

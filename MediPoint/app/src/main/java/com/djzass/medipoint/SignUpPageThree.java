@@ -103,9 +103,9 @@ public class SignUpPageThree extends Activity {
             //medical history form intent
             Intent PageThreeToHistory = createIntentToHistory(username,password);
 
-            AccountCreatedDialog(username,password,PageThreeToHistory);
-            AccountCreator.createAccount(PageThreeToHistory.getExtras(),this);
+            long accountId = AccountCreator.createAccount(PageThreeToHistory.getExtras(),this);
 
+            AccountCreatedDialog(username,password,PageThreeToHistory, (int) accountId);
 
         }
 
@@ -142,10 +142,11 @@ public class SignUpPageThree extends Activity {
         Toast.makeText(this,"Please fill all fields",Toast.LENGTH_LONG).show();
     }
 
-    public void AccountCreatedDialog(final String username, final String password,final Intent intent)
+    public void AccountCreatedDialog(final String username, final String password,final Intent intent,int accountID)
     {
         String message = "Congratulations! Your account has been successfully created.";
         String title = "Success";
+        intent.putExtra("ID",accountID);
         Runnable r = new Runnable() {
             @Override
             public void run() {
