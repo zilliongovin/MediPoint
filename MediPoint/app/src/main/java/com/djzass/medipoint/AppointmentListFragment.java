@@ -13,9 +13,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.djzass.medipoint.entity.Appointment;
 
@@ -27,12 +30,11 @@ import java.util.GregorianCalendar;
 /**
  * Created by Deka on 4/4/2015.
  */
-public class AppointmentListFragment extends Fragment implements ActionBar.OnNavigationListener{
-    private ActionBar actionBar;
-    private ArrayList<SpinnerNavItem> navSpinner;
-    private NavigationAdapter adapter;
+public class AppointmentListFragment extends Fragment implements AdapterView.OnItemSelectedListener {
     //ArrayList<AppointmentDummy> appointments;
     ArrayList<Appointment> appointments;
+    private String[] list = { "New Appointment","New Referral", "New Follow-up"};
+    Spinner newPage;
     public static AppointmentListFragment newInstance() {
         AppointmentListFragment fragment = new AppointmentListFragment();
         return fragment;
@@ -42,7 +44,6 @@ public class AppointmentListFragment extends Fragment implements ActionBar.OnNav
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        
         //appointments = new ArrayList<AppointmentDummy>();
         appointments = new ArrayList<Appointment>();
         /*
@@ -76,55 +77,16 @@ public class AppointmentListFragment extends Fragment implements ActionBar.OnNav
             Toast.makeText(this, a.toString(), Toast.LENGTH_SHORT).show();
         }*/
 
-        // Hide the action bar title
-        actionBar.setDisplayShowTitleEnabled(false);
-
-        // Enabling Spinner dropdown navigation
-        actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
-
-        // Spinner title navigation data
-        navSpinner = new ArrayList<SpinnerNavItem>();
-        navSpinner.add(new SpinnerNavItem("New Appointment", R.drawable.ic_action_new));
-        navSpinner.add(new SpinnerNavItem("new referral", R.drawable.ic_action_new));
-        navSpinner.add(new SpinnerNavItem("New following", R.drawable.ic_action_new));
-
-        // title drop down adapter
-        adapter = new NavigationAdapter(getActivity().getApplicationContext(), navSpinner);
-
-        // assigning the spinner navigation
-        actionBar.setListNavigationCallbacks(adapter, this);
-
-
     }
 
-    @Override
-    public boolean onNavigationItemSelected(int position, long id) {
-        // When the given dropdown item is selected, show its contents in the
-        // container view.
-        switch (position){
-            case 0:
-                Intent appIntent = new Intent(getActivity().getApplicationContext(),CreateAppointmentActivity.class);
-                startActivity(appIntent);
-            case 1:
-                Intent refIntent = new Intent(getActivity().getApplicationContext(),ReferralActivity.class);
-                startActivity(refIntent);
-            case 2:
-                //still not done
-                Intent followIntent = new Intent(getActivity().getApplicationContext(),MainActivity.class);
-                startActivity(followIntent);
-                break;
-            default:
-                break;
-        }
 
-        return true;
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_appointment_list, container, false);
         TextView tv = (TextView)view.findViewById(R.id.noAppointmentText);
+
         if (appointments.size() > 0){
             tv.setVisibility(view.GONE);
             ListView apptList = (ListView)view.findViewById(R.id.customListView);
@@ -149,29 +111,48 @@ public class AppointmentListFragment extends Fragment implements ActionBar.OnNav
                             "Click ListItem Number " + position, Toast.LENGTH_SHORT)
                             .show();*/
                 }
+
             });
         }
         else{
             tv.setText("No ongoing appointment available");
             tv.setVisibility(view.VISIBLE);
         }
-
-        Button newPage = (Button)view.findViewById(R.id.createAppointment);
-        newPage.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), CreateAppointmentActivity.class);
-                startActivity(intent);
-            }
-        });
-
+        newPage = (Spinner)view.findViewById(R.id.createAppointment);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity().getApplicationContext(), android.R.layout.simple_spinner_dropdown_item,list);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        newPage.setAdapter(adapter);
+        newPage.setOnItemSelectedListener(this);
         return view;
     }
 
-    public void goToCreateAppointment(View view)
+    public void onItemSelected(AdapterView<?> parent, View view, int position,
+                               long id) {
+        Toast.makeText(getActivity().getApplicationContext(),"number " + position +" "+ id ,Toast.LENGTH_SHORT).show();
+        switch(position) {
+            /*case 1:
+                Intent newIntent = new Intent(getActivity().getApplicationContext(),CreateAppointmentActivity.class);
+                startActivity(newIntent);*/
+            case 1:
+                Intent referIntent = new Intent(getActivity().getApplicationContext(),ReferralActivity.class);
+                startActivity(referIntent);
+            case 2:
+                //haven't done yet
+                Intent followIntent = new Intent(getActivity().getApplicationContext(),MainActivity.class);
+                startActivity(followIntent);
+        }
+    }
+
+      public void goToCreateAppointment(View view)
     {
         Intent intent = new Intent(getActivity(), CreateAppointmentActivity.class);
         startActivity(intent);
     }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> arg0) {
+        // TODO Auto-generated method stub
+
+    }
+
 }

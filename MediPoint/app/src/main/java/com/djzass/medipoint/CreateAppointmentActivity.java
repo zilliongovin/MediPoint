@@ -75,11 +75,6 @@ public class CreateAppointmentActivity extends onDataPass implements AdapterView
         setContentView(R.layout.activity_create_appointment);
 
         AlarmSetter as = new AlarmSetter();
-        Notification mnotification = new Notification();
-        mnotification.buildNotification(this,"appointment Created!");
-
-        Appointment appointment2 = new Appointment(Parcel.obtain());
-        Account account = new Account(Parcel.obtain());
 
         //specialty spinner and array adapter
         try {
