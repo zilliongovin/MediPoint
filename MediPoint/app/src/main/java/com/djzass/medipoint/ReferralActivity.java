@@ -17,6 +17,7 @@ import com.djzass.medipoint.entity.Specialty;
 import com.djzass.medipoint.logic_database.ClinicDAO;
 import com.djzass.medipoint.logic_database.DoctorDAO;
 import com.djzass.medipoint.logic_database.SpecialtyDAO;
+import com.djzass.medipoint.logic_manager.Container;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -152,7 +153,23 @@ public class ReferralActivity extends Activity implements AdapterView.OnItemSele
 
     public void goto_appointment(View view)
     {
+        String clinicName = String.valueOf(clinicSpinner_create.getSelectedItem());
+        String specialtyName = String.valueOf(specialtySpinner_create.getSelectedItem());
+        String doctorName = String.valueOf(doctorSpinner_create.getSelectedItem());
+
+        Clinic clinic = Container.getClinicManager().getClinicsByName(clinicName,this).get(0);
+        Specialty specialty = Container.getSpecialtyManager().getSpecialtiesByName(specialtyName,this).get(0);
+
+        List<Doctor> doctors = Container.getDoctorManager().getDoctorsByClinicAndSpecialization(specialty.getId(),clinic.getId(),this);
+        int doctorId = 0;
+        for(Doctor d:doctors){
+            if(doctorName.equals(d.getName())){
+                doctorId = d.getDoctorId();
+            }
+        }
+
         Intent intent = new Intent(ReferralActivity.this, CreateAppointmentActivity.class);
+        intent.putExtra("REFERRER_ID",doctorId);
         startActivity(intent);
     }
 }

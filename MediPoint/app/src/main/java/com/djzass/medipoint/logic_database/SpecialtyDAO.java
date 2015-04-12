@@ -75,6 +75,11 @@ public class SpecialtyDAO extends DbDAO{
         else return "";
     }
 
+    public List<Specialty> getSpecialtiesByName(String specialtyName){
+        String whereClause = DbContract.SpecialtyEntry.COLUMN_NAME_SPECIALTY_NAME + "=" + specialtyName;
+        return getSpecialties(whereClause);
+    }
+
     /*  UPDATE
         returns the number of rows affected by the update
      */

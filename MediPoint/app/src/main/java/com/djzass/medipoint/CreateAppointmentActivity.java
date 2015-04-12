@@ -9,6 +9,7 @@ import android.os.Bundle;
 
 import android.os.Parcel;
 
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -46,6 +47,7 @@ public class CreateAppointmentActivity extends onDataPass implements AdapterView
     int clinicId = 1;
     int patientId;
     int doctorId;
+    int referrerId;
     Calendar date;
     int serviceId;
     int specialtyId = 1;
@@ -74,6 +76,8 @@ public class CreateAppointmentActivity extends onDataPass implements AdapterView
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_appointment);
+
+        referrerId = getIntent().getIntExtra("REFERRER_ID",-1);
 
         //specialty spinner and array adapter
         try {
@@ -135,6 +139,8 @@ public class CreateAppointmentActivity extends onDataPass implements AdapterView
         cancelButton = (Button)findViewById(R.id.CancelCreateAppt);
         cancelButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View arg0) {
+                Intent in = new Intent(getApplicationContext(), MainActivity.class);
+                startActivity(in);
                 /*EditText usernameBox = (EditText) findViewById(R.id.enterUsernameTextbox);
                 EditText passwordBox = (EditText) findViewById(R.id.enterPasswordTextbox);
                 String username = usernameBox.getText().toString();
@@ -214,6 +220,7 @@ public class CreateAppointmentActivity extends onDataPass implements AdapterView
                             this.serviceId = s.getId();
                             this.preAppointmentActions = s.getPreAppointmentActions();
                             this.duration = s.getDuration();
+                            Log.d("Service", this.serviceId + " " + this.duration);
                         }
                     }
                     //List<Doctor> doctors = ((Container)getApplicationContext()).getGlobalDoctorDAO().getDoctorBySpecialization(selection);
@@ -423,11 +430,12 @@ public class CreateAppointmentActivity extends onDataPass implements AdapterView
             Toast.makeText(this, "You must book at least 24 hours in advance. ", Toast.LENGTH_SHORT).show();
         } else {
             AccountManager accountManager = new AccountManager(this);
-            Appointment appointment = new Appointment(this.patientId, this.clinicId, this.specialtyId, this.serviceId, this.doctorId, this.date, this.timeframe);
+            Appointment appointment = new Appointment(this.patientId, this.clinicId, this.specialtyId, this.serviceId, this.doctorId, referrerId,this.date, this.timeframe);
             long res = Container.getAppointmentManager().createAppointment(appointment, this);
-            if (res == -1) {
-                Notification notification = new Notification();
-                notification.buildNotification(this, "Appointment creation fail :C",appointment);
+
+            if (res == -1) { 
+                Toast.makeText(this,"Appointment creation failed", Toast.LENGTH_SHORT).show();
+
             } else {
                 AlarmSetter malarm = new AlarmSetter();
                 AccountManager mAcc = new AccountManager(this);
