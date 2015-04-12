@@ -35,7 +35,7 @@ import java.util.List;
 /**
  * Created by Zillion Govin on 17/3/2015.
  */
-public class EditAppointmentActivity extends onDataPass implements AdapterView.OnItemSelectedListener {
+public class EditAppointmentActivity extends onDataPass implements AdapterView.OnItemSelectedListener, SelectionListener {
 
     int clinicId = 1;
     int patientId;
@@ -304,6 +304,23 @@ public class EditAppointmentActivity extends onDataPass implements AdapterView.O
 
     }
 
+    @Override
+    public void selectItem(int position) {
+        Button btn = (Button) findViewById(R.id.timepickeredit);
+        if(getTimePickerItems().get(position)!="N/A"){
+            btn.setText(getTimePickerItems().get(position));
+            this.timeframe = new Timeframe(getTimePickerItems().get(position));
+        } else {
+            resetTimePicker();
+        }
+    }
+
+    public void resetTimePicker(){
+        Button btn = (Button) findViewById(R.id.timepicker);
+        btn.setText("TAP TO CHOOSE TIME");
+        this.timeframe = new Timeframe(-1,-1);
+    }
+
 
 
     public void editAppointment(){
@@ -403,6 +420,34 @@ public class EditAppointmentActivity extends onDataPass implements AdapterView.O
     {
         super.DatePickerFragmentToActivity(date,month,year,button);
         apptDate.set(date,month,year);
+    }
+
+    public void onTimeButtonSelected(View v){
+        if (this.apptDate.getTimeInMillis()==0){
+            Toast.makeText(this, "Please select a date ", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        FragmentManager manager = getFragmentManager();
+        TimePickerFragment timepicker = new TimePickerFragment();
+        Bundle bundle = new Bundle();
+        bundle.putStringArrayList(TimePickerFragment.DATA, getTimePickerItems());     // Require ArrayList
+        bundle.putInt(TimePickerFragment.SELECTED, 0);
+        timepicker.setArguments(bundle);
+        timepicker.show(manager, "TimePicker");
+    }
+
+    private ArrayList<String> getTimePickerItems() {
+        ArrayList<String> availableSlots = new ArrayList<String>();
+        //Toast.makeText(this, this.date.getTime().toString(), Toast.LENGTH_SHORT).show();
+        Log
+        this.duration = Container.getServiceManager().getServiceDurationbyID(this.serviceId, this);
+        List<Timeframe> temp = Container.getAppointmentManager().getAvailableTimeSlot(this.apptDate, this.patientId, this.doctorId, this.clinicId, 18, 42, duration, this);
+
+        availableSlots.add("N/A");
+        for (Timeframe t:temp){
+            availableSlots.add(t.getTimeLine());
+        }
+        return availableSlots;
     }
 }
 
