@@ -76,8 +76,7 @@ public class AppointmentListFragment extends Fragment implements ActionBar.OnNav
                 Intent refIntent = new Intent(getActivity().getApplicationContext(),ReferralActivity.class);
                 startActivity(refIntent);
             case 2:
-                //still not done
-                Intent followIntent = new Intent(getActivity().getApplicationContext(),MainActivity.class);
+                Intent followIntent = new Intent(getActivity().getApplicationContext(),FollowUpListActivity.class);
                 startActivity(followIntent);
                 break;
             default:
@@ -145,7 +144,7 @@ public class AppointmentListFragment extends Fragment implements ActionBar.OnNav
                         goToCreateReferral();
                         break;
                     case "Follow Up":       buttonSpinner.setSelection(0);
-                        //goToCreateFollowUp();
+                        goToCreateFollowUp();
                         break;
                     default:                buttonSpinner.setSelection(0);
                         break;

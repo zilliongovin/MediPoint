@@ -32,7 +32,7 @@ public class FollowUpListActivity extends Activity {
         }
 
         appointments = (ArrayList<Appointment>) appointmentManager.getPatientRecentAppointments(this.patientId, Calendar.getInstance(),this );
-
+        //appointments = appointmentManager.getAppointments(this.getApplicationContext())
         ListView apptList = (ListView)findViewById(R.id.followuplist);
         AppointmentAdapter apptAdapter = null;
         try {

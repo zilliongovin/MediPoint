@@ -4,7 +4,6 @@ package com.djzass.medipoint;
 import android.app.FragmentManager;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Parcel;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
