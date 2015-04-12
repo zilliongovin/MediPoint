@@ -1,10 +1,14 @@
 package com.djzass.medipoint;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.djzass.medipoint.entity.Appointment;
 import com.djzass.medipoint.logic_manager.AppointmentManager;
@@ -22,6 +26,7 @@ public class FollowUpListActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_follow_up_list);
+
         AppointmentManager appointmentManager = AppointmentManager.getInstance();
         SessionManager sessionManager = new SessionManager(this);
         try {
@@ -32,16 +37,37 @@ public class FollowUpListActivity extends Activity {
 
         ArrayList<Appointment> appointments = (ArrayList<Appointment>) appointmentManager.getPatientRecentAppointments(this.patientId, Calendar.getInstance(), this);
         //appointments = appointmentManager.getAppointments(this.getApplicationContext())
-        ListView apptList = (ListView)findViewById(R.id.followuplist);
-        FollowUpAdapter apptAdapter = null;
-        try {
-            apptAdapter = new FollowUpAdapter(this, appointments);
-        } catch (SQLException e) {
-            e.printStackTrace();
+        TextView tv = (TextView)findViewById(R.id.noPastAppoinment);
+        if (appointments.size() > 0) {
+            ListView apptList = (ListView)findViewById(R.id.followuplist);
+            FollowUpAdapter apptAdapter = null;
+            tv.setVisibility(View.GONE);
+            try {
+                apptAdapter = new FollowUpAdapter(this, appointments);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            apptList.setAdapter(apptAdapter);
+            apptList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView <?> parent, View view, int position, long id) {
+                    Appointment app = (Appointment) parent.getAdapter().getItem(position);
+                    //Toast.makeText(getApplicationContext(), app.toString(), Toast.LENGTH_SHORT).show();
+                    Intent in = new Intent(getApplicationContext(), CreateFollowUpActivity.class);
+                    in.putExtra("appFollowUp", app);
+                    startActivity(in);
+                        /*Toast.makeText(getApplicationContext(),
+                                "Click ListItem Number " + position, Toast.LENGTH_SHORT)
+                                .show();*/
+                }
+            });
         }
-        apptList.setAdapter(apptAdapter);
-
+        else {
+            tv.setVisibility(View.VISIBLE);
+        }
     }
+
+
 
 
     @Override

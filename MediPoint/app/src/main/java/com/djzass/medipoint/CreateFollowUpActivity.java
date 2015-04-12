@@ -1,19 +1,33 @@
 package com.djzass.medipoint;
 
-import android.support.v7.app.ActionBarActivity;
+import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
+
+import com.djzass.medipoint.entity.Appointment;
+import com.djzass.medipoint.logic_manager.Container;
 
 
-public class CreateFollowUpActivity extends ActionBarActivity {
+public class CreateFollowUpActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_follow_up);
-    }
 
+        Bundle b = getIntent().getExtras();
+        Appointment app = b.getParcelable("appFollowUp");
+        TextView country = (TextView) findViewById(R.id.FollowUpCountry);
+        country.setText(Container.getClinicManager().getClinicsByID(app.getId(),this).get(0).getCountry());
+        TextView location = (TextView) findViewById(R.id.FollowUpLocation);
+        location.setText(Container.getAppointmentManager().getClinicNameByAppointment(app,this));
+        TextView doctor = (TextView) findViewById(R.id.FollowUpDoctor);
+        doctor.setText(Container.getAppointmentManager().getDoctorNameByAppointment(app,this));
+        TextView specialty = (TextView) findViewById(R.id.FollowUpSpecialty);
+        specialty.setText(Container.getAppointmentManager().getSpecialtyNameByAppointment(app,this));
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

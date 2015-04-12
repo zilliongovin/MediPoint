@@ -58,10 +58,7 @@ public class AppointmentListFragment extends Fragment implements ActionBar.OnNav
         }
         AppointmentManager appointmentManager = AppointmentManager.getInstance();
         appointments = (ArrayList<Appointment>) appointmentManager.getPatientAppointmentList(this.patientId, this.getActivity());
-
-
-
-
+        appointments = (ArrayList<Appointment>) appointmentManager.sortByDate(appointments);
     }
 
     @Override
@@ -108,7 +105,6 @@ public class AppointmentListFragment extends Fragment implements ActionBar.OnNav
                 @Override
                 public void onItemClick(AdapterView <?> parent, View view, int position, long id) {
                     Appointment app = (Appointment) parent.getAdapter().getItem(position);
-                    //Appointment app = (Appointment) parent.getAdapter().getItem(position);
                     //Toast.makeText(getApplicationContext(), app.toString(), Toast.LENGTH_SHORT).show();
                     Intent in = new Intent(getActivity().getApplicationContext(), ViewAppointmentActivity.class);
                     in.putExtra("appObj", app);

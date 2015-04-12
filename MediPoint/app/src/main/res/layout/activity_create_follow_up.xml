@@ -17,9 +17,9 @@
             style="@style/TextviewLayout"/>
 
         <TextView
-            android:id="@+id/FollowUpCountries"
+            android:id="@+id/FollowUpCountry"
             android:text="Singapore"
-            style="@style/TextAppearance.AppCompat.Large"
+            style="@style/Base.TextAppearance.AppCompat.Medium"
             android:layout_height="wrap_content"
             android:layout_width="match_parent"
             android:layout_marginBottom="10dp"
@@ -32,9 +32,9 @@
             style="@style/TextviewLayout"/>
 
         <TextView
-            android:id="@+id/FollowUpLocations"
+            android:id="@+id/FollowUpLocation"
             android:text="Dj Zass HealthCare Clinic"
-            style="@style/TextAppearance.AppCompat.Large"
+            style="@style/Base.TextAppearance.AppCompat.Medium"
             android:layout_height="wrap_content"
             android:layout_width="match_parent"
             android:layout_marginBottom="10dp"
@@ -48,8 +48,8 @@
 
         <TextView
             android:id="@+id/FollowUpSpecialty"
-            android:text="TestFollowUp"
-            style="@style/TextAppearance.AppCompat.Large"
+            android:text="General CheckUp"
+            style="@style/Base.TextAppearance.AppCompat.Medium"
             android:layout_height="wrap_content"
             android:layout_width="match_parent"
             android:layout_marginBottom="10dp"
@@ -73,9 +73,9 @@
             style="@style/TextviewLayout"/>
 
         <TextView
-            android:id="@+id/FollowUpDoctors"
-            android:text="TestFollowUp"
-            style="@style/TextAppearance.AppCompat.Large"
+            android:id="@+id/FollowUpDoctor"
+            android:text="Dr. Aristo"
+            style="@style/Base.TextAppearance.AppCompat.Medium"
             android:layout_height="wrap_content"
             android:layout_width="match_parent"
             android:layout_marginBottom="10dp"
