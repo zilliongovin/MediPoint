@@ -53,15 +53,7 @@ public class CreateAppointmentActivity extends onDataPass implements AdapterView
     int duration;
     String preAppointmentActions;
     Timeframe timeframe;
-
-<<<<<<< HEAD
     long accountId;
-=======
-
-    /*String NRIC;
-    List<Account> accountList;
-    AccountDAO macc;*/
->>>>>>> origin/master
 
 
     //spinner
@@ -99,12 +91,14 @@ public class CreateAppointmentActivity extends onDataPass implements AdapterView
             ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_dropdown_item,specialtyNames);
             dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
             dataAdapter.notifyDataSetChanged();
-
-
-
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
+            specialtySpinnerCreate.setAdapter(dataAdapter);
+            specialtySpinnerCreate.setOnItemSelectedListener(this);
+            accountId = sessionManager.getAccountId();
+            specialtySpinnerCreate.setAdapter(dataAdapter);
+            specialtySpinnerCreate.setOnItemSelectedListener(this);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
 
         //country spinner and array adapter
         countrySpinnerCreate = (Spinner) findViewById(R.id.CreateApptCountries);
@@ -433,11 +427,7 @@ public class CreateAppointmentActivity extends onDataPass implements AdapterView
             long res = Container.getAppointmentManager().createAppointment(appointment, this);
             if (res == -1) {
                 Notification notification = new Notification();
-<<<<<<< HEAD
                 notification.buildNotification(this, "Appointment creation fail :C",appointment);
-=======
-                notification.buildNotification(this, "Appointment creation failed");
->>>>>>> origin/master
             } else {
                 AlarmSetter malarm = new AlarmSetter();
                 AccountManager mAcc = new AccountManager(this);
