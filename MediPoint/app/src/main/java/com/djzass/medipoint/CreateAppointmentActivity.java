@@ -216,18 +216,13 @@ public class CreateAppointmentActivity extends onDataPass implements AdapterView
                     dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                     dataAdapter.notifyDataSetChanged();
                     serviceSpinnerCreate.setAdapter(dataAdapter);
-                    String service = String.valueOf(serviceSpinnerCreate.getSelectedItem());
-                    for (Service s : services) {
-                        if (service.equals(s.getName())) {
-                            this.serviceId = s.getId();
-                            this.preAppointmentActions = s.getPreAppointmentActions();
-                            this.duration = s.getDuration();
-                        }
-                    }
+                    serviceSpinnerCreate.setOnItemSelectedListener(this);
+
                     //List<Doctor> doctors = ((Container)getApplicationContext()).getGlobalDoctorDAO().getDoctorBySpecialization(selection);
                     //List<Doctor> doctors = Container.GlobalDoctorDAO.getDoctorBySpecialization(selection);
                     DoctorDAO doctorDAO = new DoctorDAO(this);
-                    List<Doctor> doctors = doctorDAO.getDoctorsByClinicAndSpecialization(clinicId,specialtyId);
+                    //List<Doctor> doctors = doctorDAO.getDoctorsByClinicAndSpecialization(clinicId,specialtyId);
+                    List<Doctor> doctors = Container.getDoctorManager().getDoctorsByClinicAndSpecialization(clinicId,specialtyId,this);
                     List<String> doctorNames = new ArrayList<String>();
                     for (Doctor d : doctors) {
                         doctorNames.add(d.getName());
@@ -236,14 +231,31 @@ public class CreateAppointmentActivity extends onDataPass implements AdapterView
                     doctorDataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                     doctorDataAdapter.notifyDataSetChanged();
                     doctorSpinnerCreate.setAdapter(doctorDataAdapter);
-                    String doctor = String.valueOf(doctorSpinnerCreate.getSelectedItem());
-                    for (Doctor d : doctors) {
-                        if (doctor.equals(d.getName())) {
-                            doctorId = d.getDoctorId();
-                        }
-                    }
+
                 } catch (SQLException e) {
                     e.printStackTrace();
+                }
+                break;
+
+            case R.id.CreateApptServices:
+                List<Service> services = Container.getServiceManager().getServicesBySpecialtyID(specialtyId,this);
+                String service = String.valueOf(serviceSpinnerCreate.getSelectedItem());
+                for (Service s : services) {
+                    if (service.equals(s.getName())) {
+                        this.serviceId = s.getId();
+                        this.preAppointmentActions = s.getPreAppointmentActions();
+                        this.duration = s.getDuration();
+                    }
+                }
+                break;
+
+            case R.id.CreateApptDoctors:
+                List<Doctor> doctors = Container.getDoctorManager().getDoctorsByClinicAndSpecialization(clinicId,specialtyId,this);
+                String doctor = String.valueOf(doctorSpinnerCreate.getSelectedItem());
+                for (Doctor d : doctors) {
+                    if (doctor.equals(d.getName())) {
+                        doctorId = d.getDoctorId();
+                    }
                 }
                 break;
 
@@ -272,7 +284,7 @@ public class CreateAppointmentActivity extends onDataPass implements AdapterView
                     }
 
                     DoctorDAO doctorDAO = new DoctorDAO(this);
-                    List<Doctor> doctors = doctorDAO.getDoctorsByClinicAndSpecialization(clinicId,specialtyId);
+                    doctors = doctorDAO.getDoctorsByClinicAndSpecialization(clinicId,specialtyId);
                     List<String> doctorNames = new ArrayList<String>();
                     for (Doctor d : doctors) {
                         doctorNames.add(d.getName());
@@ -281,12 +293,7 @@ public class CreateAppointmentActivity extends onDataPass implements AdapterView
                     doctorDataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                     doctorDataAdapter.notifyDataSetChanged();
                     doctorSpinnerCreate.setAdapter(doctorDataAdapter);
-                    String doctor = String.valueOf(doctorSpinnerCreate.getSelectedItem());
-                    for (Doctor d : doctors) {
-                        if (doctor.equals(d.getName())) {
-                            doctorId = d.getDoctorId();
-                        }
-                    }
+
 
                 } catch (SQLException e) {
                     e.printStackTrace();
@@ -309,7 +316,7 @@ public class CreateAppointmentActivity extends onDataPass implements AdapterView
                     clinicId = clinicSelection;
                     Toast.makeText(this,""+clinicId,Toast.LENGTH_SHORT).show();
                     DoctorDAO doctorDAO = new DoctorDAO(this);
-                    List<Doctor> doctors = doctorDAO.getDoctorsByClinicAndSpecialization(clinicSelection,specialtyId);
+                    doctors = doctorDAO.getDoctorsByClinicAndSpecialization(clinicSelection,specialtyId);
                     List<String> doctorNames = new ArrayList<String>();
                     for (Doctor d : doctors) {
                         doctorNames.add(d.getName());
@@ -318,12 +325,7 @@ public class CreateAppointmentActivity extends onDataPass implements AdapterView
                     doctorDataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                     doctorDataAdapter.notifyDataSetChanged();
                     doctorSpinnerCreate.setAdapter(doctorDataAdapter);
-                    String doctor = String.valueOf(doctorSpinnerCreate.getSelectedItem());
-                    for (Doctor d : doctors) {
-                        if (doctor.equals(d.getName())) {
-                            doctorId = d.getDoctorId();
-                        }
-                    }
+
 
                     //List<Service> services = ((Container)getApplicationContext()).getGlobalServiceDAO().getServicesBySpecialtyID(selection);
                     //List<Service> services = Container.GlobalServiceDAO.getServicesBySpecialtyID(selection);
