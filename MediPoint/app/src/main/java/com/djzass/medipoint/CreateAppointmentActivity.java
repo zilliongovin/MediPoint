@@ -3,12 +3,7 @@ package com.djzass.medipoint;
 
 import android.app.FragmentManager;
 import android.content.Intent;
-import android.content.pm.PackageInstaller;
-import android.database.Cursor;
 import android.os.Bundle;
-
-import android.os.Parcel;
-
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -25,7 +20,6 @@ import com.djzass.medipoint.entity.Doctor;
 import com.djzass.medipoint.entity.Service;
 import com.djzass.medipoint.entity.Specialty;
 import com.djzass.medipoint.entity.Timeframe;
-import com.djzass.medipoint.logic_database.AccountDAO;
 import com.djzass.medipoint.logic_database.AppointmentDAO;
 import com.djzass.medipoint.logic_database.ClinicDAO;
 import com.djzass.medipoint.logic_database.DoctorDAO;
@@ -54,15 +48,11 @@ public class CreateAppointmentActivity extends onDataPass implements AdapterView
     String preAppointmentActions;
     Timeframe timeframe;
 
-<<<<<<< HEAD
     long accountId;
-=======
 
     /*String NRIC;
     List<Account> accountList;
     AccountDAO macc;*/
->>>>>>> origin/master
-
 
     //spinner
     Spinner specialtySpinnerCreate;
@@ -435,11 +425,7 @@ public class CreateAppointmentActivity extends onDataPass implements AdapterView
             long res = Container.getAppointmentManager().createAppointment(appointment, this);
             if (res == -1) {
                 Notification notification = new Notification();
-<<<<<<< HEAD
-                notification.buildNotification(this, "Appointment creation fail :C",appointment);
-=======
-                notification.buildNotification(this, "Appointment creation failed");
->>>>>>> origin/master
+                notification.buildNotification(this, "Appointment creation failed", appointment);
             } else {
                 AlarmSetter malarm = new AlarmSetter();
                 AccountManager mAcc = new AccountManager(this);

@@ -3,74 +3,66 @@
     package="com.djzass.medipoint" >
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.WAKE_LOCK"/>
-    <uses-permission android:name="android.permission.read_sms"/>
-    <uses-permission android:name="android.permission.WRITE_SMS"/>
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.read_sms" />
+    <uses-permission android:name="android.permission.WRITE_SMS" />
 
     <application
         android:allowBackup="true"
         android:icon="@mipmap/icon_medipoint"
         android:label="@string/app_name"
         android:theme="@style/CustomActionBarTheme" >
-
         <activity
             android:name=".MainActivity"
-            android:label="@string/app_name">
+            android:label="@string/app_name" >
         </activity>
-
         <activity
             android:name=".Login"
-            android:label="@string/app_name">
+            android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".PasswordRetriever"
             android:label="@string/title_activity_password_retriever" />
-
         <activity
             android:name=".SignUpPageOne"
             android:label="@string/title_activity_sign_up" >
         </activity>
-
         <activity
             android:name=".SignUpPageTwo"
             android:label="@string/title_activity_sign_up" >
         </activity>
-
         <activity
             android:name=".SignUpPageThree"
             android:label="@string/title_activity_sign_up" >
         </activity>
-
         <activity
             android:name=".CreateAppointmentActivity"
             android:label="Create an Appointment" />
-
         <activity
             android:name=".EditAppointmentActivity"
             android:label="@string/edit_appointment" />
-
         <activity
             android:name=".ReferralActivity"
             android:label="@string/referral" />
-
-        <activity android:name=".MedicalHistory"
-            android:label="@string/med_his"/>
-
+        <activity
+            android:name=".MedicalHistory"
+            android:label="@string/med_his" />
         <activity
             android:name=".ViewAppointmentActivity"
             android:label="@string/app_name" >
         </activity>
 
-
         <receiver android:name=".AlarmBroadcastReceiver" />
 
+        <activity
+            android:name=".CreateFollowUpActivity"
+            android:label="@string/title_activity_create_follow_up" >
+        </activity>
     </application>
-
-
 
 </manifest>

@@ -134,6 +134,7 @@
         <item>Referral</item>
         <item>Follow Up</item>
     </string-array>
+    <string name="title_activity_create_follow_up">CreateFollowUpActivity</string>
 
 
 </resources>

@@ -43,7 +43,7 @@ public class FollowUpAdapter extends ArrayAdapter<Appointment> {
         // Check if an existing view is being reused, otherwise inflate the view
 
         if (convertView == null) {
-            convertView = LayoutInflater.from(getContext()).inflate(R.layout.appointment_adapter, parent, false);
+            convertView = LayoutInflater.from(getContext()).inflate(R.layout.followup_adapter, parent, false);
             viewHolder = new ViewHolder();
             // Lookup view for data population
             viewHolder.specialtyIcon = (ImageView) convertView.findViewById(R.id.specialty_icon);

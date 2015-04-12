@@ -13,11 +13,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.djzass.medipoint.entity.Appointment;
 import com.djzass.medipoint.logic_manager.AppointmentManager;
@@ -39,6 +37,7 @@ public class AppointmentListFragment extends Fragment implements ActionBar.OnNav
     //private NavigationAdapter adapter;
     //ArrayList<AppointmentDummy> appointments;
     ArrayList<Appointment> appointments;
+    private int patientId;
     public static AppointmentListFragment newInstance() {
         AppointmentListFragment fragment = new AppointmentListFragment();
         return fragment;
@@ -51,9 +50,14 @@ public class AppointmentListFragment extends Fragment implements ActionBar.OnNav
 
         //appointments = new ArrayList<AppointmentDummy>();
         appointments = new ArrayList<Appointment>();
-
+        SessionManager sessionManager = new SessionManager(getActivity());
+        try {
+            this.patientId = (int)sessionManager.getAccountId();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         AppointmentManager appointmentManager = AppointmentManager.getInstance();
-        appointments = (ArrayList<Appointment>) appointmentManager.getAppointments(getActivity());
+        appointments = (ArrayList<Appointment>) appointmentManager.getPatientAppointmentList(this.patientId, this.getActivity());
 
 
 
@@ -117,7 +121,7 @@ public class AppointmentListFragment extends Fragment implements ActionBar.OnNav
             });
         }
         else{
-            tv.setText("No ongoing appointment available");
+            tv.setText("No appointment available");
             tv.setVisibility(view.VISIBLE);
         }
 
@@ -170,8 +174,8 @@ public class AppointmentListFragment extends Fragment implements ActionBar.OnNav
 
     public void goToCreateFollowUp()
     {
-        //Intent intent = new Intent(getActivity(), ReferralActivity.class);
-        //startActivity(intent);
+        Intent intent = new Intent(getActivity(), FollowUpListActivity.class);
+        startActivity(intent);
     }
 
 }
