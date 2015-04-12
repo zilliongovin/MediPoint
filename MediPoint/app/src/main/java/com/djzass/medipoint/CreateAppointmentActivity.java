@@ -48,13 +48,13 @@ public class CreateAppointmentActivity extends onDataPass implements AdapterView
     int patientId;
     int doctorId;
     int referrerId;
-    Calendar date;
+    Calendar date = Calendar.getInstance();
     int serviceId;
     int specialtyId = 1;
     int countryId = 1;
     int duration;
     String preAppointmentActions;
-    Timeframe timeframe;
+    Timeframe timeframe = new Timeframe(-1,-1);
     long accountId;
 
 
@@ -78,7 +78,7 @@ public class CreateAppointmentActivity extends onDataPass implements AdapterView
         setContentView(R.layout.activity_create_appointment);
 
         referrerId = getIntent().getIntExtra("REFERRER_ID",-1);
-
+        date.setTimeInMillis(0);
         //specialty spinner and array adapter
         try {
             SessionManager sessionManager = new SessionManager(this);
@@ -222,6 +222,8 @@ public class CreateAppointmentActivity extends onDataPass implements AdapterView
                             doctorId = d.getDoctorId();
                         }
                     }
+                    resetTimePicker();
+
                 } catch (SQLException e) {
                     e.printStackTrace();
                 }
@@ -267,6 +269,7 @@ public class CreateAppointmentActivity extends onDataPass implements AdapterView
                             doctorId = d.getDoctorId();
                         }
                     }
+                    resetTimePicker();
 
                 } catch (SQLException e) {
                     e.printStackTrace();
@@ -304,7 +307,6 @@ public class CreateAppointmentActivity extends onDataPass implements AdapterView
                             doctorId = d.getDoctorId();
                         }
                     }
-
                     //List<Service> services = ((Container)getApplicationContext()).getGlobalServiceDAO().getServicesBySpecialtyID(selection);
                     //List<Service> services = Container.GlobalServiceDAO.getServicesBySpecialtyID(selection);
 
@@ -376,6 +378,10 @@ public class CreateAppointmentActivity extends onDataPass implements AdapterView
     }
 
     public void showTimepicker(View v){
+        if (this.date.getTimeInMillis()==0){
+            Toast.makeText(this, "Please select a date ", Toast.LENGTH_SHORT).show();
+            return;
+        }
         FragmentManager manager = getFragmentManager();
         TimePickerFragment timepicker = new TimePickerFragment();
         Bundle bundle = new Bundle();
@@ -407,29 +413,36 @@ public class CreateAppointmentActivity extends onDataPass implements AdapterView
         Calendar currentDate = Calendar.getInstance();
         currentDate.add(Calendar.DATE, 1);
 
-        if (this.date.compareTo(currentDate)<0){
-            Toast.makeText(this, "You must book at least 24 hours in advance. ", Toast.LENGTH_SHORT).show();
+        if (this.date.getTimeInMillis()==0){
+            Toast.makeText(this, "Please select a date ", Toast.LENGTH_SHORT).show();
+        } else if (this.timeframe.getStartTime()<0){
+            Toast.makeText(this, "Please select a time. ", Toast.LENGTH_SHORT).show();
         } else {
-            AccountManager accountManager = new AccountManager(this);
-            Appointment appointment = new Appointment(this.patientId, this.clinicId, this.specialtyId, this.serviceId, this.doctorId, referrerId,this.date, this.timeframe);
-            long res = Container.getAppointmentManager().createAppointment(appointment, this);
-            if (res == -1) {
-                Toast.makeText(this,"Appointment creation failed", Toast.LENGTH_SHORT).show();
-
+            this.date.set(Calendar.HOUR,this.timeframe.getStartTime()/2);
+            this.date.set(Calendar.MINUTE,30*(this.timeframe.getStartTime()%2));
+            if (this.date.compareTo(currentDate)<0){
+                Toast.makeText(this, "You must book at least 24 hours in advance. ", Toast.LENGTH_SHORT).show();
             } else {
-                AlarmSetter malarm = new AlarmSetter();
-                AccountManager mAcc = new AccountManager(this);
-                Account account = new Account();
-                try {
-                    account = mAcc.getAccountById(accountId);
-                } catch (ParseException e) {
-                    e.printStackTrace();
-                }
-                malarm.setAlarm(getApplicationContext(),appointment,account);
+                AccountManager accountManager = new AccountManager(this);
+                Appointment appointment = new Appointment(this.patientId, this.clinicId, this.specialtyId, this.serviceId, this.doctorId, referrerId,this.date, this.timeframe);
+                long res = Container.getAppointmentManager().createAppointment(appointment, this);
+                if (res == -1) {
+                    Toast.makeText(this,"Appointment creation failed", Toast.LENGTH_SHORT).show();
+
+                } else {
+                    AlarmSetter malarm = new AlarmSetter();
+                    AccountManager mAcc = new AccountManager(this);
+                    Account account = new Account();
+                    try {
+                        account = mAcc.getAccountById(accountId);
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+                    malarm.setAlarm(getApplicationContext(),appointment,account);
                 /*Notification notification = new Notification();
                 notification.buildNotification(this, "Appointment created.",appointment);*/
-                Intent goToMain = new Intent(this, MainActivity.class);
-                startActivity(goToMain);
+                    Intent goToMain = new Intent(this, MainActivity.class);
+                    startActivity(goToMain);
 /*            try {
                 malarm.setAlarm(this, appointment, accountManager.getAccountById(this.patientId));
 
@@ -438,6 +451,7 @@ public class CreateAppointmentActivity extends onDataPass implements AdapterView
                 Toast.makeText(this,"In Here",Toast.LENGTH_SHORT).show();
             }*/
 
+                }
             }
         }
     }
@@ -462,6 +476,12 @@ public class CreateAppointmentActivity extends onDataPass implements AdapterView
             btn.setText(getTimePickerItems().get(position));
             this.timeframe = new Timeframe(getTimePickerItems().get(position));
         }
+    }
+
+    public void resetTimePicker(){
+        Button btn = (Button) findViewById(R.id.timepicker);
+        btn.setText("TAP TO CHOOSE TIME");
+        this.timeframe = new Timeframe(-1,-1);
     }
 
     @Override
