@@ -110,13 +110,13 @@ public class CreateAppointmentActivity extends onDataPass implements AdapterView
 
         //service spinner
         serviceSpinnerCreate = (Spinner) findViewById(R.id.CreateApptServices);
-        countrySpinnerCreate.setOnItemSelectedListener(this);
+        //countrySpinnerCreate.setOnItemSelectedListener(this);
         //doctor spinner
         doctorSpinnerCreate = (Spinner) findViewById(R.id.CreateApptDoctors);
-        countrySpinnerCreate.setOnItemSelectedListener(this);
+        //countrySpinnerCreate.setOnItemSelectedListener(this);
         //clinic location spinner
         clinicSpinnerCreate = (Spinner) findViewById(R.id.CreateApptLocations);
-        countrySpinnerCreate.setOnItemSelectedListener(this);
+        //countrySpinnerCreate.setOnItemSelectedListener(this);
 
         confirmButton = (Button)findViewById(R.id.ConfirmCreateAppt);
         confirmButton.setOnClickListener(new View.OnClickListener() {
