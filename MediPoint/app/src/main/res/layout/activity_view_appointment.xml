@@ -5,10 +5,9 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <LinearLayout
-        android:layout_marginTop="100dp"
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        style="@style/LinearLayoutStyle"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="vertical">
 
         <!--Section 1 - Main Appointment Details -->
         <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -21,7 +20,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@mipmap/icontp_medipoint"
-                android:layout_alignBottom="@+id/viewSpecialty"
+                android:layout_alignBottom="@id/viewSpecialty"
                 android:layout_marginLeft="2dp"
                 android:layout_marginRight="2dp"
                 android:layout_marginBottom="2dp"
@@ -54,7 +53,7 @@
 
             <!-- Specialty -->
             <TextView
-                android:id="@id/viewSpecialty"
+                android:id="@+id/viewSpecialty"
                 android:text="Women's Health Services"
                 android:textStyle="italic"
                 android:layout_width="wrap_content"
