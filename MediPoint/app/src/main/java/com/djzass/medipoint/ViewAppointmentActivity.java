@@ -1,8 +1,11 @@
 package com.djzass.medipoint;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -17,14 +20,15 @@ import com.djzass.medipoint.logic_manager.Container;
  */
 
 public class ViewAppointmentActivity extends Activity {
-
+    private Appointment app;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_appointment);
 
         Bundle b = getIntent().getExtras();
-        Appointment app = b.getParcelable("appObj");
+        app = b.getParcelable("appObj");
+        Log.d("CalendarInViewParcA", "" + app.getDate().toString());
 
         TextView specialtyName = (TextView) findViewById(R.id.viewSpecialty);
         specialtyName.setText(Container.getAppointmentManager().getSpecialtyNameByAppointment(app,this));
@@ -33,7 +37,9 @@ public class ViewAppointmentActivity extends Activity {
         TextView appointmentStatus = (TextView) findViewById(R.id.viewStatus);
         appointmentStatus.setText(Container.getAppointmentManager().getStatus(app));
         TextView appointmentDate = (TextView) findViewById(R.id.viewDate);
+        Log.d("CalendarInViewParcB", "" + app.getDate().toString());
         appointmentDate.setText(app.getDateString());
+        Log.d("CalendarInViewParcC", "" + app.getDate().toString());
         TextView appointmentTime = (TextView) findViewById(R.id.viewTime);
         appointmentTime.setText(app.getTimeString());
         TextView appointmentLocation = (TextView) findViewById(R.id.viewLocation);
@@ -61,9 +67,20 @@ public class ViewAppointmentActivity extends Activity {
         startActivity(in);
     }
 
-    public void ViewApptDelete(View view)
-    {
+    public void ViewApptDelete(View view){
         //Button delete
+        /*AlertDialogInterface deleteApp = new AlertDialogInterface("Delete Appointment?",
+                "Are you sure you want to delete this appointment?", this);
+        deleteApp.deleteAppointmentDialog(Container.getAppointmentManager(),app,this);
+        Container.getAppointmentManager().cancelAppointment(app, this);
+        Intent in = new Intent(this, MainActivity.class);
+        startActivity(in);*/
+        AlertDialog diaBox = ConfirmDelete();
+        diaBox.show();
+    }
+
+    private void performDelete(){
+        Container.getAppointmentManager().cancelAppointment(app, this);
         Intent in = new Intent(this, MainActivity.class);
         startActivity(in);
     }
@@ -92,5 +109,28 @@ public class ViewAppointmentActivity extends Activity {
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+
+    private AlertDialog ConfirmDelete(){
+        AlertDialog myQuittingDialogBox =new AlertDialog.Builder(this)
+                //set message, title, and icon
+                .setTitle("Confirm action")
+                .setMessage("Are you sure you want to delete this appointment?")
+
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int whichButton) {
+                        //your deleting code
+                        performDelete();
+                        dialog.dismiss();
+                    }
+                })
+                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                })
+                .create();
+        return myQuittingDialogBox;
     }
 }

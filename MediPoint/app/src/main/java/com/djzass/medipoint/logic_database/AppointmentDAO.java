@@ -44,6 +44,8 @@ public class AppointmentDAO extends DbDAO{
         values.put(DbContract.AppointmentEntry.COLUMN_NAME_DOCTOR_ID, appointment.getDoctorId());
         values.put(DbContract.AppointmentEntry.COLUMN_NAME_REFERRER_ID, appointment.getReferrerId());
        // values.put(DbContract.AppointmentEntry.COLUMN_NAME_DATE_TIME, appointment.getDateString());
+       Log.d("CalendarCreateC",appointment.getDate().toString());
+
         values.put(DbContract.AppointmentEntry.COLUMN_NAME_DATE_TIME, appointment.getDate().getTimeInMillis());
         values.put(DbContract.AppointmentEntry.COLUMN_NAME_SERVICE_ID, appointment.getServiceId());
         values.put(DbContract.AppointmentEntry.COLUMN_NAME_SPECIALTY_ID,appointment.getSpecialtyId());
@@ -95,6 +97,8 @@ public class AppointmentDAO extends DbDAO{
             Calendar cal = Calendar.getInstance();
             Long c = cursor.getLong(5);
             cal.setTimeInMillis(c);
+            Log.d("CalendarGetDAO",cal.toString());
+
             appointment.setDate(cal);
             appointment.setServiceId(cursor.getInt(6));
             appointment.setSpecialtyId(cursor.getInt(7));
@@ -144,7 +148,6 @@ public class AppointmentDAO extends DbDAO{
         long result = database.update(DbContract.AppointmentEntry.TABLE_NAME, values,
                 WHERE_ID_EQUALS,
                 new String[] { String.valueOf(appointment.getId()) });
-        Log.d("Update Result:", "=" + result);
 
         return result;
     }

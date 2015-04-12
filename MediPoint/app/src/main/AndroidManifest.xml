@@ -49,9 +49,14 @@
         <activity
             android:name=".ReferralActivity"
             android:label="@string/referral" />
+
         <activity
             android:name=".MedicalHistory"
             android:label="@string/med_his" />
+
+        <activity android:name=".EditHistoryActivity"
+            android:label="@string/med_his"/>
+
         <activity
             android:name=".ViewAppointmentActivity"
             android:label="@string/app_name" >
@@ -66,10 +71,6 @@
         <activity
             android:name=".FollowUpListActivity"
             android:label="@string/title_activity_follow_up_list" >
-        </activity>
-        <activity
-            android:name=".FollowUpActivity"
-            android:label="@string/title_activity_follow_up" >
         </activity>
     </application>
 

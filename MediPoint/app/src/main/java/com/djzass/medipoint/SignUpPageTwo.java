@@ -117,7 +117,7 @@ public class SignUpPageTwo extends onDataPass {
         RadioGroup genderGroup = (RadioGroup)findViewById(R.id.GenderRadioGroup);
         int selGender = genderGroup.getCheckedRadioButtonId();
         RadioButton selGenderButton = (RadioButton)findViewById(selGender);
-        RadioGroup maritalStatusGroup = (RadioGroup)findViewById(R.id.GenderRadioGroup);
+        RadioGroup maritalStatusGroup = (RadioGroup)findViewById(R.id.MaritalStatusRadioGroup);
         int selMaritalStatus = maritalStatusGroup.getCheckedRadioButtonId();
         RadioButton selMaritalStatusButton = (RadioButton)findViewById(selMaritalStatus);
         Spinner citizenshipSpinner = (Spinner)findViewById(R.id.CitizenshipSpinner);
