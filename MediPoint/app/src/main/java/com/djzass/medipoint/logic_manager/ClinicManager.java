@@ -107,4 +107,17 @@ public class ClinicManager {
         updateClinicDao(context);
         return ret;
     }
+
+    public String getCountryByClinicId(int clinicId, Context context)
+    {
+        updateClinicDao(context);
+        return clinicDao.getClinicsByID(clinicId).get(0).getCountry();
+    }
+
+    public String getClinicNameByClinicId(int clinicId,Context context)
+    {
+        updateClinicDao(context);
+        return clinicDao.getClinicsByID(clinicId).get(0).getName();
+    }
+
 }

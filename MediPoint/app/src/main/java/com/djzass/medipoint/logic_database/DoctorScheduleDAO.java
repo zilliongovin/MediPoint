@@ -150,17 +150,13 @@ public class DoctorScheduleDAO extends DbDAO{
 
     private void initializeDAO()
     {
-        /*
         if(getAllDoctorSchedules().size() ==0)
         {
-            insertDoctorSchedule(new DoctorSchedule(0,0,null,));
-            insertDoctorSchedule(new DoctorSchedule(1,1));
-            insertDoctorSchedule(new DoctorSchedule(2,2));
-            insertDoctorSchedule(new DoctorSchedule(3,3));
-            insertDoctorSchedule(new DoctorSchedule(4,4));
-            insertDoctorSchedule(new DoctorSchedule(5,5));
-
+            /*insertDoctorSchedule(1, 1, )
+            private int doctorId;
+            private int clinicId;
+            private String day;
+            private Timeframe timeframe;*/
         }
-        */
     }
 }
