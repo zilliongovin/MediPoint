@@ -1,6 +1,5 @@
 package com.djzass.medipoint;
 
-
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,21 +17,20 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
- * Created by Deka on 30/3/2015.
+ * Created by Deka on 12/4/2015.
  */
-public class AppointmentAdapter extends ArrayAdapter<Appointment> {
+public class FollowUpAdapter extends ArrayAdapter<Appointment> {
     AppointmentManager appointmentManager;
 
     private static class ViewHolder {
         public ImageView specialtyIcon;
         public TextView appointmentService;
-        public TextView appointmentStatus;
         public TextView appointmentDate;
         public TextView appointmentTime;
     }
 
-    public AppointmentAdapter(Context context, ArrayList<Appointment> appointments) throws SQLException {
-        super(context, R.layout.appointment_adapter, appointments);
+    public FollowUpAdapter(Context context, ArrayList<Appointment> appointments) throws SQLException {
+        super(context, R.layout.followup_adapter, appointments);
         appointmentManager = AppointmentManager.getInstance();
     }
 
@@ -44,14 +42,13 @@ public class AppointmentAdapter extends ArrayAdapter<Appointment> {
         // Check if an existing view is being reused, otherwise inflate the view
 
         if (convertView == null) {
-            convertView = LayoutInflater.from(getContext()).inflate(R.layout.appointment_adapter, parent, false);
+            convertView = LayoutInflater.from(getContext()).inflate(R.layout.followup_adapter, parent, false);
             viewHolder = new ViewHolder();
             // Lookup view for data population
-            viewHolder.specialtyIcon = (ImageView) convertView.findViewById(R.id.specialty_icon);
-            viewHolder.appointmentService = (TextView) convertView.findViewById(R.id.appointment_service);
-            viewHolder.appointmentStatus = (TextView) convertView.findViewById(R.id.appointment_status);
-            viewHolder.appointmentDate = (TextView) convertView.findViewById(R.id.appointment_date);
-            viewHolder.appointmentTime= (TextView) convertView.findViewById(R.id.appointment_time);
+            viewHolder.specialtyIcon = (ImageView) convertView.findViewById(R.id.followup_icon);
+            viewHolder.appointmentService = (TextView) convertView.findViewById(R.id.followup_service);
+            viewHolder.appointmentDate = (TextView) convertView.findViewById(R.id.followup_date);
+            viewHolder.appointmentTime= (TextView) convertView.findViewById(R.id.followup_time);
             convertView.setTag(viewHolder);
         } else{
             viewHolder = (ViewHolder)convertView.getTag();
@@ -63,7 +60,6 @@ public class AppointmentAdapter extends ArrayAdapter<Appointment> {
 
         viewHolder.specialtyIcon.setImageResource(getImageId(appointmentDetails.get("SPECIALTY_NAME")));
         viewHolder.appointmentService.setText(appointmentDetails.get("SERVICE_NAME"));
-        viewHolder.appointmentStatus.setText(appointmentDetails.get("STATUS"));
         viewHolder.appointmentDate.setText(appointmentDetails.get("DATE"));
         viewHolder.appointmentTime.setText(appointmentDetails.get("TIME"));
 
@@ -74,7 +70,7 @@ public class AppointmentAdapter extends ArrayAdapter<Appointment> {
     public int getImageId(String specialtyName){
         if (specialtyName.equalsIgnoreCase("ENT"))
             return R.mipmap.ear;
-        else if (specialtyName.equalsIgnoreCase("Dental Services"))
+        else if (specialtyName.equalsIgnoreCase("Dental"))
             return R.mipmap.dental;
         else if (specialtyName.equalsIgnoreCase("Women's Health"))
             return R.mipmap.female;
@@ -105,8 +101,9 @@ public class AppointmentAdapter extends ArrayAdapter<Appointment> {
         appointmentDetails.put("CLINIC_NAME",Container.getAppointmentManager().getClinicNameByAppointment(appointment, getContext()));
         appointmentDetails.put("DATE",appointment.getDateString());
         appointmentDetails.put("TIME",appointment.getTimeString());
-        appointmentDetails.put("STATUS",Container.getAppointmentManager().getStatus(appointment));
 
         return appointmentDetails;
     }
 }
+
+

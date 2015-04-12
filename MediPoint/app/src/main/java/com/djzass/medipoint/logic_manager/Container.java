@@ -6,6 +6,8 @@ import android.app.Application;
 import com.djzass.medipoint.entity.Doctor;
 import com.djzass.medipoint.entity.DoctorSchedule;
 
+import java.util.Calendar;
+
 /**
  * Created by Joshua on 3/4/2015.
  */
@@ -62,5 +64,20 @@ public class Container {
 
     public static SpecialtyManager getSpecialtyManager() {
         return specialtyManager;
+    }
+
+    /**
+     * Find difference of days between 2 calendars
+     **/
+    public static long daysBetween(Calendar startDate, Calendar endDate) {
+        //assert: startDate must be before endDate
+        if (endDate.before(startDate)) return 100000;
+        Calendar date = (Calendar) startDate.clone();
+        long daysBetween = 0;
+        while (date.before(endDate)) {
+            date.add(Calendar.DAY_OF_MONTH, 1);
+            daysBetween++;
+        }
+        return daysBetween;
     }
 }

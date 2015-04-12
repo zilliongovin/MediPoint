@@ -13,11 +13,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.djzass.medipoint.entity.Appointment;
 import com.djzass.medipoint.logic_manager.AppointmentManager;
@@ -39,6 +37,7 @@ public class AppointmentListFragment extends Fragment implements ActionBar.OnNav
     //private NavigationAdapter adapter;
     //ArrayList<AppointmentDummy> appointments;
     ArrayList<Appointment> appointments;
+    private int patientId;
     public static AppointmentListFragment newInstance() {
         AppointmentListFragment fragment = new AppointmentListFragment();
         return fragment;
@@ -51,13 +50,15 @@ public class AppointmentListFragment extends Fragment implements ActionBar.OnNav
 
         //appointments = new ArrayList<AppointmentDummy>();
         appointments = new ArrayList<Appointment>();
-
+        SessionManager sessionManager = new SessionManager(getActivity());
+        try {
+            this.patientId = (int)sessionManager.getAccountId();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         AppointmentManager appointmentManager = AppointmentManager.getInstance();
-        appointments = (ArrayList<Appointment>) appointmentManager.getAppointments(getActivity());
-
-
-
-
+        appointments = (ArrayList<Appointment>) appointmentManager.getPatientAppointmentList(this.patientId, this.getActivity());
+        appointments = (ArrayList<Appointment>) appointmentManager.sortByDate(appointments);
     }
 
     @Override
@@ -72,8 +73,7 @@ public class AppointmentListFragment extends Fragment implements ActionBar.OnNav
                 Intent refIntent = new Intent(getActivity().getApplicationContext(),ReferralActivity.class);
                 startActivity(refIntent);
             case 2:
-                //still not done
-                Intent followIntent = new Intent(getActivity().getApplicationContext(),MainActivity.class);
+                Intent followIntent = new Intent(getActivity().getApplicationContext(),FollowUpListActivity.class);
                 startActivity(followIntent);
                 break;
             default:
@@ -105,7 +105,6 @@ public class AppointmentListFragment extends Fragment implements ActionBar.OnNav
                 @Override
                 public void onItemClick(AdapterView <?> parent, View view, int position, long id) {
                     Appointment app = (Appointment) parent.getAdapter().getItem(position);
-                    //Appointment app = (Appointment) parent.getAdapter().getItem(position);
                     //Toast.makeText(getApplicationContext(), app.toString(), Toast.LENGTH_SHORT).show();
                     Intent in = new Intent(getActivity().getApplicationContext(), ViewAppointmentActivity.class);
                     in.putExtra("appObj", app);
@@ -117,7 +116,7 @@ public class AppointmentListFragment extends Fragment implements ActionBar.OnNav
             });
         }
         else{
-            tv.setText("No ongoing appointment available");
+            tv.setText("No appointment available");
             tv.setVisibility(view.VISIBLE);
         }
 
@@ -141,9 +140,11 @@ public class AppointmentListFragment extends Fragment implements ActionBar.OnNav
                         goToCreateReferral();
                         break;
                     case "Follow Up":       buttonSpinner.setSelection(0);
-                        //goToCreateFollowUp();
+                        goToCreateFollowUp();
                         break;
-                    default:                buttonSpinner.setSelection(0);
+                    default:
+                        buttonSpinner.setSelection(0);
+
                         break;
                 }
             }
@@ -170,8 +171,8 @@ public class AppointmentListFragment extends Fragment implements ActionBar.OnNav
 
     public void goToCreateFollowUp()
     {
-        //Intent intent = new Intent(getActivity(), ReferralActivity.class);
-        //startActivity(intent);
+        Intent intent = new Intent(getActivity(), FollowUpListActivity.class);
+        startActivity(intent);
     }
 
 }

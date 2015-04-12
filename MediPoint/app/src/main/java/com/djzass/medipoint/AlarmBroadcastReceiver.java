@@ -12,6 +12,7 @@ import android.telephony.SmsManager;
 
 import com.djzass.medipoint.entity.Account;
 import com.djzass.medipoint.entity.Appointment;
+import com.djzass.medipoint.logic_manager.Container;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -28,17 +29,16 @@ public class AlarmBroadcastReceiver extends BroadcastReceiver {
         PowerManager.WakeLock wl = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "YOUR TAG");
         //Acquire the lock
         wl.acquire();
-
         Bundle extras = intent.getExtras();
         Appointment appointment = extras.getParcelable("appointment");
         Account account = extras.getParcelable("account");
-        String message = "Dear " + account.getName() + ",\n"
-                +appointment.getSpecialtyId() + " Appointment is on:\n"
-                + appointment.getDate() + " with " + appointment.getDoctorId() +".\n"
+        String message = "Dear " + account.getName()+ ",\n"
+                + Container.getAppointmentManager().getSpecialtyNameByAppointment(appointment, context) + " Appointment is on:\n"
+                + appointment.getDate() + " with " + Container.getAppointmentManager().getDoctorNameByAppointment(appointment, context) +".\n"
                 +"This is an automated message.Please do not reply";
         if ( appointment !=null){
             Notification mNotification = new Notification();
-            mNotification.buildNotification(context,"you have an appointment tomorrow");
+            mNotification.buildNotification(context,message,appointment);
             if(account.getNotifyEmail()==1 & account.getNotifySMS()==0) {
                 Email mEmail = new Email();
                 mEmail.sendMail(account.getEmail(),message);

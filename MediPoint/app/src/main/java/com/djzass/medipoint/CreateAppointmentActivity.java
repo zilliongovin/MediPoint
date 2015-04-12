@@ -3,12 +3,8 @@ package com.djzass.medipoint;
 
 import android.app.FragmentManager;
 import android.content.Intent;
-import android.content.pm.PackageInstaller;
-import android.database.Cursor;
 import android.os.Bundle;
-
-import android.os.Parcel;
-
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -25,7 +21,6 @@ import com.djzass.medipoint.entity.Doctor;
 import com.djzass.medipoint.entity.Service;
 import com.djzass.medipoint.entity.Specialty;
 import com.djzass.medipoint.entity.Timeframe;
-import com.djzass.medipoint.logic_database.AccountDAO;
 import com.djzass.medipoint.logic_database.AppointmentDAO;
 import com.djzass.medipoint.logic_database.ClinicDAO;
 import com.djzass.medipoint.logic_database.DoctorDAO;
@@ -35,6 +30,7 @@ import com.djzass.medipoint.logic_manager.AccountManager;
 import com.djzass.medipoint.logic_manager.Container;
 
 import java.sql.SQLException;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -45,19 +41,19 @@ public class CreateAppointmentActivity extends onDataPass implements AdapterView
     int clinicId = 1;
     int patientId;
     int doctorId;
-    Calendar date;
+    int referrerId;
+    Calendar date = Calendar.getInstance();
     int serviceId;
     int specialtyId = 1;
     int countryId = 1;
     int duration;
     String preAppointmentActions;
-    Timeframe timeframe;
-
+    Timeframe timeframe = new Timeframe(-1,-1);
+    long accountId;
 
     /*String NRIC;
     List<Account> accountList;
     AccountDAO macc;*/
-
 
     //spinner
     Spinner specialtySpinnerCreate;
@@ -78,35 +74,31 @@ public class CreateAppointmentActivity extends onDataPass implements AdapterView
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_appointment);
 
-        AlarmSetter as = new AlarmSetter();
-        Notification mnotification = new Notification();
-        mnotification.buildNotification(this,"appointment Created!");
-
-        Appointment appointment2 = new Appointment(Parcel.obtain());
-        Account account = new Account(Parcel.obtain());
-
+        referrerId = getIntent().getIntExtra("REFERRER_ID",-1);
+        date.setTimeInMillis(0);
         //specialty spinner and array adapter
         try {
             SessionManager sessionManager = new SessionManager(this);
             this.patientId = (int)sessionManager.getAccountId();
-            Toast.makeText(this,(String) "" + patientId,Toast.LENGTH_SHORT).show();
+            //Toast.makeText(this,(String) "" + patientId,Toast.LENGTH_SHORT).show();
 
-            specialtyDAO = new SpecialtyDAO(this);
-            specialities = specialtyDAO.getAllSpecialties();
+            specialities = Container.getSpecialtyManager().getSpecialtys(this);
             specialtySpinnerCreate = (Spinner) findViewById(R.id.CreateApptSpecialty);
             List<String> specialtyNames = new ArrayList<String>();
             for(Specialty s: specialities){
                 specialtyNames.add(s.getName());
             }
+            Log.d("Size",""+specialtyNames);
             ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_dropdown_item,specialtyNames);
             dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
             dataAdapter.notifyDataSetChanged();
+
+            accountId = sessionManager.getAccountId();
             specialtySpinnerCreate.setAdapter(dataAdapter);
             specialtySpinnerCreate.setOnItemSelectedListener(this);
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
 
         //country spinner and array adapter
         countrySpinnerCreate = (Spinner) findViewById(R.id.CreateApptCountries);
@@ -118,24 +110,17 @@ public class CreateAppointmentActivity extends onDataPass implements AdapterView
 
         //service spinner
         serviceSpinnerCreate = (Spinner) findViewById(R.id.CreateApptServices);
+        countrySpinnerCreate.setOnItemSelectedListener(this);
         //doctor spinner
         doctorSpinnerCreate = (Spinner) findViewById(R.id.CreateApptDoctors);
+        countrySpinnerCreate.setOnItemSelectedListener(this);
         //clinic location spinner
         clinicSpinnerCreate = (Spinner) findViewById(R.id.CreateApptLocations);
+        countrySpinnerCreate.setOnItemSelectedListener(this);
 
         confirmButton = (Button)findViewById(R.id.ConfirmCreateAppt);
         confirmButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View arg0) {
-                /*EditText usernameBox = (EditText) findViewById(R.id.enterUsernameTextbox);
-                EditText passwordBox = (EditText) findViewById(R.id.enterPasswordTextbox);
-                String username = usernameBox.getText().toString();
-                String password = passwordBox.getText().toString();
-                boolean isAuthenticated = Container.GlobalAccountManager.authenticate(username,password);
-                if(isAuthenticated==true){
-                    Container.GlobalAccountManager.login(username,password);
-                    loginSuccessful(username);
-                    goToMain();
-                    */
                 onClickCreateAppointment();
             }
         });
@@ -143,15 +128,8 @@ public class CreateAppointmentActivity extends onDataPass implements AdapterView
         cancelButton = (Button)findViewById(R.id.CancelCreateAppt);
         cancelButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View arg0) {
-                /*EditText usernameBox = (EditText) findViewById(R.id.enterUsernameTextbox);
-                EditText passwordBox = (EditText) findViewById(R.id.enterPasswordTextbox);
-                String username = usernameBox.getText().toString();
-                String password = passwordBox.getText().toString();
-                boolean isAuthenticated = Container.GlobalAccountManager.authenticate(username,password);
-                if(isAuthenticated==true){
-                    Container.GlobalAccountManager.login(username,password);
-                    loginSuccessful(username);
-                    goToMain(); */
+                Intent in = new Intent(getApplicationContext(), MainActivity.class);
+                startActivity(in);
             }
         });
     }
@@ -212,11 +190,13 @@ public class CreateAppointmentActivity extends onDataPass implements AdapterView
                     for (Service s : services) {
                         serviceNames.add(s.getName());
                     }
+                    Log.d("SSize",""+serviceNames);
                     ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, serviceNames);
                     dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                     dataAdapter.notifyDataSetChanged();
                     serviceSpinnerCreate.setAdapter(dataAdapter);
                     serviceSpinnerCreate.setOnItemSelectedListener(this);
+
 
                     //List<Doctor> doctors = ((Container)getApplicationContext()).getGlobalDoctorDAO().getDoctorBySpecialization(selection);
                     //List<Doctor> doctors = Container.GlobalDoctorDAO.getDoctorBySpecialization(selection);
@@ -235,6 +215,7 @@ public class CreateAppointmentActivity extends onDataPass implements AdapterView
                 } catch (SQLException e) {
                     e.printStackTrace();
                 }
+                resetTimePicker();
                 break;
 
             case R.id.CreateApptServices:
@@ -247,6 +228,7 @@ public class CreateAppointmentActivity extends onDataPass implements AdapterView
                         this.duration = s.getDuration();
                     }
                 }
+                resetTimePicker();
                 break;
 
             case R.id.CreateApptDoctors:
@@ -257,6 +239,7 @@ public class CreateAppointmentActivity extends onDataPass implements AdapterView
                         doctorId = d.getDoctorId();
                     }
                 }
+                resetTimePicker();
                 break;
 
             case R.id.CreateApptCountries:
@@ -294,10 +277,10 @@ public class CreateAppointmentActivity extends onDataPass implements AdapterView
                     doctorDataAdapter.notifyDataSetChanged();
                     doctorSpinnerCreate.setAdapter(doctorDataAdapter);
 
-
                 } catch (SQLException e) {
                     e.printStackTrace();
                 }
+                resetTimePicker();
                 break;
 
             case R.id.CreateApptLocations:
@@ -314,7 +297,7 @@ public class CreateAppointmentActivity extends onDataPass implements AdapterView
                         }
                     }
                     clinicId = clinicSelection;
-                    Toast.makeText(this,""+clinicId,Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(this,""+clinicId,Toast.LENGTH_SHORT).show();
                     DoctorDAO doctorDAO = new DoctorDAO(this);
                     doctors = doctorDAO.getDoctorsByClinicAndSpecialization(clinicSelection,specialtyId);
                     List<String> doctorNames = new ArrayList<String>();
@@ -326,7 +309,6 @@ public class CreateAppointmentActivity extends onDataPass implements AdapterView
                     doctorDataAdapter.notifyDataSetChanged();
                     doctorSpinnerCreate.setAdapter(doctorDataAdapter);
 
-
                     //List<Service> services = ((Container)getApplicationContext()).getGlobalServiceDAO().getServicesBySpecialtyID(selection);
                     //List<Service> services = Container.GlobalServiceDAO.getServicesBySpecialtyID(selection);
 
@@ -335,6 +317,7 @@ public class CreateAppointmentActivity extends onDataPass implements AdapterView
                 } catch (SQLException e) {
                     e.printStackTrace();
                 }
+                resetTimePicker();
                 break;
         }
 
@@ -398,6 +381,10 @@ public class CreateAppointmentActivity extends onDataPass implements AdapterView
     }
 
     public void showTimepicker(View v){
+        if (this.date.getTimeInMillis()==0){
+            Toast.makeText(this, "Please select a date ", Toast.LENGTH_SHORT).show();
+            return;
+        }
         FragmentManager manager = getFragmentManager();
         TimePickerFragment timepicker = new TimePickerFragment();
         Bundle bundle = new Bundle();
@@ -429,21 +416,38 @@ public class CreateAppointmentActivity extends onDataPass implements AdapterView
         Calendar currentDate = Calendar.getInstance();
         currentDate.add(Calendar.DATE, 1);
 
-        if (this.date.compareTo(currentDate)<0){
-            Toast.makeText(this, "You must book at least 24 hours in advance. "+this.date.getTime().toString(), Toast.LENGTH_SHORT).show();
-        } else {  
-            AccountManager accountManager = new AccountManager(this);
-            Appointment appointment = new Appointment(this.patientId, this.clinicId, this.specialtyId, this.serviceId, this.doctorId, this.date, this.timeframe);
-            long res = Container.getAppointmentManager().createAppointment(appointment, this);
-            if (res == -1) {
-                Notification notification = new Notification();
-                notification.buildNotification(this, "Appointment creation fail :C");
+        if (this.date.getTimeInMillis()==0){
+            Toast.makeText(this, "Please select a date ", Toast.LENGTH_SHORT).show();
+        } else if (this.timeframe.getStartTime()<0){
+            Toast.makeText(this, "Please select a time. ", Toast.LENGTH_SHORT).show();
+        } else {
+            this.date.set(Calendar.HOUR_OF_DAY,(this.timeframe.getStartTime()/2));
+            this.date.set(Calendar.MINUTE,30*(this.timeframe.getStartTime()%2));
+            if (this.date.compareTo(currentDate)<0){
+                Toast.makeText(this, "You must book at least 24 hours in advance. ", Toast.LENGTH_SHORT).show();
             } else {
-                AlarmSetter malarm = new AlarmSetter();
-                Notification notification = new Notification();
-                notification.buildNotification(this, "Appointment created.");
-                Intent goToMain = new Intent(this, MainActivity.class);
-                startActivity(goToMain);
+                AccountManager accountManager = new AccountManager(this);
+                Log.d("CalendarCreateC",this.date.toString());
+                Appointment appointment = new Appointment(this.patientId, this.clinicId, this.specialtyId, this.serviceId, this.doctorId, referrerId,this.date, this.timeframe);
+                Log.d("CalendarCreateA", appointment.getDate().toString());
+                long res = Container.getAppointmentManager().createAppointment(appointment, this);
+                if (res == -1) {
+                    Toast.makeText(this,"Appointment creation failed", Toast.LENGTH_SHORT).show();
+
+                } else {
+                    AlarmSetter malarm = new AlarmSetter();
+                    AccountManager mAcc = new AccountManager(this);
+                    Account account = new Account();
+                    try {
+                        account = mAcc.getAccountById(accountId);
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+                    malarm.setAlarm(getApplicationContext(),appointment,account);
+                /*Notification notification = new Notification();
+                notification.buildNotification(this, "Appointment created.",appointment);*/
+                    Intent goToMain = new Intent(this, MainActivity.class);
+                    startActivity(goToMain);
 /*            try {
                 malarm.setAlarm(this, appointment, accountManager.getAccountById(this.patientId));
 
@@ -452,13 +456,14 @@ public class CreateAppointmentActivity extends onDataPass implements AdapterView
                 Toast.makeText(this,"In Here",Toast.LENGTH_SHORT).show();
             }*/
 
+                }
             }
         }
     }
 
     private ArrayList<String> getTimePickerItems() {
         ArrayList<String> availableSlots = new ArrayList<String>();
-        Toast.makeText(this, this.date.getTime().toString(), Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this, this.date.getTime().toString(), Toast.LENGTH_SHORT).show();
         this.duration = Container.getServiceManager().getServiceDurationbyID(this.serviceId, this);
         List<Timeframe> temp = Container.getAppointmentManager().getAvailableTimeSlot(this.date, this.patientId, this.doctorId, this.clinicId, 18, 42, duration, this);
 
@@ -475,7 +480,15 @@ public class CreateAppointmentActivity extends onDataPass implements AdapterView
         if(getTimePickerItems().get(position)!="N/A"){
             btn.setText(getTimePickerItems().get(position));
             this.timeframe = new Timeframe(getTimePickerItems().get(position));
+        } else {
+            resetTimePicker();
         }
+    }
+
+    public void resetTimePicker(){
+        Button btn = (Button) findViewById(R.id.timepicker);
+        btn.setText("TAP TO CHOOSE TIME");
+        this.timeframe = new Timeframe(-1,-1);
     }
 
     @Override
@@ -483,6 +496,6 @@ public class CreateAppointmentActivity extends onDataPass implements AdapterView
         super.DatePickerFragmentToActivity(date,month,year,button);
         this.date = Calendar.getInstance();
         this.date.set(year,month,date);
-
+        resetTimePicker();
     }
 }
