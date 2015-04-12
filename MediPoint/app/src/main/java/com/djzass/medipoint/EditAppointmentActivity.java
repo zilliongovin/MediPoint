@@ -35,12 +35,12 @@ import java.util.List;
 /**
  * Created by Zillion Govin on 17/3/2015.
  */
-public class EditAppointmentActivity extends Activity implements AdapterView.OnItemSelectedListener {
+public class EditAppointmentActivity extends onDataPass implements AdapterView.OnItemSelectedListener {
 
     int clinicId = 1;
     int patientId;
     int doctorId;
-    Calendar date;
+    Calendar apptDate = Calendar.getInstance();
     int serviceId;
     int specialtyId = 1;
     int countryId = 1;
@@ -190,14 +190,7 @@ public class EditAppointmentActivity extends Activity implements AdapterView.OnI
                 dataAdapter.notifyDataSetChanged();
                 serviceSpinnerCreate.setAdapter(dataAdapter);
                 serviceSpinnerCreate.setSelection(dataAdapter.getPosition(Container.getServiceManager().getServiceNameByID(app.getServiceId(),this)));
-                String service = String.valueOf(serviceSpinnerCreate.getSelectedItem());
-                for (Service s : services) {
-                    if (service.equals(s.getName())) {
-                        this.serviceId = s.getId();
-                        this.preAppointmentActions = s.getPreAppointmentActions();
-                        this.duration = s.getDuration();
-                    }
-                }
+
                 //List<Doctor> doctors = ((Container)getApplicationContext()).getGlobalDoctorDAO().getDoctorBySpecialization(selection);
                 //List<Doctor> doctors = Container.GlobalDoctorDAO.getDoctorBySpecialization(selection);
 
@@ -206,17 +199,36 @@ public class EditAppointmentActivity extends Activity implements AdapterView.OnI
                 for (Doctor d : doctors) {
                     doctorNames.add(d.getName());
                 }
-                ArrayAdapter<String> doctorDataAdapter1 = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, doctorNames);
-                doctorDataAdapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                doctorDataAdapter1.notifyDataSetChanged();
-                doctorSpinnerCreate.setAdapter(doctorDataAdapter1);
+                ArrayAdapter<String> doctorDataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, doctorNames);
+                doctorDataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                doctorDataAdapter.notifyDataSetChanged();
+                doctorSpinnerCreate.setAdapter(doctorDataAdapter);
                 //doctorSpinnerCreate.setSelection(doctorDataAdapter.getPosition(Container.getDoctorManager().getDoctorById(app.getDoctorId(),this).get(0).getName()));
+
+                break;
+
+            case R.id.CreateApptServices:
+                services = Container.getServiceManager().getServicesBySpecialtyID(specialtyId,this);
+                String service = String.valueOf(serviceSpinnerCreate.getSelectedItem());
+                for (Service s : services) {
+                    if (service.equals(s.getName())) {
+                        this.serviceId = s.getId();
+                        this.preAppointmentActions = s.getPreAppointmentActions();
+                        this.duration = s.getDuration();
+                    }
+                }
+
+                break;
+
+            case R.id.CreateApptDoctors:
+                doctors = Container.getDoctorManager().getDoctorsByClinicAndSpecialization(clinicId,specialtyId,this);
                 String doctor = String.valueOf(doctorSpinnerCreate.getSelectedItem());
                 for (Doctor d : doctors) {
                     if (doctor.equals(d.getName())) {
                         doctorId = d.getDoctorId();
                     }
                 }
+
                 break;
 
 
@@ -247,18 +259,12 @@ public class EditAppointmentActivity extends Activity implements AdapterView.OnI
                 for (Doctor d : doctors) {
                     doctorNames.add(d.getName());
                 }
-                ArrayAdapter<String> doctorDataAdapter2 = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, doctorNames);
-                doctorDataAdapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                doctorDataAdapter2.notifyDataSetChanged();
-                doctorSpinnerCreate.setAdapter(doctorDataAdapter2);
+                doctorDataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, doctorNames);
+                doctorDataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                doctorDataAdapter.notifyDataSetChanged();
+                doctorSpinnerCreate.setAdapter(doctorDataAdapter);
                 //doctorSpinnerCreate.setSelection(doctorDataAdapter.getPosition(Container.getDoctorManager().getDoctorById(app.getDoctorId(),this).get(0).getName()));
-                String doctor2 = String.valueOf(doctorSpinnerCreate.getSelectedItem());
-                for (Doctor d : doctors) {
-                    if (doctor2.equals(d.getName())) {
-                        doctorId = d.getDoctorId();
-                    }
-                }
-                break;
+
 
 
             case R.id.EditApptLocations:
@@ -280,18 +286,11 @@ public class EditAppointmentActivity extends Activity implements AdapterView.OnI
                     for (Doctor d : doctors) {
                         doctorNames.add(d.getName());
                     }
-                    ArrayAdapter<String> doctorDataAdapter3 = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, doctorNames);
-                    doctorDataAdapter3.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                    doctorDataAdapter3.notifyDataSetChanged();
-                    doctorSpinnerCreate.setAdapter(doctorDataAdapter3);
+                    doctorDataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, doctorNames);
+                    doctorDataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                    doctorDataAdapter.notifyDataSetChanged();
+                    doctorSpinnerCreate.setAdapter(doctorDataAdapter);
                     //doctorSpinnerCreate.setSelection(doctorDataAdapter.getPosition(Container.getDoctorManager().getDoctorById(app.getDoctorId(),this).get(0).getName()));
-                    String doctor3 = String.valueOf(doctorSpinnerCreate.getSelectedItem());
-                    for (Doctor d : doctors) {
-                        if (doctor3.equals(d.getName())) {
-                            doctorId = d.getDoctorId();
-                        }
-                    }
-
                     //List<Service> services = ((Container)getApplicationContext()).getGlobalServiceDAO().getServicesBySpecialtyID(selection);
                     //List<Service> services = Container.GlobalServiceDAO.getServicesBySpecialtyID(selection);
 
@@ -397,6 +396,13 @@ public class EditAppointmentActivity extends Activity implements AdapterView.OnI
         DatePickerFragment datepicker = new DatePickerFragment();
         datepicker.setArguments(bundle);
         datepicker.show(manager, "Datepicker");
+    }
+
+    @Override
+    public void DatePickerFragmentToActivity(int date, int month, int year, Button button)
+    {
+        super.DatePickerFragmentToActivity(date,month,year,button);
+        apptDate.set(date,month,year);
     }
 }
 
