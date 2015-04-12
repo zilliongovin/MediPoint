@@ -61,6 +61,9 @@
         <activity android:name=".MedicalHistory"
             android:label="@string/med_his"/>
 
+        <activity android:name=".EditHistoryActivity"
+            android:label="@string/med_his"/>
+
         <activity
             android:name=".ViewAppointmentActivity"
             android:label="@string/app_name" >
