@@ -35,6 +35,7 @@ import com.djzass.medipoint.logic_manager.AccountManager;
 import com.djzass.medipoint.logic_manager.Container;
 
 import java.sql.SQLException;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -52,10 +53,8 @@ public class CreateAppointmentActivity extends onDataPass implements AdapterView
     String preAppointmentActions;
     Timeframe timeframe;
 
-    String NRIC;
-    List<Account> accountList;
+    long accountId;
 
-    AccountDAO macc;
 
     //spinner
     Spinner specialtySpinner_create;
@@ -76,13 +75,6 @@ public class CreateAppointmentActivity extends onDataPass implements AdapterView
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_appointment);
 
-        AlarmSetter as = new AlarmSetter();
-        Notification mnotification = new Notification();
-        mnotification.buildNotification(this,"appointment Created!");
-
-        Appointment appointment2 = new Appointment(Parcel.obtain());
-        Account account = new Account(Parcel.obtain());
-
         //specialty spinner and array adapter
         try {
             SessionManager sessionManager = new SessionManager(this);
@@ -101,10 +93,12 @@ public class CreateAppointmentActivity extends onDataPass implements AdapterView
             dataAdapter.notifyDataSetChanged();
             specialtySpinner_create.setAdapter(dataAdapter);
             specialtySpinner_create.setOnItemSelectedListener(this);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+            accountId = sessionManager.getAccountId();
 
+
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
 
         //country spinner and array adapter
         countrySpinner_create = (Spinner) findViewById(R.id.CreateApptCountries);
@@ -377,11 +371,19 @@ public class CreateAppointmentActivity extends onDataPass implements AdapterView
             long res = Container.getAppointmentManager().createAppointment(appointment, this);
             if (res == -1) {
                 Notification notification = new Notification();
-                notification.buildNotification(this, "Appointment creation fail :C");
+                notification.buildNotification(this, "Appointment creation fail :C",appointment);
             } else {
                 AlarmSetter malarm = new AlarmSetter();
-                Notification notification = new Notification();
-                notification.buildNotification(this, "Appointment created.");
+                AccountManager mAcc = new AccountManager(this);
+                Account account = new Account();
+                try {
+                    account = mAcc.getAccountById(accountId);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+                malarm.setAlarm(getApplicationContext(),appointment,account);
+                /*Notification notification = new Notification();
+                notification.buildNotification(this, "Appointment created.",appointment);*/
                 Intent goToMain = new Intent(this, MainActivity.class);
                 startActivity(goToMain);
 /*            try {
