@@ -418,13 +418,17 @@ public class CreateAppointmentActivity extends onDataPass implements AdapterView
         } else if (this.timeframe.getStartTime()<0){
             Toast.makeText(this, "Please select a time. ", Toast.LENGTH_SHORT).show();
         } else {
-            this.date.set(Calendar.HOUR,this.timeframe.getStartTime()/2);
+            Log.d("CalendarCreateB",this.date.toString());
+            this.date.set(Calendar.HOUR_OF_DAY,(this.timeframe.getStartTime()/2));
             this.date.set(Calendar.MINUTE,30*(this.timeframe.getStartTime()%2));
+            Log.d("CalendarCreateA",this.date.toString());
             if (this.date.compareTo(currentDate)<0){
                 Toast.makeText(this, "You must book at least 24 hours in advance. ", Toast.LENGTH_SHORT).show();
             } else {
                 AccountManager accountManager = new AccountManager(this);
+                Log.d("CalendarCreateC",this.date.toString());
                 Appointment appointment = new Appointment(this.patientId, this.clinicId, this.specialtyId, this.serviceId, this.doctorId, referrerId,this.date, this.timeframe);
+                Log.d("CalendarCreateA",appointment.getDate().toString());
                 long res = Container.getAppointmentManager().createAppointment(appointment, this);
                 if (res == -1) {
                     Toast.makeText(this,"Appointment creation failed", Toast.LENGTH_SHORT).show();
