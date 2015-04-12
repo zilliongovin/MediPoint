@@ -12,15 +12,6 @@
         android:spinnerMode="dialog"
         style="@style/buttonSpinnerStyle"/>
 
-
-    <ListView
-        android:id="@+id/customListView"
-        android:layout_height="match_parent"
-        android:layout_width="match_parent"
-        android:scrollbarStyle="outsideInset"
-        >
-
-    </ListView>
     <TextView
         android:layout_gravity="center_vertical|center_horizontal"
         android:layout_height="match_parent"
@@ -31,5 +22,15 @@
         >
 
     </TextView>
+
+    <ListView
+        android:id="@+id/customListView"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        android:scrollbarStyle="outsideInset"
+        >
+
+    </ListView>
+
 
 </LinearLayout>

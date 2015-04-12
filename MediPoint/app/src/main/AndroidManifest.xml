@@ -63,6 +63,10 @@
             android:name=".CreateFollowUpActivity"
             android:label="@string/title_activity_create_follow_up" >
         </activity>
+        <activity
+            android:name=".FollowUpListActivity"
+            android:label="@string/title_activity_follow_up_list" >
+        </activity>
     </application>
 
 </manifest>

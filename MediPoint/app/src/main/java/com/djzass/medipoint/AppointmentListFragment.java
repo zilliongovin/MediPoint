@@ -146,7 +146,9 @@ public class AppointmentListFragment extends Fragment implements ActionBar.OnNav
                     case "Follow Up":       buttonSpinner.setSelection(0);
                         goToCreateFollowUp();
                         break;
-                    default:                buttonSpinner.setSelection(0);
+                    default:
+                        buttonSpinner.setSelection(0);
+
                         break;
                 }
             }
