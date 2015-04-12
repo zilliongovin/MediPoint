@@ -211,6 +211,7 @@ public class CreateAppointmentActivity extends onDataPass implements AdapterView
                     doctorDataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                     doctorDataAdapter.notifyDataSetChanged();
                     doctorSpinnerCreate.setAdapter(doctorDataAdapter);
+                    doctorSpinnerCreate.setOnItemSelectedListener(this);
 
                 } catch (SQLException e) {
                     e.printStackTrace();
@@ -239,6 +240,7 @@ public class CreateAppointmentActivity extends onDataPass implements AdapterView
                         doctorId = d.getDoctorId();
                     }
                 }
+
                 resetTimePicker();
                 break;
 
@@ -276,6 +278,7 @@ public class CreateAppointmentActivity extends onDataPass implements AdapterView
                     doctorDataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                     doctorDataAdapter.notifyDataSetChanged();
                     doctorSpinnerCreate.setAdapter(doctorDataAdapter);
+                    doctorSpinnerCreate.setOnItemSelectedListener(this);
 
                 } catch (SQLException e) {
                     e.printStackTrace();
@@ -299,7 +302,7 @@ public class CreateAppointmentActivity extends onDataPass implements AdapterView
                     clinicId = clinicSelection;
                     //Toast.makeText(this,""+clinicId,Toast.LENGTH_SHORT).show();
                     DoctorDAO doctorDAO = new DoctorDAO(this);
-                    doctors = doctorDAO.getDoctorsByClinicAndSpecialization(clinicSelection,specialtyId);
+                    doctors = doctorDAO.getDoctorsByClinicAndSpecialization(clinicId,specialtyId);
                     List<String> doctorNames = new ArrayList<String>();
                     for (Doctor d : doctors) {
                         doctorNames.add(d.getName());
@@ -308,6 +311,7 @@ public class CreateAppointmentActivity extends onDataPass implements AdapterView
                     doctorDataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                     doctorDataAdapter.notifyDataSetChanged();
                     doctorSpinnerCreate.setAdapter(doctorDataAdapter);
+                    doctorSpinnerCreate.setOnItemSelectedListener(this);
 
                     //List<Service> services = ((Container)getApplicationContext()).getGlobalServiceDAO().getServicesBySpecialtyID(selection);
                     //List<Service> services = Container.GlobalServiceDAO.getServicesBySpecialtyID(selection);
@@ -415,6 +419,7 @@ public class CreateAppointmentActivity extends onDataPass implements AdapterView
         //Toast.makeText(this, "Button clicked.", Toast.LENGTH_SHORT).show();
         Calendar currentDate = Calendar.getInstance();
         currentDate.add(Calendar.DATE, 1);
+
 
         if (this.date.getTimeInMillis()==0){
             Toast.makeText(this, "Please select a date ", Toast.LENGTH_SHORT).show();
