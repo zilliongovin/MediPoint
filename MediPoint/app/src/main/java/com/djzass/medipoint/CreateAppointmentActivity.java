@@ -113,10 +113,13 @@ public class CreateAppointmentActivity extends onDataPass implements AdapterView
 
         //service spinner
         serviceSpinnerCreate = (Spinner) findViewById(R.id.CreateApptServices);
+        countrySpinnerCreate.setOnItemSelectedListener(this);
         //doctor spinner
         doctorSpinnerCreate = (Spinner) findViewById(R.id.CreateApptDoctors);
+        countrySpinnerCreate.setOnItemSelectedListener(this);
         //clinic location spinner
         clinicSpinnerCreate = (Spinner) findViewById(R.id.CreateApptLocations);
+        countrySpinnerCreate.setOnItemSelectedListener(this);
 
         confirmButton = (Button)findViewById(R.id.ConfirmCreateAppt);
         confirmButton.setOnClickListener(new View.OnClickListener() {
@@ -315,6 +318,14 @@ public class CreateAppointmentActivity extends onDataPass implements AdapterView
                 } catch (SQLException e) {
                     e.printStackTrace();
                 }
+                resetTimePicker();
+                break;
+
+            case R.id.CreateApptDoctors:
+                resetTimePicker();
+                break;
+            case R.id.CreateApptServices:
+                resetTimePicker();
                 break;
         }
 
@@ -418,17 +429,15 @@ public class CreateAppointmentActivity extends onDataPass implements AdapterView
         } else if (this.timeframe.getStartTime()<0){
             Toast.makeText(this, "Please select a time. ", Toast.LENGTH_SHORT).show();
         } else {
-            Log.d("CalendarCreateB",this.date.toString());
             this.date.set(Calendar.HOUR_OF_DAY,(this.timeframe.getStartTime()/2));
             this.date.set(Calendar.MINUTE,30*(this.timeframe.getStartTime()%2));
-            Log.d("CalendarCreateA",this.date.toString());
             if (this.date.compareTo(currentDate)<0){
                 Toast.makeText(this, "You must book at least 24 hours in advance. ", Toast.LENGTH_SHORT).show();
             } else {
                 AccountManager accountManager = new AccountManager(this);
                 Log.d("CalendarCreateC",this.date.toString());
                 Appointment appointment = new Appointment(this.patientId, this.clinicId, this.specialtyId, this.serviceId, this.doctorId, referrerId,this.date, this.timeframe);
-                Log.d("CalendarCreateA",appointment.getDate().toString());
+                Log.d("CalendarCreateA", appointment.getDate().toString());
                 long res = Container.getAppointmentManager().createAppointment(appointment, this);
                 if (res == -1) {
                     Toast.makeText(this,"Appointment creation failed", Toast.LENGTH_SHORT).show();
@@ -479,6 +488,8 @@ public class CreateAppointmentActivity extends onDataPass implements AdapterView
         if(getTimePickerItems().get(position)!="N/A"){
             btn.setText(getTimePickerItems().get(position));
             this.timeframe = new Timeframe(getTimePickerItems().get(position));
+        } else {
+            resetTimePicker();
         }
     }
 
@@ -493,6 +504,6 @@ public class CreateAppointmentActivity extends onDataPass implements AdapterView
         super.DatePickerFragmentToActivity(date,month,year,button);
         this.date = Calendar.getInstance();
         this.date.set(year,month,date);
-
+        resetTimePicker();
     }
 }
