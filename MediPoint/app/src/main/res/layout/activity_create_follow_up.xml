@@ -17,7 +17,7 @@
             style="@style/TextviewLayout"/>
 
         <TextView
-            android:id="@+id/CreateApptCountries"
+            android:id="@+id/FollowUpCountries"
             android:text="Singapore"
             style="@style/TextAppearance.AppCompat.Large"
             android:layout_height="wrap_content"
@@ -31,9 +31,14 @@
             android:text="@string/select_location"
             style="@style/TextviewLayout"/>
 
-        <Spinner
-            android:id="@+id/CreateApptLocations"
-            style="@style/MySpinner"/>
+        <TextView
+            android:id="@+id/FollowUpLocations"
+            android:text="Dj Zass HealthCare Clinic"
+            style="@style/TextAppearance.AppCompat.Large"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="5dp" />
 
         <!--list of specialties-->
         <TextView
@@ -67,9 +72,15 @@
             android:text="@string/select_doctor"
             style="@style/TextviewLayout"/>
 
-        <Spinner
-            android:id="@+id/CreateApptDoctors"
-            style="@style/MySpinner"/>
+        <TextView
+            android:id="@+id/FollowUpDoctors"
+            android:text="TestFollowUp"
+            style="@style/TextAppearance.AppCompat.Large"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="5dp"
+            />
 
         <!-- Date -->
         <LinearLayout
