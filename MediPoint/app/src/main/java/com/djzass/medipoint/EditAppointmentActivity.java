@@ -41,7 +41,7 @@ public class EditAppointmentActivity extends onDataPass implements AdapterView.O
     int patientId;
     int doctorId;
     Calendar apptDate = Calendar.getInstance();
-    int serviceId;
+    int serviceId = 1;
     int specialtyId = 1;
     int countryId = 1;
     int duration;
@@ -190,6 +190,8 @@ public class EditAppointmentActivity extends onDataPass implements AdapterView.O
                 dataAdapter.notifyDataSetChanged();
                 serviceSpinnerCreate.setAdapter(dataAdapter);
                 serviceSpinnerCreate.setSelection(dataAdapter.getPosition(Container.getServiceManager().getServiceNameByID(app.getServiceId(),this)));
+                serviceSpinnerCreate.setOnItemSelectedListener(this);
+                this.serviceId = app.getServiceId();
 
                 //List<Doctor> doctors = ((Container)getApplicationContext()).getGlobalDoctorDAO().getDoctorBySpecialization(selection);
                 //List<Doctor> doctors = Container.GlobalDoctorDAO.getDoctorBySpecialization(selection);
@@ -439,7 +441,7 @@ public class EditAppointmentActivity extends onDataPass implements AdapterView.O
     private ArrayList<String> getTimePickerItems() {
         ArrayList<String> availableSlots = new ArrayList<String>();
         //Toast.makeText(this, this.date.getTime().toString(), Toast.LENGTH_SHORT).show();
-        Log
+
         this.duration = Container.getServiceManager().getServiceDurationbyID(this.serviceId, this);
         List<Timeframe> temp = Container.getAppointmentManager().getAvailableTimeSlot(this.apptDate, this.patientId, this.doctorId, this.clinicId, 18, 42, duration, this);
 

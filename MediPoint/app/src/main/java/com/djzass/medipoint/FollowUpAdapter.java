@@ -54,7 +54,7 @@ public class FollowUpAdapter extends ArrayAdapter<Appointment> {
             viewHolder = (ViewHolder)convertView.getTag();
         }
 
-        HashMap<String,String> appointmentDetails = getAppointmentDetails(appointment.getId());
+        HashMap<String,String> appointmentDetails = getAppointmentDetails(appointment);
 
         // Populate the data into the template view using the data object
 
@@ -77,7 +77,7 @@ public class FollowUpAdapter extends ArrayAdapter<Appointment> {
         return R.mipmap.icontp_medipoint;
     }
 
-    public HashMap<String,String> getAppointmentDetails(int id){
+    public HashMap<String,String> getAppointmentDetails(Appointment appointment){
         /*Appointment appointment = appointmentManager.getAppointmentByID(id, getContext() );
         String specialtyName = appointmentManager.getSpecialtyNameByAppointment(appointment, getContext());
         String serviceName = appointmentManager.getServiceNameByAppointment(appointment, getContext());
@@ -93,7 +93,7 @@ public class FollowUpAdapter extends ArrayAdapter<Appointment> {
         appointmentDetails.put("DATE",appointment.getDateString());
         appointmentDetails.put("TIME",appointment.getTimeString());
         appointmentDetails.put("STATUS",status);*/
-        Appointment appointment = Container.getAppointmentManager().getAppointmentByID(id, getContext());
+        //Appointment appointment = Container.getAppointmentManager().getAppointmentByID(id, getContext());
         HashMap<String, String> appointmentDetails = new HashMap<String, String>();
         appointmentDetails.put("SPECIALTY_NAME",Container.getAppointmentManager().getSpecialtyNameByAppointment(appointment,getContext()));
         appointmentDetails.put("SERVICE_NAME",Container.getAppointmentManager().getServiceNameByAppointment(appointment, getContext()));
