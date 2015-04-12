@@ -3,6 +3,8 @@ package com.djzass.medipoint;
 
 import android.app.FragmentManager;
 import android.content.Intent;
+import android.content.pm.PackageInstaller;
+import android.database.Cursor;
 import android.os.Bundle;
 
 import android.os.Parcel;
@@ -23,6 +25,7 @@ import com.djzass.medipoint.entity.Doctor;
 import com.djzass.medipoint.entity.Service;
 import com.djzass.medipoint.entity.Specialty;
 import com.djzass.medipoint.entity.Timeframe;
+import com.djzass.medipoint.logic_database.AccountDAO;
 import com.djzass.medipoint.logic_database.AppointmentDAO;
 import com.djzass.medipoint.logic_database.ClinicDAO;
 import com.djzass.medipoint.logic_database.DoctorDAO;
@@ -48,6 +51,11 @@ public class CreateAppointmentActivity extends onDataPass implements AdapterView
     int duration;
     String preAppointmentActions;
     Timeframe timeframe;
+
+    String NRIC;
+    List<Account> accountList;
+
+    AccountDAO macc;
 
     //spinner
     Spinner specialtySpinner_create;
@@ -373,7 +381,26 @@ public class CreateAppointmentActivity extends onDataPass implements AdapterView
             Notification notification = new Notification();
             notification.buildNotification(this, "Appointment creation fail :C");
         } else {
+            try {
+                SessionManager mSm = new SessionManager(this);
+                macc = new AccountDAO(this);
+
+                long id = mSm.getAccountId();
+                Cursor cursor = macc.getAccountById(id);
+                NRIC = cursor.getString(2);
+
+                accountList = macc.getAccountByNRIC(NRIC);
+
+
+
+
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            Account maccount = accountList.get(0);
+
             AlarmSetter malarm = new AlarmSetter();
+            malarm.setAlarm(getApplicationContext(),appointment,maccount);
             Notification notification = new Notification();
             notification.buildNotification(this, "Appointment created.");
             Intent goToMain = new Intent(this, MainActivity.class);
