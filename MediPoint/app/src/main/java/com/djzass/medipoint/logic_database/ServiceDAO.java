@@ -150,16 +150,16 @@ public class ServiceDAO extends DbDAO{
         if (getServiceCount()==0){ //0-4: ent, dental, women, gm
             insertService(new Service("General",1, 1));
             insertService(new Service("Periodic ENT", 1, 1));
-            insertService(new Service("OSA", 1, 2));
+            insertService(new Service("OSA", 1, 2,"1. Sleep Diary\n2.Avoid Alcohol"));
             insertService(new Service("Otology", 1, 4));
 
             insertService(new Service("Routine Scaling", 2, 1));
             insertService(new Service("Polishing", 2, 2));
             insertService(new Service("Fillings", 2, 2));
-            insertService(new Service("Tooth Extraction", 2, 4));
+            insertService(new Service("Tooth Extraction", 2, 4,"1.X-Ray of Tooth"));
             insertService(new Service("Root Canal", 2, 6));
 
-            insertService(new Service("Gynecologists", 3, 2));
+            insertService(new Service("Gynecologists", 3, 2,"1.Avoid Sex the Night Before\n2.Urine Test"));
             insertService(new Service("Obstetrician", 3, 2));
 
             insertService(new Service("Dietetic Services", 4, 2));
