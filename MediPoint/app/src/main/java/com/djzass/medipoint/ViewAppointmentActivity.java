@@ -29,6 +29,8 @@ public class ViewAppointmentActivity extends Activity {
 
         Bundle b = getIntent().getExtras();
         app = b.getParcelable("appObj");
+        Log.d("ViewApp",app.getPreAppointmentActions());
+        Log.d("ViewService",Container.getServiceManager().getServicesByID(app.getServiceId(), this).get(0).print());
 
         TextView specialtyName = (TextView) findViewById(R.id.viewSpecialty);
         specialtyName.setText(Container.getAppointmentManager().getSpecialtyNameByAppointment(app,this));
@@ -44,6 +46,8 @@ public class ViewAppointmentActivity extends Activity {
         appointmentLocation.setText(Container.getAppointmentManager().getClinicNameByAppointment(app,this));
         TextView doctorName = (TextView) findViewById(R.id.viewDoctor);
         doctorName.setText(Container.getAppointmentManager().getDoctorNameByAppointment(app,this));
+        TextView preAppointmentActions = (TextView) findViewById(R.id.viewPreAppointmentActions);
+        preAppointmentActions.setText(app.getPreAppointmentActions());
         ImageView specialtyIcon = (ImageView)findViewById(R.id.specialty_icon);
         specialtyIcon.setImageResource(getImageId(Container.getAppointmentManager().getSpecialtyNameByAppointment(app,this)));
     }
