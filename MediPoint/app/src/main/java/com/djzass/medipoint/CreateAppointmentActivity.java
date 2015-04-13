@@ -432,10 +432,7 @@ public class CreateAppointmentActivity extends onDataPass implements AdapterView
                 Toast.makeText(this, "You must book at least 24 hours in advance. ", Toast.LENGTH_SHORT).show();
             } else {
                 AccountManager accountManager = new AccountManager(this);
-                Log.d("AppCreateC",Container.getServiceManager().getServicePreappbyID(this.serviceId, this));
-                Log.d("Service",Container.getServiceManager().getServicesByID(this.serviceId, this).get(0).print());
                 Appointment appointment = new Appointment(this.patientId, this.clinicId, this.specialtyId, this.serviceId, this.doctorId, referrerId,this.date, this.timeframe, Container.getServiceManager().getServicePreappbyID(this.serviceId, this));
-                Log.d("AppCreateA",Container.getServiceManager().getServicePreappbyID(this.serviceId, this));
                 long res = Container.getAppointmentManager().createAppointment(appointment, this);
                 if (res == -1) {
                     Toast.makeText(this,"Appointment creation failed", Toast.LENGTH_SHORT).show();

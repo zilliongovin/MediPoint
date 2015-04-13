@@ -357,10 +357,8 @@ public class EditAppointmentActivity extends onDataPass implements AdapterView.O
                 } catch (SQLException e) {
                     e.printStackTrace();
                 }
-                Log.d("CalendarCreateC",this.apptDate.toString());
-                Appointment appointment = new Appointment(this.patientId, this.clinicId, this.specialtyId, this.serviceId, this.doctorId, referrerId,this.apptDate, this.timeframe);
+                Appointment appointment = new Appointment(this.patientId, this.clinicId, this.specialtyId, this.serviceId, this.doctorId, referrerId,this.apptDate, this.timeframe, Container.getServiceManager().getServicePreappbyID(this.serviceId, this));
                 appointment.setId(app.getId());
-                Log.d("CalendarCreateA", appointment.getDate().toString());
                 long res = Container.getAppointmentManager().editAppointment(appointment, this);
                 if (res == -1) {
                     //Toast.makeText(this,(String) "DoctorId " + doctorId, Toast.LENGTH_SHORT).show();
