@@ -433,7 +433,7 @@ public class CreateAppointmentActivity extends onDataPass implements AdapterView
             } else {
                 AccountManager accountManager = new AccountManager(this);
                 Log.d("CalendarCreateC",this.date.toString());
-                Appointment appointment = new Appointment(this.patientId, this.clinicId, this.specialtyId, this.serviceId, this.doctorId, referrerId,this.date, this.timeframe);
+                Appointment appointment = new Appointment(this.patientId, this.clinicId, this.specialtyId, this.serviceId, this.doctorId, referrerId,this.date, this.timeframe, Container.getServiceManager().getServicePreappbyID(this.serviceId, this));
                 Log.d("CalendarCreateA", appointment.getDate().toString());
                 long res = Container.getAppointmentManager().createAppointment(appointment, this);
                 if (res == -1) {

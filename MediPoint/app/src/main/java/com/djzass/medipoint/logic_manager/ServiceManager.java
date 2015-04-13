@@ -67,6 +67,12 @@ public class ServiceManager {
         return temp.get(0).getDuration();
     }
 
+    public String getServicePreappbyID(int serviceid, Context context){
+        updateServiceDao(context);
+        List<Service> temp = serviceDao.getServicesByID(serviceid);
+        return temp.get(0).getPreAppointmentActions();
+    }
+
     /**
      * insert @param service to database with context @param context   
      * @return row no, -1 if fail
