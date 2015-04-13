@@ -71,10 +71,10 @@ public class EditAppointmentActivity extends onDataPass implements AdapterView.O
         Bundle b = getIntent().getExtras();
         Appointment app = b.getParcelable("appFromView");
         referrerId = app.getReferrerId();
-        Toast.makeText(this,app.toString(),Toast.LENGTH_LONG).show();
+        //Toast.makeText(this,app.toString(),Toast.LENGTH_LONG).show();
 
-        Toast.makeText(this,(String) ""+app.getClinicId(),Toast.LENGTH_SHORT).show();
-        Toast.makeText(this,(String) ""+app.getSpecialtyId(),Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this,(String) ""+app.getClinicId(),Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this,(String) ""+app.getSpecialtyId(),Toast.LENGTH_SHORT).show();
 
         specialities = Container.getSpecialtyManager().getSpecialtys(this);
         specialtySpinnerCreate = (Spinner) findViewById(R.id.EditApptSpecialty);
@@ -361,7 +361,7 @@ public class EditAppointmentActivity extends onDataPass implements AdapterView.O
                 Log.d("CalendarCreateA", appointment.getDate().toString());
                 long res = Container.getAppointmentManager().editAppointment(appointment, this);
                 if (res == -1) {
-                    Toast.makeText(this,(String) "DoctorId " + doctorId, Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(this,(String) "DoctorId " + doctorId, Toast.LENGTH_SHORT).show();
                     Toast.makeText(this,"Appointment creation failed", Toast.LENGTH_SHORT).show();
 
                 } else {

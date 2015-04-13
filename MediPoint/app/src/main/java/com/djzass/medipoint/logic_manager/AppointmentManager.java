@@ -258,6 +258,7 @@ public class AppointmentManager {
         // update appointment according to its id in database
         // update arraylist of appointment appointments = getAppointmentFromDatabase()
         updateAppointmentDao(context);
+        Log.d("updateAppMngr",app.toString());
         long ret = appointmentDao.update(app);
         appointments = getAppointments(context);
         return ret;
