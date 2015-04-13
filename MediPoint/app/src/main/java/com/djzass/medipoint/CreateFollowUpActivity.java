@@ -24,6 +24,7 @@ import com.djzass.medipoint.logic_database.ServiceDAO;
 import com.djzass.medipoint.logic_manager.AccountManager;
 import com.djzass.medipoint.logic_manager.Container;
 
+import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -35,6 +36,7 @@ public class CreateFollowUpActivity extends onDataPass implements AdapterView.On
     Calendar apptDate = Calendar.getInstance();
     Timeframe timeframe = new Timeframe(-1,-1);
     int duration;
+    int specialtyId;
     int serviceId;
     int patientId;
     int doctorId;
@@ -44,11 +46,20 @@ public class CreateFollowUpActivity extends onDataPass implements AdapterView.On
     List<String> serviceNames = new ArrayList<String>();
     Button confirmButton;
     Button cancelButton;
+    long accountId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_follow_up);
+
+        SessionManager sessionManager = new SessionManager(this);
+        try {
+            this.patientId = (int)sessionManager.getAccountId();
+            this.accountId = sessionManager.getAccountId();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
 
         Bundle b = getIntent().getExtras();
         Appointment app = b.getParcelable("appFollowUp");
@@ -61,6 +72,11 @@ public class CreateFollowUpActivity extends onDataPass implements AdapterView.On
         TextView specialty = (TextView) findViewById(R.id.FollowUpSpecialty);
         specialty.setText(Container.getAppointmentManager().getSpecialtyNameByAppointment(app,this));
 
+
+        this.specialtyId = app.getSpecialtyId();
+        this.serviceId = app.getServiceId();
+        this.doctorId = app.getDoctorId();
+        this.clinicId = app.getClinicId();
         //service spinner
         serviceSpinnerCreate = (Spinner) findViewById(R.id.CreateFollowUpServices);
         services = Container.getServiceManager().getServicesBySpecialtyID(app.getSpecialtyId(), this);
@@ -145,7 +161,7 @@ public class CreateFollowUpActivity extends onDataPass implements AdapterView.On
     public void DatePickerFragmentToActivity(int date, int month, int year, Button button)
     {
         super.DatePickerFragmentToActivity(date,month,year,button);
-        apptDate.set(date,month,year);
+        apptDate.set(year,month,date);
     }
 
     public void onTimeButtonSelected(View v){
@@ -195,19 +211,23 @@ public class CreateFollowUpActivity extends onDataPass implements AdapterView.On
         Calendar currentDate = Calendar.getInstance();
         currentDate.add(Calendar.DATE, 1);
 
-        if (this.date.getTimeInMillis()==0){
+        if (this.apptDate.getTimeInMillis()==0){
             Toast.makeText(this, "Please select a date ", Toast.LENGTH_SHORT).show();
         } else if (this.timeframe.getStartTime()<0){
             Toast.makeText(this, "Please select a time. ", Toast.LENGTH_SHORT).show();
         } else {
-            this.date.set(Calendar.HOUR_OF_DAY,(this.timeframe.getStartTime()/2));
-            this.date.set(Calendar.MINUTE,30*(this.timeframe.getStartTime()%2));
-            if (this.date.compareTo(currentDate)<0){
+            this.apptDate.set(Calendar.HOUR_OF_DAY, (this.timeframe.getStartTime() / 2));
+            this.apptDate.set(Calendar.MINUTE,30*(this.timeframe.getStartTime()%2));
+            if (this.apptDate.compareTo(currentDate)<0){
                 Toast.makeText(this, "You must book at least 24 hours in advance. ", Toast.LENGTH_SHORT).show();
             } else {
                 AccountManager accountManager = new AccountManager(this);
-                Log.d("CalendarCreateC",this.date.toString());
-                Appointment appointment = new Appointment(this.patientId, this.clinicId, this.specialtyId, this.serviceId, this.doctorId, referrerId,this.date, this.timeframe);
+                Log.d("CalendarCreateC",this.apptDate.toString());
+                Appointment appointment = new Appointment(this.patientId, this.clinicId, this.specialtyId, this.serviceId, this.doctorId, -1, this.apptDate, this.timeframe, Container.getServiceManager().getServicePreappbyID(this.serviceId, this));
+
+                Log.d("AppCreateFUPSPe",""+appointment.getSpecialtyId());
+                Log.d("AppCreateFUPSer",""+appointment.getServiceId());
+                Log.d("AppCreateFUPDoc",""+appointment.getDoctorId());
                 Log.d("CalendarCreateA", appointment.getDate().toString());
                 long res = Container.getAppointmentManager().createAppointment(appointment, this);
                 if (res == -1) {

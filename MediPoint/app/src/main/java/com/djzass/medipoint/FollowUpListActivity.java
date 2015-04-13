@@ -35,7 +35,7 @@ public class FollowUpListActivity extends Activity {
             e.printStackTrace();
         }
 
-        ArrayList<Appointment> appointments = (ArrayList<Appointment>) appointmentManager.getPatientRecentAppointments(this.patientId, Calendar.getInstance(), this);
+        ArrayList<Appointment> appointments = (ArrayList<Appointment>) appointmentManager.sortByDate(appointmentManager.getPatientRecentAppointments(this.patientId, Calendar.getInstance(), this));
         //appointments = appointmentManager.getAppointments(this.getApplicationContext())
         TextView tv = (TextView)findViewById(R.id.noPastAppoinment);
         if (appointments.size() > 0) {

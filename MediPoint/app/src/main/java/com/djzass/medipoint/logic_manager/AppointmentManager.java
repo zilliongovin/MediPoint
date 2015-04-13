@@ -175,7 +175,7 @@ public class AppointmentManager {
         appointments = appointmentDao.getAllAppointments();
         for (Appointment temp : appointments) {
             if (temp.getPatientId() == patient) {
-                if (Container.daysBetween(temp.getDate(),currentTime)>30) ret.add(temp);
+                if (Container.daysBetween(temp.getDate(),currentTime)<=30) ret.add(temp);
             }
         }
 
