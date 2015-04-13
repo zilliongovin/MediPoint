@@ -37,7 +37,7 @@ public class CreateFollowUpActivity extends onDataPass implements SelectionListe
         Bundle b = getIntent().getExtras();
         Appointment app = b.getParcelable("appFollowUp");
         TextView country = (TextView) findViewById(R.id.FollowUpCountry);
-        country.setText(Container.getClinicManager().getClinicsByID(app.getId(),this).get(0).getCountry());
+        country.setText(Container.getClinicManager().getClinicsByID(app.getClinicId(),this).get(0).getCountry());
         TextView location = (TextView) findViewById(R.id.FollowUpLocation);
         location.setText(Container.getAppointmentManager().getClinicNameByAppointment(app,this));
         TextView doctor = (TextView) findViewById(R.id.FollowUpDoctor);

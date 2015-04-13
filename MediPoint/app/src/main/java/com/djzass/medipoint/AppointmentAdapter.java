@@ -2,6 +2,7 @@ package com.djzass.medipoint;
 
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -57,6 +58,7 @@ public class AppointmentAdapter extends ArrayAdapter<Appointment> {
             viewHolder = (ViewHolder)convertView.getTag();
         }
 
+        Log.d("IDno", ""+appointment.getId());
         HashMap<String,String> appointmentDetails = getAppointmentDetails(appointment.getId());
 
         // Populate the data into the template view using the data object

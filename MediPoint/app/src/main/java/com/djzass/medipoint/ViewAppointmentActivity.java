@@ -28,7 +28,6 @@ public class ViewAppointmentActivity extends Activity {
 
         Bundle b = getIntent().getExtras();
         app = b.getParcelable("appObj");
-        Log.d("CalendarInViewParcA", "" + app.getDate().toString());
 
         TextView specialtyName = (TextView) findViewById(R.id.viewSpecialty);
         specialtyName.setText(Container.getAppointmentManager().getSpecialtyNameByAppointment(app,this));
@@ -37,9 +36,7 @@ public class ViewAppointmentActivity extends Activity {
         TextView appointmentStatus = (TextView) findViewById(R.id.viewStatus);
         appointmentStatus.setText(Container.getAppointmentManager().getStatus(app));
         TextView appointmentDate = (TextView) findViewById(R.id.viewDate);
-        Log.d("CalendarInViewParcB", "" + app.getDate().toString());
         appointmentDate.setText(app.getDateString());
-        Log.d("CalendarInViewParcC", "" + app.getDate().toString());
         TextView appointmentTime = (TextView) findViewById(R.id.viewTime);
         appointmentTime.setText(app.getTimeString());
         TextView appointmentLocation = (TextView) findViewById(R.id.viewLocation);
