@@ -12,6 +12,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.djzass.medipoint.entity.Appointment;
 import com.djzass.medipoint.logic_manager.Container;
@@ -30,12 +31,12 @@ public class ViewAppointmentActivity extends Activity {
         Bundle b = getIntent().getExtras();
         app = b.getParcelable("appObj");
         Log.d("ViewApp",app.getPreAppointmentActions());
-        Log.d("ViewService",Container.getServiceManager().getServicesByID(app.getServiceId(), this).get(0).print());
+        Log.d("ViewService", Container.getServiceManager().getServicesByID(app.getServiceId(), this).get(0).print());
 
         TextView specialtyName = (TextView) findViewById(R.id.viewSpecialty);
         specialtyName.setText(Container.getAppointmentManager().getSpecialtyNameByAppointment(app,this));
         TextView serviceName = (TextView) findViewById(R.id.viewService);
-        serviceName.setText(Container.getAppointmentManager().getServiceNameByAppointment(app,this));
+        serviceName.setText(Container.getAppointmentManager().getServiceNameByAppointment(app, this));
         TextView appointmentStatus = (TextView) findViewById(R.id.viewStatus);
         appointmentStatus.setText(Container.getAppointmentManager().getStatus(app));
         TextView appointmentDate = (TextView) findViewById(R.id.viewDate);
@@ -43,9 +44,9 @@ public class ViewAppointmentActivity extends Activity {
         TextView appointmentTime = (TextView) findViewById(R.id.viewTime);
         appointmentTime.setText(app.getTimeString());
         TextView appointmentLocation = (TextView) findViewById(R.id.viewLocation);
-        appointmentLocation.setText(Container.getAppointmentManager().getClinicNameByAppointment(app,this));
+        appointmentLocation.setText(Container.getAppointmentManager().getClinicNameByAppointment(app, this));
         TextView doctorName = (TextView) findViewById(R.id.viewDoctor);
-        doctorName.setText(Container.getAppointmentManager().getDoctorNameByAppointment(app,this));
+        doctorName.setText(Container.getAppointmentManager().getDoctorNameByAppointment(app, this));
         TextView preAppointmentActions = (TextView) findViewById(R.id.viewPreAppointmentActions);
         preAppointmentActions.setText(app.getPreAppointmentActions());
         ImageView specialtyIcon = (ImageView)findViewById(R.id.specialty_icon);
@@ -85,6 +86,7 @@ public class ViewAppointmentActivity extends Activity {
         Container.getAppointmentManager().cancelAppointment(app, this);
         AlarmSetter mAlarm = new AlarmSetter();
         mAlarm.cancelAlarm(getApplicationContext(),app);
+        Toast.makeText(this, "Appointment deleted", Toast.LENGTH_SHORT).show();
         Intent in = new Intent(this, MainActivity.class);
         startActivity(in);
     }
