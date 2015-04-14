@@ -81,7 +81,7 @@ public class AppointmentManager {
                  temp.getDate().get(Calendar.MONTH) == date.get(Calendar.MONTH) &&
                  temp.getDate().get(Calendar.DATE) == date.get(Calendar.DATE) &&
                 (temp.getPatientId() == patient || temp.getDoctorId() == doctor)) {
-                for (int i=temp.getTimeframe().getStartTime(); i<=temp.getTimeframe().getEndTime(); ++i){
+                for (int i=temp.getTimeframe().getStartTime(); i<temp.getTimeframe().getEndTime(); ++i){
                     ret.set(i,false);
                 }
             }
@@ -130,7 +130,7 @@ public class AppointmentManager {
         updateAppointmentDao(context);
         List<Appointment> ret = new ArrayList<Appointment>();
 
-        appointments = appointmentDao.getAllAppointments();
+        appointments = appointmentDao.getAppointmentsByPatientID(patient);
         for (Appointment temp : appointments) {
             if (temp.getPatientId() == patient) {
                 ret.add(temp);
@@ -175,7 +175,7 @@ public class AppointmentManager {
         appointments = appointmentDao.getAllAppointments();
         for (Appointment temp : appointments) {
             if (temp.getPatientId() == patient) {
-                if (Container.daysBetween(temp.getDate(),currentTime)<=30) ret.add(temp);
+                if (Container.daysBetween(temp.getDate(),currentTime)>30) ret.add(temp);
             }
         }
 
@@ -226,8 +226,8 @@ public class AppointmentManager {
     public String getStatus(Appointment appointment){
         Calendar startTime = appointment.getDate();
         Calendar currentTime = Calendar.getInstance();
-        startTime.set(Calendar.HOUR, Timeframe.getHour(appointment.getTimeframe().getStartTime()));
-        startTime.set(Calendar.MINUTE, Timeframe.getMinute(appointment.getTimeframe().getStartTime()));
+        startTime.set(Calendar.HOUR, (Timeframe.getHour(appointment.getTimeframe().getStartTime())/2));
+        startTime.set(Calendar.MINUTE, 30*(Timeframe.getMinute(appointment.getTimeframe().getStartTime())%2));
 
 
         if (currentTime.compareTo(startTime) < 0) {
@@ -236,8 +236,8 @@ public class AppointmentManager {
         } else {
             //current time is after starttime
             Calendar endTime = appointment.getDate();
-            endTime.set(Calendar.HOUR, Timeframe.getHour(appointment.getTimeframe().getEndTime()));
-            endTime.set(Calendar.MINUTE, Timeframe.getMinute(appointment.getTimeframe().getEndTime()));
+            endTime.set(Calendar.HOUR, (Timeframe.getHour(appointment.getTimeframe().getStartTime())/2));
+            endTime.set(Calendar.MINUTE, 30*(Timeframe.getMinute(appointment.getTimeframe().getStartTime())%2));
             if (currentTime.compareTo(endTime) < 0) return "Ongoing";
             else return "Finished";
         }
@@ -247,6 +247,7 @@ public class AppointmentManager {
     public long createAppointment(Appointment app, Context context){
         //insert to database
         // update arraylist of appointment appointments = getAppointmentFromDatabase()
+        Log.d("CalendarCreateInMngr",app.getDate().toString());
         updateAppointmentDao(context);
         long ret = appointmentDao.insertAppointment(app);
         appointments = getAppointments(context);

@@ -1,34 +1,31 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-    android:orientation="vertical"
-    android:layout_height="match_parent"
+    android:layout_height="match_parent" android:orientation="vertical"
     android:layout_marginTop="30dp"
-    tools:context=".MainActivity">
-
-
-    <Spinner
-        android:layout_gravity="center_horizontal"
-        android:id="@+id/buttonSpinner"
-        android:spinnerMode="dialog"
-        style="@style/buttonSpinnerStyle"/>
+    >
 
     <TextView
+        android:paddingTop="?android:attr/actionBarSize"
         android:layout_gravity="center"
         android:layout_height="match_parent"
         android:layout_width="match_parent"
         android:text="No Appointment Available."
-        android:id="@+id/noAppointmentText"
+        android:id="@+id/noPastAppoinment"
         android:visibility="gone"
         />
-
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Please select an appointment below for the follow up."
+        style="@style/TextviewLayout"
+        />
     <ListView
-        android:id="@+id/customListView"
         android:layout_height="match_parent"
         android:layout_width="match_parent"
+        android:id="@+id/followuplist"
         android:scrollbarStyle="outsideInset"
         >
 
     </ListView>
-
 
 </LinearLayout>

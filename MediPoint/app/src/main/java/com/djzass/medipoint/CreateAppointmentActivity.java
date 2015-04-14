@@ -3,12 +3,7 @@ package com.djzass.medipoint;
 
 import android.app.FragmentManager;
 import android.content.Intent;
-import android.content.pm.PackageInstaller;
-import android.database.Cursor;
 import android.os.Bundle;
-
-import android.os.Parcel;
-
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -26,7 +21,6 @@ import com.djzass.medipoint.entity.Doctor;
 import com.djzass.medipoint.entity.Service;
 import com.djzass.medipoint.entity.Specialty;
 import com.djzass.medipoint.entity.Timeframe;
-import com.djzass.medipoint.logic_database.AccountDAO;
 import com.djzass.medipoint.logic_database.AppointmentDAO;
 import com.djzass.medipoint.logic_database.ClinicDAO;
 import com.djzass.medipoint.logic_database.DoctorDAO;
@@ -57,6 +51,9 @@ public class CreateAppointmentActivity extends onDataPass implements AdapterView
     Timeframe timeframe = new Timeframe(-1,-1);
     long accountId;
 
+    /*String NRIC;
+    List<Account> accountList;
+    AccountDAO macc;*/
 
     //spinner
     Spinner specialtySpinnerCreate;
@@ -113,10 +110,13 @@ public class CreateAppointmentActivity extends onDataPass implements AdapterView
 
         //service spinner
         serviceSpinnerCreate = (Spinner) findViewById(R.id.CreateApptServices);
+        //countrySpinnerCreate.setOnItemSelectedListener(this);
         //doctor spinner
         doctorSpinnerCreate = (Spinner) findViewById(R.id.CreateApptDoctors);
+        //countrySpinnerCreate.setOnItemSelectedListener(this);
         //clinic location spinner
         clinicSpinnerCreate = (Spinner) findViewById(R.id.CreateApptLocations);
+        //countrySpinnerCreate.setOnItemSelectedListener(this);
 
         confirmButton = (Button)findViewById(R.id.ConfirmCreateAppt);
         confirmButton.setOnClickListener(new View.OnClickListener() {
@@ -195,19 +195,14 @@ public class CreateAppointmentActivity extends onDataPass implements AdapterView
                     dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                     dataAdapter.notifyDataSetChanged();
                     serviceSpinnerCreate.setAdapter(dataAdapter);
-                    String service = String.valueOf(serviceSpinnerCreate.getSelectedItem());
-                    for (Service s : services) {
-                        if (service.equals(s.getName())) {
-                            this.serviceId = s.getId();
-                            this.preAppointmentActions = s.getPreAppointmentActions();
-                            this.duration = s.getDuration();
-                            Log.d("Service", this.serviceId + " " + this.duration);
-                        }
-                    }
+                    serviceSpinnerCreate.setOnItemSelectedListener(this);
+
+
                     //List<Doctor> doctors = ((Container)getApplicationContext()).getGlobalDoctorDAO().getDoctorBySpecialization(selection);
                     //List<Doctor> doctors = Container.GlobalDoctorDAO.getDoctorBySpecialization(selection);
                     DoctorDAO doctorDAO = new DoctorDAO(this);
-                    List<Doctor> doctors = doctorDAO.getDoctorsByClinicAndSpecialization(clinicId,specialtyId);
+                    //List<Doctor> doctors = doctorDAO.getDoctorsByClinicAndSpecialization(clinicId,specialtyId);
+                    List<Doctor> doctors = Container.getDoctorManager().getDoctorsByClinicAndSpecialization(clinicId,specialtyId,this);
                     List<String> doctorNames = new ArrayList<String>();
                     for (Doctor d : doctors) {
                         doctorNames.add(d.getName());
@@ -216,17 +211,37 @@ public class CreateAppointmentActivity extends onDataPass implements AdapterView
                     doctorDataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                     doctorDataAdapter.notifyDataSetChanged();
                     doctorSpinnerCreate.setAdapter(doctorDataAdapter);
-                    String doctor = String.valueOf(doctorSpinnerCreate.getSelectedItem());
-                    for (Doctor d : doctors) {
-                        if (doctor.equals(d.getName())) {
-                            doctorId = d.getDoctorId();
-                        }
-                    }
-                    resetTimePicker();
+                    doctorSpinnerCreate.setOnItemSelectedListener(this);
 
                 } catch (SQLException e) {
                     e.printStackTrace();
                 }
+                resetTimePicker();
+                break;
+
+            case R.id.CreateApptServices:
+                List<Service> services = Container.getServiceManager().getServicesBySpecialtyID(specialtyId,this);
+                String service = String.valueOf(serviceSpinnerCreate.getSelectedItem());
+                for (Service s : services) {
+                    if (service.equals(s.getName())) {
+                        this.serviceId = s.getId();
+                        this.preAppointmentActions = s.getPreAppointmentActions();
+                        this.duration = s.getDuration();
+                    }
+                }
+                resetTimePicker();
+                break;
+
+            case R.id.CreateApptDoctors:
+                List<Doctor> doctors = Container.getDoctorManager().getDoctorsByClinicAndSpecialization(clinicId,specialtyId,this);
+                String doctor = String.valueOf(doctorSpinnerCreate.getSelectedItem());
+                for (Doctor d : doctors) {
+                    if (doctor.equals(d.getName())) {
+                        doctorId = d.getDoctorId();
+                    }
+                }
+
+                resetTimePicker();
                 break;
 
             case R.id.CreateApptCountries:
@@ -254,7 +269,7 @@ public class CreateAppointmentActivity extends onDataPass implements AdapterView
                     }
 
                     DoctorDAO doctorDAO = new DoctorDAO(this);
-                    List<Doctor> doctors = doctorDAO.getDoctorsByClinicAndSpecialization(clinicId,specialtyId);
+                    doctors = doctorDAO.getDoctorsByClinicAndSpecialization(clinicId,specialtyId);
                     List<String> doctorNames = new ArrayList<String>();
                     for (Doctor d : doctors) {
                         doctorNames.add(d.getName());
@@ -263,17 +278,12 @@ public class CreateAppointmentActivity extends onDataPass implements AdapterView
                     doctorDataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                     doctorDataAdapter.notifyDataSetChanged();
                     doctorSpinnerCreate.setAdapter(doctorDataAdapter);
-                    String doctor = String.valueOf(doctorSpinnerCreate.getSelectedItem());
-                    for (Doctor d : doctors) {
-                        if (doctor.equals(d.getName())) {
-                            doctorId = d.getDoctorId();
-                        }
-                    }
-                    resetTimePicker();
+                    doctorSpinnerCreate.setOnItemSelectedListener(this);
 
                 } catch (SQLException e) {
                     e.printStackTrace();
                 }
+                resetTimePicker();
                 break;
 
             case R.id.CreateApptLocations:
@@ -292,7 +302,7 @@ public class CreateAppointmentActivity extends onDataPass implements AdapterView
                     clinicId = clinicSelection;
                     //Toast.makeText(this,""+clinicId,Toast.LENGTH_SHORT).show();
                     DoctorDAO doctorDAO = new DoctorDAO(this);
-                    List<Doctor> doctors = doctorDAO.getDoctorsByClinicAndSpecialization(clinicSelection,specialtyId);
+                    doctors = doctorDAO.getDoctorsByClinicAndSpecialization(clinicId,specialtyId);
                     List<String> doctorNames = new ArrayList<String>();
                     for (Doctor d : doctors) {
                         doctorNames.add(d.getName());
@@ -301,12 +311,8 @@ public class CreateAppointmentActivity extends onDataPass implements AdapterView
                     doctorDataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                     doctorDataAdapter.notifyDataSetChanged();
                     doctorSpinnerCreate.setAdapter(doctorDataAdapter);
-                    String doctor = String.valueOf(doctorSpinnerCreate.getSelectedItem());
-                    for (Doctor d : doctors) {
-                        if (doctor.equals(d.getName())) {
-                            doctorId = d.getDoctorId();
-                        }
-                    }
+                    doctorSpinnerCreate.setOnItemSelectedListener(this);
+
                     //List<Service> services = ((Container)getApplicationContext()).getGlobalServiceDAO().getServicesBySpecialtyID(selection);
                     //List<Service> services = Container.GlobalServiceDAO.getServicesBySpecialtyID(selection);
 
@@ -315,6 +321,7 @@ public class CreateAppointmentActivity extends onDataPass implements AdapterView
                 } catch (SQLException e) {
                     e.printStackTrace();
                 }
+                resetTimePicker();
                 break;
         }
 
@@ -413,18 +420,21 @@ public class CreateAppointmentActivity extends onDataPass implements AdapterView
         Calendar currentDate = Calendar.getInstance();
         currentDate.add(Calendar.DATE, 1);
 
+
         if (this.date.getTimeInMillis()==0){
             Toast.makeText(this, "Please select a date ", Toast.LENGTH_SHORT).show();
         } else if (this.timeframe.getStartTime()<0){
             Toast.makeText(this, "Please select a time. ", Toast.LENGTH_SHORT).show();
         } else {
-            this.date.set(Calendar.HOUR,this.timeframe.getStartTime()/2);
+            this.date.set(Calendar.HOUR_OF_DAY,(this.timeframe.getStartTime()/2));
             this.date.set(Calendar.MINUTE,30*(this.timeframe.getStartTime()%2));
             if (this.date.compareTo(currentDate)<0){
                 Toast.makeText(this, "You must book at least 24 hours in advance. ", Toast.LENGTH_SHORT).show();
             } else {
                 AccountManager accountManager = new AccountManager(this);
+                Log.d("CalendarCreateC",this.date.toString());
                 Appointment appointment = new Appointment(this.patientId, this.clinicId, this.specialtyId, this.serviceId, this.doctorId, referrerId,this.date, this.timeframe);
+                Log.d("CalendarCreateA", appointment.getDate().toString());
                 long res = Container.getAppointmentManager().createAppointment(appointment, this);
                 if (res == -1) {
                     Toast.makeText(this,"Appointment creation failed", Toast.LENGTH_SHORT).show();
@@ -476,6 +486,8 @@ public class CreateAppointmentActivity extends onDataPass implements AdapterView
         if(getTimePickerItems().get(position)!="N/A"){
             btn.setText(getTimePickerItems().get(position));
             this.timeframe = new Timeframe(getTimePickerItems().get(position));
+        } else {
+            resetTimePicker();
         }
     }
 
@@ -490,6 +502,6 @@ public class CreateAppointmentActivity extends onDataPass implements AdapterView
         super.DatePickerFragmentToActivity(date,month,year,button);
         this.date = Calendar.getInstance();
         this.date.set(year,month,date);
-
+        resetTimePicker();
     }
 }

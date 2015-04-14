@@ -78,7 +78,7 @@ public class AlertDialogInterface {
         dlgAlert.setPositiveButton("YES",new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                appointmentDeleter.cancelAppointment(appointment,context);
+            appointmentDeleter.cancelAppointment(appointment,context);
             }
         });
         dlgAlert.setNegativeButton("NO",null);

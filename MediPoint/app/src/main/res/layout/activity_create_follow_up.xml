@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <ScrollView
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
@@ -5,63 +6,81 @@
 
     <LinearLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
         style="@style/LinearLayoutStyle"
-        android:orientation="vertical"
-        tools:context=".EditAppointmentActivity">
+        android:orientation="vertical">
 
-        <!-- select country -->
+        <!--list of countries -->
         <TextView
-            android:id="@id/LabelSelectCountry"
-            android:layout_marginTop="10dp"
+            android:id="@+id/LabelSelectCountry"
             android:text="@string/select_country"
+            android:layout_marginTop="10dp"
             style="@style/TextviewLayout"/>
 
-        <Spinner
-            android:id="@+id/EditApptCountries"
-            style="@style/MySpinner"/>
+        <TextView
+            android:id="@+id/FollowUpCountry"
+            android:text="Singapore"
+            style="@style/Base.TextAppearance.AppCompat.Medium"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="5dp" />
 
-
-        <!--select location -->
+        <!--list of clinic locations -->
         <TextView
             android:id="@+id/LabelSelectLocation"
             android:text="@string/select_location"
             style="@style/TextviewLayout"/>
 
-        <Spinner
-            android:id="@+id/EditApptLocations"
-            style="@style/MySpinner"/>
-
-        <!-- select specialty -->
         <TextView
-            android:id="@+id/edit_specialty"
+            android:id="@+id/FollowUpLocation"
+            android:text="Dj Zass HealthCare Clinic"
+            style="@style/Base.TextAppearance.AppCompat.Medium"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="5dp" />
+
+        <!--list of specialties-->
+        <TextView
+            android:id="@+id/LabelSelectSpecialty"
             android:text="@string/select_specialty"
             style="@style/TextviewLayout"/>
 
-        <Spinner
-            android:id="@+id/EditApptSpecialty"
-            style="@style/MySpinner"/>
-
-        <!-- select type -->
         <TextView
-            android:id="@+id/edit_type"
+            android:id="@+id/FollowUpSpecialty"
+            android:text="General CheckUp"
+            style="@style/Base.TextAppearance.AppCompat.Medium"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="5dp"
+            />
+
+        <!-- list of services -->
+        <TextView
+            android:id="@+id/LabelSelectService"
             android:text="@string/select_service"
             style="@style/TextviewLayout"/>
 
         <Spinner
-            android:id="@+id/EditApptType"
+            android:id="@+id/CreateApptServices"
             style="@style/MySpinner"/>
 
-        <!--select doctor -->
+        <!--list of doctors -->
         <TextView
-            android:id="@+id/edit_doctor"
+            android:id="@+id/LabelSelectDoctor"
             android:text="@string/select_doctor"
             style="@style/TextviewLayout"/>
 
-        <Spinner
-            android:id="@+id/EditApptDoctors"
-            style="@style/MySpinner"/>
-
+        <TextView
+            android:id="@+id/FollowUpDoctor"
+            android:text="Dr. Aristo"
+            style="@style/Base.TextAppearance.AppCompat.Medium"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="5dp"
+            />
 
         <!-- Date -->
         <LinearLayout
@@ -100,25 +119,29 @@
             <Button
                 style="@style/FragmentStyle"
                 android:text="TAP TO CHOOSE TIME"
-                android:id="@+id/timepickeredit"
+                android:id="@+id/timepicker"
                 android:onClick="onTimeButtonSelected"
                 android:layout_weight="1"/>
 
         </LinearLayout>
 
-        <Button
-            android:id="@+id/ConfirmEditAppt"
-            android:text="@string/confirm"
-            style="@style/ButtonStyle"
-            android:layout_marginBottom="5dp"
-            android:onClick="onConfirmEdit"/>
+
+        <!-- Buttons -->
 
         <Button
-            android:id="@+id/CancelEditAppt"
-            android:text="@string/cancel"
+            android:id="@+id/ConfirmCreateAppt"
+            android:text="@string/create_appointment"
             style="@style/ButtonStyle"
+            />
+
+        <Button
+            android:id="@+id/CancelCreateAppt"
+            android:layout_marginTop="5dp"
             android:layout_marginBottom="16dp"
-            android:onClick="onCancelEdit"/>
+            android:text="@string/cancel"
+            style="@style/ButtonStyle"/>
 
     </LinearLayout>
+
 </ScrollView>
+

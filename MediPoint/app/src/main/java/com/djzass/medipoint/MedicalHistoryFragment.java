@@ -1,11 +1,13 @@
 package com.djzass.medipoint;
 
+import android.content.Intent;
 import android.database.Cursor;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -198,6 +200,20 @@ public class MedicalHistoryFragment extends Fragment {
             ongoingMedication.setText(this.ongoingMedication);
         }
 
+
+        Button editHistory = (Button) view.findViewById(R.id.editHistory);
+        editHistory.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View arg0) {
+                onEdit();
+            }
+        });
+
         return view;
+    }
+
+
+    public void onEdit(){
+        Intent intent = new Intent(this.getActivity(), EditHistoryActivity.class);
+        startActivity(intent);
     }
 }

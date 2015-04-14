@@ -5,20 +5,13 @@ import android.database.Cursor;
 import android.os.Bundle;
 import android.widget.Toast;
 
-import java.sql.SQLException;
-
-import com.djzass.medipoint.SessionManager;
 import com.djzass.medipoint.entity.Account;
 import com.djzass.medipoint.logic_database.AccountDAO;
 
-
-import com.djzass.medipoint.logic_database.DbHelper;
-
+import java.sql.SQLException;
 import java.text.ParseException;
-import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.GregorianCalendar;
 
 
 public class AccountManager {
@@ -148,3 +141,4 @@ public class AccountManager {
 
     }
 }
+
