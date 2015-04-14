@@ -72,14 +72,13 @@ public class MedicalHistoryFragment extends Fragment {
 
             //get medical history and age in patient table
             this.patientAge = patient.get(0).getAge();
-            Toast.makeText(this.getActivity(), ""+patientAge, Toast.LENGTH_SHORT).show();
             this.medicalHistory = patient.get(0).getMedicalHistory();
             this.allergy = patient.get(0).getAllergy();
             this.ongoingTreatment = patient.get(0).getListOfTreatments();
             this.ongoingMedication = patient.get(0).getListOfMedications();
 
             Calendar DOB = patient.get(0).getDob();
-            Toast.makeText(this.getActivity(),"DOB : " + DOB.getTime(), Toast.LENGTH_SHORT).show();
+
 
         } catch (SQLException e) {
             e.printStackTrace();

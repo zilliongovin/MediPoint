@@ -375,13 +375,13 @@ public class MedicalHistory extends Activity {
 
         //store medicalHistory, allergyInfo, ongoingTreatment, ongoingMedication to DB
         long ret = patientDAO.insertPatient(new Patient(patientId, DOB, medicalHistory, ongoingTreatment, ongoingMedication, allergyInfo));
-        if (ret == -1) {
-            Toast.makeText(this, "insert patient to database unsuccessful", Toast.LENGTH_SHORT).show();
-            Toast.makeText(this, "PID: " + patientId + " dob: " + DOB, Toast.LENGTH_LONG).show();
+      /*  if (ret == -1) {
+            //Toast.makeText(this, "insert patient to database unsuccessful", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(this, "PID: " + patientId + " dob: " + DOB, Toast.LENGTH_LONG).show();
     }
         else {
-            Toast.makeText(this, "insert patient to database successful", Toast.LENGTH_SHORT).show();
-        }
+           // Toast.makeText(this, "insert patient to database successful", Toast.LENGTH_SHORT).show();
+        }*/
 
         Toast.makeText(this,"Medical History updated",Toast.LENGTH_SHORT).show();
         //go back to login page after submitting

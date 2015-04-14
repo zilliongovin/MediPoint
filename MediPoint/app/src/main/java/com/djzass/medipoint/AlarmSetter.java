@@ -29,7 +29,6 @@ public class AlarmSetter {
         Calendar cal = Calendar.getInstance();
         cal.setTimeZone(TimeZone.getTimeZone("GMT+8"));
         AlarmManager am = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-        Toast.makeText(context,appointment.getDate().toString(),Toast.LENGTH_SHORT);
         am.set(AlarmManager.RTC_WAKEUP, System.currentTimeMillis()+30*1000, reminder);
 
 

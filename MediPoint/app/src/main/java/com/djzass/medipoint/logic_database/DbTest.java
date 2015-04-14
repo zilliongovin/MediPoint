@@ -19,7 +19,6 @@ public class DbTest extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_db_test);
-        Toast.makeText(this, "Database testing", Toast.LENGTH_SHORT).show();
 
         SpecialtyDAO specialtyDAO = null;
 
@@ -39,7 +38,6 @@ public class DbTest extends Activity {
         ArrayList<Specialty> specialties = (ArrayList<Specialty>) specialtyDAO.getAllSpecialties();
         for (int i =0; i<specialties.size(); i++){
             String text = "id: " + specialties.get(i).getId() + "name: " + specialties.get(i).getName();
-            Toast.makeText(this, text, Toast.LENGTH_SHORT).show();
         }
     }
 

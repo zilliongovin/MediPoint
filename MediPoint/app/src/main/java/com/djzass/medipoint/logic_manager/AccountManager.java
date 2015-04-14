@@ -136,7 +136,7 @@ public class AccountManager {
         /*dobCal.setTime(sdf.parse(dob));*/
 
 
-        Toast.makeText(context,"Toooo4",Toast.LENGTH_LONG).show();
+
         return new Account(id,username,password,name,nric,email,contact,gender,address,maritalStatus,dobCal,citizenship,countryOfResidence,isEmail,isSMS);
 
     }
