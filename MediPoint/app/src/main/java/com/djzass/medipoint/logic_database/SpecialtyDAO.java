@@ -76,7 +76,7 @@ public class SpecialtyDAO extends DbDAO{
     }
 
     public List<Specialty> getSpecialtiesByName(String specialtyName){
-        String whereClause = DbContract.SpecialtyEntry.COLUMN_NAME_SPECIALTY_NAME + "=" + specialtyName;
+        String whereClause = DbContract.SpecialtyEntry.COLUMN_NAME_SPECIALTY_NAME + "='" + specialtyName + "'";
         return getSpecialties(whereClause);
     }
 

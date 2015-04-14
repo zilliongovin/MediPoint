@@ -5,7 +5,7 @@
     >
 
     <TextView
-        android:paddingTop="?android:attr/actionBarSize"
+        android:layout_marginTop="?android:attr/actionBarSize"
         android:layout_gravity="center"
         android:layout_height="match_parent"
         android:layout_width="match_parent"

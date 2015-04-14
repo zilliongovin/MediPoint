@@ -53,7 +53,7 @@
 
         <activity
             android:name=".EditAppointmentActivity"
-            android:label="@string/edit_appointment" />
+            android:label="Edit an Appointment" />
 
         <activity
             android:name=".ReferralActivity"
@@ -62,11 +62,23 @@
         <activity android:name=".MedicalHistory"
             android:label="@string/med_his"/>
 
+        <activity android:name=".EditHistoryActivity"
+            android:label="@string/med_his"/>
+
         <activity
             android:name=".ViewAppointmentActivity"
             android:label="@string/app_name" >
         </activity>
 
+        <activity
+            android:name=".FollowUpListActivity"
+            android:label="Past Appointments" >
+        </activity>
+
+        <activity
+            android:name=".CreateFollowUpActivity"
+            android:label="Create Follow Up Appointment" >
+        </activity>
 
         <receiver android:name=".AlarmBroadcastReceiver" />
 

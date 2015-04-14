@@ -30,7 +30,7 @@ public class AlarmSetter {
         cal.setTimeZone(TimeZone.getTimeZone("GMT+8"));
         AlarmManager am = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         Toast.makeText(context,appointment.getDate().toString(),Toast.LENGTH_SHORT);
-        am.set(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), reminder);
+        am.set(AlarmManager.RTC_WAKEUP, System.currentTimeMillis()+30*1000, reminder);
 
 
         /*if (appointment.getDate().getTimeInMillis() - 24 * 3600 * 1000 >= cal.getTimeInMillis()) {
@@ -41,8 +41,9 @@ public class AlarmSetter {
 
     public void cancelAlarm(Context context,Appointment appointment){
         Intent cancelIntent = new Intent(context,AlarmBroadcastReceiver.class);
+
         int reminderId = appointment.getId();
-        PendingIntent cancel = PendingIntent.getBroadcast(context, reminderId, cancelIntent, PendingIntent.FLAG_CANCEL_CURRENT);
+        PendingIntent cancel = PendingIntent.getBroadcast(context, reminderId, cancelIntent, PendingIntent.FLAG_UPDATE_CURRENT);
         AlarmManager am = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         am.cancel(cancel);
     }

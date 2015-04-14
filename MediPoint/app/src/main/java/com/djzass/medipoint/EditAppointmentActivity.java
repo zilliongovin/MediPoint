@@ -48,6 +48,7 @@ public class EditAppointmentActivity extends onDataPass implements AdapterView.O
     int specialtyId = 1;
     int countryId = 1;
     int duration;
+    int referrerId;
     String preAppointmentActions;
     Timeframe timeframe;
 
@@ -69,6 +70,7 @@ public class EditAppointmentActivity extends onDataPass implements AdapterView.O
         setContentView(R.layout.activity_edit_appointment);
         Bundle b = getIntent().getExtras();
         Appointment app = b.getParcelable("appFromView");
+        referrerId = app.getReferrerId();
         Toast.makeText(this,app.toString(),Toast.LENGTH_LONG).show();
 
         Toast.makeText(this,(String) ""+app.getClinicId(),Toast.LENGTH_SHORT).show();
@@ -106,31 +108,8 @@ public class EditAppointmentActivity extends onDataPass implements AdapterView.O
         confirmButton = (Button)findViewById(R.id.ConfirmEditAppt);
         confirmButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View arg0) {
-                /*EditText usernameBox = (EditText) findViewById(R.id.enterUsernameTextbox);
-                EditText passwordBox = (EditText) findViewById(R.id.enterPasswordTextbox);
-                String username = usernameBox.getText().toString();
-                String password = passwordBox.getText().toString();
-                boolean isAuthenticated = Container.GlobalAccountManager.authenticate(username,password);
-                if(isAuthenticated==true){
-                    Container.GlobalAccountManager.login(username,password);
-                    loginSuccessful(username);
-                    goToMain();
-            }
-        });
-        cancelButton = (Button)findViewById(R.id.CancelEditAppt);
-        cancelButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View arg0) {
-                /*EditText usernameBox = (EditText) findViewById(R.id.enterUsernameTextbox);
-                EditText passwordBox = (EditText) findViewById(R.id.enterPasswordTextbox);
-                String username = usernameBox.getText().toString();
-                String password = passwordBox.getText().toString();
-                boolean isAuthenticated = Container.GlobalAccountManager.authenticate(username,password);
-                if(isAuthenticated==true){
-                    Container.GlobalAccountManager.login(username,password);
-                    loginSuccessful(username);
-                    goToMain(); */
-            }
-        });
+                onConfirmEdit(arg0);
+        }});
 
     }
 
@@ -208,11 +187,12 @@ public class EditAppointmentActivity extends onDataPass implements AdapterView.O
                 doctorDataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                 doctorDataAdapter.notifyDataSetChanged();
                 doctorSpinnerCreate.setAdapter(doctorDataAdapter);
+                doctorSpinnerCreate.setOnItemSelectedListener(this);
                 //doctorSpinnerCreate.setSelection(doctorDataAdapter.getPosition(Container.getDoctorManager().getDoctorById(app.getDoctorId(),this).get(0).getName()));
-
+                resetTimePicker();
                 break;
 
-            case R.id.CreateApptServices:
+            case R.id.EditApptType:
                 services = Container.getServiceManager().getServicesBySpecialtyID(specialtyId,this);
                 String service = String.valueOf(serviceSpinnerCreate.getSelectedItem());
                 for (Service s : services) {
@@ -222,10 +202,10 @@ public class EditAppointmentActivity extends onDataPass implements AdapterView.O
                         this.duration = s.getDuration();
                     }
                 }
-
+                resetTimePicker();
                 break;
 
-            case R.id.CreateApptDoctors:
+            case R.id.EditApptDoctors:
                 doctors = Container.getDoctorManager().getDoctorsByClinicAndSpecialization(clinicId,specialtyId,this);
                 String doctor = String.valueOf(doctorSpinnerCreate.getSelectedItem());
                 for (Doctor d : doctors) {
@@ -233,7 +213,7 @@ public class EditAppointmentActivity extends onDataPass implements AdapterView.O
                         doctorId = d.getDoctorId();
                     }
                 }
-
+                resetTimePicker();
                 break;
 
 
@@ -268,8 +248,10 @@ public class EditAppointmentActivity extends onDataPass implements AdapterView.O
                 doctorDataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                 doctorDataAdapter.notifyDataSetChanged();
                 doctorSpinnerCreate.setAdapter(doctorDataAdapter);
+                doctorSpinnerCreate.setOnItemSelectedListener(this);
                 //doctorSpinnerCreate.setSelection(doctorDataAdapter.getPosition(Container.getDoctorManager().getDoctorById(app.getDoctorId(),this).get(0).getName()));
-
+                resetTimePicker();
+                break;
 
 
             case R.id.EditApptLocations:
@@ -295,6 +277,7 @@ public class EditAppointmentActivity extends onDataPass implements AdapterView.O
                     doctorDataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                     doctorDataAdapter.notifyDataSetChanged();
                     doctorSpinnerCreate.setAdapter(doctorDataAdapter);
+                    doctorSpinnerCreate.setOnItemSelectedListener(this);
                     //doctorSpinnerCreate.setSelection(doctorDataAdapter.getPosition(Container.getDoctorManager().getDoctorById(app.getDoctorId(),this).get(0).getName()));
                     //List<Service> services = ((Container)getApplicationContext()).getGlobalServiceDAO().getServicesBySpecialtyID(selection);
                     //List<Service> services = Container.GlobalServiceDAO.getServicesBySpecialtyID(selection);
@@ -304,6 +287,7 @@ public class EditAppointmentActivity extends onDataPass implements AdapterView.O
                 } catch (SQLException e) {
                     e.printStackTrace();
                 }
+                resetTimePicker();
                 break;
         }
 
@@ -321,7 +305,7 @@ public class EditAppointmentActivity extends onDataPass implements AdapterView.O
     }
 
     public void resetTimePicker(){
-        Button btn = (Button) findViewById(R.id.timepicker);
+        Button btn = (Button) findViewById(R.id.timepickeredit);
         btn.setText("TAP TO CHOOSE TIME");
         this.timeframe = new Timeframe(-1,-1);
     }
@@ -349,13 +333,67 @@ public class EditAppointmentActivity extends onDataPass implements AdapterView.O
 
     public void onConfirmEdit(View view){
         //add to database
-        String title = "Confirm Edit Appointment";
-        String message = "Are you sure that the details you have entered is correct?";
+        Calendar currentDate = Calendar.getInstance();
+        currentDate.add(Calendar.DATE, 1);
 
-        AlertDialogInterface ad = new AlertDialogInterface(title,message,this);
-        //if successful
-        setContentView(R.layout.activity_main);
-        Toast.makeText(this, "Appointment successfully edited", Toast.LENGTH_SHORT).show();
+
+        if (this.apptDate.getTimeInMillis()==0){
+            Toast.makeText(this, "Please select a date ", Toast.LENGTH_SHORT).show();
+        } else if (this.timeframe.getStartTime()<0){
+            Toast.makeText(this, "Please select a time. ", Toast.LENGTH_SHORT).show();
+        } else {
+            Log.d("Calapptdate",this.apptDate.toString());
+            Log.d("Calcurdate", currentDate.toString());
+            this.apptDate.set(Calendar.HOUR_OF_DAY,(this.timeframe.getStartTime()/2));
+            this.apptDate.set(Calendar.MINUTE,30*(this.timeframe.getStartTime()%2));
+            if (this.apptDate.compareTo(currentDate)<0){
+                Toast.makeText(this, "You must book at least 24 hours in advance. ", Toast.LENGTH_SHORT).show();
+            } else {
+                //AccountManager accountManager = new AccountManager(this);
+                SessionManager sessionMgr = new SessionManager(this);
+                try {
+                    patientId = (int)sessionMgr.getAccountId();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+                Log.d("CalendarCreateC",this.apptDate.toString());
+                Appointment appointment = new Appointment(this.patientId, this.clinicId, this.specialtyId, this.serviceId, this.doctorId, referrerId,this.apptDate, this.timeframe);
+                Log.d("CalendarCreateA", appointment.getDate().toString());
+                long res = Container.getAppointmentManager().editAppointment(appointment, this);
+                if (res == -1) {
+                    Toast.makeText(this,(String) "DoctorId " + doctorId, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this,"Appointment creation failed", Toast.LENGTH_SHORT).show();
+
+                } else {
+                    AlarmSetter malarm = new AlarmSetter();
+                    AccountManager mAcc = new AccountManager(this);
+                    Account account = new Account();
+                    try {
+                        account = mAcc.getAccountById(sessionMgr.getAccountId());
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+                    malarm.setAlarm(getApplicationContext(),appointment,account);
+                    /*Notification notification = new Notification();
+                    notification.buildNotification(this, "Appointment created.",appointment);*/
+                    //if successful
+                    Toast.makeText(this, "Appointment successfully edited", Toast.LENGTH_SHORT).show();
+                    Intent goToMain = new Intent(this, MainActivity.class);
+                    startActivity(goToMain);
+/*            try {
+                malarm.setAlarm(this, appointment, accountManager.getAccountById(this.patientId));
+
+
+            } catch (ParseException e){
+                Toast.makeText(this,"In Here",Toast.LENGTH_SHORT).show();
+            }*/
+
+                }
+            }
+        }
+
 
         //if not successful
         // Toast.makeText(this, "Failed to edit appointment, please try again", Toast.LENGTH_SHORT).show();
@@ -424,7 +462,7 @@ public class EditAppointmentActivity extends onDataPass implements AdapterView.O
     public void DatePickerFragmentToActivity(int date, int month, int year, Button button)
     {
         super.DatePickerFragmentToActivity(date,month,year,button);
-        apptDate.set(date,month,year);
+        apptDate.set(year,month,date);
     }
 
     public void onTimeButtonSelected(View v){

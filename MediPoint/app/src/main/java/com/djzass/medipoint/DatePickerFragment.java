@@ -92,7 +92,7 @@ public class DatePickerFragment extends DialogFragment implements View.OnClickLi
     @Override
     public void onClick(View v) {
 
-        if (v.getId() ==  R.id.setDate){
+        //if (v.getId() ==  R.id.setDate){
             //instantiate datepicker
             DatePicker datepicker = (DatePicker)getView().findViewById(R.id.chooseDate);
 
@@ -128,7 +128,7 @@ public class DatePickerFragment extends DialogFragment implements View.OnClickLi
 
             //close dialog
             dismiss();
-        }
+        //}
     }
 
 }
