@@ -2,16 +2,24 @@ package com.djzass.medipoint;
 
 import android.app.Activity;
 import android.app.FragmentManager;
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.djzass.medipoint.entity.Appointment;
+import com.djzass.medipoint.entity.Service;
+import com.djzass.medipoint.entity.Specialty;
 import com.djzass.medipoint.entity.Timeframe;
+import com.djzass.medipoint.logic_database.ServiceDAO;
 import com.djzass.medipoint.logic_manager.Container;
 
 import java.util.ArrayList;
@@ -19,7 +27,7 @@ import java.util.Calendar;
 import java.util.List;
 
 
-public class CreateFollowUpActivity extends onDataPass implements SelectionListener{
+public class CreateFollowUpActivity extends onDataPass implements AdapterView.OnItemSelectedListener, SelectionListener{
 
     Calendar apptDate = Calendar.getInstance();
     Timeframe timeframe = new Timeframe(-1,-1);
@@ -28,6 +36,9 @@ public class CreateFollowUpActivity extends onDataPass implements SelectionListe
     int patientId;
     int doctorId;
     int clinicId;
+    Spinner serviceSpinnerCreate;
+    List<Service> services;
+    List<String> serviceNames = new ArrayList<String>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,7 +55,37 @@ public class CreateFollowUpActivity extends onDataPass implements SelectionListe
         doctor.setText(Container.getAppointmentManager().getDoctorNameByAppointment(app,this));
         TextView specialty = (TextView) findViewById(R.id.FollowUpSpecialty);
         specialty.setText(Container.getAppointmentManager().getSpecialtyNameByAppointment(app,this));
+
+        //service spinner
+        serviceSpinnerCreate = (Spinner) findViewById(R.id.CreateFollowUpServices);
+        services = Container.getServiceManager().getServicesBySpecialtyID(app.getSpecialtyId(), this);
+
+        for (Service s : services) {
+            serviceNames.add(s.getName());
+        }
+        Log.d("SSize", "" + serviceNames);
+        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, serviceNames);
+        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        dataAdapter.notifyDataSetChanged();
+        serviceSpinnerCreate.setAdapter(dataAdapter);
+        serviceSpinnerCreate.setOnItemSelectedListener(this);
+
+        confirmButton = (Button)findViewById(R.id.ConfirmCreateFollowUpAppt);
+        confirmButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View arg0) {
+                onClickCreateAppointment();
+            }
+        });
+
+        cancelButton = (Button)findViewById(R.id.CancelCreateAppt);
+        cancelButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View arg0) {
+                Intent in = new Intent(getApplicationContext(), MainActivity.class);
+                startActivity(in);
+            }
+        });
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -68,6 +109,21 @@ public class CreateFollowUpActivity extends onDataPass implements SelectionListe
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        String service = String.valueOf(serviceSpinnerCreate.getSelectedItem());
+
+        for (Service s : services) {
+            if (service.equals(s.getName())) {
+                serviceId = s.getId();
+            }
+        }
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
+
+    }
 
 
     public void onDateButtonSelected(View v){

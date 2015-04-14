@@ -62,6 +62,7 @@ public class EditAppointmentActivity extends onDataPass implements AdapterView.O
     List<Specialty> specialities;
     Button confirmButton;
     Button cancelButton;
+    Appointment app;
 
 
     @Override
@@ -69,7 +70,7 @@ public class EditAppointmentActivity extends onDataPass implements AdapterView.O
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_appointment);
         Bundle b = getIntent().getExtras();
-        Appointment app = b.getParcelable("appFromView");
+        app = b.getParcelable("appFromView");
         referrerId = app.getReferrerId();
         //Toast.makeText(this,app.toString(),Toast.LENGTH_LONG).show();
 
@@ -358,6 +359,7 @@ public class EditAppointmentActivity extends onDataPass implements AdapterView.O
                 }
                 Log.d("CalendarCreateC",this.apptDate.toString());
                 Appointment appointment = new Appointment(this.patientId, this.clinicId, this.specialtyId, this.serviceId, this.doctorId, referrerId,this.apptDate, this.timeframe);
+                appointment.setId(app.getId());
                 Log.d("CalendarCreateA", appointment.getDate().toString());
                 long res = Container.getAppointmentManager().editAppointment(appointment, this);
                 if (res == -1) {
@@ -386,7 +388,7 @@ public class EditAppointmentActivity extends onDataPass implements AdapterView.O
                 malarm.setAlarm(this, appointment, accountManager.getAccountById(this.patientId));
 
 
-            } catch (ParseException e){
+            } catch (ParseException e){Appointment app
                 Toast.makeText(this,"In Here",Toast.LENGTH_SHORT).show();
             }*/
 

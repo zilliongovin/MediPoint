@@ -63,7 +63,7 @@
             style="@style/TextviewLayout"/>
 
         <Spinner
-            android:id="@+id/CreateApptServices"
+            android:id="@+id/CreateFollowUpServices"
             style="@style/MySpinner"/>
 
         <!--list of doctors -->
@@ -129,13 +129,14 @@
         <!-- Buttons -->
 
         <Button
-            android:id="@+id/ConfirmCreateAppt"
+            android:id="@+id/ConfirmCreateFollowUpAppt"
             android:text="@string/create_appointment"
+            android:onClick=""
             style="@style/ButtonStyle"
             />
 
         <Button
-            android:id="@+id/CancelCreateAppt"
+            android:id="@+id/CancelCreateFollowUpAppt"
             android:layout_marginTop="5dp"
             android:layout_marginBottom="16dp"
             android:text="@string/cancel"
