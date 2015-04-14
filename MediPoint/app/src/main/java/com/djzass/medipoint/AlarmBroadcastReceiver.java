@@ -34,24 +34,18 @@ public class AlarmBroadcastReceiver extends BroadcastReceiver {
         Account account = extras.getParcelable("account");
         String message = "Dear " + account.getName()+ ",\n"
                 + Container.getAppointmentManager().getSpecialtyNameByAppointment(appointment, context) + " Appointment is on:\n"
-                + appointment.getDate() + " with " + Container.getAppointmentManager().getDoctorNameByAppointment(appointment, context) +".\n"
+                + appointment.getDateString() + " with " + Container.getAppointmentManager().getDoctorNameByAppointment(appointment, context) +".\n"
                 +"This is an automated message.Please do not reply";
         if ( appointment !=null){
             Notification mNotification = new Notification();
             mNotification.buildNotification(context,message,appointment);
-            if(account.getNotifyEmail()==1 & account.getNotifySMS()==0) {
+            if(account.getNotifyEmail()==1) {
                 Email mEmail = new Email();
                 mEmail.sendMail(account.getEmail(),message);
             }
-            else if(account.getNotifyEmail()==0 & account.getNotifySMS()==1) {
+            if(account.getNotifySMS()==1) {
                 SMS mSMS = new SMS();
-                mSMS.sendSMS(context, message);
-            }
-            else if(account.getNotifyEmail()==1 & account.getNotifySMS()==1) {
-                Email mEmail = new Email();
-                mEmail.sendMail(account.getEmail(),message);
-                SMS mSMS = new SMS();
-                mSMS.sendSMS(context, message);
+                mSMS.sendSms(context, account.getPhoneNumber(),message,false);
             }
 
         }
