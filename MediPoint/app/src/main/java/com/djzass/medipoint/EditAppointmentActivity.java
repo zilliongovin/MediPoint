@@ -15,6 +15,7 @@ import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.djzass.medipoint.entity.Account;
 import com.djzass.medipoint.entity.Appointment;
 import com.djzass.medipoint.entity.Clinic;
 import com.djzass.medipoint.entity.Doctor;
@@ -29,6 +30,7 @@ import com.djzass.medipoint.logic_manager.*;
 import com.djzass.medipoint.logic_manager.AccountManager;
 
 import java.sql.SQLException;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;

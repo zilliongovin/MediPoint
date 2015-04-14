@@ -449,7 +449,6 @@ public class CreateAppointmentActivity extends onDataPass implements AdapterView
                         e.printStackTrace();
                     }
                     malarm.setAlarm(getApplicationContext(),appointment,account);
-                    Toast.makeText(getApplicationContext(),"value: " + account.getNotifySMS(),Toast.LENGTH_SHORT).show();
                     /*Notification notification = new Notification();
                     notification.buildNotification(this, "Appointment created.",appointment);*/
                     Intent goToMain = new Intent(this, MainActivity.class);

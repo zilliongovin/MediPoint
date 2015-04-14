@@ -1,6 +1,7 @@
 package com.djzass.medipoint;
 
 import android.app.Activity;
+import android.app.AlarmManager;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -78,6 +79,8 @@ public class ViewAppointmentActivity extends Activity {
 
     private void performDelete(){
         Container.getAppointmentManager().cancelAppointment(app, this);
+        AlarmSetter mAlarm = new AlarmSetter();
+        mAlarm.cancelAlarm(getApplicationContext(),app);
         Intent in = new Intent(this, MainActivity.class);
         startActivity(in);
     }
