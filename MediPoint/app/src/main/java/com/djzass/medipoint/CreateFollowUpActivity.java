@@ -15,13 +15,16 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.djzass.medipoint.entity.Account;
 import com.djzass.medipoint.entity.Appointment;
 import com.djzass.medipoint.entity.Service;
 import com.djzass.medipoint.entity.Specialty;
 import com.djzass.medipoint.entity.Timeframe;
 import com.djzass.medipoint.logic_database.ServiceDAO;
+import com.djzass.medipoint.logic_manager.AccountManager;
 import com.djzass.medipoint.logic_manager.Container;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -39,6 +42,8 @@ public class CreateFollowUpActivity extends onDataPass implements AdapterView.On
     Spinner serviceSpinnerCreate;
     List<Service> services;
     List<String> serviceNames = new ArrayList<String>();
+    Button confirmButton;
+    Button cancelButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,7 +82,7 @@ public class CreateFollowUpActivity extends onDataPass implements AdapterView.On
             }
         });
 
-        cancelButton = (Button)findViewById(R.id.CancelCreateAppt);
+        cancelButton = (Button)findViewById(R.id.CancelCreateFollowUpAppt);
         cancelButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View arg0) {
                 Intent in = new Intent(getApplicationContext(), MainActivity.class);
@@ -183,6 +188,56 @@ public class CreateFollowUpActivity extends onDataPass implements AdapterView.On
         Button btn = (Button) findViewById(R.id.timepicker);
         btn.setText("TAP TO CHOOSE TIME");
         this.timeframe = new Timeframe(-1,-1);
+    }
+    public void onClickCreateAppointment() {
+        //AppointmentManager appointmentManager = new AppointmentManager();
+        //Toast.makeText(this, "Button clicked.", Toast.LENGTH_SHORT).show();
+        Calendar currentDate = Calendar.getInstance();
+        currentDate.add(Calendar.DATE, 1);
+
+        if (this.date.getTimeInMillis()==0){
+            Toast.makeText(this, "Please select a date ", Toast.LENGTH_SHORT).show();
+        } else if (this.timeframe.getStartTime()<0){
+            Toast.makeText(this, "Please select a time. ", Toast.LENGTH_SHORT).show();
+        } else {
+            this.date.set(Calendar.HOUR_OF_DAY,(this.timeframe.getStartTime()/2));
+            this.date.set(Calendar.MINUTE,30*(this.timeframe.getStartTime()%2));
+            if (this.date.compareTo(currentDate)<0){
+                Toast.makeText(this, "You must book at least 24 hours in advance. ", Toast.LENGTH_SHORT).show();
+            } else {
+                AccountManager accountManager = new AccountManager(this);
+                Log.d("CalendarCreateC",this.date.toString());
+                Appointment appointment = new Appointment(this.patientId, this.clinicId, this.specialtyId, this.serviceId, this.doctorId, referrerId,this.date, this.timeframe);
+                Log.d("CalendarCreateA", appointment.getDate().toString());
+                long res = Container.getAppointmentManager().createAppointment(appointment, this);
+                if (res == -1) {
+                    Toast.makeText(this,"Appointment creation failed", Toast.LENGTH_SHORT).show();
+
+                } else {
+                    AlarmSetter malarm = new AlarmSetter();
+                    AccountManager mAcc = new AccountManager(this);
+                    Account account = new Account();
+                    try {
+                        account = mAcc.getAccountById(accountId);
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+                    malarm.setAlarm(getApplicationContext(),appointment,account);
+                    /*Notification notification = new Notification();
+                    notification.buildNotification(this, "Appointment created.",appointment);*/
+                    Intent goToMain = new Intent(this, MainActivity.class);
+                    startActivity(goToMain);
+/*            try {
+                malarm.setAlarm(this, appointment, accountManager.getAccountById(this.patientId));
+
+
+            } catch (ParseException e){
+                Toast.makeText(this,"In Here",Toast.LENGTH_SHORT).show();
+            }*/
+
+                }
+            }
+        }
     }
 
 }
