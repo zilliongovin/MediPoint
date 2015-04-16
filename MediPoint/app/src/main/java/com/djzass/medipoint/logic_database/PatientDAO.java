@@ -161,6 +161,7 @@ public class PatientDAO extends DbDAO{
 
     private void initializeDAO(){
         if (getPatientCount()==0){
+            insertPatient(new GregorianCalendar(1995, 1, 1), "Allergic to Chocolate", "1. Audio Therapy\n","", "");
         }
     }
 }

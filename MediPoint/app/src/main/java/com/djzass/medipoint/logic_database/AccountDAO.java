@@ -10,6 +10,7 @@ import com.djzass.medipoint.entity.Account;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 /**
@@ -227,6 +228,7 @@ public class AccountDAO extends DbDAO{
 
     private void initializeDAO(){
         if (getAccountCount()==0){
+            insertAccount(new Account("test", "123", "Test", "A142049", "deka108@gmail.com", "82342891", "Female", "NTU", "Single", new GregorianCalendar(1995, 1, 1), "Singaporean", "Singapore", 1, 1));
         }
     }
 

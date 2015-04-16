@@ -174,6 +174,7 @@ public class AppointmentDAO extends DbDAO{
     }
     private void initializeDAO(){
         if (getAllAppointments().size()==0){
+
         }
     }
 
