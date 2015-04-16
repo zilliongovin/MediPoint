@@ -5,7 +5,6 @@ import android.content.Context;
 import android.database.Cursor;
 import android.util.Log;
 
-import com.djzass.medipoint.DbContract;
 import com.djzass.medipoint.entity.Service;
 
 import java.sql.SQLException;

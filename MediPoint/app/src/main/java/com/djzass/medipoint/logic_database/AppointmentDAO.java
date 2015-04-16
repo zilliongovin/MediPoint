@@ -1,9 +1,6 @@
 package com.djzass.medipoint.logic_database;
 
 import java.sql.SQLException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -13,9 +10,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.util.Log;
-import android.widget.Toast;
 
-import com.djzass.medipoint.DbContract;
 import com.djzass.medipoint.entity.Timeframe;
 import com.djzass.medipoint.entity.Appointment;
 

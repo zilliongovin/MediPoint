@@ -5,13 +5,9 @@ import android.content.Context;
 import android.database.Cursor;
 import android.util.Log;
 
-import com.djzass.medipoint.DbContract;
 import com.djzass.medipoint.entity.Account;
 
 import java.sql.SQLException;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;

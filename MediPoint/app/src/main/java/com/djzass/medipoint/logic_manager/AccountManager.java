@@ -15,10 +15,7 @@ import java.util.Calendar;
 
 
 public class AccountManager {
-    //private ArrayList<Account> accounts;
     private Account newAccount;
-    //DbHelper dbHelper;
-    //SQLiteDatabase db;
     AccountDAO accountDAO;
     Context context;
 

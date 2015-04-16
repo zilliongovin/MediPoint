@@ -25,6 +25,7 @@ public class Container {
     private static ClinicManager clinicManager;
     private static DoctorManager doctorManager;
     private static DoctorScheduleManager doctorScheduleManager;
+    private static PatientManager patientManager;
     private static ServiceManager serviceManager;
     private static SpecialtyManager specialtyManager;
 
@@ -37,6 +38,7 @@ public class Container {
             clinicManager = ClinicManager.getInstance();
             doctorManager = DoctorManager.getInstance();
             doctorScheduleManager = DoctorScheduleManager.getInstance();
+            patientManager = patientManager.getInstance();
             serviceManager = ServiceManager.getInstance();
             specialtyManager = SpecialtyManager.getInstance();
         }
@@ -58,6 +60,9 @@ public class Container {
         return doctorScheduleManager;
     }
 
+    public static PatientManager getPatientManager() {
+        return patientManager;
+    }
     public static ServiceManager getServiceManager() {
         return serviceManager;
     }

@@ -15,12 +15,12 @@
         android:theme="@style/CustomActionBarTheme" >
 
         <activity
-            android:name=".MainActivity"
+            android:name=".boundary_ui.MainActivity"
             android:label="@string/app_name">
         </activity>
 
         <activity
-            android:name=".Login"
+            android:name=".boundary_ui.Login"
             android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -29,58 +29,58 @@
         </activity>
 
         <activity
-            android:name=".PasswordRetriever"
+            android:name=".boundary_ui.PasswordRetriever"
             android:label="@string/title_activity_password_retriever" />
 
         <activity
-            android:name=".SignUpPageOne"
+            android:name=".boundary_ui.SignUpPageOne"
             android:label="@string/title_activity_sign_up" >
         </activity>
 
         <activity
-            android:name=".SignUpPageTwo"
+            android:name=".boundary_ui.SignUpPageTwo"
             android:label="@string/title_activity_sign_up" >
         </activity>
 
         <activity
-            android:name=".SignUpPageThree"
+            android:name=".boundary_ui.SignUpPageThree"
             android:label="@string/title_activity_sign_up" >
         </activity>
 
         <activity
-            android:name=".CreateAppointmentActivity"
+            android:name=".boundary_ui.CreateAppointmentActivity"
             android:label="Create an Appointment" />
 
         <activity
-            android:name=".EditAppointmentActivity"
+            android:name=".boundary_ui.EditAppointmentActivity"
             android:label="Edit an Appointment" />
 
         <activity
-            android:name=".ReferralActivity"
+            android:name=".boundary_ui.ReferralActivity"
             android:label="@string/referral" />
 
-        <activity android:name=".MedicalHistory"
+        <activity android:name=".boundary_ui.MedicalHistory"
             android:label="@string/med_his"/>
 
-        <activity android:name=".EditHistoryActivity"
+        <activity android:name=".boundary_ui.EditHistoryActivity"
             android:label="@string/med_his"/>
 
         <activity
-            android:name=".ViewAppointmentActivity"
+            android:name=".boundary_ui.ViewAppointmentActivity"
             android:label="@string/app_name" >
         </activity>
 
         <activity
-            android:name=".FollowUpListActivity"
+            android:name=".boundary_ui.FollowUpListActivity"
             android:label="Past Appointments" >
         </activity>
 
         <activity
-            android:name=".CreateFollowUpActivity"
+            android:name=".boundary_ui.CreateFollowUpActivity"
             android:label="Create Follow Up Appointment" >
         </activity>
 
-        <receiver android:name=".AlarmBroadcastReceiver" />
+        <receiver android:name=".boundary_ui.AlarmBroadcastReceiver" />
 
     </application>
 
