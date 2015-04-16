@@ -15,8 +15,8 @@ import com.djzass.medipoint.logic_manager.Container;
 
 
 public class SignUpPageThree extends Activity {
-    //DbHelper mDbHelper;
-    //SQLiteDatabase db;
+
+    private AccountManager AccountCreator;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,6 +76,9 @@ public class SignUpPageThree extends Activity {
 
     public void goToMedicalHistoryForm(String username,String password,Intent PageThreeToHistory)
     {
+        SignUpPageOne.PageOne.finish();
+        SignUpPageTwo.PageTwo.finish();
+        this.finish();
         startActivity(PageThreeToHistory);
     }
 

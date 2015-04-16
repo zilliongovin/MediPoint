@@ -1,5 +1,6 @@
 package com.djzass.medipoint.boundary_ui;
 
+import android.app.Activity;
 import android.app.FragmentManager;
 import android.content.Intent;
 import android.os.Bundle;
@@ -22,6 +23,7 @@ import java.util.Calendar;
 public class SignUpPageTwo extends onDataPass {
     //DbHelper mDbHelper;
     //SQLiteDatabase db;
+    public static Activity PageTwo;
 
     int dateOB = 0;
     int monthOB = 0;
@@ -31,6 +33,7 @@ public class SignUpPageTwo extends onDataPass {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up2);
+        PageTwo = this;
         //mDbHelper = new DbHelper(this);
 
         // Gets the data repository in write mode

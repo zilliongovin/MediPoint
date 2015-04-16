@@ -15,13 +15,16 @@ import com.djzass.medipoint.logic_manager.Container;
 
 
 public class SignUpPageOne extends Activity {
-    //DbHelper mDbHelper;
-    //SQLiteDatabase db;
+
+    private AccountManager AccountCreator;
+    public static Activity PageOne;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
+        PageOne = this;
         //mDbHelper = new DbHelper(this);
 
         // Gets the data repository in write mode
