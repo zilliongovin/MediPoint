@@ -363,10 +363,9 @@ public class EditAppointmentActivity extends onDataPass implements AdapterView.O
 
                 } else {
                     AlarmSetter malarm = new AlarmSetter();
-                    AccountManager mAcc = new AccountManager(this);
                     Account account = new Account();
                     try {
-                        account = mAcc.getAccountById(sessionMgr.getAccountId());
+                        account = Container.getAccountManager().getAccountById(sessionMgr.getAccountId(),this);
                     } catch (ParseException e) {
                         e.printStackTrace();
                     } catch (SQLException e) {
@@ -379,13 +378,6 @@ public class EditAppointmentActivity extends onDataPass implements AdapterView.O
                     Toast.makeText(this, "Appointment successfully edited", Toast.LENGTH_SHORT).show();
                     Intent goToMain = new Intent(this, MainActivity.class);
                     startActivity(goToMain);
-/*            try {
-                malarm.setAlarm(this, appointment, accountManager.getAccountById(this.patientId));
-
-
-            } catch (ParseException e){Appointment app
-                Toast.makeText(this,"In Here",Toast.LENGTH_SHORT).show();
-            }*/
 
                 }
             }

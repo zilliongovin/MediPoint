@@ -21,8 +21,6 @@ import java.util.HashMap;
  * Created by Deka on 12/4/2015.
  */
 public class FollowUpAdapter extends ArrayAdapter<Appointment> {
-    AppointmentManager appointmentManager;
-
     private static class ViewHolder {
         public ImageView specialtyIcon;
         public TextView appointmentService;
@@ -32,7 +30,6 @@ public class FollowUpAdapter extends ArrayAdapter<Appointment> {
 
     public FollowUpAdapter(Context context, ArrayList<Appointment> appointments) throws SQLException {
         super(context, R.layout.followup_adapter, appointments);
-        appointmentManager = AppointmentManager.getInstance();
     }
 
     @Override

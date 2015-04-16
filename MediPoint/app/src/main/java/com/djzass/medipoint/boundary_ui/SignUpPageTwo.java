@@ -20,7 +20,6 @@ import java.util.Calendar;
 
 
 public class SignUpPageTwo extends onDataPass {
-    //private AccountManager AccountCreator;
     //DbHelper mDbHelper;
     //SQLiteDatabase db;
 
@@ -36,7 +35,6 @@ public class SignUpPageTwo extends onDataPass {
 
         // Gets the data repository in write mode
         //db = mDbHelper.getWritableDatabase();
-       //AccountCreator = new AccountManager(this);
         //newAccount = new Account();
     }
 

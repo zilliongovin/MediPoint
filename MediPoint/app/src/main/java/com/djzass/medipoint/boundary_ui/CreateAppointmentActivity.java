@@ -433,7 +433,6 @@ public class CreateAppointmentActivity extends onDataPass implements AdapterView
             if (this.date.compareTo(currentDate)<0){
                 Toast.makeText(this, "You must book at least 24 hours in advance. ", Toast.LENGTH_SHORT).show();
             } else {
-                AccountManager accountManager = new AccountManager(this);
                 Appointment appointment = new Appointment(this.patientId, this.clinicId, this.specialtyId, this.serviceId, this.doctorId, referrerId,this.date, this.timeframe, Container.getServiceManager().getServicePreappbyID(this.serviceId, this));
                 long res = Container.getAppointmentManager().createAppointment(appointment, this);
                 if (res == -1) {
@@ -441,10 +440,9 @@ public class CreateAppointmentActivity extends onDataPass implements AdapterView
 
                 } else {
                     AlarmSetter malarm = new AlarmSetter();
-                    AccountManager mAcc = new AccountManager(this);
                     Account account = new Account();
                     try {
-                        account = mAcc.getAccountById(accountId);
+                        account = Container.getAccountManager().getAccountById(accountId,this);
                     } catch (ParseException e) {
                         e.printStackTrace();
                     }
@@ -454,13 +452,6 @@ public class CreateAppointmentActivity extends onDataPass implements AdapterView
                     Toast.makeText(this,"Appointment created!", Toast.LENGTH_SHORT).show();
                     Intent goToMain = new Intent(this, MainActivity.class);
                     startActivity(goToMain);
-/*            try {
-                malarm.setAlarm(this, appointment, accountManager.getAccountById(this.patientId));
-
-
-            } catch (ParseException e){
-                Toast.makeText(this,"In Here",Toast.LENGTH_SHORT).show();
-            }*/
 
                 }
             }

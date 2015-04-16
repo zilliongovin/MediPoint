@@ -23,7 +23,6 @@ import java.util.HashMap;
  * Created by Deka on 30/3/2015.
  */
 public class AppointmentAdapter extends ArrayAdapter<Appointment> {
-    AppointmentManager appointmentManager;
 
     private static class ViewHolder {
         public ImageView specialtyIcon;
@@ -35,7 +34,6 @@ public class AppointmentAdapter extends ArrayAdapter<Appointment> {
 
     public AppointmentAdapter(Context context, ArrayList<Appointment> appointments) throws SQLException {
         super(context, R.layout.appointment_adapter, appointments);
-        appointmentManager = AppointmentManager.getInstance();
     }
 
     @Override

@@ -11,10 +11,10 @@ import android.widget.Toast;
 
 import com.djzass.medipoint.R;
 import com.djzass.medipoint.logic_manager.AccountManager;
+import com.djzass.medipoint.logic_manager.Container;
 
 
 public class SignUpPageThree extends Activity {
-    private AccountManager AccountCreator;
     //DbHelper mDbHelper;
     //SQLiteDatabase db;
 
@@ -26,7 +26,6 @@ public class SignUpPageThree extends Activity {
 
         // Gets the data repository in write mode
         //db = mDbHelper.getWritableDatabase();
-        AccountCreator = new AccountManager(this);
         //newAccount = new Account();
     }
 
@@ -94,7 +93,7 @@ public class SignUpPageThree extends Activity {
         checkViews[2] = (EditText) findViewById(R.id.ConfirmPasswordTextbox);
 
         boolean isFilled = isFormFilled(checkViews,3);
-        boolean usernameExists = AccountCreator.doesUsernameExist(checkViews[0].getText().toString());
+        boolean usernameExists = Container.getAccountManager().doesUsernameExist(checkViews[0].getText().toString(),this);
         boolean isPasswordEqual = checkPassword(checkViews[1],checkViews[2]);
         if(isFilled && !usernameExists && isPasswordEqual)
         {
@@ -104,7 +103,7 @@ public class SignUpPageThree extends Activity {
             //medical history form intent
             Intent PageThreeToHistory = createIntentToHistory(username,password);
 
-            long accountId = AccountCreator.createAccount(PageThreeToHistory.getExtras(),this);
+            long accountId = Container.getAccountManager().createAccount(PageThreeToHistory.getExtras(),this);
 
             AccountCreatedDialog(username,password,PageThreeToHistory, (int) accountId);
 

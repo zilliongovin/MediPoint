@@ -6,6 +6,7 @@ import android.app.Application;
 import com.djzass.medipoint.entity.Doctor;
 import com.djzass.medipoint.entity.DoctorSchedule;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 /**
@@ -20,8 +21,8 @@ public class Container {
     /**
      * an instance of AppointmentManager to be used globally
      */
+    private static AccountManager accountManager;
     private static AppointmentManager appointmentManager;
-    //private static AccountManager accountManager;
     private static ClinicManager clinicManager;
     private static DoctorManager doctorManager;
     private static DoctorScheduleManager doctorScheduleManager;
@@ -33,15 +34,20 @@ public class Container {
 
         if (!isInitialized) {
             isInitialized = true;
+            accountManager = AccountManager.getInstance();
             appointmentManager = AppointmentManager.getInstance();
-            //accountManager = AccountManager.getInstance();
             clinicManager = ClinicManager.getInstance();
             doctorManager = DoctorManager.getInstance();
             doctorScheduleManager = DoctorScheduleManager.getInstance();
             patientManager = patientManager.getInstance();
             serviceManager = ServiceManager.getInstance();
             specialtyManager = SpecialtyManager.getInstance();
+
         }
+    }
+
+    public static AccountManager getAccountManager() {
+        return accountManager;
     }
 
     public static AppointmentManager getAppointmentManager() {
@@ -63,6 +69,7 @@ public class Container {
     public static PatientManager getPatientManager() {
         return patientManager;
     }
+
     public static ServiceManager getServiceManager() {
         return serviceManager;
     }
@@ -84,5 +91,10 @@ public class Container {
             daysBetween++;
         }
         return daysBetween;
+    }
+
+    public static String CalendarToString(Calendar calendar){
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-mm-dd");
+        return sdf.format(calendar.getTime());
     }
 }

@@ -1,6 +1,7 @@
 package com.djzass.medipoint.boundary_ui;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -33,7 +34,7 @@ public class Login extends Activity {
         setContentView(R.layout.activity_login);
 
         sessionManager = new SessionManager(this);
-        accountManager = new AccountManager(this);
+        Container.getAccountManager().updateAccountDao(this);
 
         loginButton = (Button)findViewById(R.id.loginButton);
         loginButton.setOnClickListener(new View.OnClickListener() {
@@ -43,7 +44,7 @@ public class Login extends Activity {
                 String username = usernameBox.getText().toString();
                 String password = passwordBox.getText().toString();
 
-                boolean isAuthenticated = accountManager.authenticate(username,password);
+                boolean isAuthenticated = Container.getAccountManager().authenticate(username, password);
                 if(isAuthenticated==true){
                     sessionManager.createLoginSession(username,password);
                     loginSuccessful(username);

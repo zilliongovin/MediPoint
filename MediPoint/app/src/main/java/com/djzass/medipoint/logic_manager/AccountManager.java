@@ -15,69 +15,58 @@ import java.util.Calendar;
 
 
 public class AccountManager {
-    private Account newAccount;
-    AccountDAO accountDAO;
-    Context context;
+    
+    /**
+     * An instance of {@link AccountDAO}. This is to be re-instated with context before use.
+     */
+    private AccountDAO accountDao; 
 
-	public AccountManager(Context context){
+    private static AccountManager instance = new AccountManager();
 
-        //accounts = new ArrayList<Account>();
-        //dbHelper = new DbHelper(context);
-        //db = dbHelper.getWritableDatabase();
+
+    /**
+     * returns AccountManager instance
+     */
+    public static AccountManager getInstance() {
+        return instance;
+    }
+    
+    /**
+     * Re-initializes the AccountDAO with the given context
+     */
+    public void updateAccountDao(Context context){
         try {
-            accountDAO = new AccountDAO(context);
-            this.context = context;
+            accountDao = new AccountDAO(context);
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
-        catch(SQLException sqlEx)
-        {
-            sqlEx.getStackTrace();
-        }
-    }
-
-    public Cursor findAccount(String nric){
-        Cursor cursor = accountDAO.checkAccount(nric);
-        return cursor.getCount()>0? cursor:null;
-    }
-
-    public void updateAccount(){
-
-    }
-
-    public boolean authenticate(String username,String password){
-        int numUsers = accountDAO.onLogin(username,password);
-        return numUsers>0? true:false;
-
     }
 
     public long createAccount(Bundle AccountDetails,Context context){
+        updateAccountDao(context);
         Account newAccount = extractAccountDetails(AccountDetails);
-
-        try {
-            AccountDAO acctDAO = new AccountDAO(context);
-            return acctDAO.insertAccount(newAccount);
-        }
-        catch(SQLException sqlExcep){
-            sqlExcep.getStackTrace();
-        }
-        return -1;
-
+        long ret = accountDao.insertAccount(newAccount);
+        return ret;
     }
 
-   public String CalendarToString(Calendar calendar){
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-mm-dd");
-        return sdf.format(calendar.getTime());
+    public long updateAccount(Bundle AccountDetails,Context context){
+        updateAccountDao(context);
+        Account newAccount = extractAccountDetails(AccountDetails);
+        long ret = accountDao.update(newAccount);
+        return ret;
     }
 
-    public boolean isNewAccount(String nric){
-        Cursor cursor = findAccount(nric);
+    public boolean isNewAccount(String nric, Context context){
+        Cursor cursor = findAccount(nric,context);
         if(cursor==null)
             return true;
         else
             return false;
     }
 
-    public boolean doesUsernameExist(String username){
-        return accountDAO.checkUsername(username)>0? true:false;
+    public boolean doesUsernameExist(String username, Context context){
+        updateAccountDao(context);
+        return accountDao.checkUsername(username)>0? true:false;
     }
 
     public Account extractAccountDetails(Bundle AccountDetails){
@@ -108,8 +97,9 @@ public class AccountManager {
         return newAccount;
     }
 
-    public Account getAccountById(long id) throws ParseException {
-        Cursor cursor = accountDAO.getAccountById(id);
+    public Account getAccountById(long id, Context context) throws ParseException {
+        updateAccountDao(context);
+        Cursor cursor = accountDao.getAccountById(id);
         cursor.moveToFirst();
 
         String name = cursor.getString(1);
@@ -131,11 +121,30 @@ public class AccountManager {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-mm-dd");
         Calendar dobCal = Calendar.getInstance();
         /*dobCal.setTime(sdf.parse(dob));*/
-
-
-
         return new Account(id,username,password,name,nric,email,contact,gender,address,maritalStatus,dobCal,citizenship,countryOfResidence,isEmail,isSMS);
-
     }
+
+    public Cursor findAccount(String nric, Context context){
+        updateAccountDao(context);
+        Cursor cursor = accountDao.checkAccount(nric);
+        return cursor.getCount()>0? cursor:null;
+    }
+
+    public boolean authenticate(String username,String password, Context context){
+        updateAccountDao(context);
+        int numUsers = accountDao.onLogin(username,password);
+        return numUsers>0? true:false;
+    }
+
+    public Cursor findAccount(String nric){
+        Cursor cursor = accountDao.checkAccount(nric);
+        return cursor.getCount()>0? cursor:null;
+    }
+
+    public boolean authenticate(String username,String password){
+        int numUsers = accountDao.onLogin(username,password);
+        return numUsers>0? true:false;
+    }
+
 }
 

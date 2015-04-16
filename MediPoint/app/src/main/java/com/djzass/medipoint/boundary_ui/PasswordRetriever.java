@@ -1,6 +1,7 @@
 package com.djzass.medipoint.boundary_ui;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
@@ -13,26 +14,27 @@ import android.widget.Toast;
 
 import com.djzass.medipoint.R;
 import com.djzass.medipoint.logic_manager.AccountManager;
+import com.djzass.medipoint.logic_manager.Container;
 
 
 public class PasswordRetriever extends Activity {
 
     private static final String username = "djzass15@gmail.com";
     private static final String password = "medipoint";
-    private AccountManager AccountChecker;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_password_retriever);
-        AccountChecker = new AccountManager(this);
 
         Button confirmButton = (Button) findViewById(R.id.confirmButton);
+        Container.getAccountManager().updateAccountDao(this);
+
         confirmButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 EditText nricTextbox = (EditText) findViewById(R.id.nricTextbox);
-                Cursor cursor = AccountChecker.findAccount(nricTextbox.getText().toString());
+                Cursor cursor = Container.getAccountManager().findAccount(nricTextbox.getText().toString());
                 if (cursor == null) {
                     AccountNotExist();
                 }

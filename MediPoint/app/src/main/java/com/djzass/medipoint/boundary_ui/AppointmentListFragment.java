@@ -20,6 +20,7 @@ import android.widget.TextView;
 import com.djzass.medipoint.R;
 import com.djzass.medipoint.entity.Appointment;
 import com.djzass.medipoint.logic_manager.AppointmentManager;
+import com.djzass.medipoint.logic_manager.Container;
 import com.djzass.medipoint.logic_manager.SessionManager;
 
 import java.sql.SQLException;
@@ -58,9 +59,8 @@ public class AppointmentListFragment extends Fragment implements ActionBar.OnNav
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        AppointmentManager appointmentManager = AppointmentManager.getInstance();
-        appointments = (ArrayList<Appointment>) appointmentManager.getPatientAppointmentList(this.patientId, this.getActivity());
-        appointments = (ArrayList<Appointment>) appointmentManager.sortByDate(appointments);
+        appointments = (ArrayList<Appointment>) Container.getAppointmentManager().getPatientAppointmentList(this.patientId, this.getActivity());
+        appointments = (ArrayList<Appointment>) Container.getAppointmentManager().sortByDate(appointments);
     }
 
     @Override

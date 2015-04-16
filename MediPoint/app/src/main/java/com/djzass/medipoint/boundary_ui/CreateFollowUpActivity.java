@@ -220,7 +220,6 @@ public class CreateFollowUpActivity extends onDataPass implements AdapterView.On
             if (this.apptDate.compareTo(currentDate)<0){
                 Toast.makeText(this, "You must book at least 24 hours in advance. ", Toast.LENGTH_SHORT).show();
             } else {
-                AccountManager accountManager = new AccountManager(this);
                 Log.d("CalendarCreateC",this.apptDate.toString());
                 Appointment appointment = new Appointment(this.patientId, this.clinicId, this.specialtyId, this.serviceId, this.doctorId, -1, this.apptDate, this.timeframe, Container.getServiceManager().getServicePreappbyID(this.serviceId, this));
 
@@ -234,10 +233,9 @@ public class CreateFollowUpActivity extends onDataPass implements AdapterView.On
 
                 } else {
                     AlarmSetter malarm = new AlarmSetter();
-                    AccountManager mAcc = new AccountManager(this);
                     Account account = new Account();
                     try {
-                        account = mAcc.getAccountById(accountId);
+                        account = Container.getAccountManager().getAccountById(accountId, this);
                     } catch (ParseException e) {
                         e.printStackTrace();
                     }
@@ -246,13 +244,6 @@ public class CreateFollowUpActivity extends onDataPass implements AdapterView.On
                     notification.buildNotification(this, "Appointment created.",appointment);*/
                     Intent goToMain = new Intent(this, MainActivity.class);
                     startActivity(goToMain);
-/*            try {
-                malarm.setAlarm(this, appointment, accountManager.getAccountById(this.patientId));
-
-
-            } catch (ParseException e){
-                Toast.makeText(this,"In Here",Toast.LENGTH_SHORT).show();
-            }*/
 
                 }
             }

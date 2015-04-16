@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.djzass.medipoint.R;
 import com.djzass.medipoint.entity.Appointment;
 import com.djzass.medipoint.logic_manager.AppointmentManager;
+import com.djzass.medipoint.logic_manager.Container;
 import com.djzass.medipoint.logic_manager.SessionManager;
 
 import java.sql.SQLException;
@@ -29,7 +30,6 @@ public class FollowUpListActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_follow_up_list);
 
-        AppointmentManager appointmentManager = AppointmentManager.getInstance();
         SessionManager sessionManager = new SessionManager(this);
         try {
             this.patientId = (int)sessionManager.getAccountId();
@@ -37,8 +37,8 @@ public class FollowUpListActivity extends Activity {
             e.printStackTrace();
         }
 
-        ArrayList<Appointment> appointments = (ArrayList<Appointment>) appointmentManager.sortByDate(appointmentManager.getPatientRecentAppointments(this.patientId, Calendar.getInstance(), this));
-        //appointments = appointmentManager.getAppointments(this.getApplicationContext())
+        ArrayList<Appointment> appointments = (ArrayList<Appointment>) Container.getAppointmentManager().sortByDate(Container.getAppointmentManager().getPatientRecentAppointments(this.patientId, Calendar.getInstance(), this));
+
         TextView tv = (TextView)findViewById(R.id.noPastAppoinment);
         if (appointments.size() > 0) {
             ListView apptList = (ListView)findViewById(R.id.followuplist);

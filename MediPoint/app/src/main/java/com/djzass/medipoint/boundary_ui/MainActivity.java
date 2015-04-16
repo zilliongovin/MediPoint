@@ -24,7 +24,6 @@ public class MainActivity extends FragmentActivity{
         //Container.init();
         setContentView(R.layout.activity_main);
 
-    AccountManager acctMgr = new AccountManager(this);
         //get Patient ID
         //String id = GlobalContainer.GlobalAccountManager.getLoggedInAccountId();
         //Toast.makeText(this,""+acctMgr.getLoggedInAccountId(this),Toast.LENGTH_SHORT).show();

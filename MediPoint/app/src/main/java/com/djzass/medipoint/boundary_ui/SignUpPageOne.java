@@ -11,10 +11,10 @@ import android.widget.Toast;
 
 import com.djzass.medipoint.R;
 import com.djzass.medipoint.logic_manager.AccountManager;
+import com.djzass.medipoint.logic_manager.Container;
 
 
 public class SignUpPageOne extends Activity {
-    private AccountManager AccountCreator;
     //DbHelper mDbHelper;
     //SQLiteDatabase db;
 
@@ -26,7 +26,6 @@ public class SignUpPageOne extends Activity {
 
         // Gets the data repository in write mode
         //db = mDbHelper.getWritableDatabase();
-        AccountCreator = new AccountManager(this);
         //newAccount = new Account();
     }
 
@@ -99,7 +98,7 @@ public class SignUpPageOne extends Activity {
                 checkViews[4] = (EditText) findViewById(R.id.AddressTextbox);
 
                 boolean isFilled = isFormFilled(checkViews,5);
-                boolean newAccount = AccountCreator.isNewAccount(checkViews[1].getText().toString());
+                boolean newAccount = Container.getAccountManager().isNewAccount(checkViews[1].getText().toString(),this);
 
                 if(!isFilled)
                 {
