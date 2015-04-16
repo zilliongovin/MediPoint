@@ -1,7 +1,6 @@
 package com.djzass.medipoint.boundary_ui;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -19,7 +18,7 @@ import com.djzass.medipoint.logic_manager.Container;
 import com.djzass.medipoint.logic_manager.SessionManager;
 
 
-public class Login extends Activity {
+public class LoginActivity extends Activity {
 
     Button loginButton;
     DbHelper mDbHelper;
@@ -95,13 +94,13 @@ public class Login extends Activity {
 
     public void ForgotPassword(View view)
     {
-        Intent intent = new Intent(this,PasswordRetriever.class);
+        Intent intent = new Intent(this,PasswordRetrieverActivity.class);
         startActivity(intent);
     }
 
     public void createSignUpForm(View view)
     {
-        Intent intent = new Intent(this,SignUpPageOne.class);
+        Intent intent = new Intent(this,SignUpPageOneActivity.class);
         startActivity(intent);
     }
 

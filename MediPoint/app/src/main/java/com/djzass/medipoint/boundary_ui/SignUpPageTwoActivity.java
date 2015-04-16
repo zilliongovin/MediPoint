@@ -20,7 +20,7 @@ import com.djzass.medipoint.R;
 import java.util.Calendar;
 
 
-public class SignUpPageTwo extends onDataPass {
+public class SignUpPageTwoActivity extends onDataPass {
     //DbHelper mDbHelper;
     //SQLiteDatabase db;
     public static Activity PageTwo;
@@ -66,7 +66,7 @@ public class SignUpPageTwo extends onDataPass {
     }
 
     public void goToPage1(){
-        Intent PageTwoToOne = new Intent(this,SignUpPageOne.class);
+        Intent PageTwoToOne = new Intent(this,SignUpPageOneActivity.class);
         PageTwoToOne.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
         startActivity(PageTwoToOne);
 
@@ -78,7 +78,7 @@ public class SignUpPageTwo extends onDataPass {
 
 
     public void goToPage3(String gender,String maritalStatus,String citizenship,String countryOfResidence,long dob,int isEmailChecked, int isSmsChecked){
-        Intent PageTwoToThree = new Intent(this,SignUpPageThree.class);
+        Intent PageTwoToThree = new Intent(this,SignUpPageThreeActivity.class);
         Bundle pageTwo = new Bundle();
         pageTwo.putString("GENDER",gender);
         pageTwo.putString("MARITAL_STATUS",maritalStatus);

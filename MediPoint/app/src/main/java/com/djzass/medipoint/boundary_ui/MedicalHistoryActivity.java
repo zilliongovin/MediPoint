@@ -25,7 +25,7 @@ import java.sql.SQLException;
 import java.util.Calendar;
 
 
-public class MedicalHistory extends Activity {
+public class MedicalHistoryActivity extends Activity {
     //Personal History
     String dentalInfo = "";
     String ENTInfo = "";
@@ -136,7 +136,7 @@ public class MedicalHistory extends Activity {
     }
 
     public void goToLoginPage(){
-        Intent MedicalHistoryToLogin = new Intent(this,Login.class);
+        Intent MedicalHistoryToLogin = new Intent(this,LoginActivity.class);
         startActivity(MedicalHistoryToLogin);
     }
     //checkbox listener
@@ -385,7 +385,7 @@ public class MedicalHistory extends Activity {
 
         Toast.makeText(this,"Medical History updated",Toast.LENGTH_SHORT).show();
         //go back to login page after submitting
-        Intent intent = new Intent(this, Login.class);
+        Intent intent = new Intent(this, LoginActivity.class);
         startActivity(intent);
     }
 }

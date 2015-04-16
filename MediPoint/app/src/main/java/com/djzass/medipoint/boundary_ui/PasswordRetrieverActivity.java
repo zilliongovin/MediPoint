@@ -1,7 +1,6 @@
 package com.djzass.medipoint.boundary_ui;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
@@ -13,11 +12,10 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.djzass.medipoint.R;
-import com.djzass.medipoint.logic_manager.AccountManager;
 import com.djzass.medipoint.logic_manager.Container;
 
 
-public class PasswordRetriever extends Activity {
+public class PasswordRetrieverActivity extends Activity {
 
     private static final String username = "djzass15@gmail.com";
     private static final String password = "medipoint";
@@ -82,7 +80,7 @@ public class PasswordRetriever extends Activity {
         emailSender.sendMail(email,body);
         Toast.makeText(this,"Email sent",Toast.LENGTH_SHORT).show();
 
-        Intent intent = new Intent(this,Login.class);
+        Intent intent = new Intent(this,LoginActivity.class);
         startActivity(intent);
     }
 

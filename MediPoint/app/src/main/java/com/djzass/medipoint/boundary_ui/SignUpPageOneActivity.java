@@ -14,14 +14,17 @@ import com.djzass.medipoint.logic_manager.AccountManager;
 import com.djzass.medipoint.logic_manager.Container;
 
 
-public class SignUpPageThree extends Activity {
+public class SignUpPageOneActivity extends Activity {
 
     private AccountManager AccountCreator;
+    public static Activity PageOne;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_sign_up3);
+        setContentView(R.layout.activity_sign_up);
+        PageOne = this;
         //mDbHelper = new DbHelper(this);
 
         // Gets the data repository in write mode
@@ -57,10 +60,18 @@ public class SignUpPageThree extends Activity {
         setContentView(R.layout.activity_sign_up);
     }*/
 
-    public void goToPage2(){
-        Intent PageThreeToTwo = new Intent(this,SignUpPageTwo.class);
-        PageThreeToTwo.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-        startActivity(PageThreeToTwo);
+    public void goToPage2(String name,String nric,String email,String contact,String address){
+        Intent PageOneToTwo = new Intent(this,SignUpPageTwoActivity.class);
+        Bundle pageOne = new Bundle();
+        pageOne.putString("NAME",name);
+        pageOne.putString("NRIC",nric);
+        pageOne.putString("EMAIL",email);
+        pageOne.putString("CONTACT",contact);
+        pageOne.putString("ADDRESS",address);
+        PageOneToTwo.putExtra("PAGE_ONE",pageOne);
+        PageOneToTwo.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        PageOneToTwo.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+        startActivity(PageOneToTwo);
     }
 
     /*public void goToPage3(){
@@ -74,58 +85,54 @@ public class SignUpPageThree extends Activity {
         return pass1.equals(pass2);
     }
 
-    public void goToMedicalHistoryForm(String username,String password,Intent PageThreeToHistory)
+    public void goToLoginPage()
     {
-        SignUpPageOne.PageOne.finish();
-        SignUpPageTwo.PageTwo.finish();
-        this.finish();
-        startActivity(PageThreeToHistory);
-    }
-
-    public void goToPrevious(View view)
-    {
-        goToPage2();
+        Intent intent = new Intent(this,LoginActivity.class);
+        startActivity(intent);
     }
 
     public void goToNext(View view)
     {
-        EditText[] checkViews = new EditText[3];
-        String[] str = new String[3];
-        checkViews[0] = (EditText) findViewById(R.id.UsernameTextbox);
-        checkViews[1] = (EditText) findViewById(R.id.PasswordTextbox);
-        checkViews[2] = (EditText) findViewById(R.id.ConfirmPasswordTextbox);
+                EditText[] checkViews = new EditText[5];
+                checkViews[0] = (EditText) findViewById(R.id.NameTextbox);
+                checkViews[1] = (EditText) findViewById(R.id.NRICTextbox);
+                checkViews[2] = (EditText) findViewById(R.id.EmailTextbox);
+                checkViews[3] = (EditText) findViewById(R.id.ContactTextbox);
+                checkViews[4] = (EditText) findViewById(R.id.AddressTextbox);
 
-        boolean isFilled = isFormFilled(checkViews,3);
-        boolean usernameExists = Container.getAccountManager().doesUsernameExist(checkViews[0].getText().toString(),this);
-        boolean isPasswordEqual = checkPassword(checkViews[1],checkViews[2]);
-        if(isFilled && !usernameExists && isPasswordEqual)
-        {
-            String username = checkViews[0].getText().toString();
-            String password = checkViews[1].getText().toString();
+                boolean isFilled = isFormFilled(checkViews,5);
+                boolean newAccount = Container.getAccountManager().isNewAccount(checkViews[1].getText().toString(), this);
 
-            //medical history form intent
-            Intent PageThreeToHistory = createIntentToHistory(username,password);
+                if(!isFilled)
+                {
+                    incompleteForm();
+                }
 
-            long accountId = Container.getAccountManager().createAccount(PageThreeToHistory.getExtras(),this);
+                else if(!newAccount){
+                    Runnable r = new Runnable() {
+                        @Override
+                        public void run() {
+                            goToLoginPage();
+                        }
+                    };
+                    String title = "Existing account";
+                    String message = "You already have an existing account";
+                    AlertDialogInterface AlertDisplayer = new AlertDialogInterface(title,message,this);
+                    AlertDisplayer.AccountAlreadyExists(r);
 
-            AccountCreatedDialog(username,password,PageThreeToHistory, (int) accountId);
+                }
 
-        }
+                else
+                {
 
-        else if(!isFilled)
-        {
-            incompleteForm();
-        }
-
-        else if(usernameExists)
-        {
-            Toast.makeText(this,"Username already exists",Toast.LENGTH_LONG).show();
-        }
-
-        else
-        {
-            unequalPassword();
-        }
+                    String name = checkViews[0].getText().toString();
+                    String nric = checkViews[1].getText().toString();
+                    String email = checkViews[2].getText().toString();
+                    String contact = checkViews[3].getText().toString();
+                    String address = checkViews[4].getText().toString();
+                    //AccountCreator.savePageOne(name,nric,email,contact,address);
+                    goToPage2(name,nric,email,contact,address);
+                }
     }
 
     public boolean isFormFilled(EditText[] views,int n)
@@ -145,41 +152,26 @@ public class SignUpPageThree extends Activity {
         Toast.makeText(this,"Please fill all fields",Toast.LENGTH_LONG).show();
     }
 
-    public void AccountCreatedDialog(final String username, final String password,final Intent intent,int accountID)
+    /*public void AccountCreatedDialog()
     {
         String message = "Congratulations! Your account has been successfully created.";
         String title = "Success";
-        intent.putExtra("ID",accountID);
         Runnable r = new Runnable() {
             @Override
             public void run() {
-                goToMedicalHistoryForm(username, password, intent);
-
-                //goToLoginPage(username,password,intent);
+                goToLoginPage();
             }
         };
 
         AlertDialogInterface AlertDisplayer = new AlertDialogInterface(title,message,this);
         AlertDisplayer.AccountCreated(r);
-    }
+    }*/
 
-    public void unequalPassword()
+    /*public void unequalPassword()
     {
         Toast.makeText(this,"Confirmed Password is incorrect",Toast.LENGTH_LONG).show();
 
-    }
-
-    public Intent createIntentToHistory(String username,String password)
-    {
-        Intent PageThreeToHistory = new Intent(this, MedicalHistory.class);
-        Bundle pageThree = new Bundle();
-        pageThree.putString("USERNAME",username);
-        pageThree.putString("PASSWORD",password);
-        PageThreeToHistory.putExtra("PAGE_THREE",pageThree);
-        PageThreeToHistory.putExtra("PAGE_TWO",getIntent().getBundleExtra("PAGE_TWO"));
-        PageThreeToHistory.putExtra("PAGE_ONE",getIntent().getBundleExtra("PAGE_ONE"));
-        return PageThreeToHistory;
-    }
+    }*/
 
     /*public Calendar getDate(DatePicker datePicker){
         int day = datePicker.getDayOfMonth();
