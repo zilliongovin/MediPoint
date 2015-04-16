@@ -27,7 +27,6 @@ import com.djzass.medipoint.logic_database.ClinicDAO;
 import com.djzass.medipoint.logic_database.DoctorDAO;
 import com.djzass.medipoint.logic_database.ServiceDAO;
 import com.djzass.medipoint.logic_database.SpecialtyDAO;
-import com.djzass.medipoint.logic_manager.AccountManager;
 import com.djzass.medipoint.logic_manager.Container;
 import com.djzass.medipoint.logic_manager.SessionManager;
 
@@ -161,7 +160,7 @@ public class CreateAppointmentActivity extends onDataPass implements AdapterView
             SessionManager sessionManager = new SessionManager(this);
             sessionManager.deleteLoginSession();
             //Container.GlobalAccountManager.logout();
-            Intent intent = new Intent(this,Login.class);
+            Intent intent = new Intent(this,LoginActivity.class);
             startActivity(intent);
             return true;
         }

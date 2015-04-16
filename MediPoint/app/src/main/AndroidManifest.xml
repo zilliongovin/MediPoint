@@ -20,7 +20,7 @@
         </activity>
 
         <activity
-            android:name=".boundary_ui.Login"
+            android:name=".boundary_ui.LoginActivity"
             android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -29,21 +29,21 @@
         </activity>
 
         <activity
-            android:name=".boundary_ui.PasswordRetriever"
+            android:name=".boundary_ui.PasswordRetrieverActivity"
             android:label="@string/title_activity_password_retriever" />
 
         <activity
-            android:name=".boundary_ui.SignUpPageOne"
+            android:name=".boundary_ui.SignUpPageOneActivity"
             android:label="@string/title_activity_sign_up" >
         </activity>
 
         <activity
-            android:name=".boundary_ui.SignUpPageTwo"
+            android:name=".boundary_ui.SignUpPageTwoActivity"
             android:label="@string/title_activity_sign_up" >
         </activity>
 
         <activity
-            android:name=".boundary_ui.SignUpPageThree"
+            android:name=".boundary_ui.SignUpPageThreeActivity"
             android:label="@string/title_activity_sign_up" >
         </activity>
 
@@ -59,7 +59,7 @@
             android:name=".boundary_ui.ReferralActivity"
             android:label="@string/referral" />
 
-        <activity android:name=".boundary_ui.MedicalHistory"
+        <activity android:name=".boundary_ui.MedicalHistoryActivity"
             android:label="@string/med_his"/>
 
         <activity android:name=".boundary_ui.EditHistoryActivity"

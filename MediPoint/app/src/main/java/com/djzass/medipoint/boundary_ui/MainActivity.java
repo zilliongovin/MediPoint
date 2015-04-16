@@ -121,7 +121,7 @@ public class MainActivity extends FragmentActivity{
         else if (id == R.id.action_logout) {
             SessionManager sessionManager = new SessionManager(this);
             sessionManager.deleteLoginSession();
-            Intent intent = new Intent(this, Login.class);
+            Intent intent = new Intent(this, LoginActivity.class);
             startActivity(intent);
             return true;
         }

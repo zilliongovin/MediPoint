@@ -24,7 +24,6 @@ import com.djzass.medipoint.entity.Timeframe;
 import com.djzass.medipoint.logic_database.ClinicDAO;
 import com.djzass.medipoint.logic_database.SpecialtyDAO;
 import com.djzass.medipoint.logic_manager.*;
-import com.djzass.medipoint.logic_manager.AccountManager;
 
 import java.sql.SQLException;
 import java.text.ParseException;
@@ -133,7 +132,7 @@ public class EditAppointmentActivity extends onDataPass implements AdapterView.O
         else if(id==R.id.action_logout){
             SessionManager sessionManager = new SessionManager(this);
             sessionManager.deleteLoginSession();
-            Intent intent = new Intent(this,Login.class);
+            Intent intent = new Intent(this,LoginActivity.class);
             startActivity(intent);
             return true;
         }
