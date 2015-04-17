@@ -114,7 +114,7 @@ public class SignUpPageOneActivity extends Activity {
                 if(!isFormFilled(checkViews,5)){
                     Toast.makeText(this,"Please fill all fields",Toast.LENGTH_LONG).show();
                 }
-                else if(!isValidNric(email)){
+                else if(!isValidNric(nric)){
                     Toast.makeText(this,"Please enter a valid NRIC",Toast.LENGTH_LONG).show();
                 }
                 else if(!Container.getAccountManager().isNewAccount(nric, this)){
@@ -132,7 +132,7 @@ public class SignUpPageOneActivity extends Activity {
                 else if(!isValidEmailAddress(email)){
                     Toast.makeText(this,"Please enter a valid email address",Toast.LENGTH_LONG).show();
                 }
-                else if(!isValidContactNo(email)){
+                else if(!isValidContactNo(contact)){
                     Toast.makeText(this,"Please enter a valid contact number",Toast.LENGTH_LONG).show();
                 }
                 else {
