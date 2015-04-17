@@ -21,15 +21,20 @@ public class ServiceDAO extends DbDAO{
     private static final String WHERE_ID_EQUALS = DbContract.ServiceEntry.COLUMN_NAME_SERVICE_ID
             + " =?";
 
+    /**
+     * Service Database helper constructor
+     * @param context Interface to global information about an application environment
+     * @throws SQLException throw an SQLException
+     */
     public ServiceDAO(Context context) throws SQLException {
         super(context);
         initializeDAO();
     }
 
-    /*
-        CREATE
-         Inserting doctor schedule into doctor schedules table and return the row id if insertion successful,
-     otherwise -1 will be returned
+    /**
+     * insert Service to DB
+     * @param service Service object to be inserted to DB
+     * @return result of insertion
      */
     public long insertService(Service service){
         ContentValues values = new ContentValues();
@@ -43,11 +48,11 @@ public class ServiceDAO extends DbDAO{
         return database.insert(DbContract.ServiceEntry.TABLE_NAME, null, values);
     }
 
-    /*
-        READ
-      * Getting all services from the table
-     * returns list of services
-     * */
+    /**
+     * get a List of a specific Service
+     * @param whereclause String object containing where to find the Service
+     * @return List containing Service object
+     */
     public List<Service> getServices(String whereclause) {
         List<Service> services = new ArrayList<Service>();
 
@@ -88,25 +93,39 @@ public class ServiceDAO extends DbDAO{
         return services;
     }
 
+    /**
+     * get a List of all Service
+     * @return List containing Service object
+     */
     public List<Service> getAllServices() {
         return getServices("");
     }
 
+    /**
+     * get Service using the id
+     * @param serviceid int object containg the Id of the Service
+     * @return List of Service object
+     */
     public List<Service> getServicesByID(int serviceid) {
         String whereclause = " AND " + DbContract.ServiceEntry.COLUMN_NAME_SERVICE_ID + " = " + serviceid;
         return getServices(whereclause);
     }
 
+    /**
+     * get Service using the specialty id
+     * @param specialtyId int object containg the Id of the specialty
+     * @return List of Service object
+     */
     public List<Service> getServicesBySpecialtyID(int specialtyId) {
         String whereclause = " AND " + SERVICE_WITH_PREFIX + DbContract.ServiceEntry.COLUMN_NAME_SPECIALTY_ID + " = " + specialtyId;
         return getServices(whereclause);
     }
 
-    /*
-        UPDATE
-       returns the number of rows affected by the update
+    /**
+     * Change the info of the Service
+     * @param service Service Object to be updated to DB
+     * @return Long containing the result of updating
      */
-
     public long update(Service service) {
         ContentValues values = new ContentValues();
         values.put(DbContract.ServiceEntry.COLUMN_NAME_SERVICE_NAME, service.getName());
@@ -122,17 +141,18 @@ public class ServiceDAO extends DbDAO{
         return result;
     }
 
-    /*
-        DELETE
-        returns the number of rows affected if a whereClause is passed in, 0 otherwise
+    /**
+     * Delete the Service from DB
+     * @param service Service Object to be deleted from DB
+     * @return int containing the result of deleting
      */
     public int deleteService(Service service) {
         return database.delete(DbContract.ServiceEntry.TABLE_NAME,
                 WHERE_ID_EQUALS, new String[] { service.getId() + "" });
     }
-    /*
-        LOAD
-        Load the initial values of the services
+
+    /**
+     * print all available Service
      */
     public void loadServices() {
         List<Service> temp= getAllServices();
@@ -141,10 +161,18 @@ public class ServiceDAO extends DbDAO{
         }
     }
 
+    /**
+     * count the number of rows in Service table in DB
+     * @return int object containing the number of Service
+     */
     public int getServiceCount(){
         return getAllServices().size();
     }
 
+    /**
+     * initializing DB helper
+     * insert Service info to be used in the app
+     */
     private void initializeDAO(){
         if (getServiceCount()==0){ //0-4: ent, dental, women, gm
             insertService(new Service("General",1, 1));
