@@ -103,7 +103,7 @@ public class ServiceDAO extends DbDAO{
 
     /**
      * get Service using the id
-     * @param serviceid int object containg the Id of the Service
+     * @param serviceid int object containing the Id of the Service
      * @return List of Service object
      */
     public List<Service> getServicesByID(int serviceid) {
