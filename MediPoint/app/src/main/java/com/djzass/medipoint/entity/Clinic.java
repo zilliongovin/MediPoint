@@ -88,7 +88,7 @@ public class Clinic implements Parcelable {
     }
 
     /**
-     * a method to return an int which is the Id of the clinic
+     * get int object which will be used to identify the Clinic
      * @return id of the clinic
      */
     public int getId() {
@@ -97,7 +97,7 @@ public class Clinic implements Parcelable {
 
     /**
      * change the id of a clinic
-     * @param id new id
+     * @param id int object containing Clinic id
      */
     public void setId(int id) {
         this.id = id;
@@ -113,7 +113,7 @@ public class Clinic implements Parcelable {
 
     /**
      * set clinic name
-     * @param name new name
+     * @param name String object containing Clinic name
      */
     public void setName(String name) {
         this.name = name;
@@ -129,7 +129,7 @@ public class Clinic implements Parcelable {
 
     /**
      * set clinic address
-     * @param address new address
+     * @param address String object containing Clinic address
      */
     public void setAddress(String address) {
         this.address = address;
@@ -144,8 +144,8 @@ public class Clinic implements Parcelable {
     }
 
     /**
-     * cset clinic zipcode
-     * @param zipCode new zipcode
+     * set clinic zipcode
+     * @param zipCode int object containing Clinic zipcode
      */
     public void setZipCode(int zipCode) {
         this.zipCode = zipCode;
@@ -161,7 +161,7 @@ public class Clinic implements Parcelable {
 
     /**
      * set telephone number
-     * @param telNumber new telnumber
+     * @param telNumber int object containing Clinic telnumber
      */
     public void setTelNumber(int telNumber) {
         this.telNumber = telNumber;
@@ -177,7 +177,7 @@ public class Clinic implements Parcelable {
 
     /**
      * set faxNumber
-     * @param faxNumber new faxNumber
+     * @param faxNumber int object containing Clinic faxNumber
      */
     public void setFaxNumber(int faxNumber) {
         this.faxNumber = faxNumber;
@@ -193,7 +193,7 @@ public class Clinic implements Parcelable {
 
     /**
      * set clinic email
-     * @param email new email
+     * @param email String object containing Clinic email
      */
     public void setEmail(String email) {
         this.email = email;
@@ -209,7 +209,7 @@ public class Clinic implements Parcelable {
 
     /**
      * set clinic location
-     * @param country new country
+     * @param country String object containing Clinic country
      */
     public void setCountry(String country) {
         this.country = country;
@@ -234,7 +234,7 @@ public class Clinic implements Parcelable {
     }
 
     /**
-     * construct clinic using parcelable
+     * get Clinic using parcelable
      * @param in specified parcel
      */
     public Clinic(Parcel in){
@@ -251,7 +251,7 @@ public class Clinic implements Parcelable {
     }
 
     /**
-     * put clinic info to parcel
+     * put Clinic info to parcel
      * @param desc The Parcel in which the object should be written.
      * @param flags Additional flags about how the object should be written.
      */
