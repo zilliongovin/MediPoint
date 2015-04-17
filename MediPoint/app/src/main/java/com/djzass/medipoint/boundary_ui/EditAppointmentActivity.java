@@ -181,8 +181,9 @@ public class EditAppointmentActivity extends onDataPass implements AdapterView.O
                 doctorDataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                 doctorDataAdapter.notifyDataSetChanged();
                 doctorSpinnerCreate.setAdapter(doctorDataAdapter);
+                doctorSpinnerCreate.setSelection(doctorDataAdapter.getPosition(Container.getDoctorManager().getDoctorById(app.getDoctorId(),this)));
                 doctorSpinnerCreate.setOnItemSelectedListener(this);
-                //doctorSpinnerCreate.setSelection(doctorDataAdapter.getPosition(Container.getDoctorManager().getDoctorById(app.getDoctorId(),this).get(0).getName()));
+
                 resetTimePicker();
                 break;
 
@@ -242,8 +243,9 @@ public class EditAppointmentActivity extends onDataPass implements AdapterView.O
                 doctorDataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                 doctorDataAdapter.notifyDataSetChanged();
                 doctorSpinnerCreate.setAdapter(doctorDataAdapter);
+                doctorSpinnerCreate.setSelection(doctorDataAdapter.getPosition(Container.getDoctorManager().getDoctorById(app.getDoctorId(),this)));
                 doctorSpinnerCreate.setOnItemSelectedListener(this);
-                //doctorSpinnerCreate.setSelection(doctorDataAdapter.getPosition(Container.getDoctorManager().getDoctorById(app.getDoctorId(),this).get(0).getName()));
+
                 resetTimePicker();
                 break;
 
@@ -268,11 +270,8 @@ public class EditAppointmentActivity extends onDataPass implements AdapterView.O
                 doctorDataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                 doctorDataAdapter.notifyDataSetChanged();
                 doctorSpinnerCreate.setAdapter(doctorDataAdapter);
+                doctorSpinnerCreate.setSelection(doctorDataAdapter.getPosition(Container.getDoctorManager().getDoctorById(app.getDoctorId(),this)));
                 doctorSpinnerCreate.setOnItemSelectedListener(this);
-                //doctorSpinnerCreate.setSelection(doctorDataAdapter.getPosition(Container.getDoctorManager().getDoctorById(app.getDoctorId(),this).get(0).getName()));
-                //List<Service> services = ((Container)getApplicationContext()).getGlobalServiceDAO().getServicesBySpecialtyID(selection);
-                //List<Service> services = Container.GlobalServiceDAO.getServicesBySpecialtyID(selection);
-
 
                 resetTimePicker();
                 break;

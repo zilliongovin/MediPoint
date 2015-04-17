@@ -53,9 +53,10 @@ public class DoctorManager {
      * Gets doctor with id @param doctorid
      * @return List<Doctor>
      */
-    public List<Doctor> getDoctorById(int doctorId, Context context) {
+    public String getDoctorById(int doctorId, Context context) {
         updateDoctorDao(context);
-        return doctorDao.getDoctorById(doctorId);
+        List<Doctor> temp = doctorDao.getDoctorById(doctorId);
+        return temp.get(0).getName();
     }
 
     /**
