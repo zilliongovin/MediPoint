@@ -20,10 +20,25 @@ public class Clinic implements Parcelable {
     private String email;
     private String country;
 
+    /**
+     * Return an object Clinic
+     * empty Clinic constructor
+     */
     public Clinic(){
 
     }
 
+    /**
+     * create an object Clinic
+     * @param id clinic id
+     * @param name clinic name
+     * @param address clinic address
+     * @param zipCode clinic zipcode
+     * @param telNumber clinic tel number
+     * @param faxNumber clinic fax
+     * @param email clinic email
+     * @param country clinic location
+     */
     public Clinic(int id, String name, String address, int zipCode, int telNumber, int faxNumber, String email, String country){
         this.id = id;
         this.name = name;
@@ -35,6 +50,16 @@ public class Clinic implements Parcelable {
         this.country = country;
     }
 
+    /**
+     * create an object Clinic
+     * @param name clinic name
+     * @param address clinic address
+     * @param country clinic location
+     * @param zipCode clinic zipcode
+     * @param telNumber clinic tel number
+     * @param faxNumber clinic fax
+     * @param email clinic email
+     */
     public Clinic(String name, String address, String country, int zipCode, int telNumber, int faxNumber, String email){
         this.name = name;
         this.address = address;
@@ -45,6 +70,10 @@ public class Clinic implements Parcelable {
         this.email = email;
     }
 
+    /**
+     * Returns a String object which consists of the mailing address of the clinic
+     * @return the particulars of the clinic
+     */
     public String print(){
         String temp = "";
         temp+= id + " ";
@@ -58,56 +87,138 @@ public class Clinic implements Parcelable {
         return temp;
     }
 
+    /**
+     * a method to return an int which is the Id of the clinic
+     * @return id of the clinic
+     */
     public int getId() {
         return id;
     }
 
+    /**
+     * change the id of a clinic
+     * @param id new id
+     */
     public void setId(int id) {
         this.id = id;
     }
 
+    /**
+     * Return a String object containing the name of the clinic
+     * @return name of the clinic
+     */
     public String getName() {
         return name;
     }
+
+    /**
+     * set clinic name
+     * @param name new name
+     */
     public void setName(String name) {
         this.name = name;
     }
+
+    /**
+     * return String object
+     * @return clinic address
+     */
     public String getAddress() {
         return address;
     }
+
+    /**
+     * set clinic address
+     * @param address new address
+     */
     public void setAddress(String address) {
         this.address = address;
     }
+
+    /**
+     * get zipcode of clinic
+     * @return clinic zipcode
+     */
     public int getZipCode() {
         return zipCode;
     }
+
+    /**
+     * cset clinic zipcode
+     * @param zipCode new zipcode
+     */
     public void setZipCode(int zipCode) {
         this.zipCode = zipCode;
     }
+
+    /**
+     * return int
+     * @return telephone number
+     */
     public int getTelNumber() {
         return telNumber;
     }
+
+    /**
+     * set telephone number
+     * @param telNumber new telnumber
+     */
     public void setTelNumber(int telNumber) {
         this.telNumber = telNumber;
     }
+
+    /**
+     * get int faxNumber
+     * @return faxNumber
+     */
     public int getFaxNumber() {
         return faxNumber;
     }
+
+    /**
+     * set faxNumber
+     * @param faxNumber new faxNumber
+     */
     public void setFaxNumber(int faxNumber) {
         this.faxNumber = faxNumber;
     }
+
+    /**
+     * get String object
+     * @return clinic email
+     */
     public String getEmail() {
         return email;
     }
+
+    /**
+     * set clinic email
+     * @param email new email
+     */
     public void setEmail(String email) {
         this.email = email;
     }
+
+    /**
+     * get String of clinic location
+     * @return clinic location
+     */
     public String getCountry() {
         return country;
     }
+
+    /**
+     * set clinic location
+     * @param country new country
+     */
     public void setCountry(String country) {
         this.country = country;
     }
+
+    /**
+     * Convert all the info to string
+     * @return all clinic info
+     */
     public String toString(){
         String tabSpace = "      ";
         if (faxNumber == 0)
@@ -121,14 +232,29 @@ public class Clinic implements Parcelable {
                     tabSpace + "Tel: " + this.telNumber + " Fax: " + this.faxNumber + "\n"+
                     tabSpace + "Email: " + this.email + "\n";
     }
+
+    /**
+     * construct clinic using parcelable
+     * @param in specified parcel
+     */
     public Clinic(Parcel in){
         readFromParcel(in);
     }
+
+    /**
+     * override method in Parcelable
+     * @return a bitmask indicating the set of special object types marshalled by the Parcelable.
+     */
     @Override
     public int describeContents() {
         return 0;
     }
 
+    /**
+     * put clinic info to parcel
+     * @param desc The Parcel in which the object should be written.
+     * @param flags Additional flags about how the object should be written.
+     */
     @Override
     public void writeToParcel(Parcel desc, int flags) {
         desc.writeInt(this.id);
@@ -141,6 +267,9 @@ public class Clinic implements Parcelable {
         desc.writeString(this.country);
     }
 
+    /**
+     * Parcelable for creating Clinic object
+     */
     public static final Parcelable.Creator<Clinic> CREATOR
             = new Parcelable.Creator<Clinic>() {
         public Clinic createFromParcel(Parcel in) {
@@ -152,6 +281,10 @@ public class Clinic implements Parcelable {
         }
     };
 
+    /**
+     * get the info from a Parcel
+     * @param in Parcel to be read
+     */
     public void readFromParcel(Parcel in) {
         this.id = in.readInt();
         this.name = in.readString();
