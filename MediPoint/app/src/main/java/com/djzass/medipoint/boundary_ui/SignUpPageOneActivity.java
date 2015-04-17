@@ -114,7 +114,7 @@ public class SignUpPageOneActivity extends Activity {
                 if(!isFormFilled(checkViews,5)){
                     Toast.makeText(this,"Please fill all fields",Toast.LENGTH_LONG).show();
                 }
-                else if(!isValidNric(email)){
+                else if(!isValidNric(nric)){
                     Toast.makeText(this,"Please enter a valid NRIC",Toast.LENGTH_LONG).show();
                 }
                 else if(!Container.getAccountManager().isNewAccount(nric, this)){
@@ -132,7 +132,7 @@ public class SignUpPageOneActivity extends Activity {
                 else if(!isValidEmailAddress(email)){
                     Toast.makeText(this,"Please enter a valid email address",Toast.LENGTH_LONG).show();
                 }
-                else if(!isValidContactNo(email)){
+                else if(!isValidContactNo(contact)){
                     Toast.makeText(this,"Please enter a valid contact number",Toast.LENGTH_LONG).show();
                 }
                 else {
@@ -154,7 +154,7 @@ public class SignUpPageOneActivity extends Activity {
     }
 
     public static boolean isValidNric(String nric) {
-        return(nric.matches("^.*[^a-zA-Z0-9 ].*$") && nric.length()>4); //only alphanumeric, >4 chars
+        return(nric.matches("^.*[a-zA-Z0-9].*$") && nric.length()>4); //only alphanumeric, >4 chars
     }
 
     public static boolean isValidEmailAddress(String email) {
@@ -168,7 +168,7 @@ public class SignUpPageOneActivity extends Activity {
         return result;
     }
     public static boolean isValidContactNo(String contactno) {
-        return(contactno.matches("^.*[^0-9 ].*$") && contactno.length()>4); //only numeric, >4 chars
+        return(contactno.matches("^.*[0-9 ].*$") && contactno.length()>4); //only numeric, >4 chars
     }
 }
 

@@ -3,6 +3,7 @@ package com.djzass.medipoint.boundary_ui;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -13,6 +14,7 @@ import android.widget.Spinner;
 import com.djzass.medipoint.R;
 import com.djzass.medipoint.entity.Clinic;
 import com.djzass.medipoint.entity.Doctor;
+import com.djzass.medipoint.entity.Service;
 import com.djzass.medipoint.entity.Specialty;
 import com.djzass.medipoint.logic_manager.Container;
 
@@ -23,12 +25,14 @@ import java.util.List;
 public class ReferralActivity extends Activity implements AdapterView.OnItemSelectedListener{
 
     //spinner
-    Spinner specialtySpinner_create;
-    Spinner countrySpinner_create;
-    Spinner doctorSpinner_create;
-    Spinner clinicSpinner_create;
+    Spinner specialtySpinnerCreate;
+    Spinner countrySpinnerCreate;
+    Spinner doctorSpinnerCreate;
+    Spinner clinicSpinnerCreate;
     List<Specialty> specialities;
-
+    int specialtyId;
+    int clinicId;
+    int doctorId;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,7 +40,7 @@ public class ReferralActivity extends Activity implements AdapterView.OnItemSele
 
         //specialty spinner
         specialities = Container.getSpecialtyManager().getSpecialtys(this);
-        specialtySpinner_create = (Spinner) findViewById(R.id.CreateApptSpecialty);
+        specialtySpinnerCreate = (Spinner) findViewById(R.id.CreateApptSpecialty);
         List<String> specialtyNames = new ArrayList<String>();
         for(Specialty s: specialities){
             specialtyNames.add(s.getName());
@@ -44,22 +48,22 @@ public class ReferralActivity extends Activity implements AdapterView.OnItemSele
         ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_dropdown_item,specialtyNames);
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         dataAdapter.notifyDataSetChanged();
-        specialtySpinner_create.setAdapter(dataAdapter);
-        specialtySpinner_create.setOnItemSelectedListener(this);
+        specialtySpinnerCreate.setAdapter(dataAdapter);
+        specialtySpinnerCreate.setOnItemSelectedListener(this);
 
         //country spinner
-        countrySpinner_create = (Spinner) findViewById(R.id.CreateApptCountries);
-        ArrayAdapter countryAdapter_create = ArrayAdapter.createFromResource(this, R.array.countries, android.R.layout.simple_spinner_dropdown_item);
-        countryAdapter_create.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        countrySpinner_create.setAdapter(countryAdapter_create);
-        countrySpinner_create.setOnItemSelectedListener(this);
+        countrySpinnerCreate = (Spinner) findViewById(R.id.CreateApptCountries);
+        ArrayAdapter countryAdapterCreate = ArrayAdapter.createFromResource(this, R.array.countries, android.R.layout.simple_spinner_dropdown_item);
+        countryAdapterCreate.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        countrySpinnerCreate.setAdapter(countryAdapterCreate);
+        countrySpinnerCreate.setOnItemSelectedListener(this);
 
 
         //doctor spinner
-        doctorSpinner_create = (Spinner) findViewById(R.id.CreateApptDoctors);
+        doctorSpinnerCreate = (Spinner) findViewById(R.id.CreateApptDoctors);
 
         //clinic spinner
-        clinicSpinner_create = (Spinner) findViewById(R.id.CreateApptLocations);
+        clinicSpinnerCreate = (Spinner) findViewById(R.id.CreateApptLocations);
 
     }
 
@@ -89,15 +93,14 @@ public class ReferralActivity extends Activity implements AdapterView.OnItemSele
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         switch(parent.getId()) {
             case R.id.CreateApptSpecialty:
-                String speciality = String.valueOf(specialtySpinner_create.getSelectedItem());
-                int selection = 0;
+                String speciality = String.valueOf(specialtySpinnerCreate.getSelectedItem());
                 for (Specialty s : specialities) {
                     if (speciality.equals(s.getName())) {
-                        selection = s.getId();
+                        specialtyId = s.getId();
                     }
                 }
-                List<Doctor> doctors = Container.getDoctorManager().getDoctorBySpecialization(selection,this);
-                //List<Doctor> doctors = Container.GlobalDoctorDAO.getDoctorBySpecialization(selection);
+
+                List<Doctor> doctors = Container.getDoctorManager().getDoctorsByClinicAndSpecialization(clinicId,specialtyId,this);
                 List<String> doctorNames = new ArrayList<String>();
                 for (Doctor d : doctors) {
                     doctorNames.add(d.getName());
@@ -105,24 +108,71 @@ public class ReferralActivity extends Activity implements AdapterView.OnItemSele
                 ArrayAdapter<String> doctorDataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, doctorNames);
                 doctorDataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                 doctorDataAdapter.notifyDataSetChanged();
-                doctorSpinner_create.setAdapter(doctorDataAdapter);
+                doctorSpinnerCreate.setAdapter(doctorDataAdapter);
+                doctorSpinnerCreate.setOnItemSelectedListener(this);
                 break;
 
             case R.id.CreateApptCountries:
-                String country = (String) parent.getAdapter().getItem(position);
+                String country = String.valueOf(countrySpinnerCreate.getSelectedItem());
                 List<Clinic> clinics = Container.getClinicManager().getClinicsByCountry(country,this);
                 List<String> clinicNames = new ArrayList<String>();
-
                 for (Clinic c : clinics) {
                     clinicNames.add(c.getName());
                 }
                 ArrayAdapter<String> clinicDataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, clinicNames);
                 clinicDataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                 clinicDataAdapter.notifyDataSetChanged();
-                clinicSpinner_create.setAdapter(clinicDataAdapter);
+                clinicSpinnerCreate.setAdapter(clinicDataAdapter);
+                clinicSpinnerCreate.setOnItemSelectedListener(this);
+                String clinic = String.valueOf(clinicSpinnerCreate.getSelectedItem());
+                for (Clinic c : clinics) {
+                    if (clinic.equals(c.getName())) {
+                        clinicId = c.getId();
+                    }
+                }
+
+                doctors = Container.getDoctorManager().getDoctorsByClinicAndSpecialization(clinicId,specialtyId,this);
+                doctorNames = new ArrayList<String>();
+                for (Doctor d : doctors) {
+                    doctorNames.add(d.getName());
+                }
+                doctorDataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, doctorNames);
+                doctorDataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                doctorDataAdapter.notifyDataSetChanged();
+                doctorSpinnerCreate.setAdapter(doctorDataAdapter);
+                doctorSpinnerCreate.setOnItemSelectedListener(this);
                 break;
 
-            default:
+            case R.id.CreateApptLocations:
+
+                clinic = String.valueOf(clinicSpinnerCreate.getSelectedItem());
+                clinics = Container.getClinicManager().getClinics(this);
+                for (Clinic c : clinics) {
+                    if (clinic.equals(c.getName())) {
+                        clinicId = c.getId();
+                    }
+                }
+
+                doctors = Container.getDoctorManager().getDoctorsByClinicAndSpecialization(clinicId,specialtyId,this);
+                doctorNames = new ArrayList<String>();
+                for (Doctor d : doctors) {
+                    doctorNames.add(d.getName());
+                }
+                doctorDataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, doctorNames);
+                doctorDataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                doctorDataAdapter.notifyDataSetChanged();
+                doctorSpinnerCreate.setAdapter(doctorDataAdapter);
+                doctorSpinnerCreate.setOnItemSelectedListener(this);
+                break;
+
+            case R.id.CreateApptDoctors:
+                doctors = Container.getDoctorManager().getDoctorsByClinicAndSpecialization(clinicId,specialtyId,this);
+                String doctor = String.valueOf(doctorSpinnerCreate.getSelectedItem());
+                for (Doctor d : doctors) {
+                    if (doctor.equals(d.getName())) {
+                        doctorId = d.getDoctorId();
+                    }
+                }
                 break;
         }
     }
@@ -134,21 +184,6 @@ public class ReferralActivity extends Activity implements AdapterView.OnItemSele
 
     public void goto_appointment(View view)
     {
-        String clinicName = String.valueOf(clinicSpinner_create.getSelectedItem());
-        String specialtyName = String.valueOf(specialtySpinner_create.getSelectedItem());
-        String doctorName = String.valueOf(doctorSpinner_create.getSelectedItem());
-
-        Clinic clinic = Container.getClinicManager().getClinicsByName(clinicName,this).get(0);
-        Specialty specialty = Container.getSpecialtyManager().getSpecialtiesByName(specialtyName,this).get(0);
-
-        List<Doctor> doctors = Container.getDoctorManager().getDoctorsByClinicAndSpecialization(specialty.getId(),clinic.getId(),this);
-        int doctorId = 0;
-        for(Doctor d:doctors){
-            if(doctorName.equals(d.getName())){
-                doctorId = d.getDoctorId();
-            }
-        }
-
         Intent intent = new Intent(ReferralActivity.this, CreateAppointmentActivity.class);
         intent.putExtra("REFERRER_ID",doctorId);
         startActivity(intent);
