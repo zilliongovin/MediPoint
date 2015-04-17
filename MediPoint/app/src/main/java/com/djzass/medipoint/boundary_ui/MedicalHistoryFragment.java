@@ -12,8 +12,7 @@ import android.widget.TextView;
 
 import com.djzass.medipoint.R;
 import com.djzass.medipoint.entity.Patient;
-import com.djzass.medipoint.logic_database.AccountDAO;
-import com.djzass.medipoint.logic_database.PatientDAO;
+import com.djzass.medipoint.logic_manager.Container;
 import com.djzass.medipoint.logic_manager.SessionManager;
 
 import java.sql.SQLException;
@@ -36,8 +35,6 @@ public class MedicalHistoryFragment extends Fragment {
     private String ongoingTreatment;
     private String ongoingMedication;
 
-    AccountDAO accountDAO;
-    PatientDAO patientDAO;
     List<Patient> patient = new ArrayList<>();
 
     public static MedicalHistoryFragment newInstance() {
@@ -49,22 +46,14 @@ public class MedicalHistoryFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
 
-        //instantiate DAO
-        try {
-            accountDAO = new AccountDAO(this.getActivity());
-            patientDAO = new PatientDAO(this.getActivity());
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
         //get patient id
         try {
             SessionManager sessionManager = new SessionManager(this.getActivity());
             this.patientId = sessionManager.getAccountId();
-            patient = patientDAO.getPatientById(patientId);
+            patient = Container.getPatientManager().getPatientsByID((int)patientId,this.getActivity());
 
             //get name and gender from account table
-            Cursor cursor = accountDAO.getAccountById(patientId);
+            Cursor cursor = Container.getAccountManager().getAccountCursorById(patientId,this.getActivity());
             if(cursor!=null && cursor.moveToFirst()){
                 this.name = cursor.getString(1);
                 this.patientGender = cursor.getString(7);

@@ -19,7 +19,7 @@ import android.widget.Toast;
 
 import com.djzass.medipoint.R;
 import com.djzass.medipoint.entity.Patient;
-import com.djzass.medipoint.logic_database.PatientDAO;
+import com.djzass.medipoint.logic_manager.Container;
 
 import java.sql.SQLException;
 import java.util.Calendar;
@@ -42,9 +42,6 @@ public class MedicalHistoryActivity extends Activity {
     //Ongoing Medication
     String ongoingMedication = "";
 
-    //create new patient
-    PatientDAO patientDAO;
-
     //DOB of user from intent
     Calendar DOB = Calendar.getInstance();
 
@@ -61,12 +58,6 @@ public class MedicalHistoryActivity extends Activity {
         TextView header = (TextView)findViewById(R.id.FormHeader);
         String headerText = "<i>Please <b>fill in this medical history form</b> before proceeding to the application.</i>";
         header.setText(Html.fromHtml(headerText));
-
-        try {
-            patientDAO = new PatientDAO(this);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
 
         //set submit button listener
         Button submit = (Button)findViewById(R.id.submitButton);
@@ -119,9 +110,8 @@ public class MedicalHistoryActivity extends Activity {
         String  message = "You can edit your medical history anytime.";
         Runnable insertPatientDOB = new Runnable() {
             @Override
-            public void run() {
-                patientDAO.insertPatient(new Patient(patientId,DOB,"","","",""));
-
+            public void run(){
+                insertPatientToDatabase(new Patient(patientId, DOB, "", "", "", ""));
             }
         };
         Runnable goToLoginPage = new Runnable() {
@@ -133,6 +123,10 @@ public class MedicalHistoryActivity extends Activity {
 
         AlertDialogInterface alert = new AlertDialogInterface(title,message,this);
         alert.BackToLogin(insertPatientDOB,goToLoginPage);
+    }
+
+    public void insertPatientToDatabase(Patient pat){
+        Container.getPatientManager().cancelPatient(pat,this);
     }
 
     public void goToLoginPage(){
@@ -374,7 +368,7 @@ public class MedicalHistoryActivity extends Activity {
         medicalHistory = dentalInfo + ENTInfo + genitalInfo + otherInfo;
 
         //store medicalHistory, allergyInfo, ongoingTreatment, ongoingMedication to DB
-        long ret = patientDAO.insertPatient(new Patient(patientId, DOB, medicalHistory, ongoingTreatment, ongoingMedication, allergyInfo));
+        long ret = Container.getPatientManager().createPatient(new Patient(patientId, DOB, medicalHistory, ongoingTreatment, ongoingMedication, allergyInfo),this);
       /*  if (ret == -1) {
             //Toast.makeText(this, "insert patient to database unsuccessful", Toast.LENGTH_SHORT).show();
             //Toast.makeText(this, "PID: " + patientId + " dob: " + DOB, Toast.LENGTH_LONG).show();

@@ -146,5 +146,19 @@ public class AccountManager {
         return numUsers>0? true:false;
     }
 
+    public int checkUsername(String username, Context context){
+        updateAccountDao(context);
+        return accountDao.checkUsername(username);
+    }
+
+    public Cursor findAccountId(String username, Context context){
+        updateAccountDao(context);
+        return accountDao.findAccountId(username);
+    }
+
+    public Cursor getAccountCursorById(long id, Context context){
+        updateAccountDao(context);
+        return accountDao.getAccountById(id);
+    }
 }
 

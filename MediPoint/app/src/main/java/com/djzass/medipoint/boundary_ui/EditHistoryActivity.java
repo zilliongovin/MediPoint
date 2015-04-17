@@ -18,8 +18,7 @@ import android.widget.Toast;
 
 import com.djzass.medipoint.R;
 import com.djzass.medipoint.entity.Patient;
-import com.djzass.medipoint.logic_database.AccountDAO;
-import com.djzass.medipoint.logic_database.PatientDAO;
+import com.djzass.medipoint.logic_manager.Container;
 import com.djzass.medipoint.logic_manager.SessionManager;
 
 import java.sql.SQLException;
@@ -47,8 +46,6 @@ public class EditHistoryActivity extends Activity {
     Calendar DOB = Calendar.getInstance();
 
     Long patientId;
-    AccountDAO accountDAO;
-    PatientDAO patientDAO;
     List<Patient> patientList = new ArrayList<>();
 
     @Override
@@ -65,12 +62,9 @@ public class EditHistoryActivity extends Activity {
         //get patient id
         try {
             //instantiate the DAO
-            accountDAO = new AccountDAO(this);
-            patientDAO = new PatientDAO(this);
-
             SessionManager sessionManager = new SessionManager(this);
             this.patientId = sessionManager.getAccountId();
-            patientList = patientDAO.getPatientById(patientId);
+            patientList = Container.getPatientManager().getPatientsByID(patientId.intValue(),this);
 
             //get existing history
             this.medicalHistory = patientList.get(0).getMedicalHistory();
@@ -373,7 +367,7 @@ public class EditHistoryActivity extends Activity {
 
         //update medicalHistory, allergyInfo, ongoingTreatment, ongoingMedication to DB
         Patient updatedPatient = new Patient(patientId.intValue(),DOB, medicalHistory, ongoingTreatment, ongoingMedication, allergyInfo);
-        patientDAO.update(updatedPatient);
+        Container.getPatientManager().editPatient(updatedPatient,this);
 
 
         Toast.makeText(this,"Medical History updated",Toast.LENGTH_SHORT).show();

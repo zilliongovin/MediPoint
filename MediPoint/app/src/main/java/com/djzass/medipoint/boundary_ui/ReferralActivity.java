@@ -14,9 +14,6 @@ import com.djzass.medipoint.R;
 import com.djzass.medipoint.entity.Clinic;
 import com.djzass.medipoint.entity.Doctor;
 import com.djzass.medipoint.entity.Specialty;
-import com.djzass.medipoint.logic_database.ClinicDAO;
-import com.djzass.medipoint.logic_database.DoctorDAO;
-import com.djzass.medipoint.logic_database.SpecialtyDAO;
 import com.djzass.medipoint.logic_manager.Container;
 
 import java.sql.SQLException;
@@ -30,7 +27,6 @@ public class ReferralActivity extends Activity implements AdapterView.OnItemSele
     Spinner countrySpinner_create;
     Spinner doctorSpinner_create;
     Spinner clinicSpinner_create;
-    SpecialtyDAO specialtyDAO;
     List<Specialty> specialities;
 
     @Override
@@ -39,22 +35,17 @@ public class ReferralActivity extends Activity implements AdapterView.OnItemSele
         setContentView(R.layout.activity_referral);
 
         //specialty spinner
-        try {
-            specialtyDAO = new SpecialtyDAO(this);
-            specialities = specialtyDAO.getAllSpecialties();
-            specialtySpinner_create = (Spinner) findViewById(R.id.CreateApptSpecialty);
-            List<String> specialtyNames = new ArrayList<String>();
-            for(Specialty s: specialities){
-                specialtyNames.add(s.getName());
-            }
-            ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_dropdown_item,specialtyNames);
-            dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-            dataAdapter.notifyDataSetChanged();
-            specialtySpinner_create.setAdapter(dataAdapter);
-            specialtySpinner_create.setOnItemSelectedListener(this);
-        } catch (SQLException e) {
-            e.printStackTrace();
+        specialities = Container.getSpecialtyManager().getSpecialtys(this);
+        specialtySpinner_create = (Spinner) findViewById(R.id.CreateApptSpecialty);
+        List<String> specialtyNames = new ArrayList<String>();
+        for(Specialty s: specialities){
+            specialtyNames.add(s.getName());
         }
+        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_dropdown_item,specialtyNames);
+        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        dataAdapter.notifyDataSetChanged();
+        specialtySpinner_create.setAdapter(dataAdapter);
+        specialtySpinner_create.setOnItemSelectedListener(this);
 
         //country spinner
         countrySpinner_create = (Spinner) findViewById(R.id.CreateApptCountries);
@@ -99,15 +90,13 @@ public class ReferralActivity extends Activity implements AdapterView.OnItemSele
         switch(parent.getId()) {
             case R.id.CreateApptSpecialty:
                 String speciality = String.valueOf(specialtySpinner_create.getSelectedItem());
-                try {
                 int selection = 0;
                 for (Specialty s : specialities) {
                     if (speciality.equals(s.getName())) {
                         selection = s.getId();
                     }
                 }
-                DoctorDAO doctorDAO = new DoctorDAO(this);
-                List<Doctor> doctors = doctorDAO.getDoctorBySpecialization(selection);
+                List<Doctor> doctors = Container.getDoctorManager().getDoctorBySpecialization(selection,this);
                 //List<Doctor> doctors = Container.GlobalDoctorDAO.getDoctorBySpecialization(selection);
                 List<String> doctorNames = new ArrayList<String>();
                 for (Doctor d : doctors) {
@@ -117,18 +106,13 @@ public class ReferralActivity extends Activity implements AdapterView.OnItemSele
                 doctorDataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                 doctorDataAdapter.notifyDataSetChanged();
                 doctorSpinner_create.setAdapter(doctorDataAdapter);
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
                 break;
 
             case R.id.CreateApptCountries:
                 String country = (String) parent.getAdapter().getItem(position);
-                try {
-                    ClinicDAO clinicDAO = new ClinicDAO(this);
-                    List<Clinic> clinics = clinicDAO.getClinicsByCountry(country);
-
+                List<Clinic> clinics = Container.getClinicManager().getClinicsByCountry(country,this);
                 List<String> clinicNames = new ArrayList<String>();
+
                 for (Clinic c : clinics) {
                     clinicNames.add(c.getName());
                 }
@@ -136,9 +120,6 @@ public class ReferralActivity extends Activity implements AdapterView.OnItemSele
                 clinicDataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                 clinicDataAdapter.notifyDataSetChanged();
                 clinicSpinner_create.setAdapter(clinicDataAdapter);
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
                 break;
 
             default:
