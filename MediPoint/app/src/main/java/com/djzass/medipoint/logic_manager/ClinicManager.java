@@ -108,12 +108,24 @@ public class ClinicManager {
         return ret;
     }
 
+    /**
+     * get country of the clinic
+     * @param clinicId int object containing clinicId
+     * @param context Interface to global information about an application environment
+     * @return String object containing the country of clinic
+     */
     public String getCountryByClinicId(int clinicId, Context context)
     {
         updateClinicDao(context);
         return clinicDao.getClinicsByID(clinicId).get(0).getCountry();
     }
 
+    /**
+     * get name of the clinic
+     * @param clinicId int object containing clinicId
+     * @param context Interface to global information about an application environment
+     * @return String object containing the name of clinic
+     */
     public String getClinicNameByClinicId(int clinicId,Context context)
     {
         updateClinicDao(context);
