@@ -24,6 +24,7 @@ import com.djzass.medipoint.entity.Timeframe;
 import com.djzass.medipoint.logic_manager.*;
 
 import java.sql.SQLException;
+import java.text.DateFormatSymbols;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -65,6 +66,21 @@ public class EditAppointmentActivity extends onDataPass implements AdapterView.O
         Bundle b = getIntent().getExtras();
         app = b.getParcelable("appFromView");
         referrerId = app.getReferrerId();
+
+        Button datepicker = (Button)findViewById(R.id.datepicker);
+        apptDate = app.getDate();
+        String[] month_str = new DateFormatSymbols().getMonths();
+        datepicker.setText(apptDate.get(Calendar.DATE) + " " + month_str[apptDate.get(Calendar.MONTH)] + " " + apptDate.get(Calendar.YEAR));
+
+        /*
+        Button timepicker = (Button)findViewById(R.id.timepickeredit);
+        resetTimePicker();
+        timeframe = app.getTimeframe();
+        this.apptDate.set(Calendar.HOUR_OF_DAY,(this.timeframe.getStartTime()/2));
+        this.apptDate.set(Calendar.MINUTE,30*(this.timeframe.getStartTime()%2));
+        timepicker.setText(app.getTimeString());
+        */
+
         //Toast.makeText(this,app.toString(),Toast.LENGTH_LONG).show();
 
         //Toast.makeText(this,(String) ""+app.getClinicId(),Toast.LENGTH_SHORT).show();
@@ -141,6 +157,8 @@ public class EditAppointmentActivity extends onDataPass implements AdapterView.O
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         Bundle b = getIntent().getExtras();
         Appointment app = b.getParcelable("appFromView");
+
+
         /** pop up message
          TextView MyTime = (TextView) view;
          Toast.makeText(this, MyTime.getText() + " is selected", Toast.LENGTH_SHORT).show();
@@ -183,7 +201,8 @@ public class EditAppointmentActivity extends onDataPass implements AdapterView.O
                 doctorSpinnerCreate.setAdapter(doctorDataAdapter);
                 doctorSpinnerCreate.setOnItemSelectedListener(this);
                 //doctorSpinnerCreate.setSelection(doctorDataAdapter.getPosition(Container.getDoctorManager().getDoctorById(app.getDoctorId(),this).get(0).getName()));
-                resetTimePicker();
+
+                //resetTimePicker();
                 break;
 
             case R.id.EditApptType:
@@ -196,7 +215,7 @@ public class EditAppointmentActivity extends onDataPass implements AdapterView.O
                         this.duration = s.getDuration();
                     }
                 }
-                resetTimePicker();
+                //resetTimePicker();
                 break;
 
             case R.id.EditApptDoctors:
@@ -207,7 +226,7 @@ public class EditAppointmentActivity extends onDataPass implements AdapterView.O
                         doctorId = d.getDoctorId();
                     }
                 }
-                resetTimePicker();
+                //resetTimePicker();
                 break;
 
 
@@ -244,7 +263,7 @@ public class EditAppointmentActivity extends onDataPass implements AdapterView.O
                 doctorSpinnerCreate.setAdapter(doctorDataAdapter);
                 doctorSpinnerCreate.setOnItemSelectedListener(this);
                 //doctorSpinnerCreate.setSelection(doctorDataAdapter.getPosition(Container.getDoctorManager().getDoctorById(app.getDoctorId(),this).get(0).getName()));
-                resetTimePicker();
+                //resetTimePicker();
                 break;
 
 
@@ -274,8 +293,19 @@ public class EditAppointmentActivity extends onDataPass implements AdapterView.O
                 //List<Service> services = Container.GlobalServiceDAO.getServicesBySpecialtyID(selection);
 
 
-                resetTimePicker();
+                //resetTimePicker();
                 break;
+        }
+
+        if(specialtyId==app.getSpecialtyId() && doctorId==app.getDoctorId() && clinicId==app.getClinicId()){
+            Button timepicker = (Button)findViewById(R.id.timepickeredit);
+            timeframe = app.getTimeframe();
+            this.apptDate.set(Calendar.HOUR_OF_DAY,(this.timeframe.getStartTime()/2));
+            this.apptDate.set(Calendar.MINUTE,30*(this.timeframe.getStartTime()%2));
+            timepicker.setText(app.getTimeString());
+        }
+        else{
+            resetTimePicker();
         }
 
     }

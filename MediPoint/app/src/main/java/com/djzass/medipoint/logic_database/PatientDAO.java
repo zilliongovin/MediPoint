@@ -12,6 +12,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Locale;
 
@@ -161,7 +162,7 @@ public class PatientDAO extends DbDAO{
 
     private void initializeDAO(){
         if (getPatientCount()==0){
-            insertPatient(new GregorianCalendar(1995, 1, 1), "Allergic to Chocolate", "1. Audio Therapy\n","", "");
+
         }
     }
 }
