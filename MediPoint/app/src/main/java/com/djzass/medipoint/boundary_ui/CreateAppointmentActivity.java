@@ -34,14 +34,13 @@ import java.util.List;
 public class CreateAppointmentActivity extends onDataPass implements AdapterView.OnItemSelectedListener, SelectionListener{
 
     //appointment atrribute selections
-    int clinicId = 1;
+    int clinicId;
     int patientId;
     int doctorId;
     int referrerId;
     Calendar date = Calendar.getInstance();
     int serviceId;
-    int specialtyId = 1;
-    int countryId = 1;
+    int specialtyId;
     int duration;
     String preAppointmentActions;
     Timeframe timeframe = new Timeframe(-1,-1);
@@ -165,18 +164,13 @@ public class CreateAppointmentActivity extends onDataPass implements AdapterView
         switch(parent.getId()) {
             case R.id.CreateApptSpecialty:
                 String speciality = String.valueOf(specialtySpinnerCreate.getSelectedItem());
-                int selection = 1;
                 for (Specialty s : specialities) {
                     if (speciality.equals(s.getName())) {
-                        selection = s.getId();
+                        specialtyId = s.getId();
                     }
                 }
-                this.specialtyId = selection;
 
-                //List<Service> services = ((Container)getApplicationContext()).getGlobalServiceDAO().getServicesBySpecialtyID(selection);
-                //List<Service> services = Container.GlobalServiceDAO.getServicesBySpecialtyID(selection);
-
-                List<Service> services = Container.getServiceManager().getServicesBySpecialtyID(selection,this);
+                List<Service> services = Container.getServiceManager().getServicesBySpecialtyID(specialtyId,this);
                 List<String> serviceNames = new ArrayList<String>();
                 for (Service s : services) {
                     serviceNames.add(s.getName());
@@ -187,11 +181,6 @@ public class CreateAppointmentActivity extends onDataPass implements AdapterView
                 dataAdapter.notifyDataSetChanged();
                 serviceSpinnerCreate.setAdapter(dataAdapter);
                 serviceSpinnerCreate.setOnItemSelectedListener(this);
-
-
-                //List<Doctor> doctors = ((Container)getApplicationContext()).getGlobalDoctorDAO().getDoctorBySpecialization(selection);
-                //List<Doctor> doctors = Container.GlobalDoctorDAO.getDoctorBySpecialization(selection);
-                 //List<Doctor> doctors = doctorDAO.getDoctorsByClinicAndSpecialization(clinicId,specialtyId);
                 List<Doctor> doctors = Container.getDoctorManager().getDoctorsByClinicAndSpecialization(clinicId,specialtyId,this);
                 List<String> doctorNames = new ArrayList<String>();
                 for (Doctor d : doctors) {
@@ -234,8 +223,6 @@ public class CreateAppointmentActivity extends onDataPass implements AdapterView
             case R.id.CreateApptCountries:
                 String country = String.valueOf(countrySpinnerCreate.getSelectedItem());
                 List<Clinic> clinics = Container.getClinicManager().getClinicsByCountry(country,this);
-                //List<Clinic> clinics = ((Container)getApplicationContext()).getGlobalDoctorDAO().getDoctorBySpecialization(selection);
-                //List<Clinic> clinics = Container.GlobalClinicDAO.getClinicsByCountry(country);
                 List<String> clinicNames = new ArrayList<String>();
                 for (Clinic c : clinics) {
                     clinicNames.add(c.getName());
@@ -268,18 +255,15 @@ public class CreateAppointmentActivity extends onDataPass implements AdapterView
                 break;
 
             case R.id.CreateApptLocations:
-                //Toast.makeText(this,"InClinic",Toast.LENGTH_SHORT).show();
+
                 clinic = String.valueOf(clinicSpinnerCreate.getSelectedItem());
-                //Toast.makeText(this,clinic,Toast.LENGTH_SHORT).show();
-                int clinicSelection = 1;
                 clinics = Container.getClinicManager().getClinics(this);
                 for (Clinic c : clinics) {
                     if (clinic.equals(c.getName())) {
-                        clinicSelection = c.getId();
+                        clinicId = c.getId();
                     }
                 }
-                clinicId = clinicSelection;
-                //Toast.makeText(this,""+clinicId,Toast.LENGTH_SHORT).show();
+
                 doctors = Container.getDoctorManager().getDoctorsByClinicAndSpecialization(clinicId,specialtyId,this);
                 doctorNames = new ArrayList<String>();
                 for (Doctor d : doctors) {
@@ -290,9 +274,6 @@ public class CreateAppointmentActivity extends onDataPass implements AdapterView
                 doctorDataAdapter.notifyDataSetChanged();
                 doctorSpinnerCreate.setAdapter(doctorDataAdapter);
                 doctorSpinnerCreate.setOnItemSelectedListener(this);
-
-                //List<Service> services = ((Container)getApplicationContext()).getGlobalServiceDAO().getServicesBySpecialtyID(selection);
-                //List<Service> services = Container.GlobalServiceDAO.getServicesBySpecialtyID(selection);
 
                 resetTimePicker();
                 break;

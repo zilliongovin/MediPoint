@@ -154,7 +154,7 @@ public class SignUpPageOneActivity extends Activity {
     }
 
     public static boolean isValidNric(String nric) {
-        return(nric.matches("^.*[^a-zA-Z0-9 ].*$") && nric.length()>4); //only alphanumeric, >4 chars
+        return(nric.matches("^.*[a-zA-Z0-9].*$") && nric.length()>4); //only alphanumeric, >4 chars
     }
 
     public static boolean isValidEmailAddress(String email) {
@@ -168,7 +168,7 @@ public class SignUpPageOneActivity extends Activity {
         return result;
     }
     public static boolean isValidContactNo(String contactno) {
-        return(contactno.matches("^.*[^0-9 ].*$") && contactno.length()>4); //only numeric, >4 chars
+        return(contactno.matches("^.*[0-9 ].*$") && contactno.length()>4); //only numeric, >4 chars
     }
 }
 
