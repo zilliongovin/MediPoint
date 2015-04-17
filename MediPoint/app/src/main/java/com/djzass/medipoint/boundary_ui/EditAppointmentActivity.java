@@ -34,13 +34,12 @@ import java.util.List;
  */
 public class EditAppointmentActivity extends onDataPass implements AdapterView.OnItemSelectedListener, SelectionListener {
 
-    int clinicId = 1;
+    int clinicId;
     int patientId;
     int doctorId;
     Calendar apptDate = Calendar.getInstance();
-    int serviceId = 1;
-    int specialtyId = 1;
-    int countryId = 1;
+    int serviceId;
+    int specialtyId;
     int duration;
     int referrerId;
     String preAppointmentActions;
@@ -65,10 +64,6 @@ public class EditAppointmentActivity extends onDataPass implements AdapterView.O
         Bundle b = getIntent().getExtras();
         app = b.getParcelable("appFromView");
         referrerId = app.getReferrerId();
-        //Toast.makeText(this,app.toString(),Toast.LENGTH_LONG).show();
-
-        //Toast.makeText(this,(String) ""+app.getClinicId(),Toast.LENGTH_SHORT).show();
-        //Toast.makeText(this,(String) ""+app.getSpecialtyId(),Toast.LENGTH_SHORT).show();
 
         specialities = Container.getSpecialtyManager().getSpecialtys(this);
         specialtySpinnerCreate = (Spinner) findViewById(R.id.EditApptSpecialty);
@@ -168,9 +163,6 @@ public class EditAppointmentActivity extends onDataPass implements AdapterView.O
                 serviceSpinnerCreate.setSelection(dataAdapter.getPosition(Container.getServiceManager().getServiceNameByID(app.getServiceId(),this)));
                 serviceSpinnerCreate.setOnItemSelectedListener(this);
                 this.serviceId = app.getServiceId();
-
-                //List<Doctor> doctors = ((Container)getApplicationContext()).getGlobalDoctorDAO().getDoctorBySpecialization(selection);
-                //List<Doctor> doctors = Container.GlobalDoctorDAO.getDoctorBySpecialization(selection);
 
                 List<Doctor> doctors = Container.getDoctorManager().getDoctorsByClinicAndSpecialization(clinicId, specialtyId, this);
                 List<String> doctorNames = new ArrayList<String>();
