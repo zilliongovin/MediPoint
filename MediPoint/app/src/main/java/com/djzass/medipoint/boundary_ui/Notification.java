@@ -26,7 +26,7 @@ public class Notification {
                 //can be set differently like icon, sound etc
                 .setContentTitle("Medipoint Reminder")
                 .setContentText(body)
-                .setSmallIcon(R.drawable.icon_medipoint)
+                .setSmallIcon(R.mipmap.iconbw_medipoint)
 
                 .setContentIntent(pI)
                 .setAutoCancel(true);
