@@ -13,6 +13,11 @@ import com.djzass.medipoint.R;
 import com.djzass.medipoint.logic_manager.AccountManager;
 import com.djzass.medipoint.logic_manager.Container;
 
+import java.util.regex.Pattern;
+
+import javax.mail.internet.AddressException;
+import javax.mail.internet.InternetAddress;
+
 
 public class SignUpPageOneActivity extends Activity {
 
@@ -100,15 +105,19 @@ public class SignUpPageOneActivity extends Activity {
                 checkViews[3] = (EditText) findViewById(R.id.ContactTextbox);
                 checkViews[4] = (EditText) findViewById(R.id.AddressTextbox);
 
-                boolean isFilled = isFormFilled(checkViews,5);
-                boolean newAccount = Container.getAccountManager().isNewAccount(checkViews[1].getText().toString(), this);
+                String name = checkViews[0].getText().toString();
+                String nric = checkViews[1].getText().toString();
+                String email = checkViews[2].getText().toString();
+                String contact = checkViews[3].getText().toString();
+                String address = checkViews[4].getText().toString();
 
-                if(!isFilled)
-                {
-                    incompleteForm();
+                if(!isFormFilled(checkViews,5)){
+                    Toast.makeText(this,"Please fill all fields",Toast.LENGTH_LONG).show();
                 }
-
-                else if(!newAccount){
+                else if(!isValidNric(email)){
+                    Toast.makeText(this,"Please enter a valid NRIC",Toast.LENGTH_LONG).show();
+                }
+                else if(!Container.getAccountManager().isNewAccount(nric, this)){
                     Runnable r = new Runnable() {
                         @Override
                         public void run() {
@@ -119,17 +128,14 @@ public class SignUpPageOneActivity extends Activity {
                     String message = "You already have an existing account";
                     AlertDialogInterface AlertDisplayer = new AlertDialogInterface(title,message,this);
                     AlertDisplayer.AccountAlreadyExists(r);
-
                 }
-
-                else
-                {
-
-                    String name = checkViews[0].getText().toString();
-                    String nric = checkViews[1].getText().toString();
-                    String email = checkViews[2].getText().toString();
-                    String contact = checkViews[3].getText().toString();
-                    String address = checkViews[4].getText().toString();
+                else if(!isValidEmailAddress(email)){
+                    Toast.makeText(this,"Please enter a valid email address",Toast.LENGTH_LONG).show();
+                }
+                else if(!isValidContactNo(email)){
+                    Toast.makeText(this,"Please enter a valid contact number",Toast.LENGTH_LONG).show();
+                }
+                else {
                     //AccountCreator.savePageOne(name,nric,email,contact,address);
                     goToPage2(name,nric,email,contact,address);
                 }
@@ -147,67 +153,22 @@ public class SignUpPageOneActivity extends Activity {
         return true;
     }
 
-    public void incompleteForm()
-    {
-        Toast.makeText(this,"Please fill all fields",Toast.LENGTH_LONG).show();
+    public static boolean isValidNric(String nric) {
+        return(nric.matches("^.*[^a-zA-Z0-9 ].*$") && nric.length()>4); //only alphanumeric, >4 chars
     }
 
-    /*public void AccountCreatedDialog()
-    {
-        String message = "Congratulations! Your account has been successfully created.";
-        String title = "Success";
-        Runnable r = new Runnable() {
-            @Override
-            public void run() {
-                goToLoginPage();
-            }
-        };
-
-        AlertDialogInterface AlertDisplayer = new AlertDialogInterface(title,message,this);
-        AlertDisplayer.AccountCreated(r);
-    }*/
-
-    /*public void unequalPassword()
-    {
-        Toast.makeText(this,"Confirmed Password is incorrect",Toast.LENGTH_LONG).show();
-
-    }*/
-
-    /*public Calendar getDate(DatePicker datePicker){
-        int day = datePicker.getDayOfMonth();
-        int month = datePicker.getMonth()+1;
-        int year = datePicker.getYear();
-
-        Calendar calendar = Calendar.getInstance();
-        calendar.set(year, month, day);
-
-        return calendar;
-    }*/
-
-    /*protected void onSaveInstanceState(Bundle outState,View[] views,int n) {
-        super.onSaveInstanceState(outState);
-        //Log.i(TAG, "onSaveInstanceState");
-
-        CharSequence[] userText = new CharSequence[n];
-        for(int i=0;i<n;i++){
-            userText[i] =
+    public static boolean isValidEmailAddress(String email) {
+        boolean result = true;
+        try {
+            InternetAddress emailAddr = new InternetAddress(email);
+            emailAddr.validate();
+        } catch (AddressException ex) {
+            result = false;
         }
-        userText = textBox.getText();
-        outState.putCharSequence("savedText", userText);
-
-    }*/
-
-    /*protected void onRestoreInstanceState(Bundle savedState) {
-        //Log.i(TAG, "onRestoreInstanceState");
-
-        final EditText textBox =
-                (EditText) findViewById(R.id.editText1);
-
-        CharSequence userText =
-                savedState.getCharSequence("savedText");
-
-        textBox.setText(userText);
-    }*/
-
+        return result;
+    }
+    public static boolean isValidContactNo(String contactno) {
+        return(contactno.matches("^.*[^0-9 ].*$") && contactno.length()>4); //only numeric, >4 chars
+    }
 }
 
