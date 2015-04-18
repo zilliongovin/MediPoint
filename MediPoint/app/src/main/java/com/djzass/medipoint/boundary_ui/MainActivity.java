@@ -1,6 +1,5 @@
 package com.djzass.medipoint.boundary_ui;
 
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -14,20 +13,23 @@ import com.djzass.medipoint.R;
 import com.djzass.medipoint.logic_manager.*;
 import com.google.samples.apps.iosched.ui.widget.SlidingTabLayout;
 
-
+/**
+ *
+ */
 public class MainActivity extends FragmentActivity{
+    /**
+     *
+     */
     public static boolean SERVICE_TIMER_STARTED = false;
 
+    /**
+     *
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //Container.init();
         setContentView(R.layout.activity_main);
-
-        //get Patient ID
-        //String id = GlobalContainer.GlobalAccountManager.getLoggedInAccountId();
-        //Toast.makeText(this,""+acctMgr.getLoggedInAccountId(this),Toast.LENGTH_SHORT).show();
-        //start bg timer service
 
         // Get the ViewPager and set it's PagerAdapter so that it can display items
         ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
@@ -50,11 +52,11 @@ public class MainActivity extends FragmentActivity{
             }
         });
         slidingTabLayout.setViewPager(viewPager);
-
-        // Calling Application class (see application tag in AndroidManifest.xml)
-
-
     }
+
+    /**
+     *
+     */
     @Override
     public void onBackPressed(){
         Intent intent = new Intent(Intent.ACTION_MAIN);
@@ -62,6 +64,9 @@ public class MainActivity extends FragmentActivity{
         startActivity(intent);
     }
 
+    /**
+     *
+     */
     public class SampleFragmentPagerAdapter extends FragmentPagerAdapter {
         final int PAGE_COUNT = 2;
         //final int PAGE_COUNT = 3;
@@ -98,6 +103,11 @@ public class MainActivity extends FragmentActivity{
         }
     }
 
+    /**
+     *
+     * @param menu
+     * @return
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -105,6 +115,11 @@ public class MainActivity extends FragmentActivity{
         return true;
     }
 
+    /**
+     *
+     * @param item
+     * @return
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
@@ -125,9 +140,6 @@ public class MainActivity extends FragmentActivity{
             startActivity(intent);
             return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
-
-
 }

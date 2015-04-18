@@ -10,7 +10,6 @@ import android.widget.TextView;
 
 import com.djzass.medipoint.R;
 import com.djzass.medipoint.entity.Appointment;
-import com.djzass.medipoint.logic_manager.AppointmentManager;
 import com.djzass.medipoint.logic_manager.Container;
 
 import java.sql.SQLException;
@@ -19,8 +18,18 @@ import java.util.HashMap;
 
 /**
  * Created by Deka on 12/4/2015.
+ *
+ * @author Deka
+ * @version 1.0
+ * @since 2015
+ *
+ * @see android.widget.ArrayAdapter
  */
 public class FollowUpAdapter extends ArrayAdapter<Appointment> {
+
+    /**
+     *
+     */
     private static class ViewHolder {
         public ImageView specialtyIcon;
         public TextView appointmentService;
@@ -28,10 +37,23 @@ public class FollowUpAdapter extends ArrayAdapter<Appointment> {
         public TextView appointmentTime;
     }
 
+    /**
+     *
+     * @param context
+     * @param appointments
+     * @throws SQLException
+     */
     public FollowUpAdapter(Context context, ArrayList<Appointment> appointments) throws SQLException {
         super(context, R.layout.followup_adapter, appointments);
     }
 
+    /**
+     *
+     * @param position
+     * @param convertView
+     * @param parent
+     * @return
+     */
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         ViewHolder viewHolder;
@@ -55,7 +77,6 @@ public class FollowUpAdapter extends ArrayAdapter<Appointment> {
         HashMap<String,String> appointmentDetails = getAppointmentDetails(appointment);
 
         // Populate the data into the template view using the data object
-
         viewHolder.specialtyIcon.setImageResource(getImageId(appointmentDetails.get("SPECIALTY_NAME")));
         viewHolder.appointmentService.setText(appointmentDetails.get("SERVICE_NAME"));
         viewHolder.appointmentDate.setText(appointmentDetails.get("DATE"));
@@ -65,6 +86,11 @@ public class FollowUpAdapter extends ArrayAdapter<Appointment> {
         return convertView;
     }
 
+    /**
+     *
+     * @param specialtyName
+     * @return
+     */
     public int getImageId(String specialtyName){
         if (specialtyName.equalsIgnoreCase("ENT"))
             return R.mipmap.ear;
@@ -75,23 +101,12 @@ public class FollowUpAdapter extends ArrayAdapter<Appointment> {
         return R.mipmap.icontp_medipoint;
     }
 
+    /**
+     *
+     * @param appointment
+     * @return
+     */
     public HashMap<String,String> getAppointmentDetails(Appointment appointment){
-        /*Appointment appointment = appointmentManager.getAppointmentByID(id, getContext() );
-        String specialtyName = appointmentManager.getSpecialtyNameByAppointment(appointment, getContext());
-        String serviceName = appointmentManager.getServiceNameByAppointment(appointment, getContext());
-        String doctorName = appointmentManager.getDoctorNameByAppointment(appointment, getContext());
-        String clinicName = appointmentManager.getClinicNameByAppointment(appointment, getContext());
-        String status = appointmentManager.getStatus(appointment);
-
-        HashMap<String,String> appointmentDetails = new HashMap<String, String>();
-        appointmentDetails.put("SPECIALTY_NAME",specialtyName);
-        appointmentDetails.put("SERVICE_NAME",serviceName);
-        appointmentDetails.put("DOCTOR_NAME",doctorName);
-        appointmentDetails.put("CLINIC_NAME",clinicName);
-        appointmentDetails.put("DATE",appointment.getDateString());
-        appointmentDetails.put("TIME",appointment.getTimeString());
-        appointmentDetails.put("STATUS",status);*/
-        //Appointment appointment = Container.getAppointmentManager().getAppointmentByID(id, getContext());
         HashMap<String, String> appointmentDetails = new HashMap<String, String>();
         appointmentDetails.put("SPECIALTY_NAME",Container.getAppointmentManager().getSpecialtyNameByAppointment(appointment,getContext()));
         appointmentDetails.put("SERVICE_NAME",Container.getAppointmentManager().getServiceNameByAppointment(appointment, getContext()));

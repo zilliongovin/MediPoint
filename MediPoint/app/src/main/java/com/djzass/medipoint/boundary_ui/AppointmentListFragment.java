@@ -1,9 +1,5 @@
 package com.djzass.medipoint.boundary_ui;
 
-/**
- * Created by Zillion Govin on 4/4/2015.
- */
-
 import android.app.ActionBar;
 import android.content.Intent;
 import android.os.Bundle;
@@ -19,34 +15,43 @@ import android.widget.TextView;
 
 import com.djzass.medipoint.R;
 import com.djzass.medipoint.entity.Appointment;
-import com.djzass.medipoint.logic_manager.AppointmentManager;
 import com.djzass.medipoint.logic_manager.Container;
 import com.djzass.medipoint.logic_manager.SessionManager;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
-
-
 /**
  * Created by Deka on 4/4/2015.
+ *
+ * @author Deka
+ * @version 1.0
+ * @since 2015
+ *
+ * @see android.support.v4.app.Fragment
  */
 public class AppointmentListFragment extends Fragment implements ActionBar.OnNavigationListener{
-
+    /**
+     *
+     */
     Spinner buttonSpinner;
-
-
     private ActionBar actionBar;
     private ArrayList<SpinnerNavItem> navSpinner;
-    //private NavigationAdapter adapter;
-    //ArrayList<AppointmentDummy> appointments;
     ArrayList<Appointment> appointments;
     private int patientId;
+
+    /**
+     *
+     * @return
+     */
     public static AppointmentListFragment newInstance() {
         AppointmentListFragment fragment = new AppointmentListFragment();
         return fragment;
     }
 
-
+    /**
+     *
+     * @param savedInstanceState
+     */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,6 +68,12 @@ public class AppointmentListFragment extends Fragment implements ActionBar.OnNav
         appointments = (ArrayList<Appointment>) Container.getAppointmentManager().sortByDate(appointments);
     }
 
+    /**
+     *
+     * @param position
+     * @param id
+     * @return
+     */
     @Override
     public boolean onNavigationItemSelected(int position, long id) {
         // When the given dropdown item is selected, show its contents in the
@@ -85,6 +96,13 @@ public class AppointmentListFragment extends Fragment implements ActionBar.OnNav
         return true;
     }
 
+    /**
+     *
+     * @param inflater
+     * @param container
+     * @param savedInstanceState
+     * @return
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -159,18 +177,27 @@ public class AppointmentListFragment extends Fragment implements ActionBar.OnNav
         return view;
     }
 
+    /**
+     *
+     */
     public void goToCreateAppointment()
     {
         Intent intent = new Intent(getActivity(), CreateAppointmentActivity.class);
         startActivity(intent);
     }
 
+    /**
+     *
+     */
     public void goToCreateReferral()
     {
         Intent intent = new Intent(getActivity(), ReferralActivity.class);
         startActivity(intent);
     }
 
+    /**
+     *
+     */
     public void goToCreateFollowUp()
     {
         Intent intent = new Intent(getActivity(), FollowUpListActivity.class);

@@ -12,7 +12,6 @@ import android.widget.TextView;
 
 import com.djzass.medipoint.R;
 import com.djzass.medipoint.entity.Appointment;
-import com.djzass.medipoint.logic_manager.AppointmentManager;
 import com.djzass.medipoint.logic_manager.Container;
 import com.djzass.medipoint.logic_manager.SessionManager;
 
@@ -20,11 +19,22 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Calendar;
 
-
+/**
+ *
+ *
+ *
+ * @see android.app.Activity
+ */
 public class FollowUpListActivity extends Activity {
-
+    /**
+     *
+     */
     private int patientId;
 
+    /**
+     *
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,7 +64,6 @@ public class FollowUpListActivity extends Activity {
                 @Override
                 public void onItemClick(AdapterView <?> parent, View view, int position, long id) {
                     Appointment app = (Appointment) parent.getAdapter().getItem(position);
-                    //Toast.makeText(getApplicationContext(), app.toString(), Toast.LENGTH_SHORT).show();
                     Intent in = new Intent(getApplicationContext(), CreateFollowUpActivity.class);
                     in.putExtra("appFollowUp", app);
                     startActivity(in);
@@ -69,9 +78,11 @@ public class FollowUpListActivity extends Activity {
         }
     }
 
-
-
-
+    /**
+     *
+     * @param menu
+     * @return
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -79,6 +90,11 @@ public class FollowUpListActivity extends Activity {
         return true;
     }
 
+    /**
+     *
+     * @param item
+     * @return
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will

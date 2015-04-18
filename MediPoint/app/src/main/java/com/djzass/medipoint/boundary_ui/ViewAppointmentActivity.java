@@ -18,11 +18,21 @@ import com.djzass.medipoint.entity.Appointment;
 import com.djzass.medipoint.logic_manager.Container;
 
 /**
- * Created by Zillion Govin on 4/4/2015.
+ * Created by Deka on 4/4/2015.
+ *
+ * @author Deka
+ * @since 2015
+ * @version 1.0
+ *
+ * @see android.app.Activity
  */
-
 public class ViewAppointmentActivity extends Activity {
     private Appointment app;
+
+    /**
+     *
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,6 +63,11 @@ public class ViewAppointmentActivity extends Activity {
         specialtyIcon.setImageResource(getImageId(Container.getAppointmentManager().getSpecialtyNameByAppointment(app,this)));
     }
 
+    /**
+     *
+     * @param specialtyName
+     * @return
+     */
     public int getImageId(String specialtyName){
         if (specialtyName.equalsIgnoreCase("ENT"))
             return R.mipmap.ear;
@@ -63,6 +78,10 @@ public class ViewAppointmentActivity extends Activity {
         return R.mipmap.icontp_medipoint;
     }
 
+    /**
+     *
+     * @param view
+     */
     public void ViewApptEdit(View view)
     {
         Intent in = new Intent(getApplicationContext(), EditAppointmentActivity.class);
@@ -70,6 +89,10 @@ public class ViewAppointmentActivity extends Activity {
         startActivity(in);
     }
 
+    /**
+     *
+     * @param view
+     */
     public void ViewApptDelete(View view){
         //Button delete
         /*AlertDialogInterface deleteApp = new AlertDialogInterface("Delete Appointment?",
@@ -82,6 +105,9 @@ public class ViewAppointmentActivity extends Activity {
         diaBox.show();
     }
 
+    /**
+     *
+     */
     private void performDelete(){
         Container.getAppointmentManager().cancelAppointment(app, this);
         AlarmSetter mAlarm = new AlarmSetter();
@@ -91,6 +117,11 @@ public class ViewAppointmentActivity extends Activity {
         startActivity(in);
     }
 
+    /**
+     *
+     * @param menu
+     * @return
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -98,13 +129,20 @@ public class ViewAppointmentActivity extends Activity {
         return true;
     }
 
-
+    /**
+     *
+     */
     public void cancelAppointment(){
         Appointment appointment = new Appointment();
         AlarmSetter malarm = new AlarmSetter();
         malarm.cancelAlarm(this,appointment);
     }
 
+    /**
+     *
+     * @param item
+     * @return
+     */
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         switch (id) {
@@ -117,7 +155,10 @@ public class ViewAppointmentActivity extends Activity {
         }
     }
 
-
+    /**
+     *
+     * @return
+     */
     private AlertDialog ConfirmDelete(){
         AlertDialog myQuittingDialogBox =new AlertDialog.Builder(this)
                 //set message, title, and icon
