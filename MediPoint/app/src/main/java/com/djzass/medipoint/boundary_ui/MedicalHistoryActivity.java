@@ -1,7 +1,7 @@
 package com.djzass.medipoint.boundary_ui;
 
 /**
- * Created by HP on 28/3/2015.
+ * Created by Zillion Govin on 28/3/2015.
  */
 
 import android.app.Activity;
@@ -27,45 +27,61 @@ import java.util.Calendar;
 
 public class MedicalHistoryActivity extends Activity {
     /**
-     * dental info
+     * an instance of dental info
      */
     String dentalInfo = "";
 
     /**
-     * ear nose throat info
+     * an instance of ear nose throat info
      */
     String ENTInfo = "";
 
     /**
-     * genital urinary system info
+     * an instance of genital urinary system info
      */
     String genitalInfo = "";
 
     /**
-     * other info
+     * an instance of other info
      */
     String otherInfo = "";
 
     /**
-     * medical history
+     * an instance of medical history
      * include dental, ENT, genital urinary system, and other
      */
     String medicalHistory = "";
 
+    /**
+     * an instance of allergy info
+     */
     String allergyInfo = "";
 
-    //Ongoing Treatment
+    /**
+     * an instance of ongoing treatment
+     */
     String ongoingTreatment = "";
 
-    //Ongoing Medication
+    /**
+     * an instance of ongoing medication
+     */
     String ongoingMedication = "";
 
-    //DOB of user from intent
+    /**
+     * an instance of Calendar object DOB
+     */
     Calendar DOB = Calendar.getInstance();
 
+    /**
+     * an instance of patient id
+     */
     int patientId;
 
-
+    /**
+     * Called when the activity is first created
+     * normal static set up: create views, bind data to lists, etc.
+     * @param savedInstanceState Bundle containing the activity's previously frozen state, if there was one
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -99,7 +115,11 @@ public class MedicalHistoryActivity extends Activity {
         this.patientId = intent.getIntExtra("ID", 0);
     }
 
-
+    /**
+     * specify the options menu for an activity
+     * @param menu menu resource provided in xml
+     * @return result
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -107,6 +127,11 @@ public class MedicalHistoryActivity extends Activity {
         return true;
     }
 
+    /**
+     * an item is selected from the option menu
+     * @param item menu item selected
+     * @return result
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
@@ -122,6 +147,9 @@ public class MedicalHistoryActivity extends Activity {
         return super.onOptionsItemSelected(item);
     }
 
+    /**
+     * Called when the activity has detected the user's press of the back key.
+     */
     @Override
     public void onBackPressed(){
         String title = "Skip this form for now?";
@@ -143,15 +171,26 @@ public class MedicalHistoryActivity extends Activity {
         alert.BackToLogin(insertPatientDOB,goToLoginPage);
     }
 
+    /**
+     * insert object Patient to database
+     * @param pat Patient object to be inserted to database
+     */
     public void insertPatientToDatabase(Patient pat){
         Container.getPatientManager().cancelPatient(pat,this);
     }
 
+    /**
+     * back to login page
+     */
     public void goToLoginPage(){
         Intent MedicalHistoryToLogin = new Intent(this,LoginActivity.class);
         startActivity(MedicalHistoryToLogin);
     }
-    //checkbox listener
+
+    /**
+     * Checkbox listener
+     * @param view view of current activity
+     */
     public void onCheckboxClicked(View view){
 
         //define boolean checked
@@ -356,7 +395,12 @@ public class MedicalHistoryActivity extends Activity {
         }
     }
 
-    //method for submit button
+    /**
+     * submit button listener
+     * store all the information to database
+     * create new Object Patient
+     * @throws SQLException for safety reason while accessing database
+     */
     public void onSubmit() throws SQLException {
 
         //get edittext
@@ -387,13 +431,6 @@ public class MedicalHistoryActivity extends Activity {
 
         //store medicalHistory, allergyInfo, ongoingTreatment, ongoingMedication to DB
         long ret = Container.getPatientManager().createPatient(new Patient(patientId, DOB, medicalHistory, ongoingTreatment, ongoingMedication, allergyInfo),this);
-      /*  if (ret == -1) {
-            //Toast.makeText(this, "insert patient to database unsuccessful", Toast.LENGTH_SHORT).show();
-            //Toast.makeText(this, "PID: " + patientId + " dob: " + DOB, Toast.LENGTH_LONG).show();
-    }
-        else {
-           // Toast.makeText(this, "insert patient to database successful", Toast.LENGTH_SHORT).show();
-        }*/
 
         Toast.makeText(this,"Medical History updated",Toast.LENGTH_SHORT).show();
         //go back to login page after submitting
