@@ -10,7 +10,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by Joshua on 10/4/2015.
+ * Created by Ankur on 10/4/2015.
+ * Specialty Manager is the logic manager for handling Specialty objects.
+ *
+ * @author Ankur
+ * @version 1.0
+ * @since 2015
+ *
+ * @see com.djzass.medipoint.entity.Specialty,com.djzass.medipoint.logic_database.SpecialtyDAO
  */
 public class SpecialtyManager {
     /**
@@ -29,6 +36,7 @@ public class SpecialtyManager {
     public static SpecialtyManager getInstance() {
         return instance;
     }
+
     /**
      * Re-initializes the SpecialtyDAO with the given context
      */
@@ -40,21 +48,19 @@ public class SpecialtyManager {
         }
     }
 
+    /**
+     * Get all Specialities
+     * @return List of speciality objects
+     */
     public List<Specialty> getSpecialtys(Context context){
         updateSpecialtyDao(context);
         return specialtyDao.getAllSpecialties();
     }
 
-    public List<Specialty> getSpecialtiesByID(int specialtyId, Context context){
-        updateSpecialtyDao(context);
-        return specialtyDao.getSpecialtiesByID(specialtyId);
-    }
-
-    public List<Specialty> getSpecialtiesByName(String specialtyName,Context context){
-        updateSpecialtyDao(context);
-        return specialtyDao.getSpecialtiesByName(specialtyName);
-    }
-
+    /**
+     * Get all Speciality Names by @param specialtyID
+     * @return speciality string
+     */
     public String getSpecialtyNameByID(int specialtyId, Context context) {
         updateSpecialtyDao(context);
         List<Specialty> temp = specialtyDao.getSpecialtiesByID(specialtyId);
