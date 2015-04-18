@@ -136,11 +136,11 @@ public class AccountDAO extends DbDAO{
     public List<Account> getAllAccounts() {
         return getAccounts(null);
     }
-
+    /*
     public List<Account> getAccountById(int accountId) {
         String whereclause = DbContract.AccountEntry.COLUMN_NAME_ACCOUNT_ID + " = " + accountId;
         return getAccounts(whereclause);
-    }
+    }*/
 
     public List<Account> getAccountByNRIC(String nric) {
         String whereclause = DbContract.AccountEntry.COLUMN_NAME_NRIC + " = " + nric;
