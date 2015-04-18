@@ -3,52 +3,48 @@ package com.djzass.medipoint.entity;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import java.lang.String;
-import java.util.ArrayList;
-import java.util.Calendar;
-
 /**
  * Created by Deka on 25/3/2015.
  * Clinic class
  */
 public class Clinic implements Parcelable {
     /**
-     * clinic id
+     * Instantiate the clinic id
      */
     private int id;
 
     /**
-     * clinic name
+     * Instantiate the clinic name
      */
     private String name;
 
     /**
-     * clinic address
+     * Instantiate the clinic address
      */
     private String address;
 
     /**
-     * clinic zipcode
+     * Instantiate the clinic zipcode
      */
     private int zipCode;
 
     /**
-     * clinic tel number
+     * Instantiate the clinic phone number
      */
     private int telNumber;
 
     /**
-     * clinic faxnumber
+     * Instantiate the fax number of the clinic
      */
     private int faxNumber;
 
     /**
-     * clinic email
+     * Instantiate the clinic email
      */
     private String email;
 
     /**
-     * clinic country
+     * Instantiate country of the clinic
      */
     private String country;
 

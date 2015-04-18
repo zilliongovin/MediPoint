@@ -14,58 +14,81 @@ import java.util.List;
 
 /**
  * Created by Deka on 26/3/2015.
+ * AccountDAO is the data access object of the Account model. It provides access to an underlying
+ * database for Account objects.
+ *
+ * @author Shreyas
+ * @version 1.0
+ * @since 2015
  */
 public class AccountDAO extends DbDAO{
+    /**
+     * Store the SQL query for comparing account object id
+     */
     private static final String WHERE_ID_EQUALS = DbContract.AccountEntry.COLUMN_NAME_ACCOUNT_ID + " =?";
+
+    /**
+     * Store the SQL query for verifying user which match the username and password from the database
+     */
     private static final String SQL_VERIFY_USER =
             "SELECT " + DbContract.AccountEntry.COLUMN_NAME_USERNAME + "," +
                     DbContract.AccountEntry.COLUMN_NAME_PASSWORD +
                     " FROM " + DbContract.AccountEntry.TABLE_NAME +
                     " WHERE " + DbContract.AccountEntry.COLUMN_NAME_USERNAME + "=? AND " +
                     DbContract.AccountEntry.COLUMN_NAME_PASSWORD + "=?";
-
+    /**
+     * Store the SQL query for finding the email from given NRIC from the database
+     */
     private static final String SQL_FIND_NRIC =
             "SELECT " + DbContract.AccountEntry.COLUMN_NAME_NRIC + "," +
                     DbContract.AccountEntry.COLUMN_NAME_EMAIL + "," +
                     DbContract.AccountEntry.COLUMN_NAME_PASSWORD +
                     " FROM " + DbContract.AccountEntry.TABLE_NAME +
                     " WHERE " + DbContract.AccountEntry.COLUMN_NAME_NRIC + "=?";
-
+    /**
+     * Store the SQL query for finding username from existing Account table in the database
+     */
     private static final String SQL_FIND_USERNAME =
             "SELECT " + DbContract.AccountEntry.COLUMN_NAME_USERNAME +
                     " FROM " + DbContract.AccountEntry.TABLE_NAME +
                     " WHERE " + DbContract.AccountEntry.COLUMN_NAME_USERNAME + "=?";
-
+    /**
+     * Store the SQL query for finding account id from database
+     */
     private static final String SQL_FIND_ACCOUNTID =
             "SELECT " + DbContract.AccountEntry.COLUMN_NAME_ACCOUNT_ID +
                     " FROM " + DbContract.AccountEntry.TABLE_NAME +
                     " WHERE " + DbContract.AccountEntry.COLUMN_NAME_USERNAME + "=?";
-
+    /**
+     * Store the SQL query for finding all information  about account based on account id
+     */
     public static final String SQL_FIND_ACCOUNT_BY_ID =
             "SELECT * FROM "+ DbContract.AccountEntry.TABLE_NAME +
             " WHERE " + DbContract.AccountEntry.COLUMN_NAME_ACCOUNT_ID + "=?";
-    //private SpecialtyDAO specialtyDao;
 
+    /**
+     * Constructor of AccountDAO with initialization
+     * @param context
+     * @throws SQLException
+     */
     public AccountDAO(Context context) throws SQLException {
         super(context);
         initializeDAO();
     }
 
-    /* CREATE/SAVE
-    Inserting account into accounts table and return the account id if insertion successful,
-    otherwise -1 will be returned
+    /**
+     * Inserting account into accounts table and return the account id if insertion successful,
+     * otherwise -1 will be returned
+     * @param account
+     * @return id of the inserted account. If insertion failed, -1 will be returned.
      */
     public long insertAccount(Account account){
         ContentValues values = new ContentValues();
-        //int id = getAccountCount();
-        //values.put(DbContract.AccountEntry.COLUMN_NAME_ACCOUNT_ID, id);
         values.put(DbContract.AccountEntry.COLUMN_NAME_NAME, account.getName());
         values.put(DbContract.AccountEntry.COLUMN_NAME_NRIC, account.getNric());
         values.put(DbContract.AccountEntry.COLUMN_NAME_EMAIL, account.getEmail());
         values.put(DbContract.AccountEntry.COLUMN_NAME_CONTACTNO, account.getPhoneNumber());
         values.put(DbContract.AccountEntry.COLUMN_NAME_ADDRESS, account.getAddress());
-        //SimpleDateFormat sdf = new SimpleDateFormat("yyyy-mm-dd");
-        //values.put(DbContract.AccountEntry.COLUMN_NAME_DOB, sdf.format(account.getDob()));
         values.put(DbContract.AccountEntry.COLUMN_NAME_DOB, account.getDob().getTimeInMillis());
         values.put(DbContract.AccountEntry.COLUMN_NAME_GENDER, account.getGender());
         values.put(DbContract.AccountEntry.COLUMN_NAME_MARITAL_STATUS, account.getMaritalStatus());
@@ -77,14 +100,14 @@ public class AccountDAO extends DbDAO{
         values.put(DbContract.AccountEntry.COLUMN_NAME_NOTIFY_SMS, account.getNotifySMS());
 
         return database.insert(DbContract.AccountEntry.TABLE_NAME, null, values);
-        //return id;
     }
 
-    /** READ
-     * Getting all accounts from the table
-     * returns list of accounts
-     * */
-    public List<Account> getAccounts(String whereclause) {
+    /**
+     *  Get list of accounts from the database based on the whereclause
+     *  @param whereclause the selection condition for the query
+     *  @return list of account
+     */
+     public List<Account> getAccounts(String whereclause) {
         List<Account> accounts = new ArrayList<Account>();
 
         Cursor cursor = database.query(DbContract.AccountEntry.TABLE_NAME,
@@ -132,6 +155,10 @@ public class AccountDAO extends DbDAO{
         return accounts;
     }
 
+    /**
+     * Get all accounts from database
+     * @return list of all accounts from the database
+     */
     public List<Account> getAllAccounts() {
         return getAccounts(null);
     }
@@ -139,30 +166,47 @@ public class AccountDAO extends DbDAO{
     public List<Account> getAccountById(int accountId) {
         String whereclause = DbContract.AccountEntry.COLUMN_NAME_ACCOUNT_ID + " = " + accountId;
         return getAccounts(whereclause);
-    }*/
-
+    }
+    */
     public List<Account> getAccountByNRIC(String nric) {
         String whereclause = DbContract.AccountEntry.COLUMN_NAME_NRIC + " = " + nric;
         return getAccounts(whereclause);
     }
 
+    /**
+     * Get all accounts from database based on citizenship
+     * @param citizenship
+     * @return list of all accounts from database based on Citizenship
+     */
     public List<Account> getAccountByCitizenship(String citizenship) {
         String whereclause = DbContract.AccountEntry.COLUMN_NAME_CITIZENSHIP + " = " + citizenship;
         return getAccounts(whereclause);
     }
 
+    /**
+     * Get all accounts from database based on Username
+     * @param username
+     * @return list of accounts from database based on Username
+     */
     public List<Account> getAccountByUsername(String username) {
         String whereclause = DbContract.AccountEntry.COLUMN_NAME_USERNAME + " = " + username;
         return getAccounts(whereclause);
     }
 
+    /**
+     * Get all accounts from database based on Email
+     * @param email
+     * @return list of accounts from database based on email
+     */
     public List<Account> getAccountByEmail(String email) {
         String whereclause = DbContract.AccountEntry.COLUMN_NAME_EMAIL + " = " + email;
         return getAccounts(whereclause);
     }
 
-    /*  UPDATE
-        returns the number of rows affected by the update
+    /**
+     * Update the account table in database
+     * @param account
+     * @return the number of the rows that get updated. If update is failed, -1 is returned.
      */
     public long update(Account account) {
         ContentValues values = new ContentValues();
@@ -171,8 +215,6 @@ public class AccountDAO extends DbDAO{
         values.put(DbContract.AccountEntry.COLUMN_NAME_EMAIL, account.getEmail());
         values.put(DbContract.AccountEntry.COLUMN_NAME_CONTACTNO, account.getPhoneNumber());
         values.put(DbContract.AccountEntry.COLUMN_NAME_ADDRESS, account.getAddress());
-        //SimpleDateFormat sdf = new SimpleDateFormat("yyyy-mm-dd");
-        //values.put(DbContract.AccountEntry.COLUMN_NAME_DOB, sdf.format(account.getDob()));
         values.put(DbContract.AccountEntry.COLUMN_NAME_DOB, account.getDob().getTimeInMillis());
         values.put(DbContract.AccountEntry.COLUMN_NAME_GENDER, account.getGender());
         values.put(DbContract.AccountEntry.COLUMN_NAME_MARITAL_STATUS, account.getMaritalStatus());
@@ -190,57 +232,82 @@ public class AccountDAO extends DbDAO{
         return result;
     }
 
-    /*
-        DELETE
-        returns the number of rows affected if a whereClause is passed in, 0 otherwise
+
+    /**
+     * Delete rows from Account table in the database
+     * @param account
+     * @return the number of rows affected, 0 otherwise
      */
     public int deleteAccount(Account account) {
         return database.delete(DbContract.AccountEntry.TABLE_NAME,
                 WHERE_ID_EQUALS, new String[] { account.getId() + "" });
     }
-    /*
-        LOAD
-        Load the initial values of the accounts
-     */
-    public void loadAccounts() {
-        List<Account> temp= getAllAccounts();
-        for (Account tmp : temp) {
-            tmp.print();
-        }
-    }
 
+    /**
+     * Get the number of tuples in account table
+     * @return number of rows in account table
+     */
     public int getAccountCount(){
         return getAllAccounts().size();
     }
 
+    /**
+     * Initialize the database with account upon AccountDAO creation
+     *
+     */
     private void initializeDAO(){
         if (getAccountCount()==0){
             insertAccount(new Account("test", "123", "Test", "A142049", "deka108@gmail.com", "82342891", "Female", "NTU", "Single", new GregorianCalendar(1995, 1, 1), "Singaporean", "Singapore", 1, 1));
         }
     }
 
+    /**
+     *
+     * @param username
+     * @param password
+     * @return
+     */
     public int onLogin(String username,String password){
         String[] selArgs = {username,password};
         Cursor userCursor = database.rawQuery(SQL_VERIFY_USER, selArgs);
         return userCursor.getCount();
     }
 
+    /**
+     * Get cursor for finding NRIC in the database
+     * @param nric
+     * @return cursor if the nric is found in database. Return null otherwise.
+     */
     public Cursor checkAccount(String nric){
         String[] selArgs = {nric};
         return database.rawQuery(SQL_FIND_NRIC,selArgs);
     }
 
+    /**
+     *
+     * @param username
+     * @return
+     */
     public int checkUsername(String username){
         String[] selArgs = {username};
         return database.rawQuery(SQL_FIND_USERNAME,selArgs).getCount();
-
     }
 
+    /**
+     * Get cursor for finding username in the database
+     * @param username
+     * @return cursor if username is found in database. Return null otherwise.
+     */
     public Cursor findAccountId(String username){
         String[] selArgs = {username};
         return database.rawQuery(SQL_FIND_ACCOUNTID,selArgs);
     }
 
+    /**
+     * Get cursor for finding Account from database which has the matching id
+     * @param id
+     * @return cursor if the Account with the matching id is found in database. Return null otherwise.
+     */
     public Cursor getAccountById(long id){
         String[] selArgs = {""+id};
         return database.rawQuery(SQL_FIND_ACCOUNT_BY_ID,selArgs);

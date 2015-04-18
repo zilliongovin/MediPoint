@@ -8,30 +8,32 @@ import com.djzass.medipoint.entity.Account;
 import com.djzass.medipoint.logic_database.AccountDAO;
 
 import java.sql.SQLException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
-
+/**
+ * @author Shreyas
+ * @version 1.0
+ * @since 2015
+ */
 public class AccountManager {
     
     /**
-     * An instance of {@link AccountDAO}. This is to be re-instated with context before use.
+     * An instance of {@link AccountDAO}. This is to be re-instantiated with context before use.
      */
-    private AccountDAO accountDao; 
-
+    private AccountDAO accountDao;
     private static AccountManager instance = new AccountManager();
 
-
     /**
-     * returns AccountManager instance
+     * Returns AccountManager instance
+     * @return AccountManager instance
      */
     public static AccountManager getInstance() {
         return instance;
     }
-    
+
     /**
      * Re-initializes the AccountDAO with the given context
+     * @param context current state of the Application
      */
     public void updateAccountDao(Context context){
         try {
@@ -41,6 +43,12 @@ public class AccountManager {
         }
     }
 
+    /**
+     * Create new Account by inserting Account object into Account table in the database
+     * @param AccountDetails
+     * @param context
+     * @return
+     */
     public long createAccount(Bundle AccountDetails,Context context){
         updateAccountDao(context);
         Account newAccount = extractAccountDetails(AccountDetails);
@@ -48,6 +56,12 @@ public class AccountManager {
         return ret;
     }
 
+    /**
+     * Update the account table with the AccountDetails information
+     * @param AccountDetails
+     * @param context Current state of the Application
+     * @return
+     */
     public long updateAccount(Bundle AccountDetails,Context context){
         updateAccountDao(context);
         Account newAccount = extractAccountDetails(AccountDetails);
@@ -55,6 +69,12 @@ public class AccountManager {
         return ret;
     }
 
+    /**
+     * Check if NRIC already exist in database
+     * @param nric
+     * @param context Current state of the Application
+     * @return boolean value, True if NRIC does not exist in database, False otherwise.
+     */
     public boolean isNewAccount(String nric, Context context){
         Cursor cursor = findAccount(nric,context);
         if(cursor==null)
@@ -63,11 +83,22 @@ public class AccountManager {
             return false;
     }
 
+    /**
+     * Check if username already exist in database
+     * @param username
+     * @param context
+     * @return boolean value, true if username already exist in database, false otherwise.
+     */
     public boolean doesUsernameExist(String username, Context context){
         updateAccountDao(context);
         return accountDao.checkUsername(username)>0? true:false;
     }
 
+    /**
+     * Extract the account details from sign up activities
+     * @param AccountDetails
+     * @return new Account object with attributes retrieved from the sign up activities
+     */
     public Account extractAccountDetails(Bundle AccountDetails){
         Bundle PageOne = AccountDetails.getBundle("PAGE_ONE");
         Bundle PageTwo = AccountDetails.getBundle("PAGE_TWO");
@@ -89,14 +120,19 @@ public class AccountManager {
         Calendar dobCal = Calendar.getInstance();
         dobCal.setTimeInMillis(dob);
 
-
         String username = PageThree.getString("USERNAME");
         String password = PageThree.getString("PASSWORD");
         Account newAccount = new Account(username,password,name,nric,email,contact,gender,address,maritalStatus,dobCal,citizenship,countryOfResidence,notify_email,notify_sms);
         return newAccount;
     }
 
-    public Account getAccountById(long id, Context context) throws ParseException {
+    /**
+     * Returns the Account object based on the id
+     * @param id of the Appointment
+     * @param context Current state of the Application
+     * @return Account object with the matching id
+     */
+    public Account getAccountById(long id, Context context){
         updateAccountDao(context);
         Cursor cursor = accountDao.getAccountById(id);
         cursor.moveToFirst();
@@ -106,9 +142,9 @@ public class AccountManager {
         String email = cursor.getString(3);
         String contact = cursor.getString(4);
         String address = cursor.getString(5);
-        //String dob = cursor.getLong(6);
-        //Toast.makeText(context,dob,Toast.LENGTH_LONG).show();
-        String dob = cursor.getString(6);
+        Calendar dobCal = Calendar.getInstance();
+        Long dob = cursor.getLong(6);
+        dobCal.setTimeInMillis(dob);
         String gender = cursor.getString(7);
         String maritalStatus = cursor.getString(8);
         String citizenship = cursor.getString(9);
@@ -117,9 +153,7 @@ public class AccountManager {
         String password = cursor.getString(12);
         int isEmail = cursor.getInt(13);
         int isSMS = cursor.getInt(14);
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-mm-dd");
-        Calendar dobCal = Calendar.getInstance();
-        /*dobCal.setTime(sdf.parse(dob));*/
+
         return new Account(id,username,password,name,nric,email,contact,gender,address,maritalStatus,dobCal,citizenship,countryOfResidence,isEmail,isSMS);
     }
 
