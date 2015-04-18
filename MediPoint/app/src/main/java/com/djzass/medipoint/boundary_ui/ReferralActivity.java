@@ -20,17 +20,63 @@ import com.djzass.medipoint.logic_manager.SessionManager;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Activity class for Referral. It will fill in the details of the referrer.
+ * @author Ankur
+ * @version 1.0
+ * @since 2015
+ */
 public class ReferralActivity extends Activity implements AdapterView.OnItemSelectedListener{
 
-    //spinner
+    /**
+     * Contains the spinner for specialties
+     */
     Spinner specialtySpinnerCreate;
+
+    /**
+     * Contains the spinner for countries
+     */
     Spinner countrySpinnerCreate;
+
+    /**
+     * Contains the spinner for doctors
+     */
     Spinner doctorSpinnerCreate;
+
+    /**
+     * Contains the spinner for clinics
+     */
     Spinner clinicSpinnerCreate;
+
+    /**
+     * Contains the list of specialties
+     */
     List<Specialty> specialities;
+
+    /**
+     * Contains the id of the specialty chosen by the user
+     */
     int specialtyId;
+
+    /**
+     * Contains the id of the clinic chosen by the user
+     */
     int clinicId;
+
+    /**
+     * Contains the id of the doctor chosen by the user
+     */
     int doctorId;
+
+    /**
+     * Called when the activity is starting. This is where most initialization done: calling
+     * setContentView(int) to inflate the activity's UI, using findViewById(int) to programmatically
+     * interact with widgets in the UI.
+     *
+     * @param savedInstanceState If the activity is being re-initialized after previously being shut
+     *                           down then this Bundle contains the data it most recently supplied in
+     *                           onSaveInstanceState(Bundle). Otherwise it is null.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,15 +102,18 @@ public class ReferralActivity extends Activity implements AdapterView.OnItemSele
         countrySpinnerCreate.setAdapter(countryAdapterCreate);
         countrySpinnerCreate.setOnItemSelectedListener(this);
 
-
         //doctor spinner
         doctorSpinnerCreate = (Spinner) findViewById(R.id.CreateApptDoctors);
 
         //clinic spinner
         clinicSpinnerCreate = (Spinner) findViewById(R.id.CreateApptLocations);
-
     }
-
+    /**
+     * Initialize the contents of the Activity's standard options menu
+     *
+     * @param menu the options menu in which the items are placed
+     * @return true for the menu to be displayed; if false is returned, the items will not be shown.
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -72,6 +121,12 @@ public class ReferralActivity extends Activity implements AdapterView.OnItemSele
         return true;
     }
 
+    /**
+     * This hook is called whenever an item in options menu is selected.
+     *
+     * @param item the menu item that was selected.
+     * @return boolean value. Return false to allow normal menu processing to proceed, true to consume it here.
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
@@ -95,9 +150,19 @@ public class ReferralActivity extends Activity implements AdapterView.OnItemSele
         return super.onOptionsItemSelected(item);
     }
 
+    /**
+     * Change the dropdownlist dynamically according to the user selection. This is the
+     * Callback method to be invoked when an item in this view has been selected.
+     *
+     * @param parent The AdapterView where the selection happened
+     * @param view The view within the AdapterView that was clicked
+     * @param position The position of the view in the adapter
+     * @param id The row id of the item that is selected
+     */
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         switch(parent.getId()) {
+            //Specialty dropdown selected
             case R.id.CreateApptSpecialty:
                 String speciality = String.valueOf(specialtySpinnerCreate.getSelectedItem());
                 for (Specialty s : specialities) {
@@ -117,7 +182,7 @@ public class ReferralActivity extends Activity implements AdapterView.OnItemSele
                 doctorSpinnerCreate.setAdapter(doctorDataAdapter);
                 doctorSpinnerCreate.setOnItemSelectedListener(this);
                 break;
-
+            //Country dropdown selected
             case R.id.CreateApptCountries:
                 String country = String.valueOf(countrySpinnerCreate.getSelectedItem());
                 List<Clinic> clinics = Container.getClinicManager().getClinicsByCountry(country,this);
@@ -148,7 +213,7 @@ public class ReferralActivity extends Activity implements AdapterView.OnItemSele
                 doctorSpinnerCreate.setAdapter(doctorDataAdapter);
                 doctorSpinnerCreate.setOnItemSelectedListener(this);
                 break;
-
+            //Clinic dropdown selected
             case R.id.CreateApptLocations:
 
                 clinic = String.valueOf(clinicSpinnerCreate.getSelectedItem());
@@ -170,7 +235,7 @@ public class ReferralActivity extends Activity implements AdapterView.OnItemSele
                 doctorSpinnerCreate.setAdapter(doctorDataAdapter);
                 doctorSpinnerCreate.setOnItemSelectedListener(this);
                 break;
-
+            //Doctor dropdown selected
             case R.id.CreateApptDoctors:
                 doctors = Container.getDoctorManager().getDoctorsByClinicAndSpecialization(clinicId,specialtyId,this);
                 String doctor = String.valueOf(doctorSpinnerCreate.getSelectedItem());
@@ -183,12 +248,19 @@ public class ReferralActivity extends Activity implements AdapterView.OnItemSele
         }
     }
 
+    /**
+     * Callback method to be invoked when the selection disappears from this view.
+     * @param parent The AdapterView that now contains no selected item.
+     */
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
 
     }
 
-    public void goto_appointment(View view)
+    /**
+     * Start CreateAppointmentActivity while passing the ReferrerId
+     */
+    public void goto_appointment()
     {
         Intent intent = new Intent(ReferralActivity.this, CreateAppointmentActivity.class);
         intent.putExtra("REFERRER_ID",doctorId);

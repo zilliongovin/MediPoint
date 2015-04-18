@@ -3,7 +3,6 @@ package com.djzass.medipoint.boundary_ui;
 import android.app.FragmentManager;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -24,7 +23,6 @@ import com.djzass.medipoint.logic_manager.Container;
 import com.djzass.medipoint.logic_manager.SessionManager;
 
 import java.sql.SQLException;
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -236,11 +234,7 @@ public class CreateFollowUpActivity extends onDataPass implements AdapterView.On
                 } else {
                     AlarmSetter malarm = new AlarmSetter();
                     Account account = new Account();
-                    try {
-                        account = Container.getAccountManager().getAccountById(accountId, this);
-                    } catch (ParseException e) {
-                        e.printStackTrace();
-                    }
+                    account = Container.getAccountManager().getAccountById(accountId, this);
                     malarm.setAlarm(getApplicationContext(),appointment,account);
                     /*Notification notification = new Notification();
                     notification.buildNotification(this, "Appointment created.",appointment);*/

@@ -10,7 +10,6 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.djzass.medipoint.R;
-import com.djzass.medipoint.logic_manager.AccountManager;
 import com.djzass.medipoint.logic_manager.Container;
 
 import javax.mail.internet.AddressException;
@@ -24,11 +23,6 @@ import javax.mail.internet.InternetAddress;
  * @version 1.0
  */
 public class SignUpPageOneActivity extends Activity {
-    /**
-     * Contains the account manager
-     */
-    private AccountManager AccountCreator;
-
     /**
      * Contains the static variable of this SignUpPageOneActivity
      */
@@ -51,7 +45,6 @@ public class SignUpPageOneActivity extends Activity {
         setContentView(R.layout.activity_sign_up);
         PageOne = this;
     }
-
 
     /**
      * Initialize the contents of the Activity's standard options menu
