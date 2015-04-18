@@ -40,6 +40,14 @@ public class Specialty implements Parcelable{
     }
 
     /**
+     * Get Speciality using Parcelable
+     * @param in specified parcel
+     */
+    public Specialty(Parcel in){
+        readFromParcel(in);
+    }
+
+    /**
      * Convert Specialty object to a String
      * @return string containing speciality ID and Name
      */
@@ -80,14 +88,6 @@ public class Specialty implements Parcelable{
      */
     public void setId(int id) {
         this.id = id;
-    }
-
-    /**
-     * Get Speciality using Parcelable
-     * @param in specified parcel
-     */
-    public Specialty(Parcel in){
-        readFromParcel(in);
     }
 
     /**

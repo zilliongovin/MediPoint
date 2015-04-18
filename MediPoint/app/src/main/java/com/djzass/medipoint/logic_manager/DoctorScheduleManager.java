@@ -33,6 +33,7 @@ public class DoctorScheduleManager {
     public static DoctorScheduleManager getInstance() {
         return instance;
     }
+
     /**
      * Re-initializes the DoctorScheduleDAO with the given context
      */
@@ -43,26 +44,52 @@ public class DoctorScheduleManager {
             e.printStackTrace();
         }
     }
+
+    /**
+     * Get all DoctorSchedules
+     * @return List of doctorSchedule objects
+     */
     public List<DoctorSchedule> getDoctorSchedules(Context context){
         updateDoctorScheduleDao(context);
         return doctorScheduleDao.getAllDoctorSchedules();
     }
 
+    /**
+     * Get list of DoctorSchedule by DoctorScheduleID
+     * @param id DoctorSchedule ID
+     * @return List of DoctorSchedule Objects
+     */
     public List<DoctorSchedule> getDoctorSchedulesByID(int id, Context context) {
         updateDoctorScheduleDao(context);
         return doctorScheduleDao.getDoctorSchedulesByID(id);
     }
 
+    /**
+     * Get list of DoctorSchedule by DoctorID
+     * @param doctorId DoctorID
+     * @return List of DoctorSchedule Objects
+     */
     public List<DoctorSchedule> getDoctorSchedulesByDoctorID(int doctorId, Context context) {
         updateDoctorScheduleDao(context);
         return doctorScheduleDao.getDoctorSchedulesByDoctorID(doctorId);
     }
 
+    /**
+     * Get list of DoctorSchedule by ClinicID
+     * @param clinicId clinicID
+     * @return List of DoctorSchedule Objects
+     */
     public List<DoctorSchedule> getDoctorSchedulesByClinicID(int clinicId, Context context) {
         updateDoctorScheduleDao(context);
         return doctorScheduleDao.getDoctorSchedulesByClinicID(clinicId);
     }
 
+    /**
+     * Get list of DoctorSchedule by DoctorID and ClinicID
+     * @param doctorId DoctorID
+     * @param clinicId clinicID
+     * @return List of DoctorSchedule Objects
+     */
     public List<DoctorSchedule> getDoctorSchedulesByDoctorClinicID(int doctorId, int clinicId, Context context) {
         updateDoctorScheduleDao(context);
         return doctorScheduleDao.getDoctorSchedulesByDoctorClinicID(doctorId,clinicId);
