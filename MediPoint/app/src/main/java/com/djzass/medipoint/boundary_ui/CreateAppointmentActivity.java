@@ -14,7 +14,6 @@ package com.djzass.medipoint.boundary_ui;
 import android.app.FragmentManager;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -37,7 +36,6 @@ import com.djzass.medipoint.logic_manager.Container;
 import com.djzass.medipoint.logic_manager.SessionManager;
 
 import java.sql.SQLException;
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -94,8 +92,6 @@ public class CreateAppointmentActivity extends onDataPass implements AdapterView
      * ID of the logged in user
      */
     long accountId;
-
-
 
     //spinner
     Spinner specialtySpinnerCreate;
@@ -361,63 +357,75 @@ public class CreateAppointmentActivity extends onDataPass implements AdapterView
 
     }
 
-
-
-   /* public void showDatePickerDialog(View v) {
-        DialogFragment date = new DatePickerFragment();
-        date.show(getFragmentManager(), "datePicker");
-    }*/
-
-    public void onTimeButtonSelected(View v){
-        int id = v.getId();
-        Bundle bundle = new Bundle();
-        bundle.putInt("VIEW_ID",id);
-        FragmentManager manager = getFragmentManager();
-        TimePickerFragment datepicker = new TimePickerFragment();
-        datepicker.setArguments(bundle);
-        datepicker.show(manager, "Datepicker");
-    }
-
+    /**
+     * This hook is called whenever nothing is selected
+     */
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
 
     }
 
+    /**
+     * This hook is called on activity start
+     */
     @Override
     public void onStart(){
         super.onStart();
     }
 
+    /**
+     * This hook is called whenever activity is resumed
+     */
     @Override
     public void onResume(){
         super.onResume();
     }
 
+    /**
+     * This hook is called whenever activity is paused
+     */
     @Override
     public void onPause(){
         super.onPause();
     }
 
+    /**
+     * This hook is called whenever an instance state is saved
+     */
     @Override
     public void onSaveInstanceState(Bundle outState){
         super.onSaveInstanceState(outState);
     }
 
+    /**
+     * This hook is called whenever an instance state is restored
+     */
     @Override
     public void onRestoreInstanceState(Bundle savedInstanceState){
         super.onRestoreInstanceState(savedInstanceState);
     }
 
+    /**
+     * This hook is called on activity stop
+     */
     @Override
     public void onStop(){
         super.onStop();
     }
 
+    /**
+     * This hook is called on activity destroy
+     */
     @Override
     public void onDestroy(){
         super.onDestroy();
     }
 
+    /**
+     * This hook is called whenever an the select select time button is pressed.
+     * Shows the content of timepicker
+     * @param v the view
+     */
     public void showTimepicker(View v){
         if (this.date.getTimeInMillis()==0){
             Toast.makeText(this, "Please select a date ", Toast.LENGTH_SHORT).show();
@@ -432,12 +440,11 @@ public class CreateAppointmentActivity extends onDataPass implements AdapterView
         timepicker.show(manager, "TimePicker");
     }
 
-    /*public void showDatePicker(View v){
-        FragmentManager manager = getFragmentManager();
-        DatePickerFragment datepicker = new DatePickerFragment();
-        datepicker.show(manager, "Datepicker");
-    }*/
-
+    /**
+     * This hook is called whenever an the select date button is pressed.
+     * Calls the fragment manager to pop up the date selection pop-up
+     * @param v the view
+     */
     public void onDateButtonSelected(View v){
         int id = v.getId();
         Bundle bundle = new Bundle();
@@ -448,6 +455,22 @@ public class CreateAppointmentActivity extends onDataPass implements AdapterView
         datepicker.show(manager, "Datepicker");
     }
 
+    /*
+    public void onTimeButtonSelected(View v){
+        int id = v.getId();
+        Bundle bundle = new Bundle();
+        bundle.putInt("VIEW_ID",id);
+        FragmentManager manager = getFragmentManager();
+        TimePickerFragment datepicker = new TimePickerFragment();
+        datepicker.setArguments(bundle);
+        datepicker.show(manager, "Datepicker");
+    }*/
+
+    /**
+     * This hook is called whenever the create button is pressed
+     * Performs error checks and input validation
+     * If valid, perform addition to database
+     */
     public void onClickCreateAppointment() {
         //AppointmentManager appointmentManager = new AppointmentManager();
         //Toast.makeText(this, "Button clicked.", Toast.LENGTH_SHORT).show();
@@ -486,6 +509,10 @@ public class CreateAppointmentActivity extends onDataPass implements AdapterView
         }
     }
 
+    /**
+     * This function calls an appointmentManager function to get the available timeframes to be used by timepicker
+     * @return String Arraylist containing all the strings to be used in the timepicker
+     */
     private ArrayList<String> getTimePickerItems() {
         ArrayList<String> availableSlots = new ArrayList<String>();
         //Toast.makeText(this, this.date.getTime().toString(), Toast.LENGTH_SHORT).show();
@@ -499,6 +526,9 @@ public class CreateAppointmentActivity extends onDataPass implements AdapterView
         return availableSlots;
     }
 
+    /**
+     * This function is called whenever a timepicker item gets chosen
+     */
     @Override
     public void selectItem(int position) {
         Button btn = (Button) findViewById(R.id.timepicker);
@@ -510,12 +540,18 @@ public class CreateAppointmentActivity extends onDataPass implements AdapterView
         }
     }
 
+    /**
+     * This function resets timepicker to default null value
+     */
     public void resetTimePicker(){
         Button btn = (Button) findViewById(R.id.timepicker);
         btn.setText("TAP TO CHOOSE TIME");
         this.timeframe = new Timeframe(-1,-1);
     }
 
+    /**
+     * This function updates date based on selected calendar date
+     */
     @Override
     public void DatePickerFragmentToActivity(int date,int month,int year,Button button){
         super.DatePickerFragmentToActivity(date,month,year,button);

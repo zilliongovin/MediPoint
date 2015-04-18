@@ -21,7 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Activity class for Referral. It will fill in the details of the referrer.
+ * Activity class for Referral. User will fill in the details of the referrer here.
  * @author Ankur
  * @version 1.0
  * @since 2015
@@ -32,7 +32,6 @@ public class ReferralActivity extends Activity implements AdapterView.OnItemSele
      * Contains the spinner for specialties
      */
     Spinner specialtySpinnerCreate;
-
     /**
      * Contains the spinner for countries
      */
@@ -47,7 +46,6 @@ public class ReferralActivity extends Activity implements AdapterView.OnItemSele
      * Contains the spinner for clinics
      */
     Spinner clinicSpinnerCreate;
-
     /**
      * Contains the list of specialties
      */

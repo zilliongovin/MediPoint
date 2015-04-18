@@ -146,7 +146,11 @@ public class CreateFollowUpActivity extends onDataPass implements AdapterView.On
         });
     }
 
-
+    /**
+     * Initialize the contents of Activity's standard option menu
+     * @param menu the options menu in which items are placed
+     * @return true for the menu to be displayed, if false is returned, the items will not be shown
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -154,6 +158,11 @@ public class CreateFollowUpActivity extends onDataPass implements AdapterView.On
         return true;
     }
 
+    /**
+     * This hook is called whenever an item in options menu is selected.
+     * @param item the menu item that was selected.
+     * @return boolean value. Return false to allow normal menu processing to proceed, true to consume it here.
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
@@ -177,6 +186,15 @@ public class CreateFollowUpActivity extends onDataPass implements AdapterView.On
         return super.onOptionsItemSelected(item);
     }
 
+    /**
+     * Callback method to be invoked when an item in this view has been selected.
+     * This callback is invoked only when the newly selected position is different
+     * from the previously selected position or if there was no selected item.
+     * @param parent The adapter view where selection happened
+     * @param view the view within adapter view that was selected
+     * @param position the position of the view in adapter
+     * @param id the row id of the item that is selected
+     */
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         String service = String.valueOf(serviceSpinnerCreate.getSelectedItem());
@@ -188,12 +206,19 @@ public class CreateFollowUpActivity extends onDataPass implements AdapterView.On
         }
     }
 
+    /**
+     * This hook is called whenever nothing is selected
+     */
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
 
     }
 
-
+    /**
+     * This hook is called whenever an the select date button is pressed.
+     * Calls the fragment manager to pop up the date selection pop-up
+     * @param v the view
+     */
     public void onDateButtonSelected(View v){
         int id = v.getId();
         Bundle bundle = new Bundle();
@@ -204,6 +229,9 @@ public class CreateFollowUpActivity extends onDataPass implements AdapterView.On
         datepicker.show(manager, "Datepicker");
     }
 
+    /**
+     * This function updates date based on selected calendar date
+     */
     @Override
     public void DatePickerFragmentToActivity(int date, int month, int year, Button button)
     {
@@ -211,6 +239,11 @@ public class CreateFollowUpActivity extends onDataPass implements AdapterView.On
         apptDate.set(year,month,date);
     }
 
+    /**
+     * This hook is called whenever an the select time button is pressed.
+     * Calls the fragment manager to pop up the time selection pop-up
+     * @param v the view
+     */
     public void onTimeButtonSelected(View v){
         if (this.apptDate.getTimeInMillis()==0){
             Toast.makeText(this, "Please select a date ", Toast.LENGTH_SHORT).show();
@@ -225,6 +258,9 @@ public class CreateFollowUpActivity extends onDataPass implements AdapterView.On
         timepicker.show(manager, "TimePicker");
     }
 
+    /**
+     * This function is called whenever a timepicker item gets chosen
+     */
     @Override
     public void selectItem(int position) {
         Button btn = (Button) findViewById(R.id.timepicker);
@@ -235,6 +271,11 @@ public class CreateFollowUpActivity extends onDataPass implements AdapterView.On
             resetTimePicker();
         }
     }
+
+    /**
+     * This function calls an appointmentManager function to get the available timeframes to be used by timepicker
+     * @return String Arraylist containing all the strings to be used in the timepicker
+     */
     private ArrayList<String> getTimePickerItems() {
         ArrayList<String> availableSlots = new ArrayList<String>();
         //Toast.makeText(this, this.date.getTime().toString(), Toast.LENGTH_SHORT).show();
@@ -247,11 +288,21 @@ public class CreateFollowUpActivity extends onDataPass implements AdapterView.On
         }
         return availableSlots;
     }
+
+    /**
+     * This function resets timepicker to default null value
+     */
     public void resetTimePicker(){
         Button btn = (Button) findViewById(R.id.timepicker);
         btn.setText("TAP TO CHOOSE TIME");
         this.timeframe = new Timeframe(-1,-1);
     }
+
+    /**
+     * This hook is called whenever the create button is pressed
+     * Performs error checks and input validation
+     * If valid, perform addition to database
+     */
     public void onClickCreateAppointment() {
         //AppointmentManager appointmentManager = new AppointmentManager();
         //Toast.makeText(this, "Button clicked.", Toast.LENGTH_SHORT).show();

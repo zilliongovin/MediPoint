@@ -31,87 +31,89 @@ import java.util.Calendar;
 import java.util.List;
 
 /**
- * Created by Zillion Govin on 17/3/2015.
+ * Activity class for Editing the details of existing appointment.
  *
- *
+ * @author Ankur
+ * @since 2015
+ * @version 1.0
  */
 public class EditAppointmentActivity extends onDataPass implements AdapterView.OnItemSelectedListener, SelectionListener {
     /**
-     *
+     * Clininc Id for the appointment being edited
      */
     int clinicId;
+
     /**
-     *
+     * Patient ID is the ID of patient booking the appointment
      */
     int patientId;
+
     /**
-     *
+     * ID of the doctor for the appointment being edited
      */
     int doctorId;
     /**
-     *
+     * Store ID of the referring doctor if appointment is a referral
+     */
+    int referrerId;
+
+    /**
+     * date for the appointment being edited
      */
     Calendar apptDate = Calendar.getInstance();
     /**
-     *
+     * service ID for the appointment being edited
      */
     int serviceId;
     /**
-     *
+     * specialty ID for the appointment being edited
      */
     int specialtyId;
     /**
-     *
+     * Slot duration for the appointment being edited
      */
     int duration;
     /**
-     *
-     */
-    int referrerId;
-    /**
-     *
+     * Pre Appointment actions for the appointment being edited
      */
     String preAppointmentActions;
     /**
-     *
+     * Timeframe actions for the appointment being edited
      */
     Timeframe timeframe;
 
     /*SPINNER*/
+
     /**
-     *
+     * Contains the spinner for specialties
      */
     Spinner specialtySpinnerCreate;
     /**
-     *
+     * Contains the spinner for countries
      */
     Spinner countrySpinnerCreate;
     /**
-     *
+     * Contains the spinner for services
      */
     Spinner serviceSpinnerCreate;
     /**
-     *
+     * Contains the spinner for doctors
      */
     Spinner doctorSpinnerCreate;
     /**
-     *
+     * Contains the spinner for clinics
      */
     Spinner clinicSpinnerCreate;
     /**
-     *
+     * Contains the list of specialties
      */
     List<Specialty> specialities;
     /**
-     *
+     * Button for creating appointment
      */
     Button confirmButton;
     /**
-     *
-     */
-    Button cancelButton;
-    /**
-     *
+     * {@code Appointment} object being edited
      */
     Appointment app;
 
@@ -237,7 +239,7 @@ public class EditAppointmentActivity extends onDataPass implements AdapterView.O
         Appointment app = b.getParcelable("appFromView");
 
         switch (parent.getId()) {
-            //Select edit ap
+            //Specialty is selected
             case R.id.EditApptSpecialty:
                 String speciality = String.valueOf(specialtySpinnerCreate.getSelectedItem());
                 int selection = 1;
@@ -274,7 +276,7 @@ public class EditAppointmentActivity extends onDataPass implements AdapterView.O
                 doctorSpinnerCreate.setOnItemSelectedListener(this);
 
                 break;
-
+            //Service is selected
             case R.id.EditApptType:
                 services = Container.getServiceManager().getServicesBySpecialtyID(specialtyId,this);
                 String service = String.valueOf(serviceSpinnerCreate.getSelectedItem());
@@ -287,7 +289,7 @@ public class EditAppointmentActivity extends onDataPass implements AdapterView.O
                 }
 
                 break;
-
+            //Doctor is selected
             case R.id.EditApptDoctors:
                 doctors = Container.getDoctorManager().getDoctorsByClinicAndSpecialization(clinicId,specialtyId,this);
                 String doctor = String.valueOf(doctorSpinnerCreate.getSelectedItem());
@@ -299,7 +301,7 @@ public class EditAppointmentActivity extends onDataPass implements AdapterView.O
 
                 break;
 
-
+            //Country is selected
             case R.id.EditApptCountries:
                 String country = String.valueOf(countrySpinnerCreate.getSelectedItem());
 
@@ -336,7 +338,7 @@ public class EditAppointmentActivity extends onDataPass implements AdapterView.O
 
                 break;
 
-
+            //Clinic is selected
             case R.id.EditApptLocations:
 
                 String clinic2 = String.valueOf(clinicSpinnerCreate.getSelectedItem());
@@ -346,7 +348,6 @@ public class EditAppointmentActivity extends onDataPass implements AdapterView.O
                         clinicId = c.getId();
                     }
                 }
-
 
                 doctors = Container.getDoctorManager().getDoctorsByClinicAndSpecialization(clinicId,specialtyId,this);
                 doctorNames = new ArrayList<String>();
@@ -412,7 +413,7 @@ public class EditAppointmentActivity extends onDataPass implements AdapterView.O
     /*BUTTON METHODS*/
 
     /**
-     *
+     * Go to MainActivity while showing toast that the changes to appointment is discarded
      * @param view
      */
     public void onCancelEdit(View view){
@@ -422,14 +423,14 @@ public class EditAppointmentActivity extends onDataPass implements AdapterView.O
     }
 
     /**
-     *
+     * Actions taken after confirming to edit an appointment. Date and Time validation is also done
+     * in this method, as an appointment can only be booked 1 day before the appointment time.
      * @param view
      */
     public void onConfirmEdit(View view){
         //add to database
         Calendar currentDate = Calendar.getInstance();
         currentDate.add(Calendar.DATE, 1);
-
 
         if (this.apptDate.getTimeInMillis()==0){
             Toast.makeText(this, "Please select a date ", Toast.LENGTH_SHORT).show();
@@ -441,7 +442,6 @@ public class EditAppointmentActivity extends onDataPass implements AdapterView.O
             if (this.apptDate.compareTo(currentDate)<0){
                 Toast.makeText(this, "You must book at least 24 hours in advance. ", Toast.LENGTH_SHORT).show();
             } else {
-                //AccountManager accountManager = new AccountManager(this);
                 SessionManager sessionMgr = new SessionManager(this);
                 try {
                     patientId = (int)sessionMgr.getAccountId();
@@ -464,9 +464,6 @@ public class EditAppointmentActivity extends onDataPass implements AdapterView.O
                         e.printStackTrace();
                     }
                     malarm.setAlarm(getApplicationContext(),appointment,account);
-                    /*Notification notification = new Notification();
-                    notification.buildNotification(this, "Appointment created.",appointment);*/
-                    //if successful
                     Toast.makeText(this, "Appointment successfully edited", Toast.LENGTH_SHORT).show();
                     Intent goToMain = new Intent(this, MainActivity.class);
                     startActivity(goToMain);
@@ -477,11 +474,15 @@ public class EditAppointmentActivity extends onDataPass implements AdapterView.O
 
     }
 
+    /*
+     *
+     *
+
     public void showTimepicker(View v){
         FragmentManager manager = getFragmentManager();
         TimePickerFragment timepicker = new TimePickerFragment();
         timepicker.show(manager, "TimePicker");
-    }
+    }     */
 
     /**
      * Show DatePickerFragment when the button select date is clicked
