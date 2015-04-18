@@ -168,7 +168,7 @@ public class SignUpPageOneActivity extends Activity {
         return result;
     }
     public static boolean isValidContactNo(String contactno) {
-        return(contactno.matches("^.*[0-9 ].*$") && contactno.length()>4); //only numeric, >4 chars
+        return(contactno.matches("^.*[0-9].*$") && contactno.length()>4); //only numeric, >4 chars
     }
 }
 
