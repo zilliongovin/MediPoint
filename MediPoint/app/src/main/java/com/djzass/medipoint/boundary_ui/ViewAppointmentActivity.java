@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -26,6 +25,7 @@ import java.text.ParseException;
 /**
  * Created by Deka on 4/4/2015.
  *
+ * This activity display the detailed information about the appointment.
  * @author Deka
  * @since 2015
  * @version 1.0
@@ -36,19 +36,27 @@ public class ViewAppointmentActivity extends Activity {
     private Appointment app;
 
     /**
+     * Called when the activity is starting. This is where most initialization done: calling
+     * setContentView(int) to inflate the activity's UI, using findViewById(int) to programmatically
+     * interact with widgets in the UI. All the View contents in this activity are initialized with
+     * {@code Appointment} object passed after clicking on item in the Appointment List.
      *
-     * @param savedInstanceState
+     * @param savedInstanceState  If the activity is being re-initialized after previously being shut
+     *                           down then this Bundle contains the data it most recently supplied in
+     *                           onSaveInstanceState(Bundle). Otherwise it is null.
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_appointment);
 
+        //Get the appointment object
         Bundle b = getIntent().getExtras();
         app = b.getParcelable("appObj");
         Log.d("ViewApp",app.getPreAppointmentActions());
         Log.d("ViewService", Container.getServiceManager().getServicesByID(app.getServiceId(), this).get(0).print());
 
+        //Initialize the Views using the values inside appointment object
         TextView specialtyName = (TextView) findViewById(R.id.viewSpecialty);
         specialtyName.setText(Container.getAppointmentManager().getSpecialtyNameByAppointment(app,this));
         TextView serviceName = (TextView) findViewById(R.id.viewService);
@@ -70,9 +78,10 @@ public class ViewAppointmentActivity extends Activity {
     }
 
     /**
+     * Get the Image Resource id of the specialty
      *
-     * @param specialtyName
-     * @return
+     * @param specialtyName is the name of the specialty
+     * @return the Icon of the corresponding specialty
      */
     public int getImageId(String specialtyName){
         if (specialtyName.equalsIgnoreCase("ENT"))
@@ -85,10 +94,9 @@ public class ViewAppointmentActivity extends Activity {
     }
 
     /**
-     *
-     * @param view
+     * Start the EditAppointmentActivity while passing the appointment object of currently being viewed
      */
-    public void ViewApptEdit(View view)
+    public void ViewApptEdit()
     {
         Intent in = new Intent(getApplicationContext(), EditAppointmentActivity.class);
         in.putExtra("appFromView", getIntent().getExtras().getParcelable("appObj"));
@@ -96,26 +104,19 @@ public class ViewAppointmentActivity extends Activity {
     }
 
     /**
-     *
-     * @param view
+     * Showing AlertDialog confirming user with appointment deletion
      */
-    public void ViewApptDelete(View view){
-        //Button delete
-        /*AlertDialogInterface deleteApp = new AlertDialogInterface("Delete Appointment?",
-                "Are you sure you want to delete this appointment?", this);
-        deleteApp.deleteAppointmentDialog(Container.getAppointmentManager(),app,this);
-        Container.getAppointmentManager().cancelAppointment(app, this);
-        Intent in = new Intent(this, MainActivity.class);
-        startActivity(in);*/
+    public void ViewApptDelete(){
         AlertDialog diaBox = ConfirmDelete();
         diaBox.show();
     }
 
 
     /**
-     *
+     *  Delete the appointment from list of appointment
      */
     private void performDelete(){
+        //Cancel appointment
         Container.getAppointmentManager().cancelAppointment(app, this);
 
         SessionManager sessionMgr = new SessionManager(this);
@@ -132,6 +133,7 @@ public class ViewAppointmentActivity extends Activity {
             e.printStackTrace();
         }
 
+        //Cancelling the alarm
         AlarmSetter mAlarm = new AlarmSetter();
         mAlarm.cancelAlarm(getApplicationContext(),app,account);
         Toast.makeText(this, "Appointment deleted", Toast.LENGTH_SHORT).show();
@@ -140,9 +142,10 @@ public class ViewAppointmentActivity extends Activity {
     }
 
     /**
+     * Initialize the contents of the Activity's standard options menu
      *
-     * @param menu
-     * @return
+     * @param menu the options menu in which the items are placed
+     * @return true for the menu to be displayed; if false is returned, the items will not be shown.
      */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -151,6 +154,12 @@ public class ViewAppointmentActivity extends Activity {
         return true;
     }
 
+    /**
+     * This hook is called whenever an item in options menu is selected.
+     *
+     * @param item the menu item that was selected.
+     * @return boolean value. Return false to allow normal menu processing to proceed, true to consume it here.
+     */
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         switch (id) {
@@ -164,23 +173,24 @@ public class ViewAppointmentActivity extends Activity {
     }
 
     /**
-     *
-     * @return
+     * Gets the alertDialog for confirming deletion
+     * @return AlertDialog for Confirming Deletion
      */
     private AlertDialog ConfirmDelete(){
         AlertDialog myQuittingDialogBox =new AlertDialog.Builder(this)
-                //set message, title, and icon
+                //Set message, title, and icon
                 .setTitle("Confirm action")
                 .setMessage("Are you sure you want to delete this appointment?")
 
                 .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int whichButton){
-                        //your deleting code
+                        //Perform Deletion
                         performDelete();
                         dialog.dismiss();
                     }
                 })
                 .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    //Cancelling deletion
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.dismiss();
                     }

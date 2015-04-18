@@ -84,9 +84,11 @@ public class FollowUpListActivity extends Activity {
     }
 
     /**
+     * Initialize the contents of the Activity's standard options menu
      *
-     * @param menu
-     * @return
+     * @param menu the options menu in which the items are placed
+     * @return true for the menu to be displayed; if false is returned, the items will not be shown.
+     *
      */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -96,9 +98,10 @@ public class FollowUpListActivity extends Activity {
     }
 
     /**
+     * This hook is called whenever an item in options menu is selected.
      *
-     * @param item
-     * @return
+     * @param item the menu item that was selected.
+     * @return boolean value. Return false to allow normal menu processing to proceed, true to consume it here.
      */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
