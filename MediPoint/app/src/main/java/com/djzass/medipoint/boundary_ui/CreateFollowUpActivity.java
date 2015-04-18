@@ -279,11 +279,7 @@ public class CreateFollowUpActivity extends onDataPass implements AdapterView.On
                 } else {
                     AlarmSetter malarm = new AlarmSetter();
                     Account account = new Account();
-                    try {
-                        account = Container.getAccountManager().getAccountById(accountId, this);
-                    } catch (ParseException e) {
-                        e.printStackTrace();
-                    }
+                    account = Container.getAccountManager().getAccountById(accountId, this);
                     malarm.setAlarm(getApplicationContext(),appointment,account);
                     /*Notification notification = new Notification();
                     notification.buildNotification(this, "Appointment created.",appointment);*/

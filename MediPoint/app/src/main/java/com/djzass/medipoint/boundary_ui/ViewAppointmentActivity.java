@@ -125,11 +125,7 @@ public class ViewAppointmentActivity extends Activity {
             e.printStackTrace();
         }
         Account account = new Account();
-        try {
-            account = Container.getAccountManager().getAccountById(accountId,this);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
+        account = Container.getAccountManager().getAccountById(accountId,this);
 
         //Cancelling the alarm
         AlarmSetter mAlarm = new AlarmSetter();
