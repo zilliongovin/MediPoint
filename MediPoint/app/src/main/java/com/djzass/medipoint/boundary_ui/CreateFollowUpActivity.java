@@ -1,5 +1,17 @@
 package com.djzass.medipoint.boundary_ui;
 
+/**
+ * Created by Ankur on 4/4/2015
+ *
+ * This activity handles creation of follow up appointments. The list od past appointment is
+ * retrieved and the appointment to be followed is selected.
+ *
+ * @author Ankur
+ * @since 2015
+ * @version 1.0
+ *
+ * @see com.djzass.medipoint.boundary_ui.onDataPass
+ */
 import android.app.FragmentManager;
 import android.content.Intent;
 import android.os.Bundle;
@@ -30,13 +42,35 @@ import java.util.List;
 
 public class CreateFollowUpActivity extends onDataPass implements AdapterView.OnItemSelectedListener, SelectionListener{
 
+    /**
+     * Instance for appointment date
+     */
     Calendar apptDate = Calendar.getInstance();
     Timeframe timeframe = new Timeframe(-1,-1);
+    /**
+     * Slot duration for appointment
+     */
     int duration;
+    /**
+     * Id for speciality for the appointment
+     */
     int specialtyId;
+
+    /**
+     * ID for the service type for the appointment
+     */
     int serviceId;
+    /**
+     * Id of the patient who booked the appointment
+     */
     int patientId;
+    /**
+     * ID of the doctor with whom the appointment was booked
+     */
     int doctorId;
+    /**
+     * ID of the clinic where appointment was held
+     */
     int clinicId;
     Spinner serviceSpinnerCreate;
     List<Service> services;
@@ -45,6 +79,15 @@ public class CreateFollowUpActivity extends onDataPass implements AdapterView.On
     Button cancelButton;
     long accountId;
 
+    /**
+     * Called when the activity is starting. This is where most initialization is done: calling
+     * setContentView(int) to inflate the activity's UI, using findViewById(int) to programmatically
+     * interact with widgets in the UI.
+     *
+     * @param savedInstanceState  If the activity is being re-initialized after previously being shut
+     *                           down then this Bundle contains the data it most recently supplied in
+     *                           onSaveInstanceState(Bundle). Otherwise it is null.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

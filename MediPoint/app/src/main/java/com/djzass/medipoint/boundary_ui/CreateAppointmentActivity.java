@@ -1,6 +1,16 @@
 package com.djzass.medipoint.boundary_ui;
 
-
+/**
+ * Created by Ankur on 2/4/2015
+ *
+ * This activity handles the creation of new appointments for users.
+ *
+ * @author Ankur
+ * @since 2015
+ * @version 1.0
+ *
+ * @see com.djzass.medipoint.boundary_ui.onDataPass
+ */
 import android.app.FragmentManager;
 import android.content.Intent;
 import android.os.Bundle;
@@ -35,21 +45,57 @@ import java.util.List;
 public class CreateAppointmentActivity extends onDataPass implements AdapterView.OnItemSelectedListener, SelectionListener{
 
     //appointment atrribute selections
+    /**
+     * Clininc Id for the appointment being booked
+     */
     int clinicId;
+
+    /**
+     * Patient ID is the ID of patient booking the appointment
+     */
     int patientId;
+
+    /**
+     * ID of the doctor for the appointment being booked
+     */
     int doctorId;
+    /**
+     * Store ID of the referring doctor if appointment is a referral
+     */
     int referrerId;
+
+    /**
+     * date for the appointment being booked
+     */
     Calendar date = Calendar.getInstance();
+
+    /**
+     * service ID for the appointment being booked
+     */
     int serviceId;
+
+    /**
+     * specialty ID for the appointment being booked
+     */
     int specialtyId;
+
+    /**
+     * Slot duration for the appointment being booked
+     */
     int duration;
+
+    /**
+     * Pre Appointment actions for the appointment being booked
+     */
     String preAppointmentActions;
     Timeframe timeframe = new Timeframe(-1,-1);
+
+    /**
+     * ID of the logged in user
+     */
     long accountId;
 
-    /*String NRIC;
-    List<Account> accountList;
-    AccountDAO macc;*/
+
 
     //spinner
     Spinner specialtySpinnerCreate;
@@ -61,6 +107,16 @@ public class CreateAppointmentActivity extends onDataPass implements AdapterView
     Spinner clinicSpinnerCreate;
     List<Specialty> specialities;
 
+
+    /**
+     * Called when the activity is starting. This is where most initialization is done: calling
+     * setContentView(int) to inflate the activity's UI, using findViewById(int) to programmatically
+     * interact with widgets in the UI.
+     *
+     * @param savedInstanceState  If the activity is being re-initialized after previously being shut
+     *                           down then this Bundle contains the data it most recently supplied in
+     *                           onSaveInstanceState(Bundle). Otherwise it is null.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -68,12 +124,15 @@ public class CreateAppointmentActivity extends onDataPass implements AdapterView
 
         referrerId = getIntent().getIntExtra("REFERRER_ID",-1);
         date.setTimeInMillis(0);
-        //specialty spinner and array adapter
+
         try {
             SessionManager sessionManager = new SessionManager(this);
             this.patientId = (int)sessionManager.getAccountId();
-            //Toast.makeText(this,(String) "" + patientId,Toast.LENGTH_SHORT).show();
 
+
+            /**
+             * Create a dropdown list for avaialable specialities
+             */
             specialities = Container.getSpecialtyManager().getSpecialtys(this);
             specialtySpinnerCreate = (Spinner) findViewById(R.id.CreateApptSpecialty);
             List<String> specialtyNames = new ArrayList<String>();
@@ -91,7 +150,9 @@ public class CreateAppointmentActivity extends onDataPass implements AdapterView
             e.printStackTrace();
         }
 
-        //country spinner and array adapter
+        /**
+         * Creates a dropdown displaying available countries
+         */
         countrySpinnerCreate = (Spinner) findViewById(R.id.CreateApptCountries);
         countrySpinnerCreate.setOnItemSelectedListener(this);
         ArrayAdapter countryAdapter_create = ArrayAdapter.createFromResource(this, R.array.countries, android.R.layout.simple_spinner_dropdown_item);
@@ -125,6 +186,11 @@ public class CreateAppointmentActivity extends onDataPass implements AdapterView
         });
     }
 
+    /**
+     * Initialize the contents of Activity's standard option menu
+     * @param menu the options menu in which items are placed
+     * @return true for the menu to be displayed, if false is returned, the items will not be shown
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -132,6 +198,11 @@ public class CreateAppointmentActivity extends onDataPass implements AdapterView
         return true;
     }
 
+    /**
+     * This hook is called whenever an item in options menu is selected.
+     * @param item the menu item that was selected.
+     * @return boolean value. Return false to allow normal menu processing to proceed, true to consume it here.
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
@@ -158,6 +229,15 @@ public class CreateAppointmentActivity extends onDataPass implements AdapterView
         return super.onOptionsItemSelected(item);
     }
 
+    /**
+     * Callback method to be invoked when an item in this view has been selected.
+     * This callback is invoked only when the newly selected position is different
+     * from the previously selected position or if there was no selected item.
+     * @param parent The adapter view where selection happened
+     * @param view the view within adapter view that was selected
+     * @param position the position of the view in adapter
+     * @param id the row id of the item that is selected
+     */
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
