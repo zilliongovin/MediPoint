@@ -32,45 +32,116 @@ import java.util.List;
 
 /**
  * Created by Zillion Govin on 17/3/2015.
+ *
+ *
  */
 public class EditAppointmentActivity extends onDataPass implements AdapterView.OnItemSelectedListener, SelectionListener {
-
+    /**
+     *
+     */
     int clinicId;
+    /**
+     *
+     */
     int patientId;
+    /**
+     *
+     */
     int doctorId;
+    /**
+     *
+     */
     Calendar apptDate = Calendar.getInstance();
+    /**
+     *
+     */
     int serviceId;
+    /**
+     *
+     */
     int specialtyId;
+    /**
+     *
+     */
     int duration;
+    /**
+     *
+     */
     int referrerId;
+    /**
+     *
+     */
     String preAppointmentActions;
+    /**
+     *
+     */
     Timeframe timeframe;
 
-    //Spinner
+    /*SPINNER*/
+    /**
+     *
+     */
     Spinner specialtySpinnerCreate;
+    /**
+     *
+     */
     Spinner countrySpinnerCreate;
+    /**
+     *
+     */
     Spinner serviceSpinnerCreate;
+    /**
+     *
+     */
     Spinner doctorSpinnerCreate;
+    /**
+     *
+     */
     Spinner clinicSpinnerCreate;
+    /**
+     *
+     */
     List<Specialty> specialities;
+    /**
+     *
+     */
     Button confirmButton;
+    /**
+     *
+     */
     Button cancelButton;
+    /**
+     *
+     */
     Appointment app;
 
-
+    /**
+     * Called when the activity is starting. This is where most initialization done: calling
+     * setContentView(int) to inflate the activity's UI, using findViewById(int) to programmatically
+     * interact with widgets in the UI. It also initialize the appointment object extracted from the
+     * {@code Appointment} object selected in the ViewAppointmentActivity
+     *
+     * @param savedInstanceState If the activity is being re-initialized after previously being shut
+     *                           down then this Bundle contains the data it most recently supplied in
+     *                           onSaveInstanceState(Bundle). Otherwise it is null.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_appointment);
+
+        //Extract Appointment from ViewAppointment Activity
         Bundle b = getIntent().getExtras();
         app = b.getParcelable("appFromView");
         referrerId = app.getReferrerId();
 
+        //Set the text on datepicker button using the date selected in the Appointment object
         Button datepicker = (Button)findViewById(R.id.datepicker);
         apptDate = app.getDate();
         String[] month_str = new DateFormatSymbols().getMonths();
         datepicker.setText(apptDate.get(Calendar.DATE) + " " + month_str[apptDate.get(Calendar.MONTH)] + " " + apptDate.get(Calendar.YEAR));
 
+        //Display the specialties spinner
         specialities = Container.getSpecialtyManager().getSpecialtys(this);
         specialtySpinnerCreate = (Spinner) findViewById(R.id.EditApptSpecialty);
         List<String> specialtyNames = new ArrayList<String>();
@@ -84,7 +155,7 @@ public class EditAppointmentActivity extends onDataPass implements AdapterView.O
         specialtySpinnerCreate.setSelection(dataAdapter.getPosition(Container.getSpecialtyManager().getSpecialtyNameBySpecialtyId(app.getSpecialtyId(),this)));
         specialtySpinnerCreate.setOnItemSelectedListener(this);
 
-        //country spinner and array adapter
+        //Country spinner and array adapter
         countrySpinnerCreate = (Spinner) findViewById(R.id.EditApptCountries);
         countrySpinnerCreate.setOnItemSelectedListener(this);
         ArrayAdapter countryAdapter_create = ArrayAdapter.createFromResource(this, R.array.countries, android.R.layout.simple_spinner_dropdown_item);
@@ -93,13 +164,14 @@ public class EditAppointmentActivity extends onDataPass implements AdapterView.O
         countrySpinnerCreate.setSelection(countryAdapter_create.getPosition(Container.getClinicManager().getCountryByClinicId(app.getClinicId(),this)));
 
 
-        //service spinner
+        //Service spinner
         serviceSpinnerCreate = (Spinner) findViewById(R.id.EditApptType);
-        //doctor spinner
+        //Doctor spinner
         doctorSpinnerCreate = (Spinner) findViewById(R.id.EditApptDoctors);
-        //clinic location spinner
+        //Clinic location spinner
         clinicSpinnerCreate = (Spinner) findViewById(R.id.EditApptLocations);
 
+        //Confirmation button
         confirmButton = (Button)findViewById(R.id.ConfirmEditAppt);
         confirmButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View arg0) {
@@ -107,14 +179,25 @@ public class EditAppointmentActivity extends onDataPass implements AdapterView.O
         }});
 
     }
-
+    /**
+     * Initialize the contents of the Activity's standard options menu
+     *
+     * @param menu the options menu in which the items are placed
+     * @return true for the menu to be displayed; if false is returned, the items will not be shown.
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-
+        getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
 
+    /**
+     * This hook is called whenever an item in options menu is selected.
+     *
+     * @param item the menu item that was selected.
+     * @return boolean value. Return false to allow normal menu processing to proceed, true to consume it here.
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
@@ -139,17 +222,22 @@ public class EditAppointmentActivity extends onDataPass implements AdapterView.O
         return super.onOptionsItemSelected(item);
     }
 
+    /**
+     * Change the dropdownlist dynamically according to the user selection. This is the
+     * Callback method to be invoked when an item in this view has been selected.
+     *
+     * @param parent The AdapterView where the selection happened
+     * @param view The view within the AdapterView that was clicked
+     * @param position The position of the view in the adapter
+     * @param id The row id of the item that is selected
+     */
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         Bundle b = getIntent().getExtras();
         Appointment app = b.getParcelable("appFromView");
 
-
-        /** pop up message
-         TextView MyTime = (TextView) view;
-         Toast.makeText(this, MyTime.getText() + " is selected", Toast.LENGTH_SHORT).show();
-         **/
         switch (parent.getId()) {
+            //Select edit ap
             case R.id.EditApptSpecialty:
                 String speciality = String.valueOf(specialtySpinnerCreate.getSelectedItem());
                 int selection = 1;
@@ -288,6 +376,11 @@ public class EditAppointmentActivity extends onDataPass implements AdapterView.O
 
     }
 
+    /**
+     * Set the timepicker button to the selected time
+     *
+     * @param position of the item being selected in a fragment
+     */
     @Override
     public void selectItem(int position) {
         Button btn = (Button) findViewById(R.id.timepickeredit);
@@ -299,33 +392,39 @@ public class EditAppointmentActivity extends onDataPass implements AdapterView.O
         }
     }
 
+    /**
+     * Reset the time picker to nothing selected
+     */
     public void resetTimePicker(){
         Button btn = (Button) findViewById(R.id.timepickeredit);
         btn.setText("TAP TO CHOOSE TIME");
         this.timeframe = new Timeframe(-1,-1);
     }
 
-
-
-    public void editAppointment(){
-
-        //calendar changed
-
-        //time changed
-
-    }
-
+    /**
+     * Callback method to be invoked when the selection disappears from this view.
+     * @param parent The AdapterView that now contains no selected item.
+     */
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
     }
 
-    //Button Methods
+    /*BUTTON METHODS*/
+
+    /**
+     *
+     * @param view
+     */
     public void onCancelEdit(View view){
         Toast.makeText(this, "Appointment edit cancelled", Toast.LENGTH_SHORT).show();
         Intent in = new Intent(getApplicationContext(), MainActivity.class);
         startActivity(in);
     }
 
+    /**
+     *
+     * @param view
+     */
     public void onConfirmEdit(View view){
         //add to database
         Calendar currentDate = Calendar.getInstance();
@@ -376,43 +475,6 @@ public class EditAppointmentActivity extends onDataPass implements AdapterView.O
             }
         }
 
-        //if not successful
-        // Toast.makeText(this, "Failed to edit appointment, please try again", Toast.LENGTH_SHORT).show();
-    }
-
-    @Override
-    public void onStart(){
-        super.onStart();
-    }
-
-    @Override
-    public void onResume(){
-        super.onResume();
-    }
-
-    @Override
-    public void onPause(){
-        super.onPause();
-    }
-
-    @Override
-    public void onSaveInstanceState(Bundle outState){
-        super.onSaveInstanceState(outState);
-    }
-
-    @Override
-    public void onRestoreInstanceState(Bundle savedInstanceState){
-        super.onRestoreInstanceState(savedInstanceState);
-    }
-
-    @Override
-    public void onStop(){
-        super.onStop();
-    }
-
-    @Override
-    public void onDestroy(){
-        super.onDestroy();
     }
 
     public void showTimepicker(View v){
@@ -421,14 +483,10 @@ public class EditAppointmentActivity extends onDataPass implements AdapterView.O
         timepicker.show(manager, "TimePicker");
     }
 
-    /*
-    public void showDatePicker(View v){
-        FragmentManager manager = getFragmentManager();
-        DatePickerFragment datepicker = new DatePickerFragment();
-        datepicker.show(manager, "Datepicker");
-    }
-    */
-
+    /**
+     * Show DatePickerFragment when the button select date is clicked
+     * @param v
+     */
     public void onDateButtonSelected(View v){
         int id = v.getId();
         Bundle bundle = new Bundle();
@@ -439,6 +497,13 @@ public class EditAppointmentActivity extends onDataPass implements AdapterView.O
         datepicker.show(manager, "Datepicker");
     }
 
+    /**
+     * Retrieve Calendar data selected from the DatePickerFragment
+     * @param date chosen from DatePickerFragment
+     * @param month chosen from DatePickerFragment
+     * @param year chosen from DatePickerFragment
+     * @param button from which Activity the DatePickerFragment is called
+     */
     @Override
     public void DatePickerFragmentToActivity(int date, int month, int year, Button button)
     {
@@ -446,6 +511,10 @@ public class EditAppointmentActivity extends onDataPass implements AdapterView.O
         apptDate.set(year,month,date);
     }
 
+    /**
+     *  Show the TimePickerDialog
+     * @param v
+     */
     public void onTimeButtonSelected(View v){
         if (this.apptDate.getTimeInMillis()==0){
             Toast.makeText(this, "Please select a date ", Toast.LENGTH_SHORT).show();
@@ -460,6 +529,11 @@ public class EditAppointmentActivity extends onDataPass implements AdapterView.O
         timepicker.show(manager, "TimePicker");
     }
 
+    /**
+     * Get the available time slots to be displayed in the TimePickerDialog
+     *
+     * @return list of available slots in string
+     */
     private ArrayList<String> getTimePickerItems() {
         ArrayList<String> availableSlots = new ArrayList<String>();
         //Toast.makeText(this, this.date.getTime().toString(), Toast.LENGTH_SHORT).show();

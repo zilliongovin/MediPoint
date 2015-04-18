@@ -237,7 +237,7 @@ public class SignUpPageTwoActivity extends onDataPass {
     }
 
     /**
-     * Retrieve Calendar data from the DatePickerFragment
+     * Retrieve Calendar data selected from the DatePickerFragment
      * @param date chosen from DatePickerFragment
      * @param month chosen from DatePickerFragment
      * @param year chosen from DatePickerFragment
