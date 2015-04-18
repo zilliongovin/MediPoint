@@ -105,13 +105,13 @@ public class SignUpPageThreeActivity extends Activity {
         else if(usernameExists){
             Toast.makeText(this,"Username already exists",Toast.LENGTH_LONG).show();
         }
-        else if(isValidUsernameChars(checkViews[0].getText().toString())){
+        else if(!isValidUsernameChars(checkViews[0].getText().toString())){
             Toast.makeText(this,"Username can only contain alphabets and numbers",Toast.LENGTH_LONG).show();
         }
-        else if(isValidUsernameLength(checkViews[0].getText().toString())){
+        else if(!isValidUsernameLength(checkViews[0].getText().toString())){
             Toast.makeText(this,"Username has to be between 4 and 30 characters long",Toast.LENGTH_LONG).show();
         }
-        else if(isValidPasswordLength(checkViews[1].getText().toString())){
+        else if(!isValidPasswordLength(checkViews[1].getText().toString())){
             Toast.makeText(this,"Password has to be between 4 and 30 characters long",Toast.LENGTH_LONG).show();
         }
         else if (!isPasswordEqual){
