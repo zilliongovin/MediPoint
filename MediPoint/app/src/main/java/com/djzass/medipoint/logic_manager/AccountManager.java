@@ -11,6 +11,8 @@ import java.sql.SQLException;
 import java.util.Calendar;
 
 /**
+ * Manage the accounts
+ *
  * @author Shreyas
  * @version 1.0
  * @since 2015

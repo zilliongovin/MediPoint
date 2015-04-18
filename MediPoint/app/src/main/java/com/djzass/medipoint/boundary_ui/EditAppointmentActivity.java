@@ -20,11 +20,12 @@ import com.djzass.medipoint.entity.Doctor;
 import com.djzass.medipoint.entity.Service;
 import com.djzass.medipoint.entity.Specialty;
 import com.djzass.medipoint.entity.Timeframe;
-import com.djzass.medipoint.logic_manager.*;
+import com.djzass.medipoint.logic_manager.AlarmSetter;
+import com.djzass.medipoint.logic_manager.Container;
+import com.djzass.medipoint.logic_manager.SessionManager;
 
 import java.sql.SQLException;
 import java.text.DateFormatSymbols;
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -360,8 +361,6 @@ public class EditAppointmentActivity extends onDataPass implements AdapterView.O
                     Account account = new Account();
                     try {
                         account = Container.getAccountManager().getAccountById(sessionMgr.getAccountId(), this);
-                    } catch (ParseException e) {
-                        e.printStackTrace();
                     } catch (SQLException e) {
                         e.printStackTrace();
                     }

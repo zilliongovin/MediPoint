@@ -24,7 +24,7 @@ import java.util.ArrayList;
 /**
  * Created by Deka on 4/4/2015.
  *
- * This fragment display the list of appointments of the patient sorted by date in descending order.
+ * Display the list of appointments of the patient sorted by date in descending order.
  *
  * @author Deka
  * @version 1.0
