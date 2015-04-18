@@ -27,7 +27,6 @@ import com.google.samples.apps.iosched.ui.widget.SlidingTabLayout;
 public class MainActivity extends FragmentActivity{
 
     /**
-     *
      * Called when the activity is starting. This is where most initialization done: calling
      * setContentView(int) to inflate the activity's UI, using findViewById(int) to programmatically
      * interact with widgets in the UI. The slideTab for both appointment list and medical history are

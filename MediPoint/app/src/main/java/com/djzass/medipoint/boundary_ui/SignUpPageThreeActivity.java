@@ -13,9 +13,13 @@ import com.djzass.medipoint.R;
 import com.djzass.medipoint.logic_manager.AccountManager;
 import com.djzass.medipoint.logic_manager.Container;
 
-
+/**
+ *
+ */
 public class SignUpPageThreeActivity extends Activity {
-
+    /**
+     *
+     */
     private AccountManager AccountCreator;
 
     @Override

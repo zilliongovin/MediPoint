@@ -2,7 +2,6 @@ package com.djzass.medipoint.boundary_ui;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -12,20 +11,39 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.djzass.medipoint.R;
-import com.djzass.medipoint.logic_database.DbHelper;
-import com.djzass.medipoint.logic_manager.AccountManager;
 import com.djzass.medipoint.logic_manager.Container;
 import com.djzass.medipoint.logic_manager.SessionManager;
 
-
+/**
+ * Activity class for login
+ *
+ * @author Shreyas
+ * @since 2015
+ * @version 1.0
+ *
+ * @see android.app.Activity
+ */
 public class LoginActivity extends Activity {
-
+    /**
+     * Button for login
+     */
     Button loginButton;
-    DbHelper mDbHelper;
-    SQLiteDatabase db;
+
+    /**
+     * Contains the SessionManager
+     */
     private SessionManager sessionManager;
-    private AccountManager accountManager;
-    
+
+    /**
+     * Called when the activity is starting. This is where most initialization done: calling
+     * setContentView(int) to inflate the activity's UI, using findViewById(int) to programmatically
+     * interact with widgets in the UI. The login button, session manager and user authentication are
+     * all done here.
+     *
+     * @param savedInstanceState If the activity is being re-initialized after previously being shut
+     *                           down then this Bundle contains the data it most recently supplied in
+     *                           onSaveInstanceState(Bundle). Otherwise it is null.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,18 +66,20 @@ public class LoginActivity extends Activity {
                     sessionManager.createLoginSession(username,password);
                     loginSuccessful(username);
                     goToMain();
-
                 }
                 else{
                     wrongCredentials();
-
                 }
-
             }
         });
     }
 
-
+    /**
+     * Initialize the contents of the Activity's standard options menu
+     *
+     * @param menu the options menu in which the items are placed
+     * @return true for the menu to be displayed; if false is returned, the items will not be shown.
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -67,6 +87,12 @@ public class LoginActivity extends Activity {
         return true;
     }
 
+    /**
+     * This hook is called whenever an item in options menu is selected.
+     *
+     * @param item the menu item that was selected.
+     * @return boolean value. Return false to allow normal menu processing to proceed, true to consume it here.
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
@@ -82,6 +108,9 @@ public class LoginActivity extends Activity {
         return super.onOptionsItemSelected(item);
     }
 
+    /**
+     *  Go back to the home screen if back button is pressed to avoid going back to previous activities.
+     */
     @Override
     public void onBackPressed(){
         Intent intent = new Intent(Intent.ACTION_MAIN);
@@ -92,31 +121,45 @@ public class LoginActivity extends Activity {
         System.exit(0);
     }
 
-    public void ForgotPassword(View view)
+    /**
+     * Start PasswordRetriever Activity
+     */
+    public void ForgotPassword()
     {
         Intent intent = new Intent(this,PasswordRetrieverActivity.class);
         startActivity(intent);
     }
 
-    public void createSignUpForm(View view)
+    /**
+     * Starts SignUp Activity
+     */
+    public void createSignUpForm()
     {
         Intent intent = new Intent(this,SignUpPageOneActivity.class);
         startActivity(intent);
     }
 
+    /**
+     * Shows error toast when the username or password entered is wrong
+     */
     public void wrongCredentials(){
         Toast.makeText(this,"Wrong username or password",Toast.LENGTH_LONG).show();
     }
 
+    /**
+     * Show toast for showing login is successful
+     * @param username
+     */
     public void loginSuccessful(String username){
         Toast.makeText(this,"Welcome "+username+"!",Toast.LENGTH_LONG).show();
 
     }
 
+    /**
+     * Start the MainActivity
+     */
     public void goToMain(){
         Intent intent = new Intent(this,MainActivity.class);
         startActivity(intent);
     }
-
-
 }
