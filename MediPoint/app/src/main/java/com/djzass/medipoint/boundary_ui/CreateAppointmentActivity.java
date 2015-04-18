@@ -44,7 +44,7 @@ public class CreateAppointmentActivity extends onDataPass implements AdapterView
 
     //appointment atrribute selections
     /**
-     * Clininc Id for the appointment being booked
+     * Clinic Id for the appointment being booked
      */
     int clinicId;
 
@@ -93,14 +93,39 @@ public class CreateAppointmentActivity extends onDataPass implements AdapterView
      */
     long accountId;
 
-    //spinner
+    /*SPINNER*/
+
+    /**
+     * Contains the spinner for specialties
+     */
     Spinner specialtySpinnerCreate;
+    /**
+     * Contains the spinner for countries
+     */
     Spinner countrySpinnerCreate;
+    /**
+     * Contains the spinner for services
+     */
     Spinner serviceSpinnerCreate;
+    /**
+     * Button for creating appointment
+     */
     Button confirmButton;
+    /**
+     * Button for cancelling creating an appointment
+     */
     Button cancelButton;
+    /**
+     * Contains the spinner for doctors
+     */
     Spinner doctorSpinnerCreate;
+    /**
+     * Contains the spinner for clinics
+     */
     Spinner clinicSpinnerCreate;
+    /**
+     * Contains the list of specialties
+     */
     List<Specialty> specialities;
 
 

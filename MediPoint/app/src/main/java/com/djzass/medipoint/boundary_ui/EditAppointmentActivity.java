@@ -39,7 +39,7 @@ import java.util.List;
  */
 public class EditAppointmentActivity extends onDataPass implements AdapterView.OnItemSelectedListener, SelectionListener {
     /**
-     * Clininc Id for the appointment being edited
+     * Clinic Id for the appointment being edited
      */
     int clinicId;
 
