@@ -20,20 +20,28 @@ import java.util.ArrayList;
 import java.util.Calendar;
 
 /**
+ * This activity display the list of recent appointments of the patient within 30 days.
  *
- *
+ * @author Deka
+ * @version 1.0
+ * @since 2015
  *
  * @see android.app.Activity
  */
 public class FollowUpListActivity extends Activity {
     /**
-     *
+     * Stores the id of the patient
      */
     private int patientId;
 
     /**
+     * Called when the activity is starting. This is where most initialization done: calling
+     * setContentView(int) to inflate the activity's UI, using findViewById(int) to programmatically
+     * interact with widgets in the UI, retrieving patientId, and most recent appointment List.
      *
-     * @param savedInstanceState
+     * @param savedInstanceState If the activity is being re-initialized after previously being shut
+     *                           down then this Bundle contains the data it most recently supplied in
+     *                           onSaveInstanceState(Bundle). Otherwise it is null.
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,9 +75,6 @@ public class FollowUpListActivity extends Activity {
                     Intent in = new Intent(getApplicationContext(), CreateFollowUpActivity.class);
                     in.putExtra("appFollowUp", app);
                     startActivity(in);
-                        /*Toast.makeText(getApplicationContext(),
-                                "Click ListItem Number " + position, Toast.LENGTH_SHORT)
-                                .show();*/
                 }
             });
         }
@@ -86,7 +91,7 @@ public class FollowUpListActivity extends Activity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_follow_up_list, menu);
+        getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
 
@@ -104,6 +109,15 @@ public class FollowUpListActivity extends Activity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            return true;
+        }
+
+        //logout menu item selected
+        else if(id==R.id.action_logout){
+            SessionManager sessionManager = new SessionManager(this);
+            sessionManager.deleteLoginSession();
+            Intent intent = new Intent(this,LoginActivity.class);
+            startActivity(intent);
             return true;
         }
 

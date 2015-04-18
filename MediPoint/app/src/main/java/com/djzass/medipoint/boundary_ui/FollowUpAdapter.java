@@ -85,7 +85,7 @@ public class FollowUpAdapter extends ArrayAdapter<Appointment> {
      * @param position
      * @param convertView
      * @param parent
-     * @return
+     * @return View corresponding to the data at the specified position.
      *
      * @see android.view.View
      */
@@ -137,9 +137,10 @@ public class FollowUpAdapter extends ArrayAdapter<Appointment> {
     }
 
     /**
+     * Gets the appointment details information in form of key value pairs of strings
+     * @param appointment object that is going to be displayed
+     * @return the key value pair appointment details and its Text value
      *
-     * @param appointment
-     * @return
      */
     public HashMap<String,String> getAppointmentDetails(Appointment appointment){
         HashMap<String, String> appointmentDetails = new HashMap<String, String>();

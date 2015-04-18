@@ -95,7 +95,6 @@ public class AppointmentAdapter extends ArrayAdapter<Appointment> {
      * @param parent the parent that this view will eventually be attached to
      * @return View corresponding to the data at the specified position.
      *
-     * 
      */
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
@@ -149,10 +148,9 @@ public class AppointmentAdapter extends ArrayAdapter<Appointment> {
     }
 
     /**
+     * Gets the appointment details information in form of key value pairs of strings
      *
-     * Returns the appointment details information in form of key value pairs of strings
-     *
-     * @param id
+     * @param id of the appointment
      * @return the key value pair appointment details and its Text value
      *
      */
