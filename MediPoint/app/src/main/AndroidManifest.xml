@@ -80,7 +80,7 @@
             android:label="Create Follow Up Appointment" >
         </activity>
 
-        <receiver android:name=".boundary_ui.AlarmBroadcastReceiver" />
+        <receiver android:name=".logic_manager.AlarmBroadcastReceiver" />
 
     </application>
 

@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 import com.djzass.medipoint.R;
 import com.djzass.medipoint.entity.Appointment;
+import com.djzass.medipoint.logic_manager.AlarmSetter;
 import com.djzass.medipoint.logic_manager.Container;
 
 /**

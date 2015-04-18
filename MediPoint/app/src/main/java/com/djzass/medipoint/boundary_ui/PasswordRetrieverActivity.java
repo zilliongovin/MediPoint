@@ -12,6 +12,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.djzass.medipoint.R;
+import com.djzass.medipoint.entity.Email;
 import com.djzass.medipoint.logic_manager.Container;
 
 

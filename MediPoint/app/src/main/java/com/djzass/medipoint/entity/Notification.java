@@ -1,4 +1,4 @@
-package com.djzass.medipoint.boundary_ui;
+package com.djzass.medipoint.entity;
 
 import android.app.PendingIntent;
 import android.content.Context;
@@ -6,10 +6,10 @@ import android.content.Intent;
 import android.support.v4.app.NotificationManagerCompat;
 
 import com.djzass.medipoint.R;
-import com.djzass.medipoint.entity.Appointment;
+import com.djzass.medipoint.boundary_ui.ViewAppointmentActivity;
 
 /**
- * Created by Z480 on 4/4/2015.
+ * Created by Stefan on 3/30/2015.
  */
 
 public class Notification {

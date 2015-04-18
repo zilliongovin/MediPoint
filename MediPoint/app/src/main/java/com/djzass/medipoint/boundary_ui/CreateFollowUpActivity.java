@@ -19,7 +19,7 @@ import com.djzass.medipoint.entity.Account;
 import com.djzass.medipoint.entity.Appointment;
 import com.djzass.medipoint.entity.Service;
 import com.djzass.medipoint.entity.Timeframe;
-import com.djzass.medipoint.logic_manager.AccountManager;
+import com.djzass.medipoint.logic_manager.AlarmSetter;
 import com.djzass.medipoint.logic_manager.Container;
 import com.djzass.medipoint.logic_manager.SessionManager;
 
