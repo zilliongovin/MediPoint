@@ -98,8 +98,26 @@ public class SignUpPageThreeActivity extends Activity {
         boolean isFilled = isFormFilled(checkViews,3);
         boolean usernameExists = Container.getAccountManager().doesUsernameExist(checkViews[0].getText().toString(), this);
         boolean isPasswordEqual = checkPassword(checkViews[1],checkViews[2]);
-        if(isFilled && !usernameExists && isPasswordEqual)
-        {
+
+        if(!isFilled) {
+            Toast.makeText(this,"Please fill all fields",Toast.LENGTH_LONG).show();
+        }
+        else if(usernameExists){
+            Toast.makeText(this,"Username already exists",Toast.LENGTH_LONG).show();
+        }
+        else if(isValidUsernameChars(checkViews[0].getText().toString())){
+            Toast.makeText(this,"Username can only contain alphabets and numbers",Toast.LENGTH_LONG).show();
+        }
+        else if(isValidUsernameLength(checkViews[0].getText().toString())){
+            Toast.makeText(this,"Username has to be between 4 and 30 characters long",Toast.LENGTH_LONG).show();
+        }
+        else if(isValidPasswordLength(checkViews[1].getText().toString())){
+            Toast.makeText(this,"Password has to be between 4 and 30 characters long",Toast.LENGTH_LONG).show();
+        }
+        else if (!isPasswordEqual){
+            Toast.makeText(this,"Passwords doesn't match",Toast.LENGTH_LONG).show();
+        }
+        else {
             String username = checkViews[0].getText().toString();
             String password = checkViews[1].getText().toString();
 
@@ -110,21 +128,6 @@ public class SignUpPageThreeActivity extends Activity {
 
             AccountCreatedDialog(username,password,PageThreeToHistory, (int) accountId);
 
-        }
-
-        else if(!isFilled)
-        {
-            incompleteForm();
-        }
-
-        else if(usernameExists)
-        {
-            Toast.makeText(this,"Username already exists",Toast.LENGTH_LONG).show();
-        }
-
-        else
-        {
-            unequalPassword();
         }
     }
 
@@ -138,11 +141,6 @@ public class SignUpPageThreeActivity extends Activity {
                 return false;
         }
         return true;
-    }
-
-    public void incompleteForm()
-    {
-        Toast.makeText(this,"Please fill all fields",Toast.LENGTH_LONG).show();
     }
 
     public void AccountCreatedDialog(final String username, final String password,final Intent intent,int accountID)
@@ -163,12 +161,6 @@ public class SignUpPageThreeActivity extends Activity {
         AlertDisplayer.AccountCreated(r);
     }
 
-    public void unequalPassword()
-    {
-        Toast.makeText(this,"Confirmed Password is incorrect",Toast.LENGTH_LONG).show();
-
-    }
-
     public Intent createIntentToHistory(String username,String password)
     {
         Intent PageThreeToHistory = new Intent(this, MedicalHistoryActivity.class);
@@ -181,41 +173,16 @@ public class SignUpPageThreeActivity extends Activity {
         return PageThreeToHistory;
     }
 
-    /*public Calendar getDate(DatePicker datePicker){
-        int day = datePicker.getDayOfMonth();
-        int month = datePicker.getMonth()+1;
-        int year = datePicker.getYear();
+    public static boolean isValidUsernameChars(String username) {
+        return (username.matches("^.*[a-zA-Z0-9].*$")); //only alphanumeric
+    }
 
-        Calendar calendar = Calendar.getInstance();
-        calendar.set(year, month, day);
+    public static boolean isValidUsernameLength(String username) {
+        return(username.length()<=30 && username.length()>=4); //4<length<30
+    }
 
-        return calendar;
-    }*/
-
-    /*protected void onSaveInstanceState(Bundle outState,View[] views,int n) {
-        super.onSaveInstanceState(outState);
-        //Log.i(TAG, "onSaveInstanceState");
-
-        CharSequence[] userText = new CharSequence[n];
-        for(int i=0;i<n;i++){
-            userText[i] =
-        }
-        userText = textBox.getText();
-        outState.putCharSequence("savedText", userText);
-
-    }*/
-
-    /*protected void onRestoreInstanceState(Bundle savedState) {
-        //Log.i(TAG, "onRestoreInstanceState");
-
-        final EditText textBox =
-                (EditText) findViewById(R.id.editText1);
-
-        CharSequence userText =
-                savedState.getCharSequence("savedText");
-
-        textBox.setText(userText);
-    }*/
-
+    public static boolean isValidPasswordLength(String password) {
+        return(password.length()<=30 && password.length()>=4); //4<length<30
+    }
 }
 
