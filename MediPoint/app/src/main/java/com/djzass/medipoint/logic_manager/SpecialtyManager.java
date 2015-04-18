@@ -39,6 +39,7 @@ public class SpecialtyManager {
 
     /**
      * Re-initializes the SpecialtyDAO with the given context
+     * @param context Application context
      */
     private void updateSpecialtyDao(Context context){
         try {
@@ -50,6 +51,7 @@ public class SpecialtyManager {
 
     /**
      * Get all Specialities
+     * @param context Application context
      * @return List of speciality objects
      */
     public List<Specialty> getSpecialtys(Context context){
@@ -58,7 +60,9 @@ public class SpecialtyManager {
     }
 
     /**
-     * insert @param specialty to database with context @param context   
+     * insert specialty to database with context
+     * @param specialty Specialty
+     * @param context Application context
      * @return row no, -1 if fail
      */
     public long createSpecialty(Specialty specialty, Context context){
@@ -68,7 +72,9 @@ public class SpecialtyManager {
     }
 
     /**
-     * edit @param specialty in database based on id with context @param context   
+     * edit specialty in database based on id with context
+     * @param specialty Specialty
+     * @param context Application context
      * @return row no, -1 if fail
      */
     public long editSpecialty(Specialty specialty, Context context){
@@ -79,7 +85,9 @@ public class SpecialtyManager {
     }
 
     /**
-     * delete @param specialty in database based on id with context @param context   
+     * delete specialty in database based on id with context
+     * @param specialty Specialty
+     * @param context Application context
      * @return row no, -1 if fail
      */
     public long cancelSpecialty(Specialty specialty, Context context){
@@ -89,7 +97,9 @@ public class SpecialtyManager {
         return ret;
     }
     /**
-     * Gets specialty name with id @param specialtyid
+     * Gets specialty name with id specialtyID
+     * @param specialtyId specialty ID
+     * @param context Application context
      * @return String specialty name
      */
     public String getSpecialtyNameBySpecialtyId(int specialtyId, Context context) {

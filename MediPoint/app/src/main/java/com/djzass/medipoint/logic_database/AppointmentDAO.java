@@ -125,7 +125,7 @@ public class AppointmentDAO extends DbDAO{
 
     /**
      * Get list of Appointment by PatientID
-     * @param pid DoctorID
+     * @param pid PatientID
      * @return List of Appointment Objects
      */
     public List<Appointment> getAppointmentsByPatientID(int pid) {

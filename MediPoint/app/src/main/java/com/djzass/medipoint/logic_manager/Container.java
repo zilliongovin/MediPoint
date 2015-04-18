@@ -34,6 +34,10 @@ public class Container {
     private static ServiceManager serviceManager;
     private static SpecialtyManager specialtyManager;
 
+    /**
+     * Initializing function
+     * Initializes all instance of managers
+     */
     public static void init(){
 
         if (!isInitialized) {
@@ -50,40 +54,75 @@ public class Container {
         }
     }
 
+    /**
+     * Returns the AccountManager instance
+     * @return AccountManager
+     */
     public static AccountManager getAccountManager() {
         return accountManager;
     }
 
+    /**
+     * Returns the AppointmentManager instance
+     * @return AppointmentManager
+     */
     public static AppointmentManager getAppointmentManager() {
         return appointmentManager;
     }
 
+    /**
+     * Returns the ClinicManager instance
+     * @return ClinicManager
+     */
     public static ClinicManager getClinicManager() {
         return clinicManager;
     }
 
+    /**
+     * Returns the DoctorManager instance
+     * @return DoctorManager
+     */
     public static DoctorManager getDoctorManager() {
         return doctorManager;
     }
 
+    /**
+     * Returns the DoctorScheduleManager instance
+     * @return DoctorScheduleManager
+     */
     public static DoctorScheduleManager getDoctorScheduleManager() {
         return doctorScheduleManager;
     }
 
+    /**
+     * Returns the PatientManager instance
+     * @return PatientManager
+     */
     public static PatientManager getPatientManager() {
         return patientManager;
     }
 
+    /**
+     * Returns the ServiceManager instance
+     * @return ServiceManager
+     */
     public static ServiceManager getServiceManager() {
         return serviceManager;
     }
 
+    /**
+     * Returns the SpecialtyManager instance
+     * @return SpecialtyManager
+     */
     public static SpecialtyManager getSpecialtyManager() {
         return specialtyManager;
     }
 
     /**
      * Find difference of days between 2 calendars
+     * @param startDate the starting date
+     * @param endDate the ending date (must be > startdate)
+     * @return the difference of startDate and endDate in days
      **/
     public static long daysBetween(Calendar startDate, Calendar endDate) {
         //assert: startDate must be before endDate
@@ -97,6 +136,11 @@ public class Container {
         return daysBetween;
     }
 
+    /**
+     * Converts Calendar datatype into string in format "YYYY-MM-DD"
+     * @param calendar Input Calendar
+     * @return String ("YYYY-MM-DD")
+     */
     public static String CalendarToString(Calendar calendar){
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-mm-dd");
         return sdf.format(calendar.getTime());
