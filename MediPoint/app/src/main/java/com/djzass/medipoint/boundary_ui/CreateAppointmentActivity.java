@@ -80,7 +80,6 @@ public class CreateAppointmentActivity extends onDataPass implements AdapterView
             for(Specialty s: specialities){
                 specialtyNames.add(s.getName());
             }
-            Log.d("Size",""+specialtyNames);
             ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_dropdown_item,specialtyNames);
             dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
             dataAdapter.notifyDataSetChanged();
@@ -176,7 +175,7 @@ public class CreateAppointmentActivity extends onDataPass implements AdapterView
                 for (Service s : services) {
                     serviceNames.add(s.getName());
                 }
-                Log.d("SSize",""+serviceNames);
+
                 ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, serviceNames);
                 dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                 dataAdapter.notifyDataSetChanged();

@@ -6,7 +6,6 @@ import com.djzass.medipoint.entity.Doctor;
 import com.djzass.medipoint.logic_database.DoctorDAO;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -47,16 +46,6 @@ public class DoctorManager {
     public List<Doctor> getDoctors(Context context){
         updateDoctorDao(context);
         return doctorDao.getAllDoctors();
-    }
-
-    /**
-     * Gets doctor with id @param doctorid
-     * @return List<Doctor>
-     */
-    public String getDoctorById(int doctorId, Context context) {
-        updateDoctorDao(context);
-        List<Doctor> temp = doctorDao.getDoctorById(doctorId);
-        return temp.get(0).getName();
     }
 
     /**
@@ -104,5 +93,14 @@ public class DoctorManager {
         long ret = doctorDao.deleteDoctor(doctor);
         updateDoctorDao(context);
         return ret;
+    }
+
+    /**
+     * Gets doctor name with id @param doctorid
+     * @return String doctor name
+     */
+    public String getDoctorNameByDoctorId(int doctorId, Context context) {
+        updateDoctorDao(context);
+        return doctorDao.getDoctorById(doctorId).get(0).getName();
     }
 }

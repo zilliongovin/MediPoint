@@ -3,6 +3,7 @@ package com.djzass.medipoint.boundary_ui;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -114,8 +115,11 @@ public class SignUpPageOneActivity extends Activity {
                 if(!isFormFilled(checkViews,5)){
                     Toast.makeText(this,"Please fill all fields",Toast.LENGTH_LONG).show();
                 }
-                else if(!isValidNric(nric)){
-                    Toast.makeText(this,"Please enter a valid NRIC",Toast.LENGTH_LONG).show();
+                else if(!isValidNricChars(nric)){
+                    Toast.makeText(this,"NRIC can only contain alphabets and numbers",Toast.LENGTH_LONG).show();
+                }
+                else if(!isValidNricLength(nric)){
+                    Toast.makeText(this,"NRIC has to be between 4 and 16 characters long",Toast.LENGTH_LONG).show();
                 }
                 else if(!Container.getAccountManager().isNewAccount(nric, this)){
                     Runnable r = new Runnable() {
@@ -132,8 +136,14 @@ public class SignUpPageOneActivity extends Activity {
                 else if(!isValidEmailAddress(email)){
                     Toast.makeText(this,"Please enter a valid email address",Toast.LENGTH_LONG).show();
                 }
-                else if(!isValidContactNo(contact)){
-                    Toast.makeText(this,"Please enter a valid contact number",Toast.LENGTH_LONG).show();
+                else if(!isValidEmailAddressLength(email)){
+                    Toast.makeText(this,"Email address too long",Toast.LENGTH_LONG).show();
+                }
+                else if(!isValidContactNoChars(contact)){
+                    Toast.makeText(this,"Contact number can only contain numbers",Toast.LENGTH_LONG).show();
+                }
+                else if(!isValidContactNoLength(contact)){
+                    Toast.makeText(this,"Contact number has to be between 4 to 16 characters long",Toast.LENGTH_LONG).show();
                 }
                 else {
                     //AccountCreator.savePageOne(name,nric,email,contact,address);
@@ -153,8 +163,12 @@ public class SignUpPageOneActivity extends Activity {
         return true;
     }
 
-    public static boolean isValidNric(String nric) {
-        return(nric.matches("^.*[a-zA-Z0-9].*$") && nric.length()>4); //only alphanumeric, >4 chars
+    public static boolean isValidNricChars(String nric) {
+        return(nric.matches("[a-zA-Z0-9]*")); //only alphanumeric
+    }
+
+    public static boolean isValidNricLength(String nric) {
+        return(nric.length()<=16 && nric.length()>=4); //4<length<16
     }
 
     public static boolean isValidEmailAddress(String email) {
@@ -167,8 +181,15 @@ public class SignUpPageOneActivity extends Activity {
         }
         return result;
     }
-    public static boolean isValidContactNo(String contactno) {
-        return(contactno.matches("^.*[0-9].*$") && contactno.length()>4); //only numeric, >4 chars
+
+    public static boolean isValidEmailAddressLength(String email) {
+        return(email.length()<=40); //<40 chars
+    }
+    public static boolean isValidContactNoChars(String contactno) {
+        return (contactno.matches("[0-9]*")); //only numeric,
+    }
+    public static boolean isValidContactNoLength(String contactno) {
+        return(contactno.length()<=16 && contactno.length()>=4); //4<length<16
     }
 }
 

@@ -65,11 +65,11 @@ public class CreateFollowUpActivity extends onDataPass implements AdapterView.On
         TextView country = (TextView) findViewById(R.id.FollowUpCountry);
         country.setText(Container.getClinicManager().getClinicsByID(app.getClinicId(),this).get(0).getCountry());
         TextView location = (TextView) findViewById(R.id.FollowUpLocation);
-        location.setText(Container.getAppointmentManager().getClinicNameByAppointment(app,this));
+        location.setText(Container.getClinicManager().getClinicNameByClinicId(app.getClinicId(),this));
         TextView doctor = (TextView) findViewById(R.id.FollowUpDoctor);
-        doctor.setText(Container.getAppointmentManager().getDoctorNameByAppointment(app,this));
+        doctor.setText(Container.getDoctorManager().getDoctorNameByDoctorId(app.getDoctorId(),this));
         TextView specialty = (TextView) findViewById(R.id.FollowUpSpecialty);
-        specialty.setText(Container.getAppointmentManager().getSpecialtyNameByAppointment(app,this));
+        specialty.setText(Container.getSpecialtyManager().getSpecialtyNameBySpecialtyId(app.getSpecialtyId(),this));
 
 
         this.specialtyId = app.getSpecialtyId();
@@ -83,7 +83,6 @@ public class CreateFollowUpActivity extends onDataPass implements AdapterView.On
         for (Service s : services) {
             serviceNames.add(s.getName());
         }
-        Log.d("SSize", "" + serviceNames);
         ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, serviceNames);
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         dataAdapter.notifyDataSetChanged();
@@ -228,13 +227,8 @@ public class CreateFollowUpActivity extends onDataPass implements AdapterView.On
             if (this.apptDate.compareTo(currentDate)<0){
                 Toast.makeText(this, "You must book at least 24 hours in advance. ", Toast.LENGTH_SHORT).show();
             } else {
-                Log.d("CalendarCreateC",this.apptDate.toString());
                 Appointment appointment = new Appointment(this.patientId, this.clinicId, this.specialtyId, this.serviceId, this.doctorId, -1, this.apptDate, this.timeframe, Container.getServiceManager().getServicePreappbyID(this.serviceId, this));
 
-                Log.d("AppCreateFUPSPe",""+appointment.getSpecialtyId());
-                Log.d("AppCreateFUPSer",""+appointment.getServiceId());
-                Log.d("AppCreateFUPDoc",""+appointment.getDoctorId());
-                Log.d("CalendarCreateA", appointment.getDate().toString());
                 long res = Container.getAppointmentManager().createAppointment(appointment, this);
                 if (res == -1) {
                     Toast.makeText(this,"Appointment creation failed", Toast.LENGTH_SHORT).show();

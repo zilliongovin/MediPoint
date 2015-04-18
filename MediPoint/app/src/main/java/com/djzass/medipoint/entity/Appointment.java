@@ -9,6 +9,14 @@ import java.util.Calendar;
 import java.lang.String;
 import java.util.Comparator;
 
+/**
+ * Created by Joshua on 20/3/2015.
+ *
+ * @author Joshua
+ * @since 2015
+ * @version 1.0
+ */
+
 public class Appointment implements Parcelable{
     private int appointmentId;
     private int patientId;
@@ -171,11 +179,7 @@ public class Appointment implements Parcelable{
 
     public String getDateString(){
         //SimpleDateFormat sdfDate = new SimpleDateFormat("EEEE, dd MMMM yyyy");
-        Log.d("CalendarInViewA", "" + this.date.toString());
-        Log.d("CalendarInViewB", "" + this.getDate().toString());
-        Log.d("CalendarInView", "" + this.date.get(Calendar.YEAR) + " " + this.date.get(Calendar.MONTH) + " " + this.date.get(Calendar.DATE));
         SimpleDateFormat sdfDate = new SimpleDateFormat("EEEE, dd MMMM yyyy");
-        Log.d("CalendarInView", sdfDate.format(this.date.getTime()));
         return sdfDate.format(this.date.getTime());
     }
 
@@ -237,7 +241,6 @@ public class Appointment implements Parcelable{
         dest.writeInt(this.serviceId);
         dest.writeInt(this.doctorId);
         dest.writeInt(this.referrerId);
-        Log.d("CalendarCreateBUN",this.getDate().toString());
         long cal = this.getDate().getTimeInMillis();
         dest.writeLong(cal);
         dest.writeInt(this.getTimeframe().getStartTime());
@@ -266,7 +269,6 @@ public class Appointment implements Parcelable{
         this.referrerId = in.readInt();
         this.date = Calendar.getInstance();
         this.date.setTimeInMillis(in.readLong());
-        Log.d("CalendarCreateREADBUN",this.date.toString());
         this.timeframe = new Timeframe(in.readInt(),in.readInt());
         this.preAppointmentActions = in.readString();
     }

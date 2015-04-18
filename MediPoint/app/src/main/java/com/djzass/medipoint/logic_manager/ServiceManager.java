@@ -79,7 +79,7 @@ public class ServiceManager {
      * @param context Interface to global information about an application environment
      * @return String object containing Service name
      */
-    public String getServiceNameByID(int serviceid,Context context) {
+    public String getServiceNameByServiceID(int serviceid, Context context) {
         updateServiceDao(context);
         List<Service> temp = serviceDao.getServicesByID(serviceid);
         return temp.get(0).getName();

@@ -15,6 +15,16 @@ import java.util.Calendar;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ * Created by Joshua on 4/4/2015.
+ *
+ * @author Joshua
+ * @since 2015
+ * @version 1.0
+ *
+ * @see android.app.Activity
+ */
+
 public class AppointmentManager {
     /**
      * An instance of {@link AppointmentDAO}. This is to be re-instated with context before use.
@@ -73,10 +83,6 @@ public class AppointmentManager {
         }
 
         for (Appointment temp : appointments) {
-            Log.d("Date", temp.getDate().toString() + " " + date.toString());
-            Log.d("DateYr", "" + temp.getDate().get(Calendar.YEAR) + " " + date.get(Calendar.YEAR));
-            Log.d("DateMth", "" + temp.getDate().get(Calendar.MONTH) + " " + date.get(Calendar.MONTH));
-            Log.d("DateDat", "" + temp.getDate().get(Calendar.DATE) + " " + date.get(Calendar.DATE));
             if ( temp.getDate().get(Calendar.YEAR) == date.get(Calendar.YEAR) &&
                  temp.getDate().get(Calendar.MONTH) == date.get(Calendar.MONTH) &&
                  temp.getDate().get(Calendar.DATE) == date.get(Calendar.DATE) &&
@@ -111,8 +117,6 @@ public class AppointmentManager {
 
     public List<Timeframe> getAvailableTimeSlot(Calendar date, int patient, int doctor, int clinic, int startTime, int endTime, int duration, Context context){
         updateAppointmentDao(context);
-
-        Log.d("Date", date.toString());
 
         ArrayList<Timeframe> availableTimeSlot = new ArrayList<Timeframe>();
         List<Boolean> availableTime = getTimeTable(date, patient, doctor, clinic, startTime, endTime, duration, context);
@@ -248,7 +252,6 @@ public class AppointmentManager {
     public long createAppointment(Appointment app, Context context){
         //insert to database
         // update arraylist of appointment appointments = getAppointmentFromDatabase()
-        Log.d("CalendarCreateInMngr",app.getDate().toString());
         updateAppointmentDao(context);
         long ret = appointmentDao.insertAppointment(app);
         appointments = getAppointments(context);
@@ -259,7 +262,6 @@ public class AppointmentManager {
         // update appointment according to its id in database
         // update arraylist of appointment appointments = getAppointmentFromDatabase()
         updateAppointmentDao(context);
-        Log.d("updateAppMngr",app.toString());
         long ret = appointmentDao.update(app);
         appointments = getAppointments(context);
         return ret;
@@ -279,33 +281,5 @@ public class AppointmentManager {
         return appointmentDao.getAppointmentsByID(id).get(0);
     }
 
-
-    public String getSpecialtyNameByAppointment(Appointment appointment, Context context){
-        updateAppointmentDao(context);
-        int specialtyID = appointment.getSpecialtyId();
-        String specialtyName = appointmentDao.getStringFromID(DbContract.SpecialtyEntry.TABLE_NAME,DbContract.SpecialtyEntry.COLUMN_NAME_SPECIALTY_NAME,DbContract.SpecialtyEntry.COLUMN_NAME_SPECIALTY_ID,specialtyID);
-        return specialtyName;
-    }
-
-    public String getServiceNameByAppointment(Appointment appointment, Context context){
-        updateAppointmentDao(context);
-        int serviceID = appointment.getServiceId();
-        String serviceName = appointmentDao.getStringFromID(DbContract.ServiceEntry.TABLE_NAME,DbContract.ServiceEntry.COLUMN_NAME_SERVICE_NAME,DbContract.ServiceEntry.COLUMN_NAME_SERVICE_ID,serviceID);
-        return serviceName;
-    }
-
-    public String getDoctorNameByAppointment(Appointment appointment, Context context){
-        updateAppointmentDao(context);
-        int doctorID = appointment.getDoctorId();
-        String doctorName = appointmentDao.getStringFromID(DbContract.DoctorEntry.TABLE_NAME,DbContract.DoctorEntry.COLUMN_NAME_DOCTOR_NAME,DbContract.DoctorEntry.COLUMN_NAME_DOCTOR_ID,doctorID);
-        return doctorName;
-    }
-
-    public String getClinicNameByAppointment(Appointment appointment, Context context){
-        updateAppointmentDao(context);
-        int clinicID = appointment.getClinicId();
-        String clinicName = appointmentDao.getStringFromID(DbContract.ClinicEntry.TABLE_NAME,DbContract.ClinicEntry.COLUMN_NAME_CLINIC_NAME,DbContract.ClinicEntry.COLUMN_NAME_CLINIC_ID,clinicID);
-        return clinicName;
-    }
 
 }

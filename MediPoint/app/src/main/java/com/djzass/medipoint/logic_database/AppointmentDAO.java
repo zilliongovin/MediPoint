@@ -16,21 +16,31 @@ import com.djzass.medipoint.entity.Appointment;
 
 /**
  * Created by Deka on 26/3/2015.
+ *
+ * @author Joshua
+ * @since 2015
+ * @version 1.0
  */
 public class AppointmentDAO extends DbDAO{
-    public static final String CLINIC_WITH_PREFIX = "clinic.";
-    public static final String APPOINTMENT_WITH_PREFIX = "appointment.";
-    public static final String DOCTOR_WITH_PREFIX = "doctor.";
-    public static final String SPECIALTY_WITH_PREFIX = "specialty.";
-    public static final String SERVICE_WITH_PREFIX = "service.";
-    private static final String WHERE_ID_EQUALS = DbContract.AppointmentEntry.COLUMN_NAME_APPOINTMENT_ID
-            + " =?";
 
+    /**
+     * database query for comparing Appointment ID
+     */
+    private static final String WHERE_ID_EQUALS = DbContract.AppointmentEntry.COLUMN_NAME_APPOINTMENT_ID + " =?";
+
+    /**
+     * Appointment Database helper constructor
+     * @param context Interface to global information about an application environment
+     */
     public AppointmentDAO(Context context) throws SQLException {
         super(context);
-        //initializeDAO();
     }
 
+    /**
+     * insert Object Appointment to DB
+     * @param appointment Appointment object to be stored in DB
+     * @return Long object containing info about the status of DB insertion
+     */
     public long insertAppointment(Appointment appointment) {
         ContentValues values = new ContentValues();
         //values.put(DbContract.AppointmentEntry.COLUMN_NAME_APPOINTMENT_ID, getAppointmentCount());
@@ -39,7 +49,6 @@ public class AppointmentDAO extends DbDAO{
         values.put(DbContract.AppointmentEntry.COLUMN_NAME_DOCTOR_ID, appointment.getDoctorId());
         values.put(DbContract.AppointmentEntry.COLUMN_NAME_REFERRER_ID, appointment.getReferrerId());
        // values.put(DbContract.AppointmentEntry.COLUMN_NAME_DATE_TIME, appointment.getDateString());
-       Log.d("CalendarCreateC",appointment.getDate().toString());
 
         values.put(DbContract.AppointmentEntry.COLUMN_NAME_DATE_TIME, appointment.getDate().getTimeInMillis());
         values.put(DbContract.AppointmentEntry.COLUMN_NAME_SERVICE_ID, appointment.getServiceId());
@@ -51,10 +60,10 @@ public class AppointmentDAO extends DbDAO{
         return database.insert(DbContract.AppointmentEntry.TABLE_NAME, null, values);
     }
 
-
-    /* READ
-     * Getting all appointments from the table using whereclause as where clause
-     * Null means get all
+    /**
+     * Getting list of Appointments from the table based on the condition passed
+     * @param whereclause String object containing condition to find specific specialities
+     * @return List of Appointments
      * */
     public List<Appointment> getAppointments(String whereclause) {
         List<Appointment> appointments = new ArrayList<Appointment>();
@@ -81,18 +90,9 @@ public class AppointmentDAO extends DbDAO{
             appointment.setDoctorId(cursor.getInt(3));
             appointment.setReferrerId(cursor.getInt(4));
 
-            /*String temp = cursor.getString(5);
-            DateFormat dateformat = new SimpleDateFormat("yyyy-mm-dd");
-            Calendar cal  = Calendar.getInstance();
-            try {
-                cal.setTime(dateformat.parse(temp));
-            } catch (ParseException e) {
-                Log.d("AppointmentDAO", "Date parsing exception");
-            }*/
             Calendar cal = Calendar.getInstance();
             Long c = cursor.getLong(5);
             cal.setTimeInMillis(c);
-            Log.d("CalendarGetDAO",cal.toString());
 
             appointment.setDate(cal);
             appointment.setServiceId(cursor.getInt(6));
@@ -105,30 +105,50 @@ public class AppointmentDAO extends DbDAO{
         return appointments;
     }
 
-
+    /**
+     * Get a list of all the Appointments
+     * @return List of all Appointment Objects
+     */
     public List<Appointment> getAllAppointments() {
         return getAppointments(null);
     }
 
+    /**
+     * Get list of Appointment by AppointmentID
+     * @param id Appointment ID
+     * @return List of Appointment Objects
+     */
     public List<Appointment> getAppointmentsByID(int id) {
         String whereclause = DbContract.AppointmentEntry.COLUMN_NAME_APPOINTMENT_ID + " = " + id;
         return getAppointments(whereclause);
     }
+
+    /**
+     * Get list of Appointment by PatientID
+     * @param pid DoctorID
+     * @return List of Appointment Objects
+     */
     public List<Appointment> getAppointmentsByPatientID(int pid) {
         String whereclause = DbContract.AppointmentEntry.COLUMN_NAME_PATIENT_ID + " = " + pid;
         return getAppointments(whereclause);
     }
+
+    /**
+     * Get list of Appointment by DoctorID
+     * @param did DoctorID
+     * @return List of Appointment Objects
+     */
     public List<Appointment> getAppointmentsByDoctorID(int did) {
         String whereclause = DbContract.AppointmentEntry.COLUMN_NAME_DOCTOR_ID + " = " + did;
         return getAppointments(whereclause);
     }
-    /*
-        UPDATE
-        returns the number of rows affected by the update
+    /**
+     * Update the Appointment info in the Database
+     * @param appointment Appointment object to be updated
+     * @return Long containing the result of update
      */
     public long update(Appointment appointment) {
         ContentValues values = new ContentValues();
-        Log.d("updateAppDAO",appointment.toString());
         values.put(DbContract.AppointmentEntry.COLUMN_NAME_CLINIC_ID, appointment.getClinicId());
         values.put(DbContract.AppointmentEntry.COLUMN_NAME_PATIENT_ID, appointment.getPatientId());
         values.put(DbContract.AppointmentEntry.COLUMN_NAME_DOCTOR_ID, appointment.getDoctorId());
@@ -140,9 +160,6 @@ public class AppointmentDAO extends DbDAO{
         values.put(DbContract.AppointmentEntry.COLUMN_NAME_START_TIME, appointment.getTimeframe().getStartTime());
         values.put(DbContract.AppointmentEntry.COLUMN_NAME_END_TIME, appointment.getTimeframe().getEndTime());
 
-        Log.d("updateAppDAOI",""+appointment.getId());
-        Log.d("updateAppDAOI",""+getAppointmentsByID(appointment.getId()).size());
-
         long result = database.update(DbContract.AppointmentEntry.TABLE_NAME, values,
                 WHERE_ID_EQUALS,
                 new String[] { String.valueOf(appointment.getId()) });
@@ -150,52 +167,22 @@ public class AppointmentDAO extends DbDAO{
         return result;
     }
 
-    /*
-        DELETE
-        returns the number of rows affected if a whereClause is passed in, 0 otherwise
+    /**
+     * Delete the Appointment object from Database
+     * @param appointment Appointment object to be deleted
+     * @return int containing the result of deletion
      */
     public int deleteAppointment(Appointment appointment) {
         return database.delete(DbContract.AppointmentEntry.TABLE_NAME,
                 WHERE_ID_EQUALS, new String[] { appointment.getId() + "" });
     }
-    /*
-        LOAD
-        Load the initial values of the appointments ??
-     */
-    public void loadAppointments() {
-        List<Appointment> temp= getAllAppointments();
-        for (Appointment tmp : temp) {
-            tmp.toString();
-        }
-    }
 
+    /**
+     * Count the total number of tuples in Appointment Relation
+     * @return int containing the number of Appointments
+     */
     public int getAppointmentCount(){
         return getAllAppointments().size();
-    }
-    private void initializeDAO(){
-        if (getAllAppointments().size()==0){
-
-        }
-    }
-
-    public String getStringFromID(String tableName,String columnName,String columnID,int id){
-       /* String query = "SELECT " + columnName +
-                " FROM " + tableName +
-                " WHERE " + columnID + "=?";
-        String[] selArgs = {""+id};
-        Cursor cursor = database.rawQuery(query,selArgs);*/
-        String query = "SELECT " + tableName + "." + columnName +
-                " FROM " + tableName +
-                " WHERE " + columnID + " = " + id;
-        Cursor cursor = database.rawQuery(query, null);
-        if(cursor!=null && cursor.moveToFirst())
-            return cursor.getString(0);
-        Log.d("numOfRows", cursor.getCount()+"");
-        if(cursor==null)
-            Log.d("NullCursorApptdao", "Null Cursor");
-        if(!cursor.moveToFirst())
-            Log.d("MoveTFApptDAo", "Move To first fail");
-        return "Cursor not found";
     }
 
 }

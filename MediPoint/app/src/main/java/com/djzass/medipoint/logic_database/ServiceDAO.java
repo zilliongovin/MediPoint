@@ -88,7 +88,6 @@ public class ServiceDAO extends DbDAO{
                 DbContract.ServiceEntry.COLUMN_NAME_SPECIALTY_ID + " = " + SPECIALTY_WITH_PREFIX +
                 DbContract.SpecialtyEntry.COLUMN_NAME_SPECIALTY_ID + whereclause;
 
-        Log.d("query", query);
         Cursor cursor = database.rawQuery(query, null);
 
         while (cursor.moveToNext()) {

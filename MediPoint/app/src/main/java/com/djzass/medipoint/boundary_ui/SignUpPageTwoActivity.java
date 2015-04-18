@@ -94,19 +94,6 @@ public class SignUpPageTwoActivity extends onDataPass {
         startActivity(PageTwoToThree);
     }
 
-    /*public boolean checkPassword(EditText Password,EditText ConfirmPassword)
-    {
-        String pass1 = Password.getText().toString();
-        String pass2 = ConfirmPassword.getText().toString();
-        return pass1.equals(pass2);
-    }*/
-
-    /*public void goToLoginPage()
-    {
-        Intent intent = new Intent(this,Login.class);
-        startActivity(intent);
-    }*/
-
     public void goToPrevious(View view)
     {
         goToPage1();
@@ -170,55 +157,6 @@ public class SignUpPageTwoActivity extends onDataPass {
         Toast.makeText(this,"Please fill all fields",Toast.LENGTH_LONG).show();
     }
 
-    /*public void AccountCreatedDialog()
-    {
-        String message = "Congratulations! Your account has been successfully created.";
-        String title = "Success";
-        Runnable r = new Runnable() {
-            @Override
-            public void run() {
-                goToLoginPage();
-            }
-        };
-
-        AlertDialogInterface AlertDisplayer = new AlertDialogInterface(title,message,this);
-        AlertDisplayer.AccountCreated(r);
-    }*/
-
-    /*public void unequalPassword()
-    {
-        Toast.makeText(this,"Confirmed Password is incorrect",Toast.LENGTH_LONG).show();
-
-    }*/
-
-    /*public Calendar getDate(DatePicker datePicker){
-        int day = datePicker.getDayOfMonth();
-        int month = datePicker.getMonth()+1;
-        int year = datePicker.getYear();
-
-        Calendar calendar = Calendar.getInstance();
-        calendar.set(year, month, day);
-
-        return calendar;
-    }*/
-
-    /*
-    public void showDatePicker(View v){
-        FragmentManager manager = getFragmentManager();
-        DatePickerFragment datepicker = new DatePickerFragment();
-        datepicker.show(manager, "Datepicker");
-    }
-
-
-    public void setDate(DatePicker datepicker){
-        dateOB = datepicker.getDayOfMonth();
-        monthOB = datepicker.getMonth();
-        yearOB = datepicker.getYear();
-    }
-    */
-
-    //checkbox listener
-
     public int onCheckBoxClicked(View view)
     {
         boolean checked = ((CheckBox) view).isChecked();
@@ -242,30 +180,6 @@ public class SignUpPageTwoActivity extends onDataPass {
         monthOB = month;
         yearOB = year;
     }
-    /*protected void onSaveInstanceState(Bundle outState,View[] views,int n) {
-        super.onSaveInstanceState(outState);
-        //Log.i(TAG, "onSaveInstanceState");
-
-        CharSequence[] userText = new CharSequence[n];
-        for(int i=0;i<n;i++){
-            userText[i] =
-        }
-        userText = textBox.getText();
-        outState.putCharSequence("savedText", userText);
-
-    }*/
-
-    /*protected void onRestoreInstanceState(Bundle savedState) {
-        //Log.i(TAG, "onRestoreInstanceState");
-
-        final EditText textBox =
-                (EditText) findViewById(R.id.editText1);
-
-        CharSequence userText =
-                savedState.getCharSequence("savedText");
-
-        textBox.setText(userText);
-    }*/
 
 }
 

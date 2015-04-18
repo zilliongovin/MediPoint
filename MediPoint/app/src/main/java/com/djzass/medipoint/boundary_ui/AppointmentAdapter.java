@@ -117,7 +117,6 @@ public class AppointmentAdapter extends ArrayAdapter<Appointment> {
             viewHolder = (ViewHolder)convertView.getTag();
         }
 
-        Log.d("IDno", ""+appointment.getId());
         HashMap<String,String> appointmentDetails = getAppointmentDetails(appointment.getId());
 
         // Populate the data into the template view using the data object
@@ -157,10 +156,10 @@ public class AppointmentAdapter extends ArrayAdapter<Appointment> {
     public HashMap<String,String> getAppointmentDetails(int id){
         Appointment appointment = Container.getAppointmentManager().getAppointmentByID(id, getContext());
         HashMap<String, String> appointmentDetails = new HashMap<String, String>();
-        appointmentDetails.put("SPECIALTY_NAME",Container.getAppointmentManager().getSpecialtyNameByAppointment(appointment,getContext()));
-        appointmentDetails.put("SERVICE_NAME",Container.getAppointmentManager().getServiceNameByAppointment(appointment, getContext()));
-        appointmentDetails.put("DOCTOR_NAME",Container.getAppointmentManager().getDoctorNameByAppointment(appointment, getContext()));
-        appointmentDetails.put("CLINIC_NAME",Container.getAppointmentManager().getClinicNameByAppointment(appointment, getContext()));
+        appointmentDetails.put("SPECIALTY_NAME",Container.getSpecialtyManager().getSpecialtyNameBySpecialtyId(appointment.getSpecialtyId(),getContext()));
+        appointmentDetails.put("SERVICE_NAME",Container.getServiceManager().getServiceNameByServiceID(appointment.getServiceId(), getContext()));
+        appointmentDetails.put("DOCTOR_NAME",Container.getDoctorManager().getDoctorNameByDoctorId(appointment.getDoctorId(), getContext()));
+        appointmentDetails.put("CLINIC_NAME",Container.getClinicManager().getClinicNameByClinicId(appointment.getClinicId(), getContext()));
         appointmentDetails.put("DATE",appointment.getDateString());
         appointmentDetails.put("TIME",appointment.getTimeString());
         appointmentDetails.put("STATUS",Container.getAppointmentManager().getStatus(appointment));

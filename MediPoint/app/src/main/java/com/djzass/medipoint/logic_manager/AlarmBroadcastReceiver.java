@@ -51,8 +51,9 @@ public class AlarmBroadcastReceiver extends BroadcastReceiver {
 
         //create the message template for notification.
         String message = "Dear " + account.getName()+ ",\n"
-                + Container.getAppointmentManager().getSpecialtyNameByAppointment(appointment, context) + " Appointment is on:\n"
-                + appointment.getDateString() + " with " + Container.getAppointmentManager().getDoctorNameByAppointment(appointment, context) +".\n"
+                + Container.getSpecialtyManager().getSpecialtyNameBySpecialtyId(appointment.getSpecialtyId(), context)
+                + " Appointment is on:\n" + appointment.getDateString()
+                + " with " + Container.getDoctorManager().getDoctorNameByDoctorId(appointment.getDoctorId(), context) +".\n"
                 + extra + "\n"
                 +"This is an automated message.Please do not reply";
 

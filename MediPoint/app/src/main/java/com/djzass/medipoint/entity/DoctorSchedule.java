@@ -5,6 +5,10 @@ import android.os.Parcelable;
 
 /**
  * Created by Deka on 26/3/2015.
+ *
+ * @author Joshua
+ * @since 2015
+ * @version 1.0
  */
 
 public class DoctorSchedule implements Parcelable {

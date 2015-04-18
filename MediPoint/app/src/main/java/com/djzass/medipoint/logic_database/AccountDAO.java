@@ -115,15 +115,6 @@ public class AccountDAO extends DbDAO{
             account.setEmail(cursor.getString(3));
             account.setPhoneNumber(cursor.getString(4));
             account.setAddress(cursor.getString(5));
-
-            //String temp = cursor.getString(6);
-            /*DateFormat dateformat = new SimpleDateFormat("yyyy-mm-dd");
-            Calendar cal  = Calendar.getInstance();
-            try {
-                cal.setTime(dateformat.parse(temp));
-            } catch (ParseException e) {
-                Log.d("AccountDAO", "Date parsing exception");
-            }*/
             Calendar cal = Calendar.getInstance();
             Long c = cursor.getLong(6);
             cal.setTimeInMillis(c);
@@ -145,13 +136,11 @@ public class AccountDAO extends DbDAO{
     public List<Account> getAllAccounts() {
         return getAccounts(null);
     }
-
     /*
     public List<Account> getAccountById(int accountId) {
         String whereclause = DbContract.AccountEntry.COLUMN_NAME_ACCOUNT_ID + " = " + accountId;
         return getAccounts(whereclause);
-    }
-    */
+    }*/
 
     public List<Account> getAccountByNRIC(String nric) {
         String whereclause = DbContract.AccountEntry.COLUMN_NAME_NRIC + " = " + nric;
@@ -198,7 +187,6 @@ public class AccountDAO extends DbDAO{
         long result = database.update(DbContract.AccountEntry.TABLE_NAME, values,
                 WHERE_ID_EQUALS,
                 new String[] { String.valueOf(account.getId()) });
-        Log.d("Update Result:", "=" + result);
 
         return result;
     }

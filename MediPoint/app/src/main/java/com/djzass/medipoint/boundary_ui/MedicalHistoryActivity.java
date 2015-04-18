@@ -176,7 +176,7 @@ public class MedicalHistoryActivity extends Activity {
      * @param pat Patient object to be inserted to database
      */
     public void insertPatientToDatabase(Patient pat){
-        Container.getPatientManager().cancelPatient(pat,this);
+        Container.getPatientManager().createPatient(pat,this);
     }
 
     /**

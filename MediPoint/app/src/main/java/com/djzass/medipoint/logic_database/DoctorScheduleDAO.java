@@ -14,19 +14,29 @@ import java.util.List;
 
 /**
  * Created by Deka on 28/3/2015.
+ *
+ * @author Joshua
+ * @since 2015
+ * @version 1.0
  */
 public class DoctorScheduleDAO extends DbDAO{
-    private static final String WHERE_ID_EQUALS = DbContract.DoctorScheduleEntry.COLUMN_NAME_DOCTOR_SCHEDULE_ID
-            + " =?";
+    /**
+     * database query for comparing DoctorSchedule ID
+     */
+    private static final String WHERE_ID_EQUALS = DbContract.DoctorScheduleEntry.COLUMN_NAME_DOCTOR_SCHEDULE_ID + " =?";
 
+    /**
+     * DoctorSchedule Database helper constructor
+     * @param context Interface to global information about an application environment
+     */
     public DoctorScheduleDAO(Context context) throws SQLException {
         super(context);
     }
 
-    /*
-        CREATE
-         Inserting doctor schedule into doctor schedules table and return the row id if insertion successful,
-     otherwise -1 will be returned
+    /**
+     * insert Object DoctorSchedule to DB
+     * @param doctorSchedule DoctorSchedule object to be stored in DB
+     * @return Long object containing info about the status of DB insertion
      */
     public long insertDoctorSchedule(DoctorSchedule doctorSchedule){
         ContentValues values = new ContentValues();
@@ -41,10 +51,10 @@ public class DoctorScheduleDAO extends DbDAO{
         return database.insert(DbContract.DoctorScheduleEntry.TABLE_NAME, null, values);
     }
 
-    /*
-        READ
-      * Getting all doctorSchedules from the table
-     * returns list of doctorSchedules
+    /**
+     * Getting list of DoctorSchedules from the table based on the condition passed
+     * @param whereclause String object containing condition to find specific specialities
+     * @return List of DoctorSchedules
      * */
     public List<DoctorSchedule> getDoctorSchedules(String whereclause) {
         List<DoctorSchedule> doctorSchedules = new ArrayList<DoctorSchedule>();
@@ -71,33 +81,59 @@ public class DoctorScheduleDAO extends DbDAO{
         return doctorSchedules;
     }
 
+    /**
+     * Get a list of all the DoctorSchedules
+     * @return List of all DoctorSchedule Objects
+     */
     public List<DoctorSchedule> getAllDoctorSchedules() {
         return getDoctorSchedules(null);
     }
 
+    /**
+     * Get list of DoctorSchedule by DoctorScheduleID
+     * @param id DoctorSchedule ID
+     * @return List of DoctorSchedule Objects
+     */
     public List<DoctorSchedule> getDoctorSchedulesByID(int id) {
         String whereclause = DbContract.DoctorScheduleEntry.COLUMN_NAME_DOCTOR_SCHEDULE_ID + " = " + id;
         return getDoctorSchedules(whereclause);
     }
 
+    /**
+     * Get list of DoctorSchedule by DoctorID
+     * @param doctorId DoctorID
+     * @return List of DoctorSchedule Objects
+     */
     public List<DoctorSchedule> getDoctorSchedulesByDoctorID(int doctorId) {
         String whereclause = DbContract.DoctorScheduleEntry.COLUMN_NAME_DOCTOR_ID + " = " + doctorId;
         return getDoctorSchedules(whereclause);
     }
 
+    /**
+     * Get list of DoctorSchedule by ClinicID
+     * @param clinicId clinicID
+     * @return List of DoctorSchedule Objects
+     */
     public List<DoctorSchedule> getDoctorSchedulesByClinicID(int clinicId) {
         String whereclause = DbContract.DoctorScheduleEntry.COLUMN_NAME_CLINIC_ID + " = " + clinicId;
         return getDoctorSchedules(whereclause);
     }
 
+    /**
+     * Get list of DoctorSchedule by DoctorID and ClinicID
+     * @param doctorId DoctorID
+     * @param clinicId clinicID
+     * @return List of DoctorSchedule Objects
+     */
     public List<DoctorSchedule> getDoctorSchedulesByDoctorClinicID(int doctorId, int clinicId) {
         String whereclause = DbContract.DoctorScheduleEntry.COLUMN_NAME_DOCTOR_ID + " = " + doctorId
                  + " AND " + DbContract.DoctorScheduleEntry.COLUMN_NAME_CLINIC_ID + " = " + clinicId;
         return getDoctorSchedules(whereclause);
     }
-    /*
-        UPDATE
-       returns the number of rows affected by the update
+    /**
+     * Update the DoctorSchedule info in the Database
+     * @param doctorSchedule DoctorSchedule object to be updated
+     * @return Long containing the result of update
      */
     public long update(DoctorSchedule doctorSchedule) {
         ContentValues values = new ContentValues();
@@ -111,14 +147,13 @@ public class DoctorScheduleDAO extends DbDAO{
                 WHERE_ID_EQUALS,
                 new String[] { String.valueOf(doctorSchedule.getId()) });
 
-        Log.d("Update Result:", "=" + result);
-
         return result;
     }
 
-    /*
-        DELETE
-        returns the number of rows affected if a whereClause is passed in, 0 otherwise
+    /**
+     * Delete the DoctorSchedule object from Database
+     * @param doctorSchedule DoctorSchedule object to be deleted
+     * @return int containing the result of deletion
      */
     public int deleteDoctorSchedule(DoctorSchedule doctorSchedule) {
         return database.delete(DbContract.DoctorScheduleEntry.TABLE_NAME,
@@ -129,33 +164,22 @@ public class DoctorScheduleDAO extends DbDAO{
         Load the initial values of the doctorSchedules
      */
 
+    /**
+     * Count the total number of tuples in DoctorSchedule Relation
+     * @return int containing the number of DoctorSchedules
+     */
     public int getDoctorScheduleCount(){
         return getAllDoctorSchedules().size();
     }
 
-    public void loadDoctorSchedules() {
-        DoctorSchedule dS1 = new DoctorSchedule();
-        DoctorSchedule dS2 = new DoctorSchedule();
-        DoctorSchedule dS3 = new DoctorSchedule();
-
-        List<DoctorSchedule> doctorSchedules = new ArrayList<DoctorSchedule>();
-        doctorSchedules.add(dS1);
-        doctorSchedules.add(dS2);
-        doctorSchedules.add(dS3);
-        for (DoctorSchedule dS: doctorSchedules) {
-            insertDoctorSchedule(dS);
-        }
-    }
-
+    /**
+     * insert DoctorSchedules to be used in the app
+     */
     private void initializeDAO()
     {
         if(getAllDoctorSchedules().size() ==0)
         {
-            /*insertDoctorSchedule(1, 1, )
-            private int doctorId;
-            private int clinicId;
-            private String day;
-            private Timeframe timeframe;*/
+            /*Currently not yet implemented*/
         }
     }
 }

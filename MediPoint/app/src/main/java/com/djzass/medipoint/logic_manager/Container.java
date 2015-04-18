@@ -11,6 +11,10 @@ import java.util.Calendar;
 
 /**
  * Created by Joshua on 3/4/2015.
+ *
+ * @author Joshua
+ * @since 2015
+ * @version 1.0
  */
 public class Container {
     /**

@@ -275,7 +275,7 @@ public class Clinic implements Parcelable {
 
     /**
      * override method in Parcelable
-     * @return a bitmask indicating the set of special object types marshalled by the Parcelable.
+     * @return a bitmask indicating the set of special object types marshaled by the Parcelable.
      */
     @Override
     public int describeContents() {
