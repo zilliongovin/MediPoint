@@ -3,7 +3,6 @@ package com.djzass.medipoint.logic_manager;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 
 import com.djzass.medipoint.logic_database.AccountDAO;
 
@@ -11,6 +10,11 @@ import java.sql.SQLException;
 
 /**
  * Created by Shreyas on 3/24/2015.
+ *
+ * This class
+ * @author Shreyas
+ * @version 1.0
+ * @since 2015
  */
 public class SessionManager {
     // Shared Preferences

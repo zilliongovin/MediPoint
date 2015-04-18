@@ -46,7 +46,7 @@ public class AccountManager {
     /**
      * Create new Account by inserting Account object into Account table in the database
      * @param AccountDetails
-     * @param context
+     * @param context Current state of the Application
      * @return
      */
     public long createAccount(Bundle AccountDetails,Context context){
@@ -157,38 +157,84 @@ public class AccountManager {
         return new Account(id,username,password,name,nric,email,contact,gender,address,maritalStatus,dobCal,citizenship,countryOfResidence,isEmail,isSMS);
     }
 
+    /**
+     * Get the cursor pointing to the Account tuple with the same NRIC
+     *
+     * @param nric
+     * @param context Current state of the Application
+     * @return cursor pointing to the tuple that contains NRIC
+     */
     public Cursor findAccount(String nric, Context context){
         updateAccountDao(context);
         Cursor cursor = accountDao.checkAccount(nric);
         return cursor.getCount()>0? cursor:null;
     }
 
+    /**
+     * Authenticate the username and password during login
+     *
+     * @param username
+     * @param password
+     * @param context Current state of the Application
+     * @return boolean value, true if Authentication is successful, and false otherwise.
+     */
     public boolean authenticate(String username,String password, Context context){
         updateAccountDao(context);
         int numUsers = accountDao.onLogin(username,password);
         return numUsers>0? true:false;
     }
 
+    /**
+     * Get the cursor pointing to the Account with the same nric
+     * @param nric
+     * @return the cursor if the Account with the same nric exist, null otherwise.
+     */
     public Cursor findAccount(String nric){
         Cursor cursor = accountDao.checkAccount(nric);
         return cursor.getCount()>0? cursor:null;
     }
 
+    /**
+     * Authenticate the username and password during login
+     *
+     * @param username
+     * @param password
+     * @return boolean value, true if Authentication is successful, and false otherwise.
+     */
     public boolean authenticate(String username,String password){
         int numUsers = accountDao.onLogin(username,password);
         return numUsers>0? true:false;
     }
 
+    /**
+     * Return the number of username with the same username in the database
+     * @param username
+     * @param context Current state of the Application
+     * @return number of username exist in the database
+     *
+     */
     public int checkUsername(String username, Context context){
         updateAccountDao(context);
         return accountDao.checkUsername(username);
     }
 
+    /**
+     * Return cursor pointing to the Account with the same username
+     * @param username
+     * @param context Current state of the Application
+     * @return cursor pointing to the Account with the same username
+     */
     public Cursor findAccountId(String username, Context context){
         updateAccountDao(context);
         return accountDao.findAccountId(username);
     }
 
+    /**
+     * Return cursor pointing to the Account tuple with the same id
+     * @param id
+     * @param context
+     * @return cursor pointing to the Account with the same id
+     */
     public Cursor getAccountCursorById(long id, Context context){
         updateAccountDao(context);
         return accountDao.getAccountById(id);

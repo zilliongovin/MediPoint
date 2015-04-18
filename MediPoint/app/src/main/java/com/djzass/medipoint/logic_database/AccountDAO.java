@@ -262,10 +262,9 @@ public class AccountDAO extends DbDAO{
     }
 
     /**
-     *
      * @param username
      * @param password
-     * @return
+     * @return Number of rows the cursor points to
      */
     public int onLogin(String username,String password){
         String[] selArgs = {username,password};
@@ -286,7 +285,7 @@ public class AccountDAO extends DbDAO{
     /**
      *
      * @param username
-     * @return
+     * @return number of usernames exist in database
      */
     public int checkUsername(String username){
         String[] selArgs = {username};
