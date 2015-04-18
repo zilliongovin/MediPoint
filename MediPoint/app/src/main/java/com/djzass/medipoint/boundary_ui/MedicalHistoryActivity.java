@@ -26,15 +26,33 @@ import java.util.Calendar;
 
 
 public class MedicalHistoryActivity extends Activity {
-    //Personal History
+    /**
+     * dental info
+     */
     String dentalInfo = "";
-    String ENTInfo = "";
-    String genitalInfo = "";
-    String otherInfo = "";
-    String allergyInfo = "";
 
-    //medical history
+    /**
+     * ear nose throat info
+     */
+    String ENTInfo = "";
+
+    /**
+     * genital urinary system info
+     */
+    String genitalInfo = "";
+
+    /**
+     * other info
+     */
+    String otherInfo = "";
+
+    /**
+     * medical history
+     * include dental, ENT, genital urinary system, and other
+     */
     String medicalHistory = "";
+
+    String allergyInfo = "";
 
     //Ongoing Treatment
     String ongoingTreatment = "";

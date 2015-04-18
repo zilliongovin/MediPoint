@@ -13,11 +13,23 @@ import java.util.List;
 
 /**
  * Created by Deka on 28/3/2015.
+ * Service class database helper
  */
 public class ServiceDAO extends DbDAO{
+
+    /**
+     * service prefix
+     */
     public static final String SERVICE_WITH_PREFIX = "ser.";
+
+    /**
+     * specialty prefix
+     */
     public static final String SPECIALTY_WITH_PREFIX = "spec.";
 
+    /**
+     * database query for comparing id
+     */
     private static final String WHERE_ID_EQUALS = DbContract.ServiceEntry.COLUMN_NAME_SERVICE_ID
             + " =?";
 
