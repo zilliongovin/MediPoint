@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by Ankur on 10/4/2015.
+ * Created by Joshua on 10/4/2015.
  * Specialty Manager is the logic manager for handling Specialty objects.
  *
  * @author Ankur
@@ -58,16 +58,6 @@ public class SpecialtyManager {
     }
 
     /**
-     * Get all Speciality Names by @param specialtyID
-     * @return speciality string
-     */
-    public String getSpecialtyNameByID(int specialtyId, Context context) {
-        updateSpecialtyDao(context);
-        List<Specialty> temp = specialtyDao.getSpecialtiesByID(specialtyId);
-        return temp.get(0).getName();
-    }
-
-    /**
      * insert @param specialty to database with context @param context   
      * @return row no, -1 if fail
      */
@@ -97,5 +87,13 @@ public class SpecialtyManager {
         long ret = specialtyDao.deleteSpecialty(specialty);
         updateSpecialtyDao(context);
         return ret;
+    }
+    /**
+     * Gets specialty name with id @param specialtyid
+     * @return String specialty name
+     */
+    public String getSpecialtyNameBySpecialtyId(int specialtyId, Context context) {
+        updateSpecialtyDao(context);
+        return specialtyDao.getSpecialtiesByID(specialtyId).get(0).getName();
     }
 }

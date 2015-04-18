@@ -48,9 +48,9 @@ public class ViewAppointmentActivity extends Activity {
         app = b.getParcelable("appObj");
 
         TextView specialtyName = (TextView) findViewById(R.id.viewSpecialty);
-        specialtyName.setText(Container.getAppointmentManager().getSpecialtyNameByAppointment(app,this));
+        specialtyName.setText(Container.getSpecialtyManager().getSpecialtyNameBySpecialtyId(app.getSpecialtyId(),this));
         TextView serviceName = (TextView) findViewById(R.id.viewService);
-        serviceName.setText(Container.getAppointmentManager().getServiceNameByAppointment(app, this));
+        serviceName.setText(Container.getServiceManager().getServiceNameByServiceID(app.getServiceId(), this));
         TextView appointmentStatus = (TextView) findViewById(R.id.viewStatus);
         appointmentStatus.setText(Container.getAppointmentManager().getStatus(app));
         TextView appointmentDate = (TextView) findViewById(R.id.viewDate);
@@ -58,13 +58,13 @@ public class ViewAppointmentActivity extends Activity {
         TextView appointmentTime = (TextView) findViewById(R.id.viewTime);
         appointmentTime.setText(app.getTimeString());
         TextView appointmentLocation = (TextView) findViewById(R.id.viewLocation);
-        appointmentLocation.setText(Container.getAppointmentManager().getClinicNameByAppointment(app, this));
+        appointmentLocation.setText(Container.getClinicManager().getClinicNameByClinicId(app.getClinicId(),this));
         TextView doctorName = (TextView) findViewById(R.id.viewDoctor);
-        doctorName.setText(Container.getAppointmentManager().getDoctorNameByAppointment(app, this));
+        doctorName.setText(Container.getDoctorManager().getDoctorNameByDoctorId(app.getDoctorId(),this));
         TextView preAppointmentActions = (TextView) findViewById(R.id.viewPreAppointmentActions);
         preAppointmentActions.setText(app.getPreAppointmentActions());
         ImageView specialtyIcon = (ImageView)findViewById(R.id.specialty_icon);
-        specialtyIcon.setImageResource(getImageId(Container.getAppointmentManager().getSpecialtyNameByAppointment(app,this)));
+        specialtyIcon.setImageResource(getImageId(Container.getSpecialtyManager().getSpecialtyNameBySpecialtyId(app.getSpecialtyId(),this)));
     }
 
     /**

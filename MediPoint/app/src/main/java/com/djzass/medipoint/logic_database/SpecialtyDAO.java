@@ -32,7 +32,7 @@ public class SpecialtyDAO extends DbDAO{
             + " =?";
 
     /**
-     * Speciality Databse helper constructor
+     * Speciality Database helper constructor
      * @param context Interface to global information about an application environment
      * @throws SQLException throw an SQLException
      */
@@ -77,7 +77,6 @@ public class SpecialtyDAO extends DbDAO{
 
         return specialties;
     }
-
 
     /**
      * Get a list of all the Specialities
@@ -143,9 +142,7 @@ public class SpecialtyDAO extends DbDAO{
     }
 
     /**
-     * initializing DB helper
-     * insert Specialities to be use in the app
-     * @see com.djzass.medipoint.entity.Specialty,com.djzass.medipoint.logic_database.DbHelper
+     * insert Specialities to be used in the app
      */
     private void initializeDAO(){
         if (getSpecialtyCount()==0){

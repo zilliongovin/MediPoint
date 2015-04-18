@@ -9,6 +9,14 @@ import java.util.Calendar;
 import java.lang.String;
 import java.util.Comparator;
 
+/**
+ * Created by Joshua on 20/3/2015.
+ *
+ * @author Joshua
+ * @since 2015
+ * @version 1.0
+ */
+
 public class Appointment implements Parcelable{
     private int appointmentId;
     private int patientId;

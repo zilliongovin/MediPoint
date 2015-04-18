@@ -11,6 +11,10 @@ import java.util.List;
 
 /**
  * Created by Joshua on 10/4/2015.
+ *
+ * @author Joshua
+ * @since 2015
+ * @version 1.0
  */
 public class DoctorScheduleManager {
     /**

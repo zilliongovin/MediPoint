@@ -3,7 +3,6 @@ package com.djzass.medipoint.boundary_ui;
 import android.app.FragmentManager;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -81,7 +80,7 @@ public class EditAppointmentActivity extends onDataPass implements AdapterView.O
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         dataAdapter.notifyDataSetChanged();
         specialtySpinnerCreate.setAdapter(dataAdapter);
-        specialtySpinnerCreate.setSelection(dataAdapter.getPosition(Container.getSpecialtyManager().getSpecialtyNameByID(app.getSpecialtyId(),this)));
+        specialtySpinnerCreate.setSelection(dataAdapter.getPosition(Container.getSpecialtyManager().getSpecialtyNameBySpecialtyId(app.getSpecialtyId(),this)));
         specialtySpinnerCreate.setOnItemSelectedListener(this);
 
         //country spinner and array adapter
@@ -169,7 +168,7 @@ public class EditAppointmentActivity extends onDataPass implements AdapterView.O
                 dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                 dataAdapter.notifyDataSetChanged();
                 serviceSpinnerCreate.setAdapter(dataAdapter);
-                serviceSpinnerCreate.setSelection(dataAdapter.getPosition(Container.getServiceManager().getServiceNameByID(app.getServiceId(),this)));
+                serviceSpinnerCreate.setSelection(dataAdapter.getPosition(Container.getServiceManager().getServiceNameByServiceID(app.getServiceId(), this)));
                 serviceSpinnerCreate.setOnItemSelectedListener(this);
                 this.serviceId = app.getServiceId();
 
@@ -182,7 +181,7 @@ public class EditAppointmentActivity extends onDataPass implements AdapterView.O
                 doctorDataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                 doctorDataAdapter.notifyDataSetChanged();
                 doctorSpinnerCreate.setAdapter(doctorDataAdapter);
-                doctorSpinnerCreate.setSelection(doctorDataAdapter.getPosition(Container.getDoctorManager().getDoctorById(app.getDoctorId(),this)));
+                doctorSpinnerCreate.setSelection(doctorDataAdapter.getPosition(Container.getDoctorManager().getDoctorNameByDoctorId(app.getDoctorId(), this)));
                 doctorSpinnerCreate.setOnItemSelectedListener(this);
 
                 break;
@@ -243,7 +242,7 @@ public class EditAppointmentActivity extends onDataPass implements AdapterView.O
                 doctorDataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                 doctorDataAdapter.notifyDataSetChanged();
                 doctorSpinnerCreate.setAdapter(doctorDataAdapter);
-                doctorSpinnerCreate.setSelection(doctorDataAdapter.getPosition(Container.getDoctorManager().getDoctorById(app.getDoctorId(),this)));
+                doctorSpinnerCreate.setSelection(doctorDataAdapter.getPosition(Container.getDoctorManager().getDoctorNameByDoctorId(app.getDoctorId(), this)));
                 doctorSpinnerCreate.setOnItemSelectedListener(this);
 
                 break;
@@ -269,7 +268,7 @@ public class EditAppointmentActivity extends onDataPass implements AdapterView.O
                 doctorDataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                 doctorDataAdapter.notifyDataSetChanged();
                 doctorSpinnerCreate.setAdapter(doctorDataAdapter);
-                doctorSpinnerCreate.setSelection(doctorDataAdapter.getPosition(Container.getDoctorManager().getDoctorById(app.getDoctorId(),this)));
+                doctorSpinnerCreate.setSelection(doctorDataAdapter.getPosition(Container.getDoctorManager().getDoctorNameByDoctorId(app.getDoctorId(), this)));
                 doctorSpinnerCreate.setOnItemSelectedListener(this);
 
                 break;
@@ -360,7 +359,7 @@ public class EditAppointmentActivity extends onDataPass implements AdapterView.O
                     AlarmSetter malarm = new AlarmSetter();
                     Account account = new Account();
                     try {
-                        account = Container.getAccountManager().getAccountById(sessionMgr.getAccountId(),this);
+                        account = Container.getAccountManager().getAccountById(sessionMgr.getAccountId(), this);
                     } catch (ParseException e) {
                         e.printStackTrace();
                     } catch (SQLException e) {

@@ -6,6 +6,10 @@ import android.os.Parcelable;
 /**
  * Created by Joshua on 25/3/2015.
  *
+ * @author Joshua
+ * @since 2015
+ * @version 1.0
+ *
  * This class represents time of day (hour/min) in form of integer (0..47)
  * 0 represents 0:00, 47 represents 23:30
  * Used to simplify things since the app calculates time in 30-min increments
