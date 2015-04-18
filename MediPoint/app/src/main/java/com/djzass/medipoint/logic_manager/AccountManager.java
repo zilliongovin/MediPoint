@@ -3,7 +3,6 @@ package com.djzass.medipoint.logic_manager;
 import android.content.Context;
 import android.database.Cursor;
 import android.os.Bundle;
-import android.widget.Toast;
 
 import com.djzass.medipoint.entity.Account;
 import com.djzass.medipoint.logic_database.AccountDAO;
