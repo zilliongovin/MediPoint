@@ -337,8 +337,6 @@ public class EditAppointmentActivity extends onDataPass implements AdapterView.O
         } else if (this.timeframe.getStartTime()<0){
             Toast.makeText(this, "Please select a time. ", Toast.LENGTH_SHORT).show();
         } else {
-            Log.d("Calapptdate",this.apptDate.toString());
-            Log.d("Calcurdate", currentDate.toString());
             this.apptDate.set(Calendar.HOUR_OF_DAY,(this.timeframe.getStartTime()/2));
             this.apptDate.set(Calendar.MINUTE,30*(this.timeframe.getStartTime()%2));
             if (this.apptDate.compareTo(currentDate)<0){
@@ -467,8 +465,7 @@ public class EditAppointmentActivity extends onDataPass implements AdapterView.O
     private ArrayList<String> getTimePickerItems() {
         ArrayList<String> availableSlots = new ArrayList<String>();
         //Toast.makeText(this, this.date.getTime().toString(), Toast.LENGTH_SHORT).show();
- 
-        Log.d("IDno", "" + this.serviceId);
+
         this.duration = Container.getServiceManager().getServiceDurationbyID(this.serviceId, this);
         List<Timeframe> temp = Container.getAppointmentManager().getAvailableTimeSlot(this.apptDate, this.patientId, this.doctorId, this.clinicId, 18, 42, duration, this);
 

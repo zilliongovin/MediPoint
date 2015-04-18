@@ -73,10 +73,6 @@ public class AppointmentManager {
         }
 
         for (Appointment temp : appointments) {
-            Log.d("Date", temp.getDate().toString() + " " + date.toString());
-            Log.d("DateYr", "" + temp.getDate().get(Calendar.YEAR) + " " + date.get(Calendar.YEAR));
-            Log.d("DateMth", "" + temp.getDate().get(Calendar.MONTH) + " " + date.get(Calendar.MONTH));
-            Log.d("DateDat", "" + temp.getDate().get(Calendar.DATE) + " " + date.get(Calendar.DATE));
             if ( temp.getDate().get(Calendar.YEAR) == date.get(Calendar.YEAR) &&
                  temp.getDate().get(Calendar.MONTH) == date.get(Calendar.MONTH) &&
                  temp.getDate().get(Calendar.DATE) == date.get(Calendar.DATE) &&
@@ -111,8 +107,6 @@ public class AppointmentManager {
 
     public List<Timeframe> getAvailableTimeSlot(Calendar date, int patient, int doctor, int clinic, int startTime, int endTime, int duration, Context context){
         updateAppointmentDao(context);
-
-        Log.d("Date", date.toString());
 
         ArrayList<Timeframe> availableTimeSlot = new ArrayList<Timeframe>();
         List<Boolean> availableTime = getTimeTable(date, patient, doctor, clinic, startTime, endTime, duration, context);
@@ -248,7 +242,6 @@ public class AppointmentManager {
     public long createAppointment(Appointment app, Context context){
         //insert to database
         // update arraylist of appointment appointments = getAppointmentFromDatabase()
-        Log.d("CalendarCreateInMngr",app.getDate().toString());
         updateAppointmentDao(context);
         long ret = appointmentDao.insertAppointment(app);
         appointments = getAppointments(context);
@@ -259,7 +252,6 @@ public class AppointmentManager {
         // update appointment according to its id in database
         // update arraylist of appointment appointments = getAppointmentFromDatabase()
         updateAppointmentDao(context);
-        Log.d("updateAppMngr",app.toString());
         long ret = appointmentDao.update(app);
         appointments = getAppointments(context);
         return ret;

@@ -111,8 +111,6 @@ public class DoctorScheduleDAO extends DbDAO{
                 WHERE_ID_EQUALS,
                 new String[] { String.valueOf(doctorSchedule.getId()) });
 
-        Log.d("Update Result:", "=" + result);
-
         return result;
     }
 

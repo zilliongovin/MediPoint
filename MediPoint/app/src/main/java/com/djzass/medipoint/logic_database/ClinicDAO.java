@@ -148,7 +148,6 @@ public class ClinicDAO extends DbDAO{
         long result = database.update(DbContract.ClinicEntry.TABLE_NAME, values,
                 WHERE_ID_EQUALS,
                 new String[] { String.valueOf(clinic.getId()) });
-        Log.d("Update Result:", "=" + result);
 
         return result;
     }

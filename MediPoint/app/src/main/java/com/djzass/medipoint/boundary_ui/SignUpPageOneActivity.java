@@ -164,7 +164,6 @@ public class SignUpPageOneActivity extends Activity {
     }
 
     public static boolean isValidNricChars(String nric) {
-        Log.d("Lol",nric);
         return(nric.matches("[a-zA-Z0-9]*")); //only alphanumeric
     }
 

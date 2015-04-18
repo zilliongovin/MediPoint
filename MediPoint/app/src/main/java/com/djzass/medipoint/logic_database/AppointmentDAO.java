@@ -39,7 +39,6 @@ public class AppointmentDAO extends DbDAO{
         values.put(DbContract.AppointmentEntry.COLUMN_NAME_DOCTOR_ID, appointment.getDoctorId());
         values.put(DbContract.AppointmentEntry.COLUMN_NAME_REFERRER_ID, appointment.getReferrerId());
        // values.put(DbContract.AppointmentEntry.COLUMN_NAME_DATE_TIME, appointment.getDateString());
-       Log.d("CalendarCreateC",appointment.getDate().toString());
 
         values.put(DbContract.AppointmentEntry.COLUMN_NAME_DATE_TIME, appointment.getDate().getTimeInMillis());
         values.put(DbContract.AppointmentEntry.COLUMN_NAME_SERVICE_ID, appointment.getServiceId());
@@ -81,18 +80,9 @@ public class AppointmentDAO extends DbDAO{
             appointment.setDoctorId(cursor.getInt(3));
             appointment.setReferrerId(cursor.getInt(4));
 
-            /*String temp = cursor.getString(5);
-            DateFormat dateformat = new SimpleDateFormat("yyyy-mm-dd");
-            Calendar cal  = Calendar.getInstance();
-            try {
-                cal.setTime(dateformat.parse(temp));
-            } catch (ParseException e) {
-                Log.d("AppointmentDAO", "Date parsing exception");
-            }*/
             Calendar cal = Calendar.getInstance();
             Long c = cursor.getLong(5);
             cal.setTimeInMillis(c);
-            Log.d("CalendarGetDAO",cal.toString());
 
             appointment.setDate(cal);
             appointment.setServiceId(cursor.getInt(6));
@@ -128,7 +118,6 @@ public class AppointmentDAO extends DbDAO{
      */
     public long update(Appointment appointment) {
         ContentValues values = new ContentValues();
-        Log.d("updateAppDAO",appointment.toString());
         values.put(DbContract.AppointmentEntry.COLUMN_NAME_CLINIC_ID, appointment.getClinicId());
         values.put(DbContract.AppointmentEntry.COLUMN_NAME_PATIENT_ID, appointment.getPatientId());
         values.put(DbContract.AppointmentEntry.COLUMN_NAME_DOCTOR_ID, appointment.getDoctorId());
@@ -139,9 +128,6 @@ public class AppointmentDAO extends DbDAO{
         values.put(DbContract.AppointmentEntry.COLUMN_NAME_PREAPPOINTMENT_ACTIONS, appointment.getPreAppointmentActions());
         values.put(DbContract.AppointmentEntry.COLUMN_NAME_START_TIME, appointment.getTimeframe().getStartTime());
         values.put(DbContract.AppointmentEntry.COLUMN_NAME_END_TIME, appointment.getTimeframe().getEndTime());
-
-        Log.d("updateAppDAOI",""+appointment.getId());
-        Log.d("updateAppDAOI",""+getAppointmentsByID(appointment.getId()).size());
 
         long result = database.update(DbContract.AppointmentEntry.TABLE_NAME, values,
                 WHERE_ID_EQUALS,
@@ -190,7 +176,6 @@ public class AppointmentDAO extends DbDAO{
         Cursor cursor = database.rawQuery(query, null);
         if(cursor!=null && cursor.moveToFirst())
             return cursor.getString(0);
-        Log.d("numOfRows", cursor.getCount()+"");
         if(cursor==null)
             Log.d("NullCursorApptdao", "Null Cursor");
         if(!cursor.moveToFirst())

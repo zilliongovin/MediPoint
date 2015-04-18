@@ -46,8 +46,6 @@ public class ViewAppointmentActivity extends Activity {
 
         Bundle b = getIntent().getExtras();
         app = b.getParcelable("appObj");
-        Log.d("ViewApp",app.getPreAppointmentActions());
-        Log.d("ViewService", Container.getServiceManager().getServicesByID(app.getServiceId(), this).get(0).print());
 
         TextView specialtyName = (TextView) findViewById(R.id.viewSpecialty);
         specialtyName.setText(Container.getAppointmentManager().getSpecialtyNameByAppointment(app,this));

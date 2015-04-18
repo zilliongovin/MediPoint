@@ -101,7 +101,6 @@ public class DoctorDAO extends DbDAO{
         long result = database.update(DbContract.DoctorEntry.TABLE_NAME, values,
                 WHERE_ID_EQUALS,
                 new String[] { String.valueOf(doctor.getDoctorId()) });
-        Log.d("Update Result:", "=" + result);
 
         return result;
     }

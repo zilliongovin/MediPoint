@@ -82,14 +82,6 @@ public class PatientDAO extends DbDAO{
             Patient patient= new Patient();
             patient.setPatientId(cursor.getInt(0));
 
-            /*String temp = cursor.getString(1);
-            DateFormat dateformat = new SimpleDateFormat("yyyy-MM-dd");
-            Calendar cal  = Calendar.getInstance();
-            try {
-                cal.setTime(dateformat.parse(temp));
-            } catch (ParseException e) {
-                Log.d("PatientDAO", "Date parsing exception");
-            }*/
             Calendar cal = Calendar.getInstance();
             Long c = cursor.getLong(1);
             cal.setTimeInMillis(c);
@@ -131,7 +123,6 @@ public class PatientDAO extends DbDAO{
         long result = database.update(DbContract.PatientEntry.TABLE_NAME, values,
                 WHERE_ID_EQUALS,
                 new String[] { String.valueOf(patient.getPatientId()) });
-        Log.d("Update Result:", "=" + result);
 
         return result;
     }

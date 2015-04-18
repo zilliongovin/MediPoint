@@ -117,7 +117,6 @@ public class AppointmentAdapter extends ArrayAdapter<Appointment> {
             viewHolder = (ViewHolder)convertView.getTag();
         }
 
-        Log.d("IDno", ""+appointment.getId());
         HashMap<String,String> appointmentDetails = getAppointmentDetails(appointment.getId());
 
         // Populate the data into the template view using the data object

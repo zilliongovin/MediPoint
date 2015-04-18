@@ -89,7 +89,6 @@ public class SpecialtyDAO extends DbDAO{
         long result = database.update(DbContract.SpecialtyEntry.TABLE_NAME, values,
                 WHERE_ID_EQUALS,
                 new String[] { String.valueOf(specialty.getId()) });
-        Log.d("Update Result:", "=" + result);
 
         return result;
     }
