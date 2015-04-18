@@ -9,7 +9,8 @@ package com.djzass.medipoint.logic_database;
  * @version 1.0
  * @since 2015
  *
- * @see com.djzass.medipoint.entity.Specialty,com.djzass.medipoint.logic_manager.SpecialtyManager
+ * @see com.djzass.medipoint.entity.Specialty,com.djzass.medipoint.logic_manager.SpecialtyManager,com.djzass.medipoint.logic_database.DbHelper,com.djzass.medipoint.logic_database.DbContract
+ *
  */
 
 import android.content.ContentValues;
@@ -126,28 +127,27 @@ public class SpecialtyDAO extends DbDAO{
 
     /**
      * Delete the Specialty object from Database
-     * @param specialty Se
-     * @return
+     * @param specialty Specialty object to be deleted
+     * @return int containing the result of deletion
      */
     public int deleteSpecialty(Specialty specialty) {
         return database.delete(DbContract.SpecialtyEntry.TABLE_NAME,
                 WHERE_ID_EQUALS, new String[] { specialty.getId() + "" });
     }
-    /*
-        LOAD
-        load the initial values of the specialties
-     */
-    public void loadSpecialties() {
-        List<Specialty> temp= getAllSpecialties();
-        for (Specialty tmp : temp) {
-            tmp.print();
-        }
-    }
 
+    /**
+     * Count the total number of tuples in Speciality Relation
+     * @return int containing the number of Specialities
+     */
     public int getSpecialtyCount(){
         return getAllSpecialties().size();
     }
 
+    /**
+     * initializing DB helper
+     * insert Specialities to be use in the app
+     * @see com.djzass.medipoint.entity.Specialty,com.djzass.medipoint.logic_database.DbHelper
+     */
     private void initializeDAO(){
         if (getSpecialtyCount()==0){
             insertSpecialty(new Specialty("ENT")); //0
