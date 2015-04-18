@@ -5,12 +5,32 @@ import android.os.Parcelable;
 
 /**
  * Created by Deka on 26/3/2015.
+ * Service class
  */
 public class Service implements Parcelable {
+    /**
+     * service id
+     */
     private int serviceId;
+
+    /**
+     * service specialty identifier
+     */
     private int specialtyId;
+
+    /**
+     * service name
+     */
     private String name;
+
+    /**
+     * service duration
+     */
     private int duration;
+
+    /**
+     * service preppointment action
+     */
     private String preAppointmentActions;
 
     /**

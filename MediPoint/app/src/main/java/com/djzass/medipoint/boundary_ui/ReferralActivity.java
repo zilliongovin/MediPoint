@@ -3,7 +3,6 @@ package com.djzass.medipoint.boundary_ui;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -14,11 +13,10 @@ import android.widget.Spinner;
 import com.djzass.medipoint.R;
 import com.djzass.medipoint.entity.Clinic;
 import com.djzass.medipoint.entity.Doctor;
-import com.djzass.medipoint.entity.Service;
 import com.djzass.medipoint.entity.Specialty;
 import com.djzass.medipoint.logic_manager.Container;
+import com.djzass.medipoint.logic_manager.SessionManager;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -86,6 +84,14 @@ public class ReferralActivity extends Activity implements AdapterView.OnItemSele
             return true;
         }
 
+        //logout menu item selected
+        else if (id == R.id.action_logout) {
+            SessionManager sessionManager = new SessionManager(this);
+            sessionManager.deleteLoginSession();
+            Intent intent = new Intent(this, LoginActivity.class);
+            startActivity(intent);
+            return true;
+        }
         return super.onOptionsItemSelected(item);
     }
 

@@ -11,41 +11,33 @@ import java.util.List;
 /**
  * Created by Deka on 6/4/2015.
  */
-
 public class TimePickerFragment extends DialogFragment{
     public static final String DATA = "items";
-
     public static final String SELECTED = "selected";
-
-/*
-    Button activityButton;
-        int viewID = getArguments().getInt("VIEW_ID");
-        activityButton = (Button)getActivity().findViewById(viewID);
-
-        //set dialog title
-        getDialog().setTitle("Timeslot");
-
-        return view;
-    }*/
-
     private SelectionListener listener;
 
-
+    /**
+     *
+     * @param activity
+     */
     @Override
     public void onAttach(Activity activity)
     {
         super.onAttach(activity);
 
-        try
-        {
+        try{
             this.listener = (SelectionListener)activity;
         }
-        catch ( ClassCastException oops )
-        {
-            oops.printStackTrace();
+        catch ( ClassCastException e ){
+            e.printStackTrace();
         }
     }
 
+    /**
+     *
+     * @param savedInstanceState
+     * @return
+     */
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState)
     {
@@ -65,6 +57,9 @@ public class TimePickerFragment extends DialogFragment{
         return dialog.create();
     }
 
+    /**
+     *
+     */
     class PositiveButtonClickListener implements DialogInterface.OnClickListener
     {
         @Override
@@ -74,33 +69,19 @@ public class TimePickerFragment extends DialogFragment{
         }
     }
 
+    /**
+     *
+     */
     DialogInterface.OnClickListener selectItemListener = new DialogInterface.OnClickListener()
     {
-
         @Override
         public void onClick(DialogInterface dialog, int which)
         {
-            // process
-            //get text from selected radio button
-            //if radio button is selected
-             /*if(selectedId != -1) {
-                CharSequence timeSelected = ((RadioButton)getView().findViewById(selectedId)).getText();
-                onDataPass activity = (onDataPass)getActivity();
-                activity.TimePickerFragmentToActivity(timeSelected,activityButton);
-
-
-                 //get button from create OR edit appointment layout
-                Button timefrag = (Button) getActivity().findViewById(R.id.timepicker);
-                timefrag.setText(timeSelected);
-                */
-
-            if ( listener != null )
-            {
+            if ( listener != null ){
                 listener.selectItem(which);
             }
             dialog.dismiss();
         }
-
     };
 }
 

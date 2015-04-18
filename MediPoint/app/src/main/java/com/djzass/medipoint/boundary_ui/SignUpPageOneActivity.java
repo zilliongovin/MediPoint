@@ -188,8 +188,7 @@ public class SignUpPageOneActivity extends Activity {
     }
     public static boolean isValidContactNoChars(String contactno) {
         return (contactno.matches("[0-9]*")); //only numeric,
-    }
-
+    } 
     public static boolean isValidContactNoLength(String contactno) {
         return(contactno.length()<=16 && contactno.length()>=4); //4<length<16
     }

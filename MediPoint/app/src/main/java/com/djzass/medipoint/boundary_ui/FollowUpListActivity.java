@@ -12,7 +12,6 @@ import android.widget.TextView;
 
 import com.djzass.medipoint.R;
 import com.djzass.medipoint.entity.Appointment;
-import com.djzass.medipoint.logic_manager.AppointmentManager;
 import com.djzass.medipoint.logic_manager.Container;
 import com.djzass.medipoint.logic_manager.SessionManager;
 
@@ -20,11 +19,30 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Calendar;
 
-
+/**
+ * This activity display the list of recent appointments of the patient within 30 days.
+ *
+ * @author Deka
+ * @version 1.0
+ * @since 2015
+ *
+ * @see android.app.Activity
+ */
 public class FollowUpListActivity extends Activity {
-
+    /**
+     * Stores the id of the patient
+     */
     private int patientId;
 
+    /**
+     * Called when the activity is starting. This is where most initialization done: calling
+     * setContentView(int) to inflate the activity's UI, using findViewById(int) to programmatically
+     * interact with widgets in the UI, retrieving patientId, and most recent appointment List.
+     *
+     * @param savedInstanceState If the activity is being re-initialized after previously being shut
+     *                           down then this Bundle contains the data it most recently supplied in
+     *                           onSaveInstanceState(Bundle). Otherwise it is null.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,13 +72,9 @@ public class FollowUpListActivity extends Activity {
                 @Override
                 public void onItemClick(AdapterView <?> parent, View view, int position, long id) {
                     Appointment app = (Appointment) parent.getAdapter().getItem(position);
-                    //Toast.makeText(getApplicationContext(), app.toString(), Toast.LENGTH_SHORT).show();
                     Intent in = new Intent(getApplicationContext(), CreateFollowUpActivity.class);
                     in.putExtra("appFollowUp", app);
                     startActivity(in);
-                        /*Toast.makeText(getApplicationContext(),
-                                "Click ListItem Number " + position, Toast.LENGTH_SHORT)
-                                .show();*/
                 }
             });
         }
@@ -69,16 +83,23 @@ public class FollowUpListActivity extends Activity {
         }
     }
 
-
-
-
+    /**
+     *
+     * @param menu
+     * @return
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_follow_up_list, menu);
+        getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
 
+    /**
+     *
+     * @param item
+     * @return
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
@@ -88,6 +109,15 @@ public class FollowUpListActivity extends Activity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            return true;
+        }
+
+        //logout menu item selected
+        else if(id==R.id.action_logout){
+            SessionManager sessionManager = new SessionManager(this);
+            sessionManager.deleteLoginSession();
+            Intent intent = new Intent(this,LoginActivity.class);
+            startActivity(intent);
             return true;
         }
 

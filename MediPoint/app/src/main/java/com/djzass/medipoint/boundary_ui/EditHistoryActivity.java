@@ -29,25 +29,48 @@ import java.util.List;
 
 public class EditHistoryActivity extends Activity {
 
-    //allergy info
+    /**
+     * an instance of allergy info
+     */
     String allergyInfo = "";
 
-    //medical history
+    /**
+     * an instance of medical history
+     */
     String medicalHistory = "";
 
-    //Ongoing Treatment
+    /**
+     * an instance of ongoing treatment
+     */
     String ongoingTreatment = "";
 
-    //Ongoing Medication
+    /**
+     * an instance of ongoing medication
+     */
     String ongoingMedication = "";
 
 
-    //DOB of user from intent
+    /**
+     * an instance of Calendar object
+     * contains DOB
+     */
     Calendar DOB = Calendar.getInstance();
 
+    /**
+     * an instance of patient id
+     */
     Long patientId;
+
+    /**
+     * an instance of list of patient
+     */
     List<Patient> patientList = new ArrayList<>();
 
+    /**
+     * Called when the activity is first created
+     * normal static set up: create views, bind data to lists, etc.
+     * @param savedInstanceState Bundle containing the activity's previously frozen state, if there was one
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -95,14 +118,23 @@ public class EditHistoryActivity extends Activity {
 
     }
 
-
+    /**
+     * specify the options menu for an activity
+     * @param menu menu resource provided in xml
+     * @return result
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_login, menu);
+        getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
 
+    /**
+     * an item is selected from the option menu
+     * @param item menu item selected
+     * @return result
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
@@ -115,11 +147,22 @@ public class EditHistoryActivity extends Activity {
             return true;
         }
 
+        //logout menu item selected
+        else if (id == R.id.action_logout) {
+            SessionManager sessionManager = new SessionManager(this);
+            sessionManager.deleteLoginSession();
+            Intent intent = new Intent(this, LoginActivity.class);
+            startActivity(intent);
+            return true;
+        }
         return super.onOptionsItemSelected(item);
     }
 
 
-    //checkbox listener
+    /**
+     * Checkbox listener
+     * @param view view of current activity
+     */
     public void onCheckboxClicked(View view){
 
         //define boolean checked
@@ -325,7 +368,11 @@ public class EditHistoryActivity extends Activity {
         }
     }
 
-    //method for submit button
+    /**
+     * submit button listener
+     * update Patient information
+     * @throws SQLException for safety reason while accessing database
+     */
     public void onSubmit() throws SQLException {
 
         //get edittext
@@ -377,6 +424,10 @@ public class EditHistoryActivity extends Activity {
         startActivity(intent);
     }
 
+    /**
+     * show all the information from database
+     * @param view Current activity view
+     */
     public void setChecked(View view){
         //check the box for existing information
         //dental info
@@ -492,6 +543,11 @@ public class EditHistoryActivity extends Activity {
 
     }
 
+    /**
+     * get substring after 'Other :'
+     * @param inp String input
+     * @return String object containing substring
+     */
     private String getOther(String inp){
         String[] lines = inp.split("\n");
         for (String s:lines){

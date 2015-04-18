@@ -9,15 +9,47 @@ import java.util.Calendar;
 
 /**
  * Created by Deka on 25/3/2015.
+ * Clinic class
  */
 public class Clinic implements Parcelable {
+    /**
+     * clinic id
+     */
     private int id;
+
+    /**
+     * clinic name
+     */
     private String name;
+
+    /**
+     * clinic address
+     */
     private String address;
+
+    /**
+     * clinic zipcode
+     */
     private int zipCode;
+
+    /**
+     * clinic tel number
+     */
     private int telNumber;
+
+    /**
+     * clinic faxnumber
+     */
     private int faxNumber;
+
+    /**
+     * clinic email
+     */
     private String email;
+
+    /**
+     * clinic country
+     */
     private String country;
 
     /**

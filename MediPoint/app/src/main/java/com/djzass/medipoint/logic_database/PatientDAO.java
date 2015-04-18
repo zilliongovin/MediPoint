@@ -12,7 +12,6 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Locale;
 
@@ -34,7 +33,7 @@ public class PatientDAO extends DbDAO{
     /*
     CREATE
      Inserting doctor schedule into doctor schedules table and return the row id if insertion successful,
-     otherwise -1 will be returned
+     otherwise \-1 will be returned
     IMPORTANT: For doctor & patient, ID is received in the passed object, not auto-increment
      */
     public long insertPatient(Patient patient){
@@ -162,7 +161,6 @@ public class PatientDAO extends DbDAO{
 
     private void initializeDAO(){
         if (getPatientCount()==0){
-
         }
     }
 }

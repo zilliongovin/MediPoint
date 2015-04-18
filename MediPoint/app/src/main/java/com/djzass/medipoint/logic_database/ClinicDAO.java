@@ -13,11 +13,23 @@ import java.util.List;
 
 /**
  * Created by Deka on 27/3/2015.
+ * Clinic database helper
  */
 public class ClinicDAO extends DbDAO{
+    /**
+     * database query for comparing id
+     */
     private static final String WHERE_ID_EQUALS = DbContract.ClinicEntry.COLUMN_NAME_CLINIC_ID
             + " =?";
+
+    /**
+     * clinic prefix
+     */
     public static final String CLINIC_PREFIX = "clinic.";
+
+    /**
+     * country prefix
+     */
     public static final String COUNTRY_PREFIX = "country.";
 
     /**
