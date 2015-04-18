@@ -35,15 +35,54 @@ import java.util.List;
  */
 public class EditAppointmentActivity extends onDataPass implements AdapterView.OnItemSelectedListener, SelectionListener {
 
+    //appointment atrribute selections
+    /**
+     * Clininc Id for the appointment being edited
+     */
     int clinicId;
+
+    /**
+     * Patient ID is the ID of patient booking the appointment
+     */
     int patientId;
+
+    /**
+     * ID of the doctor for the appointment being edited
+     */
     int doctorId;
-    Calendar apptDate = Calendar.getInstance();
-    int serviceId;
-    int specialtyId;
-    int duration;
+
+    /**
+     * Store ID of the referring doctor if appointment is a referral
+     */
     int referrerId;
+
+    /**
+     * date for the appointment being edited
+     */
+    Calendar apptDate = Calendar.getInstance();
+
+    /**
+     * service ID for the appointment being edited
+     */
+    int serviceId;
+
+    /**
+     * specialty ID for the appointment being edited
+     */
+    int specialtyId;
+
+    /**
+     * Slot duration for the appointment being edited
+     */
+    int duration;
+
+    /**
+     * Pre Appointment actions for the appointment being edited
+     */
     String preAppointmentActions;
+    /**
+     * Timeframe actions for the appointment being edited
+     */
     Timeframe timeframe;
 
     //Spinner
@@ -56,8 +95,16 @@ public class EditAppointmentActivity extends onDataPass implements AdapterView.O
     Button confirmButton;
     Button cancelButton;
     Appointment app;
-
-
+ 
+    /**
+     * Called when the activity is starting. This is where most initialization is done: calling
+     * setContentView(int) to inflate the activity's UI, using findViewById(int) to programmatically
+     * interact with widgets in the UI.
+     *
+     * @param savedInstanceState  If the activity is being re-initialized after previously being shut
+     *                           down then this Bundle contains the data it most recently supplied in
+     *                           onSaveInstanceState(Bundle). Otherwise it is null.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
