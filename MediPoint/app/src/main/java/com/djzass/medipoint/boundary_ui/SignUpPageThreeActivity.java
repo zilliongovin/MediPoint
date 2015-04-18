@@ -174,7 +174,7 @@ public class SignUpPageThreeActivity extends Activity {
     }
 
     public static boolean isValidUsernameChars(String username) {
-        return (username.matches("^.*[a-zA-Z0-9].*$")); //only alphanumeric
+        return (username.matches("[a-zA-Z0-9]*")); //only alphanumeric
     }
 
     public static boolean isValidUsernameLength(String username) {
