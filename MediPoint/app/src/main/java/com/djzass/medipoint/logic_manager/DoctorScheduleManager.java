@@ -36,6 +36,7 @@ public class DoctorScheduleManager {
 
     /**
      * Re-initializes the DoctorScheduleDAO with the given context
+     * @param context Application context
      */
     private void updateDoctorScheduleDao(Context context){
         try {
@@ -47,6 +48,7 @@ public class DoctorScheduleManager {
 
     /**
      * Get all DoctorSchedules
+     * @param context Application context
      * @return List of doctorSchedule objects
      */
     public List<DoctorSchedule> getDoctorSchedules(Context context){
@@ -57,6 +59,7 @@ public class DoctorScheduleManager {
     /**
      * Get list of DoctorSchedule by DoctorScheduleID
      * @param id DoctorSchedule ID
+     * @param context Application context
      * @return List of DoctorSchedule Objects
      */
     public List<DoctorSchedule> getDoctorSchedulesByID(int id, Context context) {
@@ -67,6 +70,7 @@ public class DoctorScheduleManager {
     /**
      * Get list of DoctorSchedule by DoctorID
      * @param doctorId DoctorID
+     * @param context Application context
      * @return List of DoctorSchedule Objects
      */
     public List<DoctorSchedule> getDoctorSchedulesByDoctorID(int doctorId, Context context) {
@@ -77,6 +81,7 @@ public class DoctorScheduleManager {
     /**
      * Get list of DoctorSchedule by ClinicID
      * @param clinicId clinicID
+     * @param context Application context
      * @return List of DoctorSchedule Objects
      */
     public List<DoctorSchedule> getDoctorSchedulesByClinicID(int clinicId, Context context) {
@@ -88,6 +93,7 @@ public class DoctorScheduleManager {
      * Get list of DoctorSchedule by DoctorID and ClinicID
      * @param doctorId DoctorID
      * @param clinicId clinicID
+     * @param context Application context
      * @return List of DoctorSchedule Objects
      */
     public List<DoctorSchedule> getDoctorSchedulesByDoctorClinicID(int doctorId, int clinicId, Context context) {
@@ -96,7 +102,9 @@ public class DoctorScheduleManager {
     }
 
     /**
-     * insert @param doctorSchedule to database with context @param context   
+     * insert doctorSchedule to database with context context
+     * @param doctorSchedule doctorSchedule
+     * @param context Application context
      * @return row no, -1 if fail
      */
     public long createDoctorSchedule(DoctorSchedule doctorSchedule, Context context){
@@ -106,7 +114,9 @@ public class DoctorScheduleManager {
     }
 
     /**
-     * edit @param doctorSchedule in database based on id with context @param context   
+     * edit doctorschedule in database based on id with context context
+     * @param doctorSchedule doctorSchedule
+     * @param context Application context
      * @return row no, -1 if fail
      */
     public long editDoctorSchedule(DoctorSchedule doctorSchedule, Context context){
@@ -117,7 +127,9 @@ public class DoctorScheduleManager {
     }
 
     /**
-     * delete @param doctorSchedule in database based on id with context @param context   
+     * delete doctorSchedule in database based on id with context context
+     * @param doctorSchedule doctorSchedule
+     * @param context Application context
      * @return row no, -1 if fail
      */
     public long cancelDoctorSchedule(DoctorSchedule doctorSchedule, Context context){
