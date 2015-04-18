@@ -13,19 +13,39 @@ import java.util.List;
 
 /**
  * Created by Deka on 27/3/2015.
+ * Clinic database helper
  */
 public class ClinicDAO extends DbDAO{
+    /**
+     * database query for comparing id
+     */
     private static final String WHERE_ID_EQUALS = DbContract.ClinicEntry.COLUMN_NAME_CLINIC_ID
             + " =?";
+
+    /**
+     * clinic prefix
+     */
     public static final String CLINIC_PREFIX = "clinic.";
+
+    /**
+     * country prefix
+     */
     public static final String COUNTRY_PREFIX = "country.";
 
+    /**
+     * Clinic Database helper constructor
+     * @param context Interface to global information about an application environment
+     * @throws SQLException throw an SQLException
+     */
     public ClinicDAO(Context context) throws SQLException {
         super(context);
         initializeDAO();
     }
 
-    /*  CREATE
+    /**
+     * insert Object Clinic to DB
+     * @param clinic Clinic Object to be stored to DB
+     * @return Long object containing info about the status of DB insertion
      */
     public long insertClinic(Clinic clinic){
         ContentValues values = new ContentValues();
@@ -42,7 +62,10 @@ public class ClinicDAO extends DbDAO{
         return database.insert(DbContract.ClinicEntry.TABLE_NAME, null, values);
     }
 
-    /*  READ
+    /**
+     * get a List of a specific Clinic
+     * @param whereclause String object containing where to find the Clinic
+     * @return List containing Clinic object
      */
     public List<Clinic> getClinics(String whereclause) {
         List<Clinic> clinics = new ArrayList<Clinic>();
@@ -75,28 +98,48 @@ public class ClinicDAO extends DbDAO{
         return clinics;
     }
 
+    /**
+     * get a List of all Clinic
+     * @return List containing Clinic object
+     */
     public List<Clinic> getAllClinics() {
         return getClinics(null);
     }
 
+    /**
+     * get Clinic using the id
+     * @param id int object containg the Id of the Clinic
+     * @return List of Clinic object
+     */
     public List<Clinic> getClinicsByID(int id) {
         String whereclause = DbContract.ClinicEntry.COLUMN_NAME_CLINIC_ID + " = " + id;
         return getClinics(whereclause);
     }
 
+    /**
+     * get Clinic using the Country
+     * @param country String object containg the country of the Clinic
+     * @return List of Clinic object
+     */
     public List<Clinic> getClinicsByCountry(String country) {
         String whereclause = DbContract.ClinicEntry.COLUMN_NAME_COUNTRY + " = " + "\"" +country + "\"";
         return getClinics(whereclause);
     }
 
+    /**
+     * get Clinic using the name
+     * @param name int object containg the name of the Clinic
+     * @return List of Clinic object
+     */
     public List<Clinic> getClinicsByName(String name) {
         String whereclause = DbContract.ClinicEntry.COLUMN_NAME_CLINIC_NAME + " = " + "\"" +name + "\"";
         return getClinics(whereclause);
     }
 
-    /*
-        UPDATE
-        returns the number of rows affected by the update
+    /**
+     * Change the info of the Clinic
+     * @param clinic Clinic Object to be updated to DB
+     * @return Long containing the result of updating
      */
     public long update(Clinic clinic) {
         ContentValues values = new ContentValues();
@@ -110,19 +153,19 @@ public class ClinicDAO extends DbDAO{
         return result;
     }
 
-    /*
-        DELETE
-        returns the number of rows affected if a whereClause is passed in, 0 otherwise
-    */
+    /**
+     * Delete the Clinic from DB
+     * @param clinic Clinic Object to be deleted from DB
+     * @return int containing the result of deleting
+     */
     public int deleteClinic(Clinic clinic) {
         return database.delete(DbContract.ClinicEntry.TABLE_NAME,
                 WHERE_ID_EQUALS, new String[] { clinic.getId() + "" });
     }
 
-
-    /*
-        LOAD
-    */
+    /**
+     * print all the available Clinic
+     */
     public void loadClinics() {
         List<Clinic> temp= getAllClinics();
         for (Clinic tmp : temp) {
@@ -130,12 +173,18 @@ public class ClinicDAO extends DbDAO{
         }
     }
 
-
-
+    /**
+     * count the number of rows in Clinic table in DB
+     * @return int object containing the number of Clinic
+     */
     public int getClinicCount(){
         return getAllClinics().size();
     }
 
+    /**
+     * initializing DB helper
+     * insert Clinic to be used in the app
+     */
     private void initializeDAO(){
         if (getAllClinics().size()==0){
           insertClinic(new Clinic("DjZass Boonlay Care", "Boonlay Way 123", "Singapore", 612345, 655512, 655513, "djzass.boonlay@medipoint.com"));

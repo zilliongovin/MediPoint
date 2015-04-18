@@ -14,8 +14,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.djzass.medipoint.R;
+import com.djzass.medipoint.entity.Account;
 import com.djzass.medipoint.entity.Appointment;
+import com.djzass.medipoint.logic_manager.AlarmSetter;
 import com.djzass.medipoint.logic_manager.Container;
+import com.djzass.medipoint.logic_manager.SessionManager;
+
+import java.sql.SQLException;
+import java.text.ParseException;
 
 /**
  * Created by Deka on 4/4/2015.
@@ -105,13 +111,29 @@ public class ViewAppointmentActivity extends Activity {
         diaBox.show();
     }
 
+
     /**
      *
      */
     private void performDelete(){
         Container.getAppointmentManager().cancelAppointment(app, this);
+
+        SessionManager sessionMgr = new SessionManager(this);
+        long accountId = 0;
+        try {
+            accountId = sessionMgr.getAccountId();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        Account account = new Account();
+        try {
+            account = Container.getAccountManager().getAccountById(accountId,this);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
         AlarmSetter mAlarm = new AlarmSetter();
-        mAlarm.cancelAlarm(getApplicationContext(),app);
+        mAlarm.cancelAlarm(getApplicationContext(),app,account);
         Toast.makeText(this, "Appointment deleted", Toast.LENGTH_SHORT).show();
         Intent in = new Intent(this, MainActivity.class);
         startActivity(in);
@@ -129,20 +151,6 @@ public class ViewAppointmentActivity extends Activity {
         return true;
     }
 
-    /**
-     *
-     */
-    public void cancelAppointment(){
-        Appointment appointment = new Appointment();
-        AlarmSetter malarm = new AlarmSetter();
-        malarm.cancelAlarm(this,appointment);
-    }
-
-    /**
-     *
-     * @param item
-     * @return
-     */
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         switch (id) {
@@ -166,7 +174,7 @@ public class ViewAppointmentActivity extends Activity {
                 .setMessage("Are you sure you want to delete this appointment?")
 
                 .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int whichButton) {
+                    public void onClick(DialogInterface dialog, int whichButton){
                         //your deleting code
                         performDelete();
                         dialog.dismiss();

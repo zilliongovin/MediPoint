@@ -1,4 +1,4 @@
-package com.djzass.medipoint.boundary_ui;
+package com.djzass.medipoint.entity;
 
 
 import android.app.PendingIntent;
@@ -11,7 +11,7 @@ import android.telephony.SmsManager;
 import java.util.ArrayList;
 
 /**
- * Created by Z480 on 3/30/2015.
+ * Created by Stefan on 3/30/2015.
  */
 public class SMS {
     private static final String SMS_SENT="Message Sent";

@@ -1,19 +1,9 @@
-package com.djzass.medipoint.boundary_ui;
+package com.djzass.medipoint.entity;
 
-import android.app.Activity;
-import android.app.AlarmManager;
-import android.app.PendingIntent;
-import android.app.ProgressDialog;
-import android.content.BroadcastReceiver;
-import android.content.Context;
-import android.content.Intent;
+
 import android.os.AsyncTask;
-import android.os.Bundle;
-import android.os.PowerManager;
-
 import java.io.UnsupportedEncodingException;
 import java.util.Properties;
-
 import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.PasswordAuthentication;
@@ -24,12 +14,11 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
 /**
- * Created by Z480 on 3/29/2015.
+ * Created by Stefan on 3/29/2015.
  */
 public class Email{
     private static final String username = "djzass15@gmail.com";
     private static final String password = "medipoint";
-    private String email,messageBody;
 
     public void sendMail(String email,String messageBody) {
         Session session = createSessionObject();
