@@ -2,12 +2,35 @@ package com.djzass.medipoint.logic_database;
 
 import android.provider.BaseColumns;
 
+/**
+ *  This is container for constants that define names for URIs, tables, and columns and made global
+ *  hence available across all the other classes within the same package.
+ *
+ *  The inner class for each table is then created to enumerates its columns. There are seven tables in total,
+ *  they are:
+ *  <ol>
+ *      <li>AccountEntry</li>
+ *      <li>AppointmentEntry</li>
+ *      <li>ClinicEntry</li>
+ *      <li>SpecialtyEntry</li>
+ *      <li>DoctorEntry</li>
+ *      <li>DoctorScheduleEntry</li>
+ *      <li>ServiceEntry</li>
+ *      <li>PatientEntry</li>
+ *  </ol>
+ *
+ *  @author Deka
+ *  @since 2015
+ *  @version 1.0
+ *
+ *  @see android.provider.BaseColumns
+ */
 public class DbContract {
     // To prevent someone from accidentally instantiating the contract class,
     // give it an empty constructor.
     public DbContract() {}
 
-    /* Inner class that defines the table contents */
+    /* AccountEntry class defines the Account table contents */
     public static abstract class AccountEntry implements BaseColumns {
         public static final String TABLE_NAME = "account";
         public static final String COLUMN_NAME_ACCOUNT_ID = "accountId";
@@ -25,9 +48,9 @@ public class DbContract {
         public static final String COLUMN_NAME_PASSWORD = "password";
         public static final String COLUMN_NAME_NOTIFY_SMS = "notifySms";
         public static final String COLUMN_NAME_NOTIFY_EMAIL = "notifyEmail";
-
     }
 
+    /* AppointmentEntry class defines the Appointment table contents */
     public static abstract class AppointmentEntry implements BaseColumns {
         public static final String TABLE_NAME = "appointment";
         public static final String COLUMN_NAME_APPOINTMENT_ID = "appointmentId";
@@ -43,6 +66,7 @@ public class DbContract {
         public static final String COLUMN_NAME_END_TIME = "endTime";
     }
 
+    /* ClinicEntry class defines the Clinic table contents */
     public static abstract class ClinicEntry implements BaseColumns {
         public static final String TABLE_NAME = "clinic";
         public static final String COLUMN_NAME_CLINIC_ID = "clinicId";
@@ -55,12 +79,14 @@ public class DbContract {
         public static final String COLUMN_NAME_EMAIL = "email";
     }
 
+    /* SpecialtyEntry class defines the Specialty table contents */
     public static abstract class SpecialtyEntry implements BaseColumns{
         public static final String TABLE_NAME = "specialty";
         public static final String COLUMN_NAME_SPECIALTY_ID = "specialtyId";
         public static final String COLUMN_NAME_SPECIALTY_NAME = "specialtyName";
     }
 
+    /* DoctorEntry class defines the Doctor table contents */
     public static abstract class DoctorEntry implements BaseColumns{
         public static final String TABLE_NAME = "doctor";
         public static final String COLUMN_NAME_DOCTOR_ID = "doctorId";
@@ -70,6 +96,7 @@ public class DbContract {
         public static final String COLUMN_NAME_CLINIC_ID = "clinicId";
     }
 
+    /* DoctorScheduleEntry class defines the DoctorSchedule table contents */
     public static abstract class DoctorScheduleEntry implements BaseColumns{
         public static final String TABLE_NAME = "doctorSchedule";
         public static final String COLUMN_NAME_DOCTOR_SCHEDULE_ID = "doctorScheduleId";
@@ -80,6 +107,7 @@ public class DbContract {
         public static final String COLUMN_NAME_END_TIME = "endTime";
     }
 
+    /* ServiceEntry class defines the Service table contents */
     public static abstract class ServiceEntry implements BaseColumns{
         public static final String TABLE_NAME = "service";
         public static final String COLUMN_NAME_SERVICE_ID = "serviceId";
@@ -89,6 +117,7 @@ public class DbContract {
         public static final String COLUMN_NAME_PREAPPOINTMENT_ACTIONS = "preAppointmentActions";
     }
 
+    /* PatientEntry class defines the Patient table contents */
     public static abstract class PatientEntry implements BaseColumns{
         public static final String TABLE_NAME = "patient";
         public static final String COLUMN_NAME_PATIENT_ID = "patientId";
@@ -98,7 +127,6 @@ public class DbContract {
         public static final String COLUMN_NAME_ALLERGIES = "allergies";
         public static final String COLUMN_NAME_TREATMENTS = "treatments";
         public static final String COLUMN_NAME_MEDICATIONS = "medications";
-
     }
 
 }

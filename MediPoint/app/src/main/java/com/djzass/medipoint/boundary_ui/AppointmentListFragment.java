@@ -20,8 +20,11 @@ import com.djzass.medipoint.logic_manager.SessionManager;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+
 /**
  * Created by Deka on 4/4/2015.
+ *
+ * This fragment display the list of appointments of the patient sorted by date in descending order.
  *
  * @author Deka
  * @version 1.0
@@ -31,17 +34,23 @@ import java.util.ArrayList;
  */
 public class AppointmentListFragment extends Fragment implements ActionBar.OnNavigationListener{
     /**
+     * Display dropdown spinners for different appointment types creation.
      *
      */
     Spinner buttonSpinner;
-    private ActionBar actionBar;
-    private ArrayList<SpinnerNavItem> navSpinner;
+    /**
+     * Contains the appointments that the patient have
+     */
     ArrayList<Appointment> appointments;
+
+    /**
+     * Stores the patientId
+     */
     private int patientId;
 
     /**
-     *
-     * @return
+     * Gets and creates a new instance of a Fragment with the given class name
+     * @return the new instance of the Fragment
      */
     public static AppointmentListFragment newInstance() {
         AppointmentListFragment fragment = new AppointmentListFragment();
@@ -49,35 +58,44 @@ public class AppointmentListFragment extends Fragment implements ActionBar.OnNav
     }
 
     /**
+     * Called when the activity is starting, perform initialization including retrieving the patientId and list
+     * of appointments that this patient have.
      *
-     * @param savedInstanceState
+     * @param savedInstanceState If the activity is being re-initialized after previously being shut down
+     *                           then this Bundle contains the data it most recently supplied in
+     *                           onSaveInstanceState(Bundle). Otherwise it is null.
      */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        //appointments = new ArrayList<AppointmentDummy>();
         appointments = new ArrayList<Appointment>();
+
+        //Gets the patient Id
         SessionManager sessionManager = new SessionManager(getActivity());
         try {
             this.patientId = (int)sessionManager.getAccountId();
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
+        //Gets the appointments of this patients
         appointments = (ArrayList<Appointment>) Container.getAppointmentManager().getPatientAppointmentList(this.patientId, this.getActivity());
+
+        //Sort the appointment according to the date in descending order
         appointments = (ArrayList<Appointment>) Container.getAppointmentManager().sortByDate(appointments);
     }
 
     /**
+     * Called whenever a navigation item in action bar is selected.
+     * @param position Position of the item clicked
+     * @param id ID of the item clicked
+     * @return True if the event was handled, false otherwise
      *
-     * @param position
-     * @param id
-     * @return
      */
     @Override
     public boolean onNavigationItemSelected(int position, long id) {
-        // When the given dropdown item is selected, show its contents in the
-        // container view.
+        // When the given dropdown item is selected, show its contents in the container view.
         switch (position){
             case 0:
                 Intent appIntent = new Intent(getActivity().getApplicationContext(),CreateAppointmentActivity.class);
@@ -97,11 +115,13 @@ public class AppointmentListFragment extends Fragment implements ActionBar.OnNav
     }
 
     /**
+     * Creates and returns the view hierarchy associated with the fragment.
      *
-     * @param inflater
-     * @param container
-     * @param savedInstanceState
-     * @return
+     * @param inflater  the LayoutInflater object that can be used to inflate any views in the fragment
+     * @param container if non-null, this is the parent view that the fragment's UI should be attached to.
+     * The fragment should not add the view itself, but this can be used to generate the LayoutParams of the view.
+     * @param savedInstanceState If non-null, this fragment is being re-constructed from a previous saved state as given here
+     * @return Return the View for the fragment's UI, or null.
      */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -140,7 +160,7 @@ public class AppointmentListFragment extends Fragment implements ActionBar.OnNav
             tv.setVisibility(view.VISIBLE);
         }
 
-        //create appointment referral followup button
+        //Display the dropdown items for create appointment, referral and follow up activity
         buttonSpinner= (Spinner) view.findViewById(R.id.buttonSpinner);
         ArrayAdapter adapter = ArrayAdapter.createFromResource(this.getActivity(),R.array.create_new, android.R.layout.simple_spinner_dropdown_item);
 
@@ -178,7 +198,7 @@ public class AppointmentListFragment extends Fragment implements ActionBar.OnNav
     }
 
     /**
-     *
+     * Starts create appointment activity
      */
     public void goToCreateAppointment()
     {
@@ -187,7 +207,7 @@ public class AppointmentListFragment extends Fragment implements ActionBar.OnNav
     }
 
     /**
-     *
+     *  Starts referral activity
      */
     public void goToCreateReferral()
     {
@@ -196,12 +216,11 @@ public class AppointmentListFragment extends Fragment implements ActionBar.OnNav
     }
 
     /**
-     *
+     * Starts follow up appointment list activity
      */
     public void goToCreateFollowUp()
     {
         Intent intent = new Intent(getActivity(), FollowUpListActivity.class);
         startActivity(intent);
     }
-
 }

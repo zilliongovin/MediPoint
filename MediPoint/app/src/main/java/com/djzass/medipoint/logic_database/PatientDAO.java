@@ -33,7 +33,7 @@ public class PatientDAO extends DbDAO{
     /*
     CREATE
      Inserting doctor schedule into doctor schedules table and return the row id if insertion successful,
-     otherwise -1 will be returned
+     otherwise \-1 will be returned
     IMPORTANT: For doctor & patient, ID is received in the passed object, not auto-increment
      */
     public long insertPatient(Patient patient){
