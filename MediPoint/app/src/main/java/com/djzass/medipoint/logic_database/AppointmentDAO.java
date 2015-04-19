@@ -117,7 +117,7 @@ public class AppointmentDAO extends DbDAO{
      * Get list of Appointment by AppointmentID
      * @param id Appointment ID
      * @return List of Appointment Objects
-     */
+    */
     public List<Appointment> getAppointmentsByID(int id) {
         String whereclause = DbContract.AppointmentEntry.COLUMN_NAME_APPOINTMENT_ID + " = " + id;
         return getAppointments(whereclause);

@@ -14,8 +14,14 @@ import com.djzass.medipoint.entity.SMS;
 import com.djzass.medipoint.logic_manager.Container;
 
 /**
+ * Created by Stefan on 3/30/2015.
+ */
+
+/**
  * Receives broadcasts from Alarm Manager for notification purpose (the type of notification depends on the user's choice).
- * @author Stefan Artaputra Indriawan
+ * @author Stefan Artaputra Indriawan.
+ * @version 1.
+ * @since 2015.
  */
 public class AlarmBroadcastReceiver extends BroadcastReceiver {
 
@@ -24,7 +30,8 @@ public class AlarmBroadcastReceiver extends BroadcastReceiver {
      *  defines what to do when an it receives the broadcast. It notifies the user through local notification when
      *  there is an appointment , then SMS, or/ and email depending on what the user chooses.
      *  @param context		{@link Context} object from which this method is called
-     * @param intent {@link Intent} object from which this method is called
+     * @param intent {@link Intent} object from which this method is called.
+     *@see android.content.BroadcastReceiver .
      */
     @Override
     public void onReceive(Context context, Intent intent) {

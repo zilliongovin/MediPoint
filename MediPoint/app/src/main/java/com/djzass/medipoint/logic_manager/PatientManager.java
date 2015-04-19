@@ -11,6 +11,13 @@ import java.util.List;
 /**
  * Created by Joshua on 10/4/2015.
  */
+
+/**
+ * manager for patient entity and activity which will used the patient entity.
+ * @author Stefan Artaputra Indriawan.
+ *@version 1.
+ * @since 2015.
+ */
 public class PatientManager {
 
     /**
@@ -29,8 +36,11 @@ public class PatientManager {
     public static PatientManager getInstance() {
         return instance;
     }
+
     /**
      * Re-initializes the PatientDAO with the given context
+     * @param context {@link Context} object from which the method is called.
+     * @exception  java.sql.SQLException avoid Database error
      */
     private void updatePatientDao(Context context){
             try {
@@ -39,18 +49,32 @@ public class PatientManager {
             e.printStackTrace();
         }
     }
+
+    /**
+     * Gets all patient.
+     * @return List<Patient> return the patient object in form of list.
+     * @param context {@link Context} object from which the method is called.
+     */
     public List<Patient> getPatients(Context context){
         updatePatientDao(context);
         return patientDao.getAllPatients();
     }
 
+    /**
+     * Gets patient with patient id
+     * @param patientid {@link java.lang.Integer} integer object used to obtain the list of the patient.
+     * @param context {@link Context} object from which the method is called.
+     * @return List<Patient>
+     */
     public List<Patient> getPatientsByID(int patientid,Context context) {
         updatePatientDao(context);
         return patientDao.getPatientById(patientid);
     }
 
     /**
-     * insert @param patient to database with context @param context   
+     * insert patient to database with context
+     * @param patient {@link com.djzass.medipoint.entity.Patient} object to be inserted into database.
+     * @param context {@link Context} object from which the method is called.
      * @return row no, -1 if fail
      */
     public long createPatient(Patient patient, Context context){
@@ -60,7 +84,9 @@ public class PatientManager {
     }
 
     /**
-     * edit @param patient in database based on id with context @param context   
+     * edit patient to database with context
+     * @param patient {@link com.djzass.medipoint.entity.Patient} object to be manipulated into database.
+     * @param context {@link Context} object from which the method is called.
      * @return row no, -1 if fail
      */
     public long editPatient(Patient patient, Context context){
@@ -71,7 +97,9 @@ public class PatientManager {
     }
 
     /**
-     * delete @param patient in database based on id with context @param context   
+     * delete patient in database based on id with context.
+     * @param patient {@link com.djzass.medipoint.entity.Doctor} object to be deleted from database.
+     * @param context {@link Context} object from which the method is called.
      * @return row no, -1 if fail
      */
     public long cancelPatient(Patient patient, Context context){

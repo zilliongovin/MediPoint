@@ -12,8 +12,14 @@ import java.util.Calendar;
 import java.util.TimeZone;
 
 /**
+ * Created by Stefan on 3/30/2015.
+ */
+
+/**
  * set reminder Alarm depending on the date of each appointment or cancel reminder Alarm.
- * @author Stefan Artaputra Indriawan
+ * @author Stefan Artaputra Indriawan.
+ *@version 1.
+ * @since 2015.
  */
 public class AlarmSetter {
     /**
@@ -22,6 +28,7 @@ public class AlarmSetter {
      * @param context		{@link Context} object from which this method is called
      * @param appointment	 {@link Appointment} object which will be passed to the {@link PendingIntent} object to be broadcasted by Alarm Manager.
      * @param account {@link Account} object which will also be passed to the {@link PendingIntent} object to be broadcasted by Alarm Manager.
+     * @see android.app.AlarmManager
      */
     public void setAlarm(Context context,Appointment appointment,Account account){
         // Intent to run when the alarm is broadcasted

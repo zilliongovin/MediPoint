@@ -14,11 +14,26 @@ import java.util.List;
 /**
  * Created by Deka on 26/3/2015.
  */
+
+/**
+ * contains the database of the doctor.
+ * @author Stefan Artaputra Indriawan.
+ *@version 1.
+ * @since 2015.
+ * @see com.djzass.medipoint.logic_database.DbDAO
+ */
 public class DoctorDAO extends DbDAO{
+
+    /**
+     * database query for comparing Doctor ID
+     */
     private static final String WHERE_ID_EQUALS = DbContract.DoctorEntry.COLUMN_NAME_DOCTOR_ID
             + " =?";
-    //private SpecialtyDAO specialtyDao;
 
+    /**
+     * Doctor Database helper constructor
+     * @param context {@link Context} Interface to global information about an application environment
+     */
     public DoctorDAO(Context context) throws SQLException {
         super(context);
         initializeDAO();
@@ -28,6 +43,11 @@ public class DoctorDAO extends DbDAO{
     Inserting doctor into doctors table and return the row id if insertion successful,
     otherwise -1 will be returned
     IMPORTANT: For doctor & patient, ID is received in the passed object, not auto-increment
+     */
+    /**
+     * insert Object Doctor to DB
+     * @param doctor {@link com.djzass.medipoint.entity.Doctor} Doctor object to be stored in DB
+     * @return Long object containing info about the status of DB insertion
      */
     public long insertDoctor(Doctor doctor){
         ContentValues values = new ContentValues();
@@ -44,7 +64,13 @@ public class DoctorDAO extends DbDAO{
      * Getting all doctors from the table
      * returns list of doctors
      * */
-    public List<Doctor> getDoctors(String whereclause) {
+
+    /**
+     * Getting list of Doctor from the table based on the condition passed
+     * @param whereclause String object containing condition to find specific specialities
+     * @return List of Doctors.
+     * */
+     public List<Doctor> getDoctors(String whereclause) {
         List<Doctor> doctors = new ArrayList<Doctor>();
 
         Cursor cursor = database.query(DbContract.DoctorEntry.TABLE_NAME,
@@ -69,20 +95,40 @@ public class DoctorDAO extends DbDAO{
         return doctors;
     }
 
+    /**
+     * Get a list of all the Doctor
+     * @return List of all Doctor Objects
+     */
     public List<Doctor> getAllDoctors() {
         return getDoctors(null);
     }
 
+    /**
+     * Get list of Doctor by DoctorID
+     * @param doctorId {@link Integer} Doctor ID
+     * @return List of Doctor Objects
+     */
     public List<Doctor> getDoctorById(int doctorId) {
         String whereclause = DbContract.DoctorEntry.COLUMN_NAME_DOCTOR_ID + " = " + doctorId;
         return getDoctors(whereclause);
     }
 
+    /**
+     * Get list of Doctor by specializationID
+     * @param specializationId {@link Integer} specialization ID
+     * @return List of Doctor Objects
+     */
     public List<Doctor> getDoctorBySpecialization(int specializationId) {
         String whereclause = DbContract.DoctorEntry.COLUMN_NAME_SPECIALIZATION_ID + " = " + specializationId;
         return getDoctors(whereclause);
     }
 
+    /**
+     * Get list of Doctor by specializationID and clinic ID
+     * @param clinicId {@link Integer} clinic ID
+     * @param specializationId {@link Integer} specialization ID
+     * @return List of Doctor Objects
+     */
     public List<Doctor> getDoctorsByClinicAndSpecialization(int clinicId, int specializationId){
         String whereclause = DbContract.DoctorEntry.COLUMN_NAME_CLINIC_ID + " = " + clinicId + " AND " + DbContract.DoctorEntry.COLUMN_NAME_SPECIALIZATION_ID + " = " + specializationId;
         return getDoctors(whereclause);
@@ -90,6 +136,12 @@ public class DoctorDAO extends DbDAO{
 
     /*  UPDATE
         returns the number of rows affected by the update
+     */
+
+    /**
+     * Update the Doctor info in the Database
+     * @param doctor {@link Doctor} doctor object to be updated
+     * @return Long containing the result of update
      */
     public long update(Doctor doctor) {
         ContentValues values = new ContentValues();
@@ -109,17 +161,27 @@ public class DoctorDAO extends DbDAO{
         DELETE
         returns the number of rows affected if a whereClause is passed in, 0 otherwise
      */
+
+    /**
+     * Delete the Doctor object from Database
+     * @param doctor {@link com.djzass.medipoint.entity.Doctor} Doctor object to be deleted
+     * @return int containing the result of deletion
+     */
     public int deleteDoctor(Doctor doctor) {
         return database.delete(DbContract.DoctorEntry.TABLE_NAME,
                 WHERE_ID_EQUALS, new String[] { doctor.getDoctorId() + "" });
     }
 
+    /**
+     * Count the total number of tuples in Doctor Relation
+     * @return int containing the number of Doctor
+     */
     public int getDoctorCount(){
         return getAllDoctors().size();
     }
-    /*
-        LOAD
-        Load the initial values of the doctors
+
+    /**
+     * load all of the initial values of the doctors
      */
     public void loadDoctors() {
         List<Doctor> temp= getAllDoctors();
@@ -127,6 +189,10 @@ public class DoctorDAO extends DbDAO{
             tmp.print();
         }
     }
+
+    /**
+     * Initialize the Database if the doctor is empty in the beginning.
+     */
     private void initializeDAO(){
         if (getAllDoctors().size()==0){
             insertDoctor(new Doctor("Dr. Stefan",1,2,1));

@@ -18,14 +18,27 @@ import java.util.Locale;
 /**
  * Created by Deka on 28/3/2015.
  */
+
+/**
+ * contains the database of the patient.
+ * @author Stefan Artaputra Indriawan.
+ *@version 1.
+ * @since 2015.
+ * @see com.djzass.medipoint.logic_database.DbDAO
+ */
 public class PatientDAO extends DbDAO{
+    /**
+     * database query for comparing Patient ID
+     */
     private static final String WHERE_ID_EQUALS = DbContract.PatientEntry.COLUMN_NAME_PATIENT_ID
             + " =?";
     private static final SimpleDateFormat formatter = new SimpleDateFormat(
             "yyyy-MM-dd", Locale.ENGLISH);
-    public static final String PATIENT_ID_WITH_PREFIX = "patient.";
-    public static final String ACCOUNT_ID_WITH_PREFIX = "account.";
 
+    /**
+     * Patient Database helper constructor
+     * @param context {@link Context} Interface to global information about an application environment
+     */
     public PatientDAO(Context context) throws SQLException {
         super(context);
     }
@@ -35,6 +48,12 @@ public class PatientDAO extends DbDAO{
      Inserting doctor schedule into doctor schedules table and return the row id if insertion successful,
      otherwise \-1 will be returned
     IMPORTANT: For doctor & patient, ID is received in the passed object, not auto-increment
+     */
+
+    /**
+     * insert Object patient to DB
+     * @param patient {@link com.djzass.medipoint.entity.Patient} Patient object to be stored in DB
+     * @return Long object containing info about the status of DB insertion
      */
     public long insertPatient(Patient patient){
        // SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
@@ -57,7 +76,13 @@ public class PatientDAO extends DbDAO{
       * Getting all patients from the table
      * returns list of patients
      * */
-    public List<Patient> getPatients(String whereclause) {
+
+    /**
+     * Getting list of Patient from the table based on the condition passed
+     * @param whereclause String object containing condition to find specific specialities
+     * @return List of Patient.
+     * */
+     public List<Patient> getPatients(String whereclause) {
         List<Patient> patients = new ArrayList<Patient>();
 
         //MUST JOIN
@@ -97,10 +122,19 @@ public class PatientDAO extends DbDAO{
         return patients;
     }
 
+    /**
+     * Get a list of all the Patient
+     * @return List of all Doctor Objects
+     */
     public List<Patient> getAllPatients(){
         return getPatients(null);
     }
 
+    /**
+     * Get list of Patient by PatientID
+     * @param patientId {@link Integer} Patient ID
+     * @return List of Patient Objects
+     */
     public List<Patient> getPatientById(long patientId) {
         String whereclause = DbContract.PatientEntry.COLUMN_NAME_PATIENT_ID + " = " + patientId;
         return getPatients(whereclause);
@@ -110,6 +144,12 @@ public class PatientDAO extends DbDAO{
     /*
         UPDATE
        returns the number of rows affected by the update
+     */
+
+    /**
+     * Update the Patient info in the Database
+     * @param patient {@link Patient} Patient object to be updated
+     * @return Long containing the result of update
      */
     public long update(Patient patient) {
         ContentValues values = new ContentValues();
@@ -131,6 +171,12 @@ public class PatientDAO extends DbDAO{
         DELETE
         returns the number of rows affected if a whereClause is passed in, 0 otherwise
      */
+
+    /**
+     * Delete the Patient info in the Database
+     * @param patient {@link Patient} Patient object to be deleted
+     * @return Long containing the result of deletion
+     */
     public int deletePatient(Patient patient) {
         return database.delete(DbContract.PatientEntry.TABLE_NAME,
                 WHERE_ID_EQUALS, new String[] { patient.getPatientId() + "" });
@@ -139,6 +185,10 @@ public class PatientDAO extends DbDAO{
         LOAD
         Load the initial values of the patients
      */
+
+    /**
+     * load all of the initial values of the patients.
+     */
     public void loadPatients() {
         List<Patient> temp = getAllPatients();
         for (Patient tmp : temp) {
@@ -146,10 +196,17 @@ public class PatientDAO extends DbDAO{
         }
     }
 
+    /**
+     * Count the total number of tuples in Patient Relation
+     * @return int containing the number of Patient
+     */
     public int getPatientCount(){
         return getAllPatients().size();
     }
 
+    /**
+     * Initialize the Database if the patient is empty in the beginning.
+     */
     private void initializeDAO(){
         if (getPatientCount()==0){
         }

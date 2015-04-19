@@ -11,6 +11,13 @@ import java.util.List;
 /**
  * Created by Joshua on 10/4/2015.
  */
+
+/**
+ * manager for doctor entity and activity which will used the doctor entity.
+ * @author Stefan Artaputra Indriawan.
+ *@version 1.
+ * @since 2015.
+ */
 public class DoctorManager {
     /**
      * An instance of {@link DoctorDAO}. This is to be re-instated with context before use.
@@ -30,6 +37,7 @@ public class DoctorManager {
     }
     /**
      * Re-initializes the DoctorDAO with the given context
+     * @param context {@link Context} object from which the method is called.
      */
     private void updateDoctorDao(Context context){
         try {
@@ -41,7 +49,8 @@ public class DoctorManager {
 
     /**
      * Gets all doctor
-     * @return List<Doctor>
+     * @return List<Doctor> return the doctor object in form of list.
+     * @param context {@link Context} object from which the method is called.
      */
     public List<Doctor> getDoctors(Context context){
         updateDoctorDao(context);
@@ -49,7 +58,9 @@ public class DoctorManager {
     }
 
     /**
-     * Gets doctor with specialization id @param specializationid
+     * Gets doctor with specialization id
+     * @param specializationId {@link java.lang.Integer} integer object used to obtain the list of the doctor.
+     * @param context {@link Context} object from which the method is called.
      * @return List<Doctor>
      */
     public List<Doctor> getDoctorBySpecialization(int specializationId, Context context) {
@@ -57,6 +68,13 @@ public class DoctorManager {
         return doctorDao.getDoctorBySpecialization(specializationId);
     }
 
+    /**
+     * Gets doctor with specific specialization id and clinic id
+     * @param specializationId {@link java.lang.Integer} integer object used to obtain the list of the doctor.
+     * @param context {@link Context} object from which the method is called.
+     * @param clinicId {@link java.lang.Integer} integer object used to obtain the list of the doctor.
+     * @return List<Doctor>
+     */
     public List<Doctor> getDoctorsByClinicAndSpecialization(int clinicId,int specializationId, Context context) {
         updateDoctorDao(context);
         return doctorDao.getDoctorsByClinicAndSpecialization(clinicId,specializationId);
@@ -64,7 +82,9 @@ public class DoctorManager {
 
 
     /**
-     * insert @param doctor to database with context @param context   
+     * insert doctor to database with context
+     * @param doctor {@link com.djzass.medipoint.entity.Doctor} object to be inserted into database.
+     * @param context {@link Context} object from which the method is called.
      * @return row no, -1 if fail
      */
     public long createDoctor(Doctor doctor, Context context){
@@ -74,7 +94,9 @@ public class DoctorManager {
     }
 
     /**
-     * edit @param doctor in database based on id with context @param context   
+     * edit doctor in database based on id with context.
+     * @param  doctor {@link com.djzass.medipoint.entity.Doctor} object to be manipulated in database.
+     * @param context {@link Context} object from which the method is called.
      * @return row no, -1 if fail
      */
     public long editDoctor(Doctor doctor, Context context){
@@ -85,7 +107,9 @@ public class DoctorManager {
     }
 
     /**
-     * delete @param doctor in database based on id with context @param context   
+     * delete doctor in database based on id with context.
+     * @param doctor {@link com.djzass.medipoint.entity.Doctor} object to be deleted from database.
+     * @param context {@link Context} object from which the method is called.
      * @return row no, -1 if fail
      */
     public long cancelDoctor(Doctor doctor, Context context){
@@ -96,7 +120,9 @@ public class DoctorManager {
     }
 
     /**
-     * Gets doctor name with id @param doctorid
+     * Gets doctor name with id.
+     * @param doctorId {@link Integer} object used to get the list of the doctor.
+     * @param context {@link Context} object from which the method is called.
      * @return String doctor name
      */
     public String getDoctorNameByDoctorId(int doctorId, Context context) {
