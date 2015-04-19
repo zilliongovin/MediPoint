@@ -124,7 +124,7 @@ public class LoginActivity extends Activity {
     /**
      * Start PasswordRetriever Activity
      */
-    public void ForgotPassword()
+    public void ForgotPassword(View view)
     {
         Intent intent = new Intent(this,PasswordRetrieverActivity.class);
         startActivity(intent);
@@ -133,7 +133,7 @@ public class LoginActivity extends Activity {
     /**
      * Starts SignUp Activity
      */
-    public void createSignUpForm()
+    public void createSignUpForm(View view)
     {
         Intent intent = new Intent(this,SignUpPageOneActivity.class);
         startActivity(intent);
