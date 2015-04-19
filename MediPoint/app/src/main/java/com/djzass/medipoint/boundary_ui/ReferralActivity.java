@@ -258,7 +258,7 @@ public class ReferralActivity extends Activity implements AdapterView.OnItemSele
     /**
      * Start CreateAppointmentActivity while passing the ReferrerId
      */
-    public void goto_appointment()
+    public void goto_appointment(View view)
     {
         Intent intent = new Intent(ReferralActivity.this, CreateAppointmentActivity.class);
         intent.putExtra("REFERRER_ID",doctorId);

@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -94,7 +95,7 @@ public class ViewAppointmentActivity extends Activity {
     /**
      * Start the EditAppointmentActivity while passing the appointment object of currently being viewed
      */
-    public void ViewApptEdit()
+    public void ViewApptEdit(View view)
     {
         Intent in = new Intent(getApplicationContext(), EditAppointmentActivity.class);
         in.putExtra("appFromView", getIntent().getExtras().getParcelable("appObj"));
@@ -104,7 +105,7 @@ public class ViewAppointmentActivity extends Activity {
     /**
      * Showing AlertDialog confirming user with appointment deletion
      */
-    public void ViewApptDelete(){
+    public void ViewApptDelete(View view){
         AlertDialog diaBox = ConfirmDelete();
         diaBox.show();
     }
